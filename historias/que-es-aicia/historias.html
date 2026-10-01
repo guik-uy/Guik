@@ -1,0 +1,478 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Aicia · ¿Qué es Aicia? · 6 versiones</title>
+<style>
+@font-face{font-family:"Geist";src:url(fonts/geist-latin-wght-normal.woff2) format("woff2");font-weight:100 900;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2212}
+@font-face{font-family:"Geist";src:url(fonts/geist-latin-ext-wght-normal.woff2) format("woff2");font-weight:100 900;unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Geist Mono";src:url(fonts/geist-mono-latin-400-normal.woff2) format("woff2");font-weight:400}
+@font-face{font-family:"Geist Mono";src:url(fonts/geist-mono-latin-500-normal.woff2) format("woff2");font-weight:500}
+@font-face{font-family:"Instrument Serif";src:url(fonts/instrument-serif-latin-400-italic.woff2) format("woff2");font-style:italic;font-weight:400}
+
+:root{
+  --ink:#0A0A16; --paper:#F0F0F2;
+  --indigo:#4F46E5; --indigo-l:#6366F1; --indigo-d:#4338CA;
+  --lav:#C7C9FF; --lav2:#9A9BFA;
+  --ok:#5EE0A0; --warn:#FFC56B;
+  --t1:#F4F4FA; --t2:#B4B5D4; --t3:#8C8DB0;
+  --m:64px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:#1a1a22}
+body{display:flex;flex-direction:column;align-items:center;gap:80px;padding:80px 0;font-family:"Geist",system-ui,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision;font-kerning:normal}
+.story{width:1080px;height:1920px;position:relative;overflow:hidden;background:var(--ink);color:var(--t1);isolation:isolate;flex:none}
+.story > *{position:absolute}
+.bg{inset:0;z-index:-1;overflow:hidden}
+.bg > *{position:absolute}
+.grain{inset:0;opacity:.06;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.ic{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none;overflow:visible}
+.mono{font-family:"Geist Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums;letter-spacing:0}
+.serif{font-family:"Instrument Serif",serif;font-style:italic;font-weight:400;letter-spacing:-0.01em}
+img.sph{display:block;pointer-events:none;user-select:none}
+
+/* ---------- Fila meta (compartida) ---------- */
+.meta{top:250px;left:var(--m);right:var(--m);height:60px;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:14px;font-weight:600;font-size:38px;letter-spacing:-0.04em;line-height:1}
+.brand svg{width:46px;height:46px;flex:none}
+.meta dl{display:flex;align-items:stretch}
+.meta dl > div{padding:0 0 0 28px;margin-left:28px;border-left:1px solid rgba(255,255,255,.14);display:flex;flex-direction:column;gap:5px}
+.meta dl > div:first-child{margin-left:0}
+.meta dt{font-size:20px;line-height:1;color:var(--t3);letter-spacing:0.01em}
+.meta dd{font-size:24px;line-height:1;font-weight:500;color:var(--t1);letter-spacing:-0.01em;white-space:nowrap}
+.light .meta dl > div{border-left-color:rgba(10,10,22,.14)}
+.light .meta dt{color:#45465F}
+.light .meta dd{color:var(--ink)}
+.light .brand{color:var(--ink)}
+
+/* ---------- Piezas compartidas ---------- */
+.eyebrow{display:flex;align-items:center;gap:18px;font-size:24px;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(--lav2)}
+.eyebrow::before{content:"";width:48px;height:2px;background:currentColor;border-radius:2px;opacity:.9}
+.title{font-weight:600;letter-spacing:-0.045em;line-height:.98;text-wrap:balance}
+.foot{left:var(--m);right:var(--m);bottom:310px;display:flex;align-items:flex-end;justify-content:space-between}
+.note{display:flex;align-items:center;gap:10px;font-size:21px;color:#A5A6C6;letter-spacing:0.01em}
+.note .ic{font-size:22px}
+.bens{list-style:none;display:flex;flex-direction:column;gap:12px}
+.bens li{display:flex;align-items:center;gap:14px;font-size:27px;font-weight:500;letter-spacing:-0.015em;color:var(--t1);line-height:1.1}
+.bens li .tick{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:rgba(154,155,250,.16);box-shadow:inset 0 0 0 1px rgba(199,201,255,.22);color:var(--lav);font-size:19px}
+
+/* ---------- Vidrio (Aura Bank / Steary) ---------- */
+.glass{background:linear-gradient(180deg,rgba(255,255,255,.085),rgba(255,255,255,.03));backdrop-filter:blur(36px) saturate(150%);-webkit-backdrop-filter:blur(36px) saturate(150%);box-shadow:inset 0 0 0 1px rgba(255,255,255,.09),inset 0 1px 0 rgba(255,255,255,.16),0 50px 90px -30px rgba(0,0,0,.75),0 18px 36px -12px rgba(0,0,0,.45)}
+
+/* =========================================================
+   V1 · Bandeja de vidrio (ADN favorito)
+   ========================================================= */
+.v1 .bg{background:radial-gradient(900px 700px at 85% 22%,rgba(79,70,229,.30),transparent 70%),radial-gradient(800px 800px at 0% 78%,rgba(67,56,202,.22),transparent 70%),var(--ink)}
+.v1 .bg .s-a{width:1150px;left:300px;top:860px;filter:blur(50px);opacity:.62}
+.v1 .bg .s-b{width:420px;left:760px;top:300px;filter:blur(22px);opacity:.5}
+.v1 .eyebrow{left:var(--m);top:392px}
+.v1 .title{left:var(--m);top:446px;font-size:122px;width:952px}
+.v1 .title .acc{color:var(--lav2)}
+.v1 .lede{left:var(--m);top:842px;width:900px;font-size:35px;line-height:1.34;color:var(--t2);letter-spacing:-0.012em;text-wrap:pretty}
+.v1 .lede b{color:var(--t1);font-weight:500}
+.v1 .panel{left:var(--m);top:1040px;width:952px;border-radius:44px;padding:18px;display:flex;gap:18px}
+.side{width:76px;border-radius:30px;background:rgba(255,255,255,.045);box-shadow:inset 0 0 0 1px rgba(255,255,255,.06);display:flex;flex-direction:column;align-items:center;padding:18px 0;gap:14px;color:var(--t3)}
+.side .ico{width:50px;height:50px;border-radius:17px;display:grid;place-items:center;font-size:25px}
+.side .ico.on{background:linear-gradient(180deg,rgba(99,102,241,.55),rgba(67,56,202,.45));color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 8px 18px -6px rgba(79,70,229,.8)}
+.side .logo-mini{width:40px;height:40px;margin-bottom:6px}
+.side .sp{flex:1}
+.inbox{flex:1;display:flex;flex-direction:column;min-width:0}
+.inbox .hd{display:flex;align-items:center;justify-content:space-between;padding:10px 14px 16px 10px}
+.inbox .hd h3{font-size:28px;font-weight:600;letter-spacing:-0.025em}
+.inbox .hd .live{display:flex;align-items:center;gap:12px;font-size:20px;color:var(--t2)}
+.inbox .hd .live .sep{width:1px;height:22px;background:rgba(255,255,255,.14)}
+.inbox .hd .live .ic{font-size:20px;color:var(--t3)}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 4px rgba(94,224,160,.16)}
+.row{display:flex;align-items:center;gap:18px;padding:13px 14px 13px 10px;border-top:1px solid rgba(255,255,255,.06)}
+.row:first-of-type{border-top-color:rgba(255,255,255,.09)}
+.av{width:54px;height:54px;border-radius:50%;flex:none;display:grid;place-items:center;font-size:20px;font-weight:600;letter-spacing:-0.01em;color:#fff;background:linear-gradient(140deg,#6366F1,#4338CA);box-shadow:inset 0 1px 0 rgba(255,255,255,.25)}
+.av.b{background:linear-gradient(140deg,#7C7EF5,#5249D9)}
+.av.c{background:linear-gradient(140deg,#4D50C9,#2E2A8F)}
+.av.d{background:linear-gradient(140deg,#8B8DF7,#6366F1)}
+.row .tx{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}
+.row .l1{display:flex;align-items:baseline;gap:12px;font-size:25px;font-weight:500;letter-spacing:-0.015em}
+.row .l1 small{font-size:19px;font-weight:400;color:var(--t3);letter-spacing:0}
+.row .l2{display:flex;align-items:center;gap:8px;font-size:22px;color:var(--t2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-0.005em}
+.row .l2 .ic{font-size:20px;color:var(--lav2)}
+.row .rt{display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex:none}
+.row .rt .mono{font-size:19px;color:var(--t2)}
+.chip{display:inline-flex;align-items:center;gap:8px;height:32px;padding:0 13px;border-radius:999px;font-size:18px;font-weight:500;letter-spacing:0;white-space:nowrap}
+.chip.ok{color:var(--ok);background:rgba(94,224,160,.10);box-shadow:inset 0 0 0 1px rgba(94,224,160,.22)}
+.chip.warn{color:var(--warn);background:rgba(255,197,107,.10);box-shadow:inset 0 0 0 1px rgba(255,197,107,.24)}
+.chip::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+
+/* =========================================================
+   V2 · Nebula: palabra fantasma + esferas protagonistas
+   ========================================================= */
+.v2{background:#07070F}
+.v2 .bg{background:radial-gradient(760px 620px at 50% 40%,rgba(79,70,229,.34),transparent 70%),radial-gradient(1200px 500px at 50% 100%,rgba(67,56,202,.16),transparent 70%),#07070F}
+.v2 .ghost{left:0;right:0;top:470px;text-align:center;font-weight:600;font-size:412px;letter-spacing:-0.055em;line-height:.8;color:transparent;background:linear-gradient(180deg,rgba(199,201,255,.17),rgba(199,201,255,.03) 85%);-webkit-background-clip:text;background-clip:text;z-index:0}
+.v2 .hero{left:178px;top:318px;width:724px;z-index:1;filter:drop-shadow(0 60px 80px rgba(20,16,90,.65))}
+.v2 .tag{left:var(--m);top:392px;z-index:2;display:flex;flex-direction:column;gap:10px}
+.v2 .tag .mono{font-size:20px;color:var(--t3)}
+.v2 .tag span:last-child{font-size:24px;font-weight:500;color:var(--t1);letter-spacing:-0.01em}
+.v2 .tag.r{left:auto;right:var(--m);text-align:right;align-items:flex-end}
+.v2 .title{left:var(--m);top:1066px;width:952px;font-size:112px;z-index:2}
+.v2 .title .dim{color:var(--lav2)}
+.v2 .grid3{left:var(--m);right:var(--m);bottom:310px;display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid rgba(255,255,255,.14);z-index:2}
+.v2 .grid3 > div{padding:26px 24px 0 0;display:flex;flex-direction:column;gap:12px}
+.v2 .grid3 > div + div{padding-left:24px;border-left:1px solid rgba(255,255,255,.10)}
+.v2 .grid3 .mono{font-size:19px;color:var(--t3)}
+.v2 .grid3 p{font-size:27px;line-height:1.24;font-weight:500;letter-spacing:-0.018em;color:var(--t1);text-wrap:balance}
+
+/* =========================================================
+   V3 · Diccionario (papel claro + aurora Nexora)
+   ========================================================= */
+.v3{background:var(--paper);color:var(--ink)}
+.v3 .bg{background:var(--paper)}
+.v3 .bg .au1{width:1300px;height:900px;left:180px;top:-260px;border-radius:50%;background:radial-gradient(closest-side,rgba(99,102,241,.55),rgba(154,155,250,.30) 45%,transparent 100%);filter:blur(60px)}
+.v3 .bg .au2{width:900px;height:700px;left:-320px;top:40px;border-radius:50%;background:radial-gradient(closest-side,rgba(199,201,255,.85),transparent);filter:blur(50px)}
+.v3 .bg .au3{width:1200px;height:600px;left:-60px;top:1560px;border-radius:50%;background:radial-gradient(closest-side,rgba(154,155,250,.30),transparent);filter:blur(60px)}
+.v3 .bg .wash{inset:0;background:linear-gradient(180deg,rgba(240,240,242,0) 0%,rgba(240,240,242,.0) 22%,rgba(246,246,248,.92) 46%,#F3F3F5 100%)}
+.v3 .grain{opacity:.10;mix-blend-mode:multiply}
+.v3 .eyebrow{left:var(--m);top:392px;color:var(--indigo-d)}
+.v3 .head{left:calc(var(--m) - 12px);top:438px;display:flex;align-items:flex-end;gap:6px}
+.v3 .head h1{font-size:318px;font-weight:600;letter-spacing:-0.06em;line-height:.86;color:var(--ink)}
+.v3 .head img{width:236px;margin-bottom:28px;margin-left:-8px}
+.v3 .pron{left:var(--m);top:760px;display:flex;align-items:baseline;gap:22px;font-size:26px;color:#3C3D58}
+.v3 .pron .mono{font-size:24px;color:var(--indigo)}
+.v3 .pron .serif{font-size:38px;color:var(--ink)}
+.v3 .pron i{width:6px;height:6px;border-radius:50%;background:#B9BAD0;align-self:center}
+.v3 .rule{left:var(--m);right:var(--m);top:834px;height:1px;background:rgba(10,10,22,.16)}
+.v3 .defs{left:var(--m);top:892px;width:952px;list-style:none;display:flex;flex-direction:column;gap:66px}
+.v3 .defs li{display:grid;grid-template-columns:72px 1fr;font-size:40px;line-height:1.27;letter-spacing:-0.022em;color:#24253D;text-wrap:pretty}
+.v3 .defs li .mono{font-size:24px;color:var(--indigo);padding-top:12px}
+.v3 .defs b{font-weight:600;color:var(--ink)}
+.v3 .defs .serif{font-size:46px;color:var(--indigo);letter-spacing:0}
+.v3 .defs .t{font-family:"Geist Mono";font-size:34px;color:var(--indigo);letter-spacing:-0.02em}
+.v3 .foot{align-items:flex-start;border-top:1px solid rgba(10,10,22,.16);padding-top:26px}
+.v3 .foot .lab{font-size:20px;color:#5B5C78;letter-spacing:0.12em;text-transform:uppercase;font-weight:500;margin-bottom:12px}
+.v3 .foot .no{font-size:34px;font-weight:500;letter-spacing:-0.02em;color:#3C3D58;text-decoration:line-through;text-decoration-color:var(--indigo);text-decoration-thickness:2.5px}
+.v3 .foot .syn{font-family:"Instrument Serif";font-style:italic;font-size:46px;line-height:.9;color:var(--indigo);letter-spacing:-0.005em}
+.v3 .foot > div:last-child{text-align:right}
+
+/* =========================================================
+   V4 · Senses: degradé pizarra → lavanda + arco de líneas
+   ========================================================= */
+.v4 .bg{background:linear-gradient(180deg,#151935 0%,#232A5C 28%,#343A92 54%,#7E82E4 76%,#C9CBFF 90%,#E6E6FF 100%)}
+.v4 .bg .arc{width:2100px;height:2100px;left:-510px;top:1096px;border-radius:50%;background:repeating-radial-gradient(circle at 50% 50%,rgba(255,255,255,0) 0 9px,rgba(255,255,255,.55) 9px 10px);-webkit-mask:radial-gradient(closest-side,transparent 64%,#000 79%,#000 92%,transparent 100%);mask:radial-gradient(closest-side,transparent 64%,#000 79%,#000 92%,transparent 100%);opacity:.45}
+.v4 .bg .arc2{width:2100px;height:2100px;left:-510px;top:1096px;border-radius:50%;box-shadow:0 -2px 0 0 rgba(255,255,255,.7),0 -40px 120px -20px rgba(255,255,255,.45)}
+.v4 .bg .halo{width:1300px;height:700px;left:-110px;top:1010px;border-radius:50%;background:radial-gradient(closest-side,rgba(199,201,255,.55),transparent);filter:blur(40px)}
+.v4 .bg .s-a{width:560px;left:720px;top:250px;filter:blur(26px);opacity:.45}
+.v4 .pill{left:var(--m);top:398px;display:flex;align-items:center;gap:14px;height:56px;padding:0 26px 0 12px;border-radius:999px;font-size:23px;font-weight:500;color:#fff;letter-spacing:-0.005em;background:rgba(255,255,255,.10);backdrop-filter:blur(18px);box-shadow:inset 0 0 0 1px rgba(255,255,255,.20),inset 0 1px 0 rgba(255,255,255,.25)}
+.v4 .pill b{height:34px;padding:0 14px;border-radius:999px;display:inline-flex;align-items:center;background:#fff;color:var(--indigo-d);font-weight:600;font-size:20px}
+.v4 .title{left:var(--m);top:500px;font-size:112px;width:960px;color:#fff;white-space:nowrap}
+.v4 .title .serif{font-size:132px;letter-spacing:-0.025em;line-height:.8;color:var(--lav)}
+.v4 .lede{left:var(--m);top:870px;width:820px;font-size:35px;line-height:1.34;color:#fff;letter-spacing:-0.012em;text-wrap:pretty}
+.v4 .cards{left:var(--m);right:var(--m);top:1236px;display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.v4 .card{border-radius:40px;padding:28px 28px 34px;height:372px;display:flex;flex-direction:column;background:linear-gradient(180deg,rgba(255,255,255,.80),rgba(255,255,255,.62));backdrop-filter:blur(24px) saturate(140%);box-shadow:inset 0 0 0 1px rgba(255,255,255,.75),0 30px 60px -24px rgba(30,30,90,.45),0 8px 18px -8px rgba(30,30,90,.20);color:var(--ink)}
+.v4 .card .ti{flex:none;width:70px;height:70px;border-radius:22px;display:grid;place-items:center;font-size:34px;color:#fff;background:linear-gradient(140deg,#6366F1,#4338CA);box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 10px 20px -8px rgba(67,56,202,.7)}
+.v4 .card h3{margin-top:88px;font-size:36px;font-weight:600;letter-spacing:-0.035em;line-height:1.05}
+.v4 .card p{margin-top:12px;font-size:24px;line-height:1.3;color:#3A3B5C;letter-spacing:-0.008em;text-wrap:pretty}
+
+/* =========================================================
+   V5 · Chat: Aicia se explica sola
+   ========================================================= */
+.v5 .bg{background:radial-gradient(900px 900px at 50% 62%,rgba(79,70,229,.30),transparent 70%),var(--ink)}
+.v5 .bg .s-a{width:1000px;left:-420px;top:1180px;filter:blur(56px);opacity:.5}
+.v5 .bg .s-b{width:640px;left:660px;top:520px;filter:blur(34px);opacity:.5}
+.v5 .title{left:var(--m);top:388px;font-size:168px;line-height:.9;letter-spacing:-0.05em}
+.v5 .title .acc{color:var(--lav2)}
+.v5 .chat{left:var(--m);top:742px;width:952px;border-radius:48px;padding:22px 26px 28px;display:flex;flex-direction:column}
+.v5 .chd{display:flex;align-items:center;gap:16px;padding:6px 6px 22px;border-bottom:1px solid rgba(255,255,255,.08)}
+.v5 .chd .avl{width:62px;height:62px;border-radius:50%;background:#0F0F22;display:grid;place-items:center;box-shadow:inset 0 0 0 1px rgba(199,201,255,.18)}
+.v5 .chd .avl img{width:46px}
+.v5 .chd .who{display:flex;flex-direction:column;gap:6px;flex:1}
+.v5 .chd .who b{font-size:27px;font-weight:600;letter-spacing:-0.02em}
+.v5 .chd .who span{display:flex;align-items:center;gap:9px;font-size:20px;color:var(--t2)}
+.v5 .chd .who .dot{width:9px;height:9px}
+.v5 .chd .mono{font-size:20px;color:var(--t3)}
+.v5 .msgs{display:flex;flex-direction:column;gap:12px;padding-top:28px}
+.v5 .day{align-self:center;font-size:18px;color:var(--t3);margin-bottom:6px}
+.bub{width:max-content;max-width:830px;padding:21px 28px 22px;font-size:31px;line-height:1.3;letter-spacing:-0.012em;border-radius:34px;text-wrap:pretty}
+.bub.in{align-self:flex-start;background:rgba(255,255,255,.075);box-shadow:inset 0 0 0 1px rgba(255,255,255,.07);color:var(--t1);border-bottom-left-radius:12px}
+.bub.in + .bub.in{border-top-left-radius:12px}
+.bub.out{align-self:flex-end;background:linear-gradient(160deg,#6366F1,#4F46E5 55%,#4338CA);color:#fff;border-bottom-right-radius:12px;box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 14px 30px -14px rgba(79,70,229,.9);margin-top:12px}
+.bub.in.gap{margin-top:12px}
+.bub b{font-weight:600}
+.receipt{align-self:flex-start;display:flex;align-items:center;gap:8px;font-size:20px;color:var(--t2);padding-left:10px;margin-top:4px}
+.receipt .ic{font-size:20px;color:var(--ok)}
+
+/* =========================================================
+   V6 · Índigo pleno + esferas blanco-lavanda
+   ========================================================= */
+.v6{background:var(--indigo)}
+.v6 .bg{background:radial-gradient(1100px 1000px at 64% 34%,#6A63F6 0%,#5148E6 40%,#4338CA 78%,#3A30B5 100%)}
+.v6 .bg .rings{width:1500px;height:1500px;left:-90px;top:-130px;border-radius:50%;background:repeating-radial-gradient(circle,rgba(255,255,255,0) 0 13px,rgba(255,255,255,.18) 13px 14px);-webkit-mask:radial-gradient(closest-side,transparent 30%,#000 55%,transparent 80%);mask:radial-gradient(closest-side,transparent 30%,#000 55%,transparent 80%);opacity:.35}
+.v6 .grain{opacity:.08}
+.v6 .meta dt{color:rgba(255,255,255,.94)}
+.v6 .meta dl > div{border-left-color:rgba(255,255,255,.25)}
+.v6 .hero{left:330px;top:282px;width:780px;filter:drop-shadow(0 50px 60px rgba(25,18,110,.55))}
+.v6 .eyebrow{left:var(--m);top:1038px;color:rgba(255,255,255,.86)}
+.v6 .title{left:var(--m);top:1088px;font-size:150px;line-height:.94;letter-spacing:-0.05em;color:#fff}
+.v6 .lede{left:var(--m);top:1390px;width:900px;font-size:35px;line-height:1.34;color:#fff;letter-spacing:-0.012em;text-wrap:pretty;opacity:.94}
+.v6 .handle{right:var(--m);top:1046px;font-size:22px;color:rgba(255,255,255,.86)}
+.v6 .pills{left:var(--m);bottom:310px;display:flex;gap:12px}
+.v6 .pills span{height:54px;padding:0 24px 0 16px;border-radius:999px;display:inline-flex;align-items:center;gap:10px;font-size:24px;font-weight:500;letter-spacing:-0.01em;color:#fff;background:rgba(255,255,255,.12);box-shadow:inset 0 0 0 1px rgba(255,255,255,.28)}
+.v6 .pills .ic{font-size:22px}
+
+.v1 .panel,.v5 .chat{background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.02)),rgba(12,11,32,.64)}
+/* Guías de QA (se activan con ?qa) */
+.qa .story::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:99;background:linear-gradient(rgba(255,0,0,.18),rgba(255,0,0,.18)) top/100% 250px no-repeat,linear-gradient(rgba(255,0,0,.18),rgba(255,0,0,.18)) bottom/100% 300px no-repeat,linear-gradient(rgba(0,255,255,.5),rgba(0,255,255,.5)) 64px 0/1px 100% no-repeat,linear-gradient(rgba(0,255,255,.5),rgba(0,255,255,.5)) 1015px 0/1px 100% no-repeat}
+</style>
+</head>
+<body>
+
+<!-- Sprite de íconos propios: trazo 1.8, mismo estilo -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6366F1"/><stop offset="1" stop-color="#4338CA"/></linearGradient>
+    <linearGradient id="lgw" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#C7C9FF"/></linearGradient>
+  </defs>
+  <symbol id="logo" viewBox="150 220 660 660"><circle cx="430" cy="600" r="270" fill="url(#lg)"/><circle cx="700" cy="320" r="92" fill="url(#lg)"/></symbol>
+  <symbol id="logo-w" viewBox="150 220 660 660"><circle cx="430" cy="600" r="270" fill="url(#lgw)"/><circle cx="700" cy="320" r="92" fill="url(#lgw)"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M6 4.5h12A2.5 2.5 0 0 1 20.5 7v8a2.5 2.5 0 0 1-2.5 2.5h-6.5L7 21v-3.5H6A2.5 2.5 0 0 1 3.5 15V7A2.5 2.5 0 0 1 6 4.5z"/><path d="M8 9.5h8M8 13h5"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/><path d="M9 15l2 2 4-4"/></symbol>
+  <symbol id="i-loop" viewBox="0 0 24 24"><path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3"/><path d="M19.8 4.2v4.3h-4.3"/><path d="M12 8.5V12l2.5 1.5"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-inbox" viewBox="0 0 24 24"><path d="M4 13.5l2.4-7.2A2 2 0 0 1 8.3 5h7.4a2 2 0 0 1 1.9 1.3L20 13.5V18a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M4 13.5h4.5L10 16h4l1.5-2.5H20"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9.5" cy="8.5" r="3.5"/><path d="M3.5 19.5c.8-3 3.2-4.5 6-4.5s5.2 1.5 6 4.5"/><path d="M16 5.2a3.3 3.3 0 0 1 0 6.6M17.5 15.2c1.6.6 2.6 2 3 4.3"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="6.5" height="6.5" rx="2"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="2"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="2"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="2"/></symbol>
+  <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 11v5M12 8h.01"/></symbol>
+  <symbol id="i-reply" viewBox="0 0 24 24"><path d="M6 5v6a3 3 0 0 0 3 3h10"/><path d="M15 10l4 4-4 4"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.4"/></symbol>
+  <symbol id="i-done" viewBox="0 0 24 24"><path d="M3 12.5l4 4L15.5 8"/><path d="M11 15.5l1 1L21 8"/></symbol>
+</svg>
+
+<!-- ============ V1 · Bandeja de vidrio ============ -->
+<section class="story v1" id="v1">
+  <div class="bg"><img class="sph s-a" data-sph="indigo" alt=""><img class="sph s-b" data-sph="indigo" alt=""><div class="grain"></div></div>
+  <header class="meta">
+    <div class="brand"><svg><use href="#logo"/></svg>aicia</div>
+    <dl><div><dt>Somos</dt><dd>Agencia de IA</dd></div><div><dt>Para</dt><dd>Negocios con reservas</dd></div><div><dt>Desde</dt><dd>Montevideo</dd></div></dl>
+  </header>
+  <div class="eyebrow">¿Qué es Aicia?</div>
+  <h1 class="title">Cada mensaje,<br>respondido.<br><span class="acc">A toda hora.</span></h1>
+  <p class="lede"><b>Aicia es una agencia de IA de Montevideo.</b> Le ponemos a tu negocio un asistente que responde, agenda turnos y sigue a cada interesado.</p>
+  <div class="panel glass">
+    <nav class="side">
+      <svg class="logo-mini"><use href="#logo"/></svg>
+      <div class="ico"><svg class="ic"><use href="#i-grid"/></svg></div>
+      <div class="ico on"><svg class="ic"><use href="#i-inbox"/></svg></div>
+      <div class="ico"><svg class="ic"><use href="#i-cal"/></svg></div>
+      <div class="ico"><svg class="ic"><use href="#i-users"/></svg></div>
+      <div class="sp"></div>
+    </nav>
+    <div class="inbox">
+      <div class="hd"><h3>Conversaciones</h3><div class="live"><i class="dot"></i>Asistente activo<i class="sep"></i><svg class="ic"><use href="#i-clock"/></svg><span class="mono">0.4 s</span></div></div>
+      <div class="row"><div class="av">MR</div><div class="tx"><div class="l1">Martina R. <small>WhatsApp</small></div><div class="l2"><svg class="ic"><use href="#i-reply"/></svg>Listo, te agendé el jueves a las 10:30.</div></div><div class="rt"><span class="mono">23:47</span><span class="chip ok">Agendado</span></div></div>
+      <div class="row"><div class="av b">LP</div><div class="tx"><div class="l1">Lucas P. <small>Instagram</small></div><div class="l2"><svg class="ic"><use href="#i-reply"/></svg>Te paso precios y horarios libres.</div></div><div class="rt"><span class="mono">00:12</span><span class="chip ok">Respondido</span></div></div>
+      <div class="row"><div class="av c">SG</div><div class="tx"><div class="l1">Sofía G. <small>Web</small></div><div class="l2"><svg class="ic"><use href="#i-reply"/></svg>¿Seguís interesada? Quedan 2 lugares.</div></div><div class="rt"><span class="mono">07:05</span><span class="chip warn">Seguimiento</span></div></div>
+    </div>
+  </div>
+  <footer class="foot">
+    <span class="note"><svg class="ic"><use href="#i-info"/></svg>Vista de ejemplo</span>
+    <ul class="bens">
+      <li><span class="tick"><svg class="ic"><use href="#i-check"/></svg></span>Responde al instante</li>
+      <li><span class="tick"><svg class="ic"><use href="#i-check"/></svg></span>Agenda sin ida y vuelta</li>
+      <li><span class="tick"><svg class="ic"><use href="#i-check"/></svg></span>No se olvida de nadie</li>
+    </ul>
+  </footer>
+</section>
+
+<!-- ============ V2 · Nebula ============ -->
+<section class="story v2" id="v2">
+  <div class="bg"><div class="grain"></div></div>
+  <div class="ghost" aria-hidden="true">AICIA</div>
+  <img class="sph hero" data-sph="indigo" alt="">
+  <header class="meta">
+    <div class="brand"><svg><use href="#logo"/></svg>aicia</div>
+    <dl><div><dt>Agencia de IA</dt><dd>Montevideo, UY</dd></div><div><dt>Instagram</dt><dd>@aicia_ia</dd></div></dl>
+  </header>
+  <div class="tag"><span class="mono">01 /</span><span>¿Qué es Aicia?</span></div>
+  <h1 class="title">Aicia es la parte<br>de tu negocio<br><span class="dim">que no duerme.</span></h1>
+  <div class="grid3">
+    <div><span class="mono">01 / Qué hace</span><p>Responde, agenda y sigue a tus clientes</p></div>
+    <div><span class="mono">02 / Para quién</span><p>Negocios que trabajan con reservas</p></div>
+    <div><span class="mono">03 / Cómo</span><p>Con las herramientas que ya usás</p></div>
+  </div>
+</section>
+
+<!-- ============ V3 · Diccionario ============ -->
+<section class="story v3 light" id="v3">
+  <div class="bg"><div class="au1"></div><div class="au2"></div><div class="au3"></div><div class="wash"></div><div class="grain"></div></div>
+  <header class="meta">
+    <div class="brand"><svg><use href="#logo"/></svg>aicia</div>
+    <dl><div><dt>Somos</dt><dd>Agencia de IA</dd></div><div><dt>Desde</dt><dd>Montevideo, Uruguay</dd></div></dl>
+  </header>
+  <div class="eyebrow">¿Qué es Aicia?</div>
+  <div class="head" data-optical><h1>aicia</h1><img class="sph" data-sph="indigo" alt=""></div>
+  <div class="pron"><span class="mono">ai·cia</span><i></i><span class="serif">nombre propio</span><i></i><span>agencia de IA</span></div>
+  <div class="rule"></div>
+  <ol class="defs">
+    <li><span class="mono">01</span><span><b>Agencia de IA</b> que hace que tu negocio responda, agende y haga seguimiento solo.</span></li>
+    <li><span class="mono">02</span><span>El asistente que contesta el mensaje de las <span class="t">23:47</span> y deja el turno agendado.</span></li>
+    <li><span class="mono">03</span><span><span class="serif">fig.</span> <b>Tiempo</b> que vuelve a tu semana, para dedicarte a lo importante.</span></li>
+  </ol>
+  <footer class="foot">
+    <div><div class="lab">No confundir con</div><div class="no">«Te ponemos un chatbot.»</div></div>
+    <div><div class="lab">Sinónimos</div><div class="syn">tiempo, control, ventas.</div></div>
+  </footer>
+</section>
+
+<!-- ============ V4 · Senses ============ -->
+<section class="story v4" id="v4">
+  <div class="bg"><div class="halo"></div><div class="arc"></div><div class="arc2"></div><img class="sph s-a" data-sph="indigo" alt=""><div class="grain"></div></div>
+  <header class="meta">
+    <div class="brand"><svg><use href="#logo-w"/></svg>aicia</div>
+    <dl><div><dt>Somos</dt><dd>Agencia de IA</dd></div><div><dt>Para</dt><dd>Negocios con reservas</dd></div></dl>
+  </header>
+  <div class="pill"><b>Aicia</b>Agencia de IA en Montevideo</div>
+  <h1 class="title">Lo repetitivo,<br>lo hace Aicia.<br>Vos, <span class="serif">lo importante.</span></h1>
+  <p class="lede">Implementamos IA en tu negocio para que responda consultas, agende clientes y siga a cada interesado. Solo.</p>
+  <div class="cards">
+    <div class="card"><div class="ti"><svg class="ic"><use href="#i-chat"/></svg></div><h3>Responde</h3><p>Consultas en WhatsApp, Instagram y tu web.</p></div>
+    <div class="card"><div class="ti"><svg class="ic"><use href="#i-cal"/></svg></div><h3>Agenda</h3><p>Turnos y reservas, sin ida y vuelta.</p></div>
+    <div class="card"><div class="ti"><svg class="ic"><use href="#i-loop"/></svg></div><h3>Sigue</h3><p>A cada interesado, para que nadie se enfríe.</p></div>
+  </div>
+</section>
+
+<!-- ============ V5 · Chat ============ -->
+<section class="story v5" id="v5">
+  <div class="bg"><img class="sph s-a" data-sph="indigo" alt=""><img class="sph s-b" data-sph="indigo" alt=""><div class="grain"></div></div>
+  <header class="meta">
+    <div class="brand"><svg><use href="#logo"/></svg>aicia</div>
+    <dl><div><dt>Somos</dt><dd>Agencia de IA</dd></div><div><dt>Desde</dt><dd>Montevideo</dd></div></dl>
+  </header>
+  <h1 class="title">¿Qué es<br><span class="acc">Aicia?</span></h1>
+  <div class="chat glass">
+    <div class="chd"><div class="avl"><img class="sph" data-sph="indigo" alt=""></div><div class="who"><b>Asistente de Aicia</b><span><i class="dot"></i>En línea</span></div><span class="mono">23:47</span></div>
+    <div class="msgs">
+      <div class="bub in">Somos una <b>agencia de IA</b> de Montevideo.</div>
+      <div class="bub in">Le ponemos a tu negocio un asistente como yo:<br>responde consultas, agenda turnos y sigue<br>a cada interesado.</div>
+      <div class="bub out">¿Y si me escriben de madrugada?</div>
+      <div class="bub in gap">Respondo igual. Y a la mañana tenés todo ordenado.</div>
+      <div class="receipt"><svg class="ic"><use href="#i-done"/></svg><span class="mono">Respondido en 0.4 s</span></div>
+    </div>
+  </div>
+  <footer class="foot">
+    <span class="note"><svg class="ic"><use href="#i-info"/></svg>Vista de ejemplo</span>
+    <ul class="bens">
+      <li><span class="tick"><svg class="ic"><use href="#i-check"/></svg></span>Responde al instante</li>
+      <li><span class="tick"><svg class="ic"><use href="#i-check"/></svg></span>En tus canales de siempre</li>
+      <li><span class="tick"><svg class="ic"><use href="#i-check"/></svg></span>Sin aprender nada nuevo</li>
+    </ul>
+  </footer>
+</section>
+
+<!-- ============ V6 · Índigo pleno ============ -->
+<section class="story v6" id="v6">
+  <div class="bg"><div class="rings"></div><div class="grain"></div></div>
+  <img class="sph hero" data-sph="light" alt="">
+  <header class="meta">
+    <div class="brand"><svg><use href="#logo-w"/></svg>aicia</div>
+    <dl><div><dt>Somos</dt><dd>Agencia de IA</dd></div><div><dt>Desde</dt><dd>Montevideo</dd></div></dl>
+  </header>
+  <div class="eyebrow">¿Qué es Aicia?</div>
+  <div class="handle mono">@aicia_ia</div>
+  <h1 class="title">Hola,<br>somos Aicia.</h1>
+  <p class="lede">La agencia de IA que hace que tu negocio responda, agende y haga seguimiento solo. Vos te dedicás a lo importante.</p>
+  <div class="pills">
+    <span><svg class="ic"><use href="#i-clock"/></svg>Más tiempo</span>
+    <span><svg class="ic"><use href="#i-check"/></svg>Más control</span>
+    <span><svg class="ic"><use href="#i-users"/></svg>Más clientes</span>
+  </div>
+</section>
+
+<script>
+/* Esferas del logo en WebGL: ray tracing analítico (ortográfico, así la silueta
+   coincide 1:1 con el logo). Luz clave arriba a la izquierda, oclusión suave
+   entre esferas, Fresnel lavanda, especular, bordes AA y alfa premultiplicado. */
+const VB = [110, 180, 740, 740]; // ventana en unidades del logo (con aire para blur)
+const VS = `attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}`;
+const FS = `
+precision highp float;
+uniform vec2 uRes; uniform vec4 uView; uniform float uTheme;
+const vec3 C1 = vec3(430.,-600.,0.);  const float R1 = 270.;
+const vec3 C2 = vec3(700.,-320.,70.); const float R2 = 92.;
+vec3 lin(vec3 c){return pow(c,vec3(2.2));}
+float softSh(vec3 ro, vec3 rd, vec3 c, float r, float k){
+  vec3 oc = ro - c; float b = dot(oc, rd); float cc = dot(oc,oc) - r*r; float h = b*b - cc;
+  float d = sqrt(max(0.0, r*r - h)) - r; float t = -b - sqrt(max(h, 0.0));
+  return (t < 0.0) ? 1.0 : smoothstep(0.0, 1.0, 2.5*k*d/t);
+}
+vec3 shade(vec3 n, vec3 C, float R, vec3 Co, float Ro){
+  vec3 P = C + n*R;
+  float t = clamp(0.5 + 0.5*dot(n.xy, normalize(vec2(1.,-1.))), 0., 1.);
+  vec3 a0 = mix(lin(vec3(.388,.400,.945)), lin(vec3(.263,.220,.792)), t);
+  vec3 a1 = mix(lin(vec3(1.)), lin(vec3(.80,.81,1.)), t);
+  vec3 alb = mix(a0, a1, uTheme);
+  vec3 L = normalize(vec3(-.58,.62,.52)); vec3 V = vec3(0.,0.,1.);
+  float ndl = dot(n, L);
+  float wrap = clamp((ndl + .35)/1.35, 0., 1.);
+  float sh = softSh(P + n*.5, L, Co, Ro, 6.);
+  vec3 v = Co - P; float d = length(v); vec3 vd = v/d;
+  float facing = max(dot(n, vd), 0.);
+  float aoK = clamp((Ro*Ro)/(d*d) * facing, 0., 1.);
+  vec3 sky = lin(vec3(.80,.81,1.));
+  vec3 grd = mix(lin(vec3(.05,.05,.12)), lin(vec3(.20,.17,.62)), uTheme);
+  vec3 hemi = mix(grd, sky, n.y*.5 + .5);
+  vec3 tint = mix(lin(vec3(.13,.11,.42)), lin(vec3(.47,.43,.97)), uTheme);   // sombra coloreada
+  vec3 col = alb * mix(tint, vec3(1.08), wrap*sh) + alb*hemi*mix(.10,.16,uTheme);
+  col *= 1. - aoK*.75;
+  col += alb * lin(vec3(.62,.62,1.)) * aoK * .55;            // rebote entre esferas
+  float fr = pow(1. - max(n.z, 0.), 2.6);
+  float side = clamp(dot(normalize(n.xy + 1e-4), normalize(L.xy))*.5 + .5, 0., 1.);
+  vec3 rimL = mix(lin(vec3(.78,.79,1.)), lin(vec3(.90,.91,1.)), uTheme);
+  vec3 rimD = mix(lin(vec3(.39,.40,.95)), lin(vec3(.62,.60,1.)), uTheme);
+  col += mix(rimD*.55, rimL*.75, side) * fr * mix(1., .6, uTheme);
+  vec3 H = normalize(L + V); float nh = max(dot(n, H), 0.);
+  col += vec3(1.) * (pow(nh, 110.)*.85 + pow(nh, 14.)*.07) * sh;
+  return col;
+}
+vec3 tone(vec3 c){ c = c/(1. + .18*c); return pow(c, vec3(1./2.2)); }
+void main(){
+  float ps = uView.z/uRes.x;
+  vec2 q = vec2(uView.x + gl_FragCoord.x*ps, -(uView.y + (uRes.y - gl_FragCoord.y)*ps));
+  vec3 acc = vec3(0.); float a = 0.;
+  for (int i = 0; i < 2; i++){
+    vec3 C = i == 0 ? C1 : C2; float R = i == 0 ? R1 : R2;
+    vec3 Co = i == 0 ? C2 : C1; float Ro = i == 0 ? R2 : R1;
+    vec2 dxy = q - C.xy; float dist = length(dxy);
+    float cov = clamp((R - dist)/ps + .5, 0., 1.);
+    if (cov > 0.){
+      vec2 e = dist > R*.998 ? dxy*(R*.998/dist) : dxy;
+      vec2 nxy = e/R; vec3 n = vec3(nxy, sqrt(max(0., 1. - dot(nxy,nxy))));
+      vec3 c = tone(shade(n, C, R, Co, Ro));
+      acc = c*cov + acc*(1. - cov); a = cov + a*(1. - cov);
+    }
+  }
+  gl_FragColor = vec4(acc, a);
+}`;
+function renderSpheres(theme, size){
+  const cv = document.createElement('canvas'); cv.width = cv.height = size;
+  const gl = cv.getContext('webgl', {premultipliedAlpha:true, preserveDrawingBuffer:true, antialias:false, alpha:true});
+  if (!gl) throw new Error('WebGL no disponible');
+  const sh = (t, s) => { const o = gl.createShader(t); gl.shaderSource(o, s); gl.compileShader(o); if (!gl.getShaderParameter(o, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(o)); return o; };
+  const pr = gl.createProgram(); gl.attachShader(pr, sh(gl.VERTEX_SHADER, VS)); gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, FS)); gl.linkProgram(pr); gl.useProgram(pr);
+  const b = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, b); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,3,-1,-1,3]), gl.STATIC_DRAW);
+  const loc = gl.getAttribLocation(pr, 'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+  gl.uniform2f(gl.getUniformLocation(pr, 'uRes'), size, size);
+  gl.uniform4f(gl.getUniformLocation(pr, 'uView'), ...VB);
+  gl.uniform1f(gl.getUniformLocation(pr, 'uTheme'), theme === 'light' ? 1 : 0);
+  gl.viewport(0, 0, size, size); gl.clearColor(0,0,0,0); gl.clear(gl.COLOR_BUFFER_BIT); gl.drawArrays(gl.TRIANGLES, 0, 3);
+  return cv.toDataURL('image/png');
+}
+(async () => {
+  if (location.search.includes('qa')) document.documentElement.classList.add('qa');
+  const urls = { indigo: renderSpheres('indigo', 1600), light: renderSpheres('light', 1600) };
+  const imgs = [...document.querySelectorAll('img[data-sph]')];
+  await Promise.all(imgs.map(im => new Promise(r => { im.onload = r; im.src = urls[im.dataset.sph]; })));
+  await document.fonts.ready;
+  window.__ready = true;
+})().catch(e => { window.__error = String(e); });
+</script>
+</body>
+</html>
