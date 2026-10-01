@@ -163,7 +163,11 @@ img.sph{display:block;pointer-events:none;user-select:none}
 .v4 .pill b{height:34px;padding:0 14px;border-radius:999px;display:inline-flex;align-items:center;background:#fff;color:var(--indigo-d);font-weight:600;font-size:20px}
 .v4 .title{left:var(--m);top:500px;font-size:112px;width:960px;color:#fff;white-space:nowrap}
 .v4 .title .serif{font-size:132px;letter-spacing:-0.025em;line-height:.8;color:var(--lav)}
-.v4 .lede{left:var(--m);top:870px;width:820px;font-size:35px;line-height:1.34;color:#fff;letter-spacing:-0.012em;text-wrap:pretty}
+.v4 .lede{left:var(--m);top:866px;width:952px;font-size:35px;line-height:1.34;color:#fff;letter-spacing:-0.012em;text-wrap:pretty}
+.v4 .vals{left:var(--m);top:1000px;height:64px;padding:0 28px;border-radius:999px;display:flex;align-items:center;background:rgba(255,255,255,.08);backdrop-filter:blur(18px);box-shadow:inset 0 0 0 1px rgba(255,255,255,.16),inset 0 1px 0 rgba(255,255,255,.2)}
+.v4 .vals span{display:flex;align-items:center;gap:10px;padding:0 20px;font-size:23px;font-weight:500;color:#fff;letter-spacing:-0.01em;border-left:1px solid rgba(255,255,255,.24);white-space:nowrap}
+.v4 .vals span:first-child{padding-left:0;border-left:0}
+.v4 .vals .ic{font-size:24px;color:var(--lav)}
 .v4 .cards{left:var(--m);right:var(--m);top:1228px;display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
 .v4 .card{border-radius:40px;padding:28px 28px 32px;height:384px;display:flex;flex-direction:column;background:linear-gradient(180deg,rgba(255,255,255,.80),rgba(255,255,255,.62));backdrop-filter:blur(24px) saturate(140%);box-shadow:inset 0 0 0 1px rgba(255,255,255,.75),0 30px 60px -24px rgba(30,30,90,.45),0 8px 18px -8px rgba(30,30,90,.20);color:var(--ink)}
 .v4 .card .ti{flex:none;width:70px;height:70px;border-radius:22px;display:grid;place-items:center;font-size:34px;color:#fff;background:linear-gradient(140deg,#6366F1,#4338CA);box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 10px 20px -8px rgba(67,56,202,.7)}
@@ -246,6 +250,7 @@ img.sph{display:block;pointer-events:none;user-select:none}
   <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.4"/></symbol>
   <symbol id="i-flow" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="6.5" height="6.5" rx="2"/><rect x="14" y="14" width="6.5" height="6.5" rx="2"/><path d="M10 6.75h3.25a3 3 0 0 1 3 3V14"/><path d="M6.75 10v3.25a3 3 0 0 0 3 3H14"/></symbol>
   <symbol id="i-code" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="15" rx="3"/><path d="M3 9h18"/><path d="M10 12.5l-2.25 2.25L10 17M14 12.5l2.25 2.25L14 17"/></symbol>
+  <symbol id="i-trend" viewBox="0 0 24 24"><path d="M4 17l5-5 4 4 7-7"/><path d="M15 9h5v5"/></symbol>
   <symbol id="i-done" viewBox="0 0 24 24"><path d="M3 12.5l4 4L15.5 8"/><path d="M11 15.5l1 1L21 8"/></symbol>
 </svg>
 
@@ -330,15 +335,16 @@ img.sph{display:block;pointer-events:none;user-select:none}
   <div class="bg"><div class="halo"></div><div class="arc"></div><div class="arc2"></div><img class="sph s-a" data-sph="indigo" alt=""><div class="grain"></div></div>
   <header class="meta">
     <div class="brand"><svg><use href="#logo-w"/></svg>aicia</div>
-    <dl><div><dt>Somos</dt><dd>Agencia de IA</dd></div><div><dt>Desde</dt><dd>Montevideo</dd></div></dl>
+    <dl><div><dt>Para</dt><dd>Dueños de negocio</dd></div><div><dt>Desde</dt><dd>Montevideo</dd></div></dl>
   </header>
-  <div class="pill"><b>Aicia</b>IA · Automatizaciones · Webs y apps</div>
+  <div class="pill"><b>Aicia</b>Agencia de IA y automatizaciones</div>
   <h1 class="title">Lo repetitivo,<br>lo hace Aicia.<br>Vos, <span class="serif">lo importante.</span></h1>
-  <p class="lede">Somos una agencia de IA y automatizaciones. Hacemos que tu negocio funcione solo y le creamos la web o la app que necesita.</p>
+  <p class="lede">Encontramos dónde tu negocio pierde tiempo y plata, y lo resolvemos con IA, automatizaciones, webs y apps.</p>
+  <div class="vals"><span><svg class="ic"><use href="#i-trend"/></svg>Resultados medibles</span><span><svg class="ic"><use href="#i-clock"/></svg>Rápido de implementar</span><span><svg class="ic"><use href="#i-check"/></svg>Sin esfuerzo tuyo</span></div>
   <div class="cards">
-    <div class="card"><div class="ti"><svg class="ic"><use href="#i-chat"/></svg></div><span class="k mono">IA</span><h3>Responde</h3><p>Consultas y turnos en WhatsApp, Instagram y tu web.</p></div>
-    <div class="card"><div class="ti"><svg class="ic"><use href="#i-flow"/></svg></div><span class="k mono">Automatización</span><h3>Automatiza</h3><p>Seguimientos, planillas y avisos que se hacen solos.</p></div>
-    <div class="card"><div class="ti"><svg class="ic"><use href="#i-code"/></svg></div><span class="k mono">Webs y apps</span><h3>Desarrolla</h3><p>Tu web o tu app a medida, conectada a todo.</p></div>
+    <div class="card"><div class="ti"><svg class="ic"><use href="#i-chat"/></svg></div><span class="k mono">IA</span><h3>Responde</h3><p>Ningún cliente sin respuesta, aunque escriba a las 23:00.</p></div>
+    <div class="card"><div class="ti"><svg class="ic"><use href="#i-flow"/></svg></div><span class="k mono">Automatización</span><h3>Automatiza</h3><p>Las tareas que hoy te comen horas, hechas solas.</p></div>
+    <div class="card"><div class="ti"><svg class="ic"><use href="#i-code"/></svg></div><span class="k mono">Webs y apps</span><h3>Desarrolla</h3><p>La web o la app que tu negocio necesita para vender más.</p></div>
   </div>
 </section>
 
