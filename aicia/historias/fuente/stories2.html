@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<style>
+@font-face{font-family:Geist;src:url(f/Geist-400.woff2) format("woff2");font-weight:100 900}
+@font-face{font-family:GeistMono;src:url(f/GeistMono-400.woff2) format("woff2");font-weight:400}
+:root{--indigo:#4F46E5;--lav:#C7C9FF;--lav-2:#9A9BFA;--ok:#5EE0A0;--warn:#FFC56B}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#222;font-family:Geist,sans-serif;-webkit-font-smoothing:antialiased;display:flex;flex-direction:column;gap:40px;padding:40px}
+.s{position:relative;width:1080px;height:1920px;overflow:hidden;color:#fff;letter-spacing:-.01em;background:#0A0A16}
+.s canvas{position:absolute;pointer-events:none;z-index:1}
+svg{display:block}
+.meta{position:absolute;left:64px;right:64px;top:150px;display:grid;grid-template-columns:1.3fr 1fr 1fr auto;gap:24px;font-size:22px;line-height:1.3;z-index:5}
+.meta span{display:block;opacity:.55}
+.brand{display:flex;align-items:center;gap:10px;font-size:30px;font-weight:600;letter-spacing:-.02em}
+.brand svg{width:30px;height:30px}
+.pg{text-align:right;font-variant-numeric:tabular-nums}
+.h{position:absolute;left:64px;top:300px;font-size:112px;font-weight:500;letter-spacing:-.045em;line-height:.95;z-index:5}
+.h em{font-style:normal;color:var(--lav-2)}
+.note{position:absolute;left:64px;bottom:250px;font-size:20px;opacity:.45;z-index:5}
+.side{position:absolute;right:64px;bottom:240px;text-align:right;font-size:24px;line-height:1.55;z-index:5}
+.glow{position:absolute;border-radius:50%;filter:blur(90px);z-index:0}
+
+.dash{position:absolute;left:64px;right:64px;top:640px;border-radius:44px;background:linear-gradient(160deg,rgba(255,255,255,.12),rgba(255,255,255,.04));backdrop-filter:blur(40px);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.14),0 50px 100px -40px rgba(0,0,0,.8);padding:34px;z-index:4;display:grid;grid-template-columns:84px 1fr;gap:28px}
+.rail{background:rgba(0,0,0,.35);border-radius:28px;padding:22px 0;display:flex;flex-direction:column;align-items:center;gap:26px}
+.rail i{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;color:rgba(255,255,255,.55)}
+.rail i.on{background:rgba(255,255,255,.12);color:#fff}
+.rail svg{width:24px;height:24px}
+.rail .lg svg{width:34px;height:34px}
+.dh{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.dh b{font-size:34px;font-weight:500;letter-spacing:-.02em}
+.dh span{font-size:19px;opacity:.55}
+.live{display:inline-flex;align-items:center;gap:10px;height:42px;padding:0 18px;border-radius:99px;background:rgba(154,155,250,.16);color:var(--lav);font-size:19px;font-weight:500;white-space:nowrap}
+.live i{width:10px;height:10px;border-radius:50%;background:var(--lav);box-shadow:0 0 0 6px rgba(199,201,255,.18)}
+.panel{background:rgba(255,255,255,.06);border-radius:26px;padding:22px}
+.kpis{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:26px}
+.kpi small{font-size:18px;opacity:.6}
+.kpi b{display:block;font-size:50px;font-weight:500;letter-spacing:-.04em;margin-top:6px;font-variant-numeric:tabular-nums}
+.kpi b sub{font-size:22px;vertical-align:baseline;opacity:.6;margin-left:4px;letter-spacing:0}
+.bar{height:5px;border-radius:5px;background:rgba(255,255,255,.12);margin-top:12px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--lav-2);border-radius:5px}
+.mono{font-family:GeistMono,monospace;font-size:18px;color:var(--lav)}
+.ic{width:58px;height:58px;border-radius:16px;background:rgba(255,255,255,.08);display:grid;place-items:center;flex:none}
+.ic svg{width:26px;height:26px}
+.ic.on{background:var(--lav);color:#15134A}
+.pill{display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 14px;border-radius:99px;font-size:17px;font-weight:500;white-space:nowrap}
+.p-ok{background:rgba(94,224,160,.14);color:var(--ok)}
+.p-lav{background:rgba(154,155,250,.18);color:var(--lav)}
+.p-warn{background:rgba(255,197,107,.14);color:var(--warn)}
+.p-dim{background:rgba(255,255,255,.08);color:rgba(255,255,255,.7)}
+
+/* 1 inbox */
+.chats{display:flex;flex-direction:column;gap:10px;margin-top:16px}
+.cv{display:grid;grid-template-columns:62px 1fr auto;gap:18px;align-items:center;background:rgba(255,255,255,.06);border-radius:22px;padding:16px 20px 16px 16px}
+.av{width:62px;height:62px;border-radius:50%;display:grid;place-items:center;font-size:24px;font-weight:600;color:#15134A;position:relative}
+.av em{position:absolute;right:-4px;bottom:-4px;width:26px;height:26px;border-radius:50%;background:#14141F;display:grid;place-items:center;box-shadow:0 0 0 3px #1B1B2A}
+.av em svg{width:15px;height:15px;color:#fff}
+.cv b{font-size:24px;font-weight:500;display:block}
+.cv p{font-size:19px;opacity:.6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:470px}
+.cv .r{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+.cv .r time{font-size:16px;opacity:.5;font-variant-numeric:tabular-nums}
+
+/* 2 pipeline */
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}
+.col h6{font-size:19px;font-weight:500;display:flex;justify-content:space-between;align-items:center;padding:0 6px 12px;opacity:.85}
+.col h6 span{font-size:16px;opacity:.6;font-variant-numeric:tabular-nums}
+.card{background:rgba(255,255,255,.07);border-radius:20px;padding:16px;margin-bottom:10px}
+.card b{display:block;font-size:20px;font-weight:500}
+.card small{display:block;font-size:16px;opacity:.55;margin-top:2px}
+.card .pill{margin-top:12px;height:28px;font-size:14px;padding:0 10px}
+.card.hot{background:linear-gradient(160deg,rgba(154,155,250,.28),rgba(154,155,250,.08));box-shadow:inset 0 0 0 1.5px rgba(199,201,255,.35)}
+.card.ghost{background:transparent;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.1);border-style:dashed}
+.auto{display:flex;align-items:center;gap:16px;margin-top:14px}
+.auto p{font-size:20px}
+.auto p small{display:block;font-size:17px;opacity:.55}
+
+/* 3 calendar */
+.week{display:grid;grid-template-columns:70px repeat(5,1fr);gap:8px;margin-top:22px}
+.week .dn{text-align:center;font-size:17px;opacity:.6;padding-bottom:6px}
+.week .dn b{display:block;font-size:26px;font-weight:500;opacity:1;color:#fff}
+.week .dn.today b{color:var(--lav)}
+.week .hr{font-size:15px;opacity:.45;font-variant-numeric:tabular-nums;padding-top:6px}
+.slot{height:74px;border-radius:14px;background:rgba(255,255,255,.04)}
+.slot.b{background:rgba(255,255,255,.1);padding:9px 11px;font-size:15px;line-height:1.25}
+.slot.b small{display:block;opacity:.55;font-size:13px}
+.slot.ai{background:linear-gradient(160deg,rgba(154,155,250,.4),rgba(99,102,241,.2));box-shadow:inset 0 0 0 1.5px rgba(199,201,255,.45)}
+.slot.ai small{opacity:.8;color:var(--lav)}
+.legend{display:flex;gap:22px;margin-top:18px;font-size:17px;opacity:.75}
+.legend i{display:inline-block;width:14px;height:14px;border-radius:4px;margin-right:8px;vertical-align:-1px}
+
+/* 4 report */
+.rep{display:grid;grid-template-columns:1.35fr 1fr;gap:16px;margin-top:16px}
+.bars{display:flex;align-items:flex-end;gap:12px;height:290px;margin-top:22px}
+.bars div{flex:1;display:flex;flex-direction:column;align-items:center;gap:10px;height:100%;justify-content:flex-end}
+.bars i{width:100%;border-radius:10px;background:rgba(255,255,255,.14)}
+.bars i.hi{background:linear-gradient(var(--lav),var(--indigo))}
+.bars span{font-size:15px;opacity:.5}
+.donut{position:relative;width:190px;height:190px;margin:18px auto 0}
+.donut b{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:40px;font-weight:500;letter-spacing:-.03em;text-align:center;line-height:1}
+.donut b small{display:block;font-size:15px;opacity:.55;font-weight:400;letter-spacing:0;margin-top:6px}
+.lg2{margin-top:16px;display:flex;flex-direction:column;gap:8px;font-size:17px}
+.lg2 div{display:flex;justify-content:space-between}
+.lg2 i{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:10px}
+.mail{display:grid;grid-template-columns:58px 1fr auto;gap:18px;align-items:center;margin-top:16px}
+.mail b{font-size:22px;font-weight:500;display:block}
+.mail small{font-size:17px;opacity:.55}
+
+/* 5 training */
+.kb{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+.src{display:flex;align-items:center;gap:16px;background:rgba(255,255,255,.06);border-radius:20px;padding:14px 16px}
+.src b{font-size:20px;font-weight:500;display:block}
+.src small{font-size:15px;opacity:.55}
+.src .ic{width:50px;height:50px;border-radius:14px}
+.src .ic svg{width:22px;height:22px}
+.src .ck{margin-left:auto;width:30px;height:30px;border-radius:50%;background:var(--lav);color:#15134A;display:grid;place-items:center;flex:none}
+.src .ck svg{width:16px;height:16px}
+.set{margin-top:14px;display:flex;flex-direction:column;gap:2px}
+.opt{display:flex;justify-content:space-between;align-items:center;padding:18px 4px;border-bottom:1px solid rgba(255,255,255,.08);font-size:21px}
+.opt:last-child{border-bottom:0}
+.opt small{display:block;font-size:16px;opacity:.55}
+.tg{width:66px;height:38px;border-radius:99px;background:var(--indigo);position:relative;flex:none;box-shadow:inset 0 0 0 1px rgba(255,255,255,.1)}
+.tg::after{content:"";position:absolute;right:4px;top:4px;width:30px;height:30px;border-radius:50%;background:#fff}
+.seg{display:flex;padding:4px;border-radius:99px;background:rgba(0,0,0,.3);font-size:17px}
+.seg span{padding:7px 16px;border-radius:99px;opacity:.6}
+.seg span.on{background:rgba(255,255,255,.14);opacity:1}
+.prog{display:flex;align-items:center;gap:16px;margin-top:6px}
+.prog .bar{flex:1;margin:0;height:8px}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <linearGradient id="mg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6366F1"/><stop offset="1" stop-color="#4338CA"/></linearGradient>
+    <symbol id="mark" viewBox="150 220 660 660"><circle cx="430" cy="600" r="270" fill="url(#mg)"/><circle cx="700" cy="320" r="92" fill="url(#mg)"/></symbol>
+    <symbol id="markc" viewBox="150 220 660 660"><circle cx="430" cy="600" r="270" fill="currentColor"/><circle cx="700" cy="320" r="92" fill="currentColor"/></symbol>
+    <symbol id="chk" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="msg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 1-11.6 7.1L4 20l1-4.2A8 8 0 1 1 20 12Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+    <symbol id="ig" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3.6" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+    <symbol id="web" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 12h16M12 4c2.5 2.5 2.5 13.5 0 16M12 4c-2.5 2.5-2.5 13.5 0 16" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+    <symbol id="cal" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3.5 10h17M8 3v4M16 3v4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="sheet" viewBox="0 0 24 24"><rect x="4" y="3.5" width="16" height="17" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 9.5h16M4 15h16M10 9.5v11" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+    <symbol id="mail" viewBox="0 0 24 24"><rect x="3.5" y="5.5" width="17" height="13" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m4.5 7 7.5 6 7.5-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+    <symbol id="grid" viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="13" y="4" width="7" height="7" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="4" y="13" width="7" height="7" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="13" y="13" width="7" height="7" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+    <symbol id="flow" viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="18" cy="18" r="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8.5 6H14a4 4 0 0 1 4 4v5.5" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+    <symbol id="chart" viewBox="0 0 24 24"><path d="M4 19V5M4 19h16M8 15l3.5-4 3 2.5L19 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="users" viewBox="0 0 24 24"><circle cx="9" cy="8.5" r="3.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 19.5c.8-3.2 3.2-5 6-5s5.2 1.8 6 5M15.5 5.2a3.5 3.5 0 0 1 0 6.6M17.5 14.6c1.8.6 3 2.3 3.5 4.9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="tag" viewBox="0 0 24 24"><path d="M3.5 12.5V4.5h8l9 9-8 8-9-9Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="8" cy="9" r="1.6" fill="currentColor"/></symbol>
+    <symbol id="clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 7.5V12l3 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="doc" viewBox="0 0 24 24"><path d="M6 3.5h8l4 4v13H6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M14 3.5v4h4M9 12h6M9 16h6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="spark" viewBox="0 0 24 24"><path d="M12 3.5 13.8 10.2 20.5 12l-6.7 1.8L12 20.5l-1.8-6.7L3.5 12l6.7-1.8Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+    <symbol id="bolt" viewBox="0 0 24 24"><path d="M13 3 5 13.5h6L10 21l8-10.5h-6L13 3Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<!-- ======== 1 · BANDEJA ======== -->
+<section class="s" id="s1">
+  <span class="glow" style="width:640px;height:640px;left:-260px;top:560px;background:rgba(99,102,241,.55)"></span>
+  <canvas data-orb="a" style="right:-170px;top:1430px;width:560px;height:560px;filter:blur(26px);opacity:.75"></canvas>
+  <div class="meta">
+    <div class="brand"><svg><use href="#mark"/></svg>aicia</div>
+    <div><span>Servicio</span>Agentes de IA</div>
+    <div><span>Canales</span>WhatsApp · IG · Web</div>
+    <div class="pg">01 / 05</div>
+  </div>
+  <h2 class="h">Tu bandeja,<br/>respondida<br/><em>antes de abrirla.</em></h2>
+  <div class="dash">
+    <div class="rail"><i class="lg" style="color:#fff"><svg><use href="#markc"/></svg></i><i class="on"><svg><use href="#msg"/></svg></i><i><svg><use href="#users"/></svg></i><i><svg><use href="#chart"/></svg></i><i><svg><use href="#cal"/></svg></i><i style="margin-top:auto"><svg><use href="#gear"/></svg></i></div>
+    <div>
+      <div class="dh"><div><b>Conversaciones</b><br/><span>Todos los canales · hoy</span></div><span class="live"><i></i>Agente activo</span></div>
+      <div class="kpis">
+        <div class="panel kpi"><small>Atendidas</small><b>52</b><div class="bar"><i style="width:100%"></i></div></div>
+        <div class="panel kpi"><small>Respuesta</small><b>3<sub>s</sub></b><div class="bar"><i style="width:12%"></i></div></div>
+        <div class="panel kpi"><small>A tu equipo</small><b>3</b><div class="bar"><i style="width:6%"></i></div></div>
+      </div>
+      <div class="chats">
+        <div class="cv"><div class="av" style="background:#C7C9FF">LF<em><svg><use href="#msg"/></svg></em></div><div><b>Lucía F.</b><p>Listo, quedó reservado el viernes a las 10:30.</p></div><div class="r"><time>23:47</time><span class="pill p-ok">Agendado</span></div></div>
+        <div class="cv"><div class="av" style="background:#E3D7FF">MR<em><svg><use href="#ig"/></svg></em></div><div><b>Martín R.</b><p>Te paso la ficha del apto con fotos y precio.</p></div><div class="r"><time>23:31</time><span class="pill p-lav">Calificado</span></div></div>
+        <div class="cv"><div class="av" style="background:#D6F5E6">SG<em><svg><use href="#web"/></svg></em></div><div><b>Sofía G.</b><p>Te paso con alguien del equipo para ese caso.</p></div><div class="r"><time>22:58</time><span class="pill p-warn">Derivado</span></div></div>
+        <div class="cv"><div class="av" style="background:#FFE3C7">JP<em><svg><use href="#msg"/></svg></em></div><div><b>Juan P.</b><p>¡Claro! Abrimos de lunes a sábado de 9 a 20 h.</p></div><div class="r"><time>22:40</time><span class="pill p-dim">Respondido</span></div></div>
+      </div>
+    </div>
+  </div>
+  <p class="note">Vista de ejemplo</p>
+  <div class="side">Sin mensajes sin leer<br/>Sin clientes esperando<br/>Sin respuestas tarde</div>
+</section>
+
+<!-- ======== 2 · PIPELINE ======== -->
+<section class="s" id="s2">
+  <span class="glow" style="width:700px;height:700px;right:-300px;top:520px;background:rgba(99,102,241,.5)"></span>
+  <canvas data-orb="b" style="left:-200px;top:1380px;width:620px;height:620px;filter:blur(30px);opacity:.7"></canvas>
+  <div class="meta">
+    <div class="brand"><svg><use href="#mark"/></svg>aicia</div>
+    <div><span>Servicio</span>Seguimiento</div>
+    <div><span>Stack</span>n8n · Sheets · Gmail</div>
+    <div class="pg">02 / 05</div>
+  </div>
+  <h2 class="h">Ningún lead<br/>se enfría<br/><em>otra vez.</em></h2>
+  <div class="dash">
+    <div class="rail"><i class="lg" style="color:#fff"><svg><use href="#markc"/></svg></i><i><svg><use href="#msg"/></svg></i><i class="on"><svg><use href="#users"/></svg></i><i><svg><use href="#chart"/></svg></i><i><svg><use href="#cal"/></svg></i><i style="margin-top:auto"><svg><use href="#gear"/></svg></i></div>
+    <div>
+      <div class="dh"><div><b>Pipeline de ventas</b><br/><span>Actualizado automáticamente</span></div><span class="live"><i></i>Sincronizado</span></div>
+      <div class="cols">
+        <div class="col"><h6>Nuevo <span>12</span></h6>
+          <div class="card"><b>Camila T.</b><small>Consulta de precios</small><span class="pill p-dim">Instagram</span></div>
+          <div class="card"><b>Diego M.</b><small>Pidió presupuesto</small><span class="pill p-dim">Web</span></div>
+          <div class="card ghost"><b style="opacity:.5">+ 10 más</b><small>Cargados solos</small></div>
+        </div>
+        <div class="col"><h6>Calificado <span>7</span></h6>
+          <div class="card hot"><b>Andrea L.</b><small>Presupuesto alto · urgente</small><span class="pill p-lav">Prioridad</span></div>
+          <div class="card"><b>Pablo S.</b><small>Quiere empezar en mayo</small><span class="pill p-dim">WhatsApp</span></div>
+        </div>
+        <div class="col"><h6>Cerrado <span>4</span></h6>
+          <div class="card"><b>Valeria N.</b><small>Plan anual</small><span class="pill p-ok">Ganado</span></div>
+          <div class="card"><b>Tomás R.</b><small>Primera compra</small><span class="pill p-ok">Ganado</span></div>
+        </div>
+      </div>
+      <div class="panel auto"><span class="ic on"><svg><use href="#mail"/></svg></span><p>Seguimiento automático enviado a 5 leads<small>Si no responden en 48 h, el agente vuelve a escribir</small></p><span class="mono" style="margin-left:auto">hoy 09:00</span></div>
+    </div>
+  </div>
+  <p class="note">Vista de ejemplo</p>
+  <div class="side">Cada lead registrado<br/>Cada lead calificado<br/>Cada lead con seguimiento</div>
+</section>
+
+<!-- ======== 3 · AGENDA ======== -->
+<section class="s" id="s3">
+  <span class="glow" style="width:620px;height:620px;left:-240px;top:1180px;background:rgba(99,102,241,.5)"></span>
+  <canvas data-orb="c" style="right:-120px;top:420px;width:520px;height:520px;filter:blur(30px);opacity:.65"></canvas>
+  <div class="meta">
+    <div class="brand"><svg><use href="#mark"/></svg>aicia</div>
+    <div><span>Servicio</span>Reservas</div>
+    <div><span>Stack</span>Calendar · WhatsApp</div>
+    <div class="pg">03 / 05</div>
+  </div>
+  <h2 class="h">Tu agenda,<br/>llena mientras<br/><em>dormís.</em></h2>
+  <div class="dash">
+    <div class="rail"><i class="lg" style="color:#fff"><svg><use href="#markc"/></svg></i><i><svg><use href="#msg"/></svg></i><i><svg><use href="#users"/></svg></i><i><svg><use href="#chart"/></svg></i><i class="on"><svg><use href="#cal"/></svg></i><i style="margin-top:auto"><svg><use href="#gear"/></svg></i></div>
+    <div>
+      <div class="dh"><div><b>Esta semana</b><br/><span>Turnos y reuniones</span></div><span class="live"><i></i>11 agendados por IA</span></div>
+      <div class="week">
+        <span></span><div class="dn">Lun<b>12</b></div><div class="dn">Mar<b>13</b></div><div class="dn today">Mié<b>14</b></div><div class="dn">Jue<b>15</b></div><div class="dn">Vie<b>16</b></div>
+        <span class="hr">09:00</span><div class="slot b ai">Lucía F.<small>por IA · 23:47</small></div><div class="slot"></div><div class="slot b">Equipo<small>reunión</small></div><div class="slot b ai">Pablo S.<small>por IA · 02:10</small></div><div class="slot"></div>
+        <span class="hr">11:00</span><div class="slot"></div><div class="slot b ai">Camila T.<small>por IA · 21:05</small></div><div class="slot b ai">Diego M.<small>por IA · 07:32</small></div><div class="slot"></div><div class="slot b ai">Ana R.<small>por IA · 00:41</small></div>
+        <span class="hr">14:00</span><div class="slot b">Proveedor<small>llamada</small></div><div class="slot b ai">Tomás R.<small>por IA · 22:18</small></div><div class="slot"></div><div class="slot b ai">Sofía G.<small>por IA · 06:55</small></div><div class="slot b ai">Iván C.<small>por IA · 23:02</small></div>
+        <span class="hr">17:00</span><div class="slot b ai">Valeria N.<small>por IA · 01:26</small></div><div class="slot"></div><div class="slot b ai">Andrea L.<small>por IA · 20:44</small></div><div class="slot b">Equipo<small>cierre</small></div><div class="slot"></div>
+      </div>
+      <div class="legend"><span><i style="background:linear-gradient(160deg,#9A9BFA,#6366F1)"></i>Agendado por el agente</span><span><i style="background:rgba(255,255,255,.25)"></i>Agendado por vos</span></div>
+      <div class="panel auto" style="margin-top:18px"><span class="ic on"><svg><use href="#clock"/></svg></span><p>Recordatorios enviados<small>24 h y 1 h antes de cada turno</small></p><span class="mono" style="margin-left:auto">automático</span></div>
+    </div>
+  </div>
+  <p class="note">Vista de ejemplo</p>
+  <div class="side">Sin idas y vueltas<br/>Sin turnos olvidados<br/>Sin huecos en la agenda</div>
+</section>
+
+<!-- ======== 4 · REPORTE ======== -->
+<section class="s" id="s4">
+  <span class="glow" style="width:700px;height:700px;right:-320px;top:1220px;background:rgba(99,102,241,.5)"></span>
+  <canvas data-orb="d" style="left:-190px;top:560px;width:560px;height:560px;filter:blur(30px);opacity:.7"></canvas>
+  <div class="meta">
+    <div class="brand"><svg><use href="#mark"/></svg>aicia</div>
+    <div><span>Servicio</span>Reportes</div>
+    <div><span>Entrega</span>Gmail · cada lunes</div>
+    <div class="pg">04 / 05</div>
+  </div>
+  <h2 class="h">Tus números,<br/>en tu mail<br/><em>cada lunes.</em></h2>
+  <div class="dash">
+    <div class="rail"><i class="lg" style="color:#fff"><svg><use href="#markc"/></svg></i><i><svg><use href="#msg"/></svg></i><i><svg><use href="#users"/></svg></i><i class="on"><svg><use href="#chart"/></svg></i><i><svg><use href="#cal"/></svg></i><i style="margin-top:auto"><svg><use href="#gear"/></svg></i></div>
+    <div>
+      <div class="dh"><div><b>Resumen semanal</b><br/><span>Generado automáticamente</span></div><span class="live"><i></i>Semana 41</span></div>
+      <div class="kpis">
+        <div class="panel kpi"><small>Consultas</small><b>264</b><div class="bar"><i style="width:82%"></i></div></div>
+        <div class="panel kpi"><small>Ventas</small><b>31</b><div class="bar"><i style="width:44%"></i></div></div>
+        <div class="panel kpi"><small>Horas ahorradas</small><b>17<sub>h</sub></b><div class="bar"><i style="width:60%"></i></div></div>
+      </div>
+      <div class="rep">
+        <div class="panel"><div class="dh"><b style="font-size:24px">Consultas por día</b></div>
+          <div class="bars">
+            <div><i style="height:48%"></i><span>L</span></div><div><i style="height:62%"></i><span>M</span></div><div><i style="height:55%"></i><span>M</span></div><div><i style="height:70%"></i><span>J</span></div><div><i class="hi" style="height:92%"></i><span>V</span></div><div><i style="height:76%"></i><span>S</span></div><div><i style="height:38%"></i><span>D</span></div>
+          </div>
+        </div>
+        <div class="panel"><div class="dh"><b style="font-size:24px">Canales</b></div>
+          <div class="donut">
+            <svg viewBox="0 0 42 42" style="width:100%;height:100%;transform:rotate(-90deg)">
+              <circle cx="21" cy="21" r="15.9" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="5"/>
+              <circle cx="21" cy="21" r="15.9" fill="none" stroke="#C7C9FF" stroke-width="5" stroke-dasharray="58 42" stroke-linecap="round"/>
+              <circle cx="21" cy="21" r="15.9" fill="none" stroke="#6366F1" stroke-width="5" stroke-dasharray="27 73" stroke-dashoffset="-60" stroke-linecap="round"/>
+              <circle cx="21" cy="21" r="15.9" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="5" stroke-dasharray="9 91" stroke-dashoffset="-89" stroke-linecap="round"/>
+            </svg>
+            <b>264<small>consultas</small></b>
+          </div>
+          <div class="lg2"><div><span><i style="background:#C7C9FF"></i>WhatsApp</span><span>58%</span></div><div><span><i style="background:#6366F1"></i>Instagram</span><span>29%</span></div><div><span><i style="background:rgba(255,255,255,.4)"></i>Web</span><span>13%</span></div></div>
+        </div>
+      </div>
+      <div class="panel mail"><span class="ic on"><svg><use href="#mail"/></svg></span><div><b>Reporte enviado a tu Gmail</b><small>Lunes 08:00 · PDF + resumen</small></div><span class="pill p-ok">Enviado</span></div>
+    </div>
+  </div>
+  <p class="note">Vista de ejemplo</p>
+  <div class="side">Sin planillas a mano<br/>Sin datos sueltos<br/>Decisiones con números</div>
+</section>
+
+<!-- ======== 5 · ENTRENAMIENTO ======== -->
+<section class="s" id="s5">
+  <span class="glow" style="width:640px;height:640px;left:-240px;top:600px;background:rgba(99,102,241,.55)"></span>
+  <canvas data-orb="e" style="right:-160px;top:1400px;width:560px;height:560px;filter:blur(26px);opacity:.75"></canvas>
+  <div class="meta">
+    <div class="brand"><svg><use href="#mark"/></svg>aicia</div>
+    <div><span>Servicio</span>Agentes de IA</div>
+    <div><span>Base</span>Tu información real</div>
+    <div class="pg">05 / 05</div>
+  </div>
+  <h2 class="h">Entrenado con<br/>tu negocio,<br/><em>no con plantillas.</em></h2>
+  <div class="dash">
+    <div class="rail"><i class="lg" style="color:#fff"><svg><use href="#markc"/></svg></i><i><svg><use href="#msg"/></svg></i><i><svg><use href="#users"/></svg></i><i><svg><use href="#chart"/></svg></i><i><svg><use href="#cal"/></svg></i><i class="on" style="margin-top:auto"><svg><use href="#gear"/></svg></i></div>
+    <div>
+      <div class="dh"><div><b>Tu agente</b><br/><span>Conocimiento y reglas</span></div><span class="live"><i></i>Listo para atender</span></div>
+      <div class="prog panel" style="margin-top:22px"><span class="ic on"><svg><use href="#spark"/></svg></span><div style="flex:1"><div class="dh"><span style="opacity:1;font-size:21px">Entrenamiento</span><span class="mono">100%</span></div><div class="bar" style="height:8px;margin-top:10px"><i style="width:100%"></i></div></div></div>
+      <div class="kb">
+        <div class="src"><span class="ic"><svg><use href="#tag"/></svg></span><div><b>Precios</b><small>Lista actualizada</small></div><span class="ck"><svg><use href="#chk"/></svg></span></div>
+        <div class="src"><span class="ic"><svg><use href="#clock"/></svg></span><div><b>Horarios</b><small>Y feriados</small></div><span class="ck"><svg><use href="#chk"/></svg></span></div>
+        <div class="src"><span class="ic"><svg><use href="#grid"/></svg></span><div><b>Servicios</b><small>Detalle completo</small></div><span class="ck"><svg><use href="#chk"/></svg></span></div>
+        <div class="src"><span class="ic"><svg><use href="#doc"/></svg></span><div><b>Políticas</b><small>Pagos y cambios</small></div><span class="ck"><svg><use href="#chk"/></svg></span></div>
+      </div>
+      <div class="panel set" style="margin-top:14px">
+        <div class="opt"><div>Tono de voz<small>Cómo le habla a tus clientes</small></div><div class="seg"><span>Formal</span><span class="on">Cercano</span><span>Breve</span></div></div>
+        <div class="opt"><div>Derivar a una persona<small>Si no sabe algo, no inventa</small></div><span class="tg"></span></div>
+        <div class="opt"><div>Agendar automáticamente<small>Conectado a tu calendario</small></div><span class="tg"></span></div>
+      </div>
+    </div>
+  </div>
+  <p class="note">Vista de ejemplo</p>
+  <div class="side">Habla como tu marca<br/>Sabe lo que vendés<br/>Escribinos · @aicia_ia</div>
+</section>
+
+<script>
+const FS = `precision highp float;
+uniform vec2 r;uniform float sp;uniform float zz;
+vec3 C1=vec3(.39,.40,.95);vec3 C2=vec3(.26,.22,.79);
+float hit(vec3 ro,vec3 rd,vec4 s,float grow,out float edge){vec3 oc=ro-s.xyz;float b=dot(oc,rd);float d2=max(dot(oc,oc)-b*b,0.);edge=sqrt(d2)-s.w;float R=s.w+grow;float h=R*R-d2;if(h<0.)return -1.;return -b-sqrt(h);}
+vec3 shade(vec3 p,vec3 rd,vec4 s,vec4 o){vec3 n=normalize(p-s.xyz);vec3 L=normalize(vec3(-.55,.75,.85));float g=clamp(dot(n,normalize(vec3(.62,-.62,.35)))*.5+.5,0.,1.);vec3 base=mix(C1*1.05,C2*.92,g);float dif=max(dot(n,L),0.);
+vec3 dv=o.xyz-p;float dl=length(dv);float ao=1.-max(dot(n,dv/dl),0.)*(o.w*o.w)/(dl*dl)*.55;float fres=pow(1.-max(dot(n,-rd),0.),3.);float spec=pow(max(dot(reflect(rd,n),L),0.),30.);
+vec3 col=base*(.62+.55*dif)*clamp(ao,0.,1.);col+=vec3(.95,.95,1.)*spec*.35;col+=vec3(.75,.76,1.)*fres*.42;return col;}
+void main(){float mn=min(r.x,r.y);vec2 uv=(gl_FragCoord.xy-.5*r)/mn;uv=uv/.85-vec2(.05,.05);vec3 ro=vec3(0.,0.,7.);vec3 rd=normalize(vec3(uv,-2.3));vec4 A=vec4(-.30,-.28,0.,1.);float a=.8+sp;vec3 off=vec3(cos(a)*1.02,sin(a)*1.06,zz);vec4 B=vec4(A.xyz+off*1.42,.34);
+float pa=1./(mn*.85*2.3);float eA,eB;float fwA=length(A.xyz-ro)*pa,fwB=length(B.xyz-ro)*pa;float tA=hit(ro,rd,A,fwA,eA),tB=hit(ro,rd,B,fwB,eB);
+float aA=tA>0.?clamp(.5-eA/fwA,0.,1.):0.;float aB=tB>0.?clamp(.5-eB/fwB,0.,1.):0.;vec3 cA=aA>0.?shade(ro+rd*tA,rd,A,B):vec3(0.);vec3 cB=aB>0.?shade(ro+rd*tB,rd,B,A):vec3(0.);
+vec4 o=vec4(0.);if(aA>0.&&aB>0.){if(tA<tB){o.rgb=cA*aA+cB*aB*(1.-aA);o.a=aA+aB*(1.-aA);}else{o.rgb=cB*aB+cA*aA*(1.-aB);o.a=aB+aA*(1.-aB);}}else if(aA>0.){o=vec4(cA*aA,aA);}else if(aB>0.){o=vec4(cB*aB,aB);}gl_FragColor=o;}`;
+const P = { a:[.5,.2], b:[-.4,-.3], c:[.9,.3], d:[-.6,.1], e:[.2,-.2] };
+document.querySelectorAll("canvas[data-orb]").forEach(cv => {
+  const [sp, zz] = P[cv.dataset.orb];
+  const gl = cv.getContext("webgl", { premultipliedAlpha: true, alpha: true, preserveDrawingBuffer: true });
+  const mk = (ty, s) => { const sh = gl.createShader(ty); gl.shaderSource(sh, s); gl.compileShader(sh); if (!gl.getShaderParameter(sh, gl.COMPILE_STATUS)) throw gl.getShaderInfoLog(sh); return sh; };
+  const pr = gl.createProgram(); gl.attachShader(pr, mk(gl.VERTEX_SHADER, "attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}")); gl.attachShader(pr, mk(gl.FRAGMENT_SHADER, FS)); gl.linkProgram(pr); gl.useProgram(pr);
+  gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer()); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]), gl.STATIC_DRAW);
+  const l = gl.getAttribLocation(pr, "p"); gl.enableVertexAttribArray(l); gl.vertexAttribPointer(l, 2, gl.FLOAT, false, 0, 0);
+  cv.width = cv.clientWidth; cv.height = cv.clientHeight; gl.viewport(0, 0, cv.width, cv.height);
+  gl.uniform2f(gl.getUniformLocation(pr, "r"), cv.width, cv.height); gl.uniform1f(gl.getUniformLocation(pr, "sp"), sp); gl.uniform1f(gl.getUniformLocation(pr, "zz"), zz);
+  gl.clearColor(0,0,0,0); gl.clear(gl.COLOR_BUFFER_BIT); gl.drawArrays(gl.TRIANGLES, 0, 6);
+});
+window.done = true;
+</script>
+</body>
+</html>
