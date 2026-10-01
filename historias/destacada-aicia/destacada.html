@@ -125,6 +125,18 @@ svg.app .gl .f{fill:#fff;stroke:none}
 .screen .bb{max-width:80%;padding:8px 11px;border-radius:14px;font-size:12.5px;line-height:1.3;color:#fff;letter-spacing:-0.005em}
 .screen .bb.in{align-self:flex-start;background:rgba(255,255,255,.10);border-bottom-left-radius:4px}
 .screen .bb.out{align-self:flex-end;background:linear-gradient(160deg,#6366F1,#4338CA);border-bottom-right-radius:4px}
+.phone{z-index:2;isolation:isolate}
+.phone > *{position:absolute}
+.phone .ph-img,.phone .ph-tint,.phone .ph-rim{left:0;top:0;width:100%;height:100%;display:block}
+.phone .ph-tint,.phone .ph-rim{-webkit-mask:url(assets/iphone-mockup.png) 0 0/100% 100% no-repeat;mask:url(assets/iphone-mockup.png) 0 0/100% 100% no-repeat}
+.phone .ph-tint{background:linear-gradient(180deg,#6366F1,#3B32B8);mix-blend-mode:color;opacity:.22}
+.phone .ph-rim{background:linear-gradient(90deg,rgba(199,201,255,.75) 0%,rgba(129,132,255,.2) 18%,transparent 34%);mix-blend-mode:screen;opacity:.55}
+.phone .screen{z-index:0;border-radius:30px;padding:15px 14px 14px;background:linear-gradient(180deg,#17163F,#1C1A55)}
+.phone .ph-img{z-index:1}
+.phone .ph-tint,.phone .ph-rim{z-index:2}
+.phone .screen::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(125deg,rgba(255,255,255,.10) 0%,rgba(255,255,255,.03) 26%,transparent 44%)}
+.phone .screen .sb{padding:0 12px;height:12px;align-items:center}
+.phone .screen .ch{margin-top:18px}
 .toast{left:500px;top:1488px;width:516px;display:flex;gap:18px;align-items:center;padding:20px 24px 20px 20px;border-radius:36px;z-index:4}
 .toast svg.app{width:64px;height:64px}
 .toast .nt{flex:1;display:flex;flex-direction:column;gap:5px}
@@ -247,15 +259,19 @@ svg.app .gl .f{fill:#fff;stroke:none}
 <!-- ======================= 03 · QUÉ HACEMOS ======================= -->
 <section class="story s3">
   <div class="stage"></div><div class="grid"></div>
-  <div class="subj" data-src="assets/mano-robot-celular.png" data-rim="left" style="left:402px;top:880px;width:740px;--tint:.20"></div>
-  <div class="screen" style="left:646px;top:1087px;width:229px;height:436px">
+  <div class="phone" style="left:551.7px;top:969.8px;width:417.4px;height:626.1px">
+    <div class="screen" style="left:91.3px;top:62.4px;width:234.8px;height:500.8px">
     <div class="sb"><span>23:47</span><span>●●●</span></div>
     <div class="ch"><img class="sph-img" data-sph="sat" alt=""><div><b>Aicia</b><span>en línea</span></div></div>
     <div class="bb in">Hola, ¿tienen turno mañana?</div>
     <div class="bb out">¡Hola! Tengo 10:30 o 16:00. ¿Cuál te queda mejor?</div>
     <div class="bb in">10:30</div>
     <div class="bb out">Listo, quedó agendado.</div>
+    </div>
+    <img class="ph-img" src="assets/iphone-mockup.png" alt="">
+    <div class="ph-tint"></div><div class="ph-rim"></div>
   </div>
+  <div class="subj" data-src="assets/mano-robot-celular-sin-telefono.png" data-rim="left" style="left:402px;top:880px;width:740px;--tint:.20;filter:drop-shadow(0 6px 10px rgba(5,4,30,.45))"></div>
   <div class="eyebrow tx">Qué hacemos</div>
   <h1 class="title tx">Tu negocio,<br>en <span class="serif">automático.</span></h1>
   <div class="svc tx">
