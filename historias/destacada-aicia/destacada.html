@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Aicia · Destacada "Aicia" · 5 historias</title>
+<style>
+@font-face{font-family:"Geist";src:url(fonts/geist-latin-wght-normal.woff2) format("woff2");font-weight:100 900;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2212}
+@font-face{font-family:"Geist";src:url(fonts/geist-latin-ext-wght-normal.woff2) format("woff2");font-weight:100 900;unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Geist Mono";src:url(fonts/geist-mono-latin-400-normal.woff2) format("woff2");font-weight:400}
+@font-face{font-family:"Geist Mono";src:url(fonts/geist-mono-latin-500-normal.woff2) format("woff2");font-weight:500}
+@font-face{font-family:"Instrument Serif";src:url(fonts/instrument-serif-latin-400-italic.woff2) format("woff2");font-style:italic;font-weight:400}
+
+:root{
+  --night:#06061A; --indigo:#4F46E5; --indigo-l:#6366F1; --indigo-d:#4338CA;
+  --lav:#C7C9FF; --lav2:#9A9BFA;
+  --t1:#F4F4FA; --t2:#B9BBDA; --t3:#9496BC;
+  --m:64px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:#15151d}
+body{display:flex;flex-direction:column;align-items:center;gap:80px;padding:80px 0;font-family:"Geist",system-ui,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision}
+.story{width:1080px;height:1920px;position:relative;overflow:hidden;background:var(--night);color:var(--t1);isolation:isolate;flex:none}
+.story > *{position:absolute}
+.mono{font-family:"Geist Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums;letter-spacing:0}
+.serif{font-family:"Instrument Serif",serif;font-style:italic;font-weight:400}
+
+/* ---------- Escenario ---------- */
+.stage{inset:0;z-index:0;background:
+  radial-gradient(var(--gw,1000px) var(--gh,900px) at var(--gx,55%) var(--gy,72%),rgba(79,70,229,.62),rgba(67,56,202,.20) 42%,transparent 70%),
+  radial-gradient(900px 600px at 0% 0%,rgba(67,56,202,.16),transparent 70%),
+  linear-gradient(180deg,#05051A 0%,#090924 38%,#100E36 100%)}
+.grid{inset:0;z-index:0;background-image:linear-gradient(rgba(199,201,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(199,201,255,.07) 1px,transparent 1px);background-size:119px 119px;background-position:64px 250px;-webkit-mask:radial-gradient(var(--mw,900px) var(--mh,1100px) at var(--gx,55%) var(--gy,72%),#000 0%,rgba(0,0,0,.5) 45%,transparent 75%);mask:radial-gradient(var(--mw,900px) var(--mh,1100px) at var(--gx,55%) var(--gy,72%),#000 0%,rgba(0,0,0,.5) 45%,transparent 75%)}
+.grain{inset:0;z-index:7;pointer-events:none;opacity:.07;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.vignette{inset:0;z-index:6;pointer-events:none;background:radial-gradient(130% 90% at 50% 45%,transparent 60%,rgba(3,3,14,.55) 100%)}
+
+/* Capas: órbita atrás (1) · protagonista (2) · órbita adelante (3) · UI (4) · texto (5) */
+.orb-back{inset:0;z-index:1;pointer-events:none}
+.subj{z-index:2;isolation:isolate}
+.subj > *{position:absolute;inset:0;width:100%;height:100%}
+.subj img{display:block;filter:url(#cut)}
+.subj.fade{-webkit-mask-image:linear-gradient(180deg,#000 70%,transparent 97%);mask-image:linear-gradient(180deg,#000 70%,transparent 97%)}
+.subj .tint,.subj .rim{-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+.subj .tint{background:linear-gradient(180deg,#6366F1,#3B32B8);mix-blend-mode:color;opacity:var(--tint,.28)}
+.subj .rim{mix-blend-mode:screen;opacity:var(--rim,.55)}
+.orb-front{inset:0;z-index:3;pointer-events:none}
+.sat{z-index:3;width:var(--s,84px);filter:drop-shadow(0 10px 18px rgba(10,8,60,.6)) drop-shadow(0 0 22px rgba(199,201,255,.35))}
+.ui{z-index:4}
+.tx{z-index:5}
+
+/* ---------- Tipografía ---------- */
+.hd{top:250px;left:var(--m);right:var(--m);height:56px;display:flex;align-items:center;justify-content:space-between;z-index:5}
+.brand{display:flex;align-items:center;gap:14px;font-weight:600;font-size:38px;letter-spacing:-0.04em;line-height:1;color:#fff}
+.brand svg{width:46px;height:46px}
+.idx{font-size:21px;color:var(--t2);letter-spacing:.06em}
+.idx b{color:#fff;font-weight:500}
+.eyebrow{font-size:31px;font-weight:600;letter-spacing:-0.015em;background:linear-gradient(90deg,#D9DAFF,#9A9BFA);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.title{font-weight:600;letter-spacing:-0.045em;line-height:.98;color:#fff;white-space:nowrap}
+.title .serif{letter-spacing:-0.02em;line-height:.8;background:linear-gradient(100deg,#B9BBFF 0%,#ECEDFF 52%,#C3C5FF 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;padding:0 .1em .14em 0}
+.title .acc{background:linear-gradient(100deg,#B9BBFF,#E4E5FF 60%,#C7C9FF);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;padding-right:.04em}
+.lede{font-size:34px;line-height:1.38;color:rgba(226,228,255,.80);letter-spacing:-0.012em;text-wrap:pretty}
+.lede b{color:#fff;font-weight:500}
+.note{display:flex;align-items:center;gap:10px;font-size:20px;color:var(--t3)}
+.note svg{width:22px;height:22px}
+
+/* ---------- Materiales ---------- */
+.glass{background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.04)),rgba(14,13,40,.38);backdrop-filter:blur(30px) saturate(170%);-webkit-backdrop-filter:blur(30px) saturate(170%);box-shadow:inset 0 0 0 1px rgba(255,255,255,.12),inset 0 1px 0 rgba(255,255,255,.20),0 1px 2px rgba(0,0,0,.25),0 30px 60px -24px rgba(4,3,24,.75)}
+.pill{display:inline-flex;align-items:center;gap:14px;height:54px;padding:0 26px 0 22px;border-radius:999px;font-size:22px;font-weight:500;color:#fff;letter-spacing:0}
+.pill i{width:9px;height:9px;border-radius:50%;background:var(--lav);box-shadow:0 0 0 4px rgba(199,201,255,.14),0 0 14px 2px rgba(199,201,255,.65)}
+
+/* Ícono estilo app: cuadrado de esquinas continuas, glifo blanco, brillo interior */
+svg.app{display:block;flex:none;overflow:visible;filter:drop-shadow(0 1px 1px rgba(0,0,0,.25)) drop-shadow(0 12px 18px rgba(10,8,70,.45))}
+svg.app .gl{fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+svg.app .gl .f{fill:#fff;stroke:none}
+.ic{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex:none}
+
+/* =========================================================
+   01 · Intro
+   ========================================================= */
+.s1{--gx:52%;--gy:76%;--gw:1150px;--gh:900px}
+.s1 .pill{left:var(--m);top:386px}
+.s1 .title{left:var(--m);top:478px;font-size:150px;letter-spacing:-0.05em}
+.s1 .lede{left:var(--m);top:806px;width:900px}
+.s1 .dock{left:var(--m);top:968px;display:flex;gap:18px;padding:20px 22px 18px;border-radius:44px}
+.s1 .dock .it{width:150px;display:flex;flex-direction:column;align-items:center;gap:12px}
+.s1 .dock svg.app{width:104px;height:104px}
+.s1 .dock span{font-size:20px;font-weight:500;color:var(--t1);letter-spacing:-0.01em;white-space:nowrap}
+
+/* =========================================================
+   02 · El problema
+   ========================================================= */
+.s2{--gx:50%;--gy:74%;--gw:1000px;--gh:1000px}
+.s2 .eyebrow{left:var(--m);top:384px}
+.s2 .title{left:var(--m);top:440px;font-size:122px}
+.s2 .title .serif{font-size:140px}
+.s2 .lede{left:var(--m);top:712px;width:900px}
+.notif,.toast{background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.03)),rgba(11,10,34,.80)!important}
+.notif{width:500px;display:flex;align-items:center;gap:20px;padding:20px 24px 20px 20px;border-radius:36px;z-index:4}
+.notif svg.app{width:68px;height:68px}
+.notif .nt{flex:1;min-width:0;display:flex;flex-direction:column;gap:5px}
+.notif .nh{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.notif b{font-size:25px;font-weight:600;letter-spacing:-0.02em;color:#fff;white-space:nowrap}
+.notif .mono{font-size:17px;color:#C3C5E4;white-space:nowrap}
+.notif p{font-size:22px;color:#D2D4EE;letter-spacing:-0.005em;white-space:nowrap}
+
+/* =========================================================
+   03 · Qué hacemos
+   ========================================================= */
+.s3{--gx:68%;--gy:62%;--gw:900px;--gh:1000px}
+.s3 .eyebrow{left:var(--m);top:384px}
+.s3 .title{left:var(--m);top:440px;font-size:132px}
+.s3 .title .serif{font-size:150px}
+.s3 .svc{left:var(--m);top:780px;width:500px;display:flex;flex-direction:column;gap:46px}
+.s3 .svc .it{display:flex;gap:24px;align-items:flex-start}
+.s3 .svc svg.app{width:92px;height:92px}
+.s3 .svc h3{font-size:33px;font-weight:600;letter-spacing:-0.03em;line-height:1.1;margin-top:6px}
+.s3 .svc p{margin-top:8px;font-size:24px;line-height:1.32;color:var(--t2);letter-spacing:-0.008em;width:350px}
+.screen{z-index:3;border-radius:16px;overflow:hidden;background:linear-gradient(180deg,#0E0D2A,#141240);display:flex;flex-direction:column;padding:18px 12px 12px;gap:8px}
+.screen .sb{display:flex;justify-content:space-between;font-size:10px;color:#C9CAF0;font-family:"Geist Mono";padding:0 4px}
+.screen .ch{display:flex;align-items:center;gap:7px;padding:6px 4px 8px;border-bottom:1px solid rgba(255,255,255,.08)}
+.screen .ch img{width:22px}
+.screen .ch b{font-size:11px;font-weight:600;color:#fff}
+.screen .ch span{font-size:9px;color:#7FE3B0;display:block}
+.screen .bb{max-width:78%;padding:7px 9px;border-radius:12px;font-size:10.5px;line-height:1.3;color:#fff;letter-spacing:-0.005em}
+.screen .bb.in{align-self:flex-start;background:rgba(255,255,255,.10);border-bottom-left-radius:4px}
+.screen .bb.out{align-self:flex-end;background:linear-gradient(160deg,#6366F1,#4338CA);border-bottom-right-radius:4px}
+.toast{left:500px;top:1352px;width:516px;display:flex;gap:18px;align-items:center;padding:20px 24px 20px 20px;border-radius:36px;z-index:4}
+.toast svg.app{width:64px;height:64px}
+.toast .nt{flex:1;display:flex;flex-direction:column;gap:5px}
+.toast .nh{display:flex;justify-content:space-between;align-items:baseline}
+.toast b{font-size:24px;font-weight:600;letter-spacing:-0.02em}
+.toast .mono{font-size:17px;color:#C3C5E4}
+.toast p{font-size:23px;line-height:1.3;color:var(--t1);letter-spacing:-0.01em}
+.s3 .note{left:var(--m);top:1588px}
+
+/* =========================================================
+   04 · Cómo trabajamos
+   ========================================================= */
+.s4{--gx:76%;--gy:70%;--gw:900px;--gh:1000px}
+.s4 .eyebrow{left:var(--m);top:384px}
+.s4 .title{left:var(--m);top:440px;font-size:132px}
+.s4 .title .serif{font-size:150px}
+.s4 .steps{left:var(--m);top:780px;width:500px;display:flex;flex-direction:column;gap:64px}
+.s4 .steps .it{position:relative;display:flex;gap:26px;align-items:flex-start}
+.s4 .steps .it + .it::before{content:"";position:absolute;left:45px;top:-64px;height:64px;width:2px;background:linear-gradient(180deg,rgba(199,201,255,.0),rgba(199,201,255,.45),rgba(199,201,255,.0))}
+.s4 .steps svg.app{width:92px;height:92px}
+.s4 .steps .k{font-size:18px;color:var(--lav2);letter-spacing:.06em}
+.s4 .steps h3{margin-top:6px;font-size:34px;font-weight:600;letter-spacing:-0.03em;line-height:1.08}
+.s4 .steps p{margin-top:8px;font-size:24px;line-height:1.32;color:var(--t2);letter-spacing:-0.008em;width:370px}
+
+/* =========================================================
+   05 · Cierre
+   ========================================================= */
+.s5{--gx:62%;--gy:74%;--gw:1100px;--gh:1000px}
+.s5 .eyebrow{left:var(--m);top:384px}
+.s5 .title{left:var(--m);top:440px;font-size:122px}
+.s5 .title .serif{font-size:138px}
+.s5 .lede{left:var(--m);top:712px;width:860px}
+.s5 .cta{left:var(--m);top:900px;display:flex;align-items:center;gap:22px;height:104px;padding:0 16px 0 44px;border-radius:999px;background:linear-gradient(180deg,#FFFFFF,#ECECFF);color:var(--indigo-d);font-size:36px;font-weight:600;letter-spacing:-0.025em;box-shadow:inset 0 -2px 0 rgba(67,56,202,.12),0 0 0 8px rgba(199,201,255,.10),0 0 60px 6px rgba(129,132,255,.45),0 24px 40px -18px rgba(5,4,30,.8);z-index:5}
+.s5 .cta .go{width:72px;height:72px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(150deg,#6E71F4,#4F46E5 55%,#4338CA);color:#fff;font-size:34px;box-shadow:inset 0 1px 0 rgba(255,255,255,.35)}
+.s5 .alt{left:var(--m);top:1036px;font-size:23px;color:var(--t2);display:flex;align-items:center;gap:10px;z-index:5}
+.s5 .alt .mono{color:#fff;font-size:22px}
+
+/* Guías de QA (?qa) */
+.qa .story::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:99;background:linear-gradient(rgba(255,0,0,.18),rgba(255,0,0,.18)) top/100% 250px no-repeat,linear-gradient(rgba(255,0,0,.18),rgba(255,0,0,.18)) bottom/100% 300px no-repeat,linear-gradient(rgba(0,255,255,.5),rgba(0,255,255,.5)) 64px 0/1px 100% no-repeat,linear-gradient(rgba(0,255,255,.5),rgba(0,255,255,.5)) 1015px 0/1px 100% no-repeat}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="lgw" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#C7C9FF"/></linearGradient>
+    <!-- superficies de ícono -->
+    <linearGradient id="ap-indigo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7477F6"/><stop offset=".55" stop-color="#5149E6"/><stop offset="1" stop-color="#4036C4"/></linearGradient>
+    <linearGradient id="ap-light" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A3A5FB"/><stop offset=".55" stop-color="#7477F2"/><stop offset="1" stop-color="#585BE0"/></linearGradient>
+    <linearGradient id="ap-deep" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4F4BD6"/><stop offset=".55" stop-color="#3A31AE"/><stop offset="1" stop-color="#2A2387"/></linearGradient>
+    <linearGradient id="ap-sheen" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".34"/><stop offset=".48" stop-color="#fff" stop-opacity=".06"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    <radialGradient id="ap-glow" cx=".5" cy="1.05" r=".7"><stop offset="0" stop-color="#C7C9FF" stop-opacity=".35"/><stop offset="1" stop-color="#C7C9FF" stop-opacity="0"/></radialGradient>
+    <!-- recorte: nitidez + borde sin halo blanco -->
+    <filter id="cut" color-interpolation-filters="sRGB" x="-2%" y="-2%" width="104%" height="104%">
+      <feConvolveMatrix in="SourceGraphic" order="3" kernelMatrix="0 -0.28 0 -0.28 2.12 -0.28 0 -0.28 0" preserveAlpha="true" result="s"/>
+      <feMorphology in="SourceAlpha" operator="erode" radius="0.8" result="e"/>
+      <feGaussianBlur in="e" stdDeviation="0.7" result="eb"/>
+      <feComposite in="s" in2="eb" operator="in"/>
+    </filter>
+    <filter id="orbGlow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="7"/></filter>
+  </defs>
+  <symbol id="logo-w" viewBox="150 220 660 660"><circle cx="430" cy="600" r="270" fill="url(#lgw)"/><circle cx="700" cy="320" r="92" fill="url(#lgw)"/></symbol>
+  <!-- Glifos (grilla 24, trazo 2, estilo sistema) -->
+  <symbol id="g-message" viewBox="0 0 24 24"><path class="f" d="M12 3.6c-5 0-9 3.3-9 7.4 0 2.3 1.3 4.4 3.3 5.7-.15 1.25-.75 2.45-1.8 3.3 2.15-.1 3.95-.9 5.15-1.95.75.15 1.55.25 2.35.25 5 0 9-3.3 9-7.3s-4-7.4-9-7.4z"/><circle cx="8" cy="11" r="1.25" fill="#4F46E5" stroke="none"/><circle cx="12" cy="11" r="1.25" fill="#4F46E5" stroke="none"/><circle cx="16" cy="11" r="1.25" fill="#4F46E5" stroke="none"/></symbol>
+  <symbol id="g-flow" viewBox="0 0 24 24"><path d="M4.8 12.2a7.2 7.2 0 0 1 12.3-5.1"/><path d="M17.9 3.4v4.3h-4.3"/><path d="M19.2 11.8a7.2 7.2 0 0 1-12.3 5.1"/><path d="M6.1 20.6v-4.3h4.3"/></symbol>
+  <symbol id="g-code" viewBox="0 0 24 24"><path d="M8.2 7 3.2 12l5 5"/><path d="M15.8 7l5 5-5 5"/><path d="M13.6 4.4 10.4 19.6"/></symbol>
+  <symbol id="g-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.3"/><path d="M15.3 15.3 20.3 20.3" stroke-width="2.6"/></symbol>
+  <symbol id="g-gear" viewBox="0 0 24 24"><path id="gearPath" class="f" fill-rule="evenodd" d=""/></symbol>
+  <symbol id="g-chart" viewBox="0 0 24 24"><path d="M4 3.5v16.5h16.5"/><path d="M7.5 15.5l4-4.2 3 3 5.2-5.8"/><path d="M15.4 8.4h4.4v4.4"/></symbol>
+  <symbol id="g-people" viewBox="0 0 24 24"><circle class="f" cx="9" cy="8" r="3.6"/><path class="f" d="M2.6 19.4c.6-3.4 3.2-5.5 6.4-5.5s5.8 2.1 6.4 5.5c.1.6-.3 1.1-.9 1.1H3.5c-.6 0-1-.5-.9-1.1z"/><circle class="f" cx="16.6" cy="8.6" r="2.8" opacity=".75"/><path class="f" opacity=".75" d="M16.4 13.4c2.7 0 4.7 1.7 5.2 4.6.1.5-.3.9-.8.9h-3.7c-.2-2.2-1.2-4-2.7-5.2.6-.2 1.3-.3 2-.3z"/></symbol>
+  <symbol id="g-table" viewBox="0 0 24 24"><rect x="3.2" y="4.5" width="17.6" height="15" rx="3"/><path d="M3.2 9.5h17.6M3.2 14.5h17.6M9.5 9.5v10"/></symbol>
+  <symbol id="g-cal" viewBox="0 0 24 24"><rect x="3.2" y="5" width="17.6" height="15.5" rx="3.2"/><path class="f" d="M3.2 8.2A3.2 3.2 0 0 1 6.4 5h11.2a3.2 3.2 0 0 1 3.2 3.2V10H3.2z"/><path d="M8 3v3.5M16 3v3.5"/><path d="M8.8 15.2l2.1 2.1 4.3-4.3"/></symbol>
+  <symbol id="g-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="g-arrow" viewBox="0 0 24 24"><path d="M7 17 17 7"/><path d="M9 7h8v8"/></symbol>
+  <symbol id="g-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 11v5M12 8h.01"/></symbol>
+  <symbol id="g-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.6"/><path d="M12 7.4V12l3.2 2"/></symbol>
+</svg>
+
+<!-- ======================= 01 · INTRO ======================= -->
+<section class="story s1" data-orbit='{"cx":540,"cy":1500,"rx":500,"ry":150,"rot":-7,"sat":160,"w":9}'>
+  <div class="stage"></div><div class="grid"></div>
+  <div class="subj" data-src="assets/david-circuitos.png" data-rim="left" style="left:-60px;top:1256px;width:1200px;--tint:.22"></div>
+  <header class="hd"><div class="brand"><svg><use href="#logo-w"/></svg>aicia</div><span class="idx mono"><b>01</b> / 05</span></header>
+  <div class="pill glass tx"><i></i>Agencia de IA y automatizaciones</div>
+  <h1 class="title tx">Hola,<br>somos <span class="acc">Aicia.</span></h1>
+  <p class="lede tx">Hacemos que tu negocio <b>funcione solo</b>, con IA, automatizaciones, webs y apps.</p>
+  <div class="dock glass ui">
+    <div class="it"><svg class="app" viewBox="0 0 100 100" data-g="g-message" data-s="ap-indigo"></svg><span>IA</span></div>
+    <div class="it"><svg class="app" viewBox="0 0 100 100" data-g="g-flow" data-s="ap-light"></svg><span>Automatización</span></div>
+    <div class="it"><svg class="app" viewBox="0 0 100 100" data-g="g-code" data-s="ap-deep"></svg><span>Webs y apps</span></div>
+  </div>
+  <div class="vignette"></div><div class="grain"></div>
+</section>
+
+<!-- ======================= 02 · EL PROBLEMA ======================= -->
+<section class="story s2" data-orbit='{"cx":540,"cy":1300,"rx":520,"ry":140,"rot":6,"w":2.5,"dash":"1 16","dim":true}'>
+  <div class="stage"></div><div class="grid"></div>
+  <div class="subj" data-src="assets/cabeza-documentos.webp" data-rim="right" style="left:120px;top:900px;width:840px;--tint:.30;--rim:.45"></div>
+  <header class="hd"><div class="brand"><svg><use href="#logo-w"/></svg>aicia</div><span class="idx mono"><b>02</b> / 05</span></header>
+  <div class="eyebrow tx">El problema</div>
+  <h1 class="title tx">Tu negocio,<br>todavía <span class="serif">a mano.</span></h1>
+  <p class="lede tx">Responder, agendar y seguir clientes a mano te come el día. Y cada tarea repetida <b>te cuesta plata</b>.</p>
+  <div class="notif glass" style="left:64px;top:990px"><svg class="app" viewBox="0 0 100 100" data-g="g-message" data-s="ap-indigo"></svg><div class="nt"><div class="nh"><b>Consultas sin responder</b><span class="mono">ahora</span></div><p>El cliente le escribe a otro.</p></div></div>
+  <div class="notif glass" style="left:516px;top:1160px"><svg class="app" viewBox="0 0 100 100" data-g="g-people" data-s="ap-light"></svg><div class="nt"><div class="nh"><b>Clientes que se enfrían</b><span class="mono">2 h</span></div><p>Nadie les hizo seguimiento.</p></div></div>
+  <div class="notif glass" style="left:64px;top:1330px"><svg class="app" viewBox="0 0 100 100" data-g="g-table" data-s="ap-deep"></svg><div class="nt"><div class="nh"><b>Planillas a mano</b><span class="mono">ayer</span></div><p>Horas que no vuelven.</p></div></div>
+  <div class="notif glass" style="left:516px;top:1480px"><svg class="app" viewBox="0 0 100 100" data-g="g-cal" data-s="ap-indigo"></svg><div class="nt"><div class="nh"><b>Turnos que se pisan</b><span class="mono">lun</span></div><p>La agenda, un caos.</p></div></div>
+  <div class="vignette"></div><div class="grain"></div>
+</section>
+
+<!-- ======================= 03 · QUÉ HACEMOS ======================= -->
+<section class="story s3" data-orbit='{"cx":722,"cy":1150,"rx":300,"ry":92,"rot":-16,"sat":28,"w":8}'>
+  <div class="stage"></div><div class="grid"></div>
+  <div class="subj fade" data-src="assets/mano-robot-celular.png" data-rim="left" style="left:400px;top:720px;width:660px;--tint:.20"></div>
+  <div class="screen" style="left:618px;top:905px;width:204px;height:389px">
+    <div class="sb"><span>23:47</span><span>●●●</span></div>
+    <div class="ch"><img class="sph-img" data-sph="sat" alt=""><div><b>Aicia</b><span>en línea</span></div></div>
+    <div class="bb in">Hola, ¿tienen turno mañana?</div>
+    <div class="bb out">¡Hola! Tengo 10:30 o 16:00. ¿Cuál te queda mejor?</div>
+    <div class="bb in">10:30</div>
+    <div class="bb out">Listo, quedó agendado.</div>
+  </div>
+  <header class="hd"><div class="brand"><svg><use href="#logo-w"/></svg>aicia</div><span class="idx mono"><b>03</b> / 05</span></header>
+  <div class="eyebrow tx">Qué hacemos</div>
+  <h1 class="title tx">Tu negocio,<br>en <span class="serif">automático.</span></h1>
+  <div class="svc tx">
+    <div class="it"><svg class="app" viewBox="0 0 100 100" data-g="g-message" data-s="ap-indigo"></svg><div><h3>Asistentes de IA</h3><p>Responden y agendan en WhatsApp, Instagram y web.</p></div></div>
+    <div class="it"><svg class="app" viewBox="0 0 100 100" data-g="g-flow" data-s="ap-light"></svg><div><h3>Automatizaciones</h3><p>Seguimientos, planillas y avisos que se hacen solos.</p></div></div>
+    <div class="it"><svg class="app" viewBox="0 0 100 100" data-g="g-code" data-s="ap-deep"></svg><div><h3>Webs y apps</h3><p>A medida de tu negocio y conectadas a todo.</p></div></div>
+  </div>
+  <div class="toast glass"><svg class="app" viewBox="0 0 100 100" data-g="g-check" data-s="ap-indigo"></svg><div class="nt"><div class="nh"><b>Aicia</b><span class="mono">ahora</span></div><p>Turno agendado: jueves 10:30.</p></div></div>
+  <div class="note tx"><svg class="ic"><use href="#g-info"/></svg>Vista de ejemplo</div>
+  <div class="vignette"></div><div class="grain"></div>
+</section>
+
+<!-- ======================= 04 · CÓMO TRABAJAMOS ======================= -->
+<section class="story s4" data-orbit='{"cx":830,"cy":1262,"rx":300,"ry":86,"rot":-14,"sat":200,"w":8}'>
+  <div class="stage"></div><div class="grid"></div>
+  <div class="subj" data-src="assets/robot-pensando.webp" data-rim="left" style="left:470px;top:1040px;width:680px;--tint:.18"></div>
+  <header class="hd"><div class="brand"><svg><use href="#logo-w"/></svg>aicia</div><span class="idx mono"><b>04</b> / 05</span></header>
+  <div class="eyebrow tx">Cómo trabajamos</div>
+  <h1 class="title tx">Tres pasos.<br>Sin <span class="serif">vueltas.</span></h1>
+  <div class="steps tx">
+    <div class="it"><svg class="app" viewBox="0 0 100 100" data-g="g-search" data-s="ap-light"></svg><div><span class="k mono">01</span><h3>Diagnóstico</h3><p>Encontramos dónde tu negocio pierde tiempo y plata.</p></div></div>
+    <div class="it"><svg class="app" viewBox="0 0 100 100" data-g="g-gear" data-s="ap-indigo"></svg><div><span class="k mono">02</span><h3>Implementación</h3><p>Lo resolvemos con las herramientas que ya usás.</p></div></div>
+    <div class="it"><svg class="app" viewBox="0 0 100 100" data-g="g-chart" data-s="ap-deep"></svg><div><span class="k mono">03</span><h3>Resultados</h3><p>Medimos cuánto ahorrás y seguimos mejorando.</p></div></div>
+  </div>
+  <div class="vignette"></div><div class="grain"></div>
+</section>
+
+<!-- ======================= 05 · CIERRE ======================= -->
+<section class="story s5" data-orbit='{"cx":790,"cy":1470,"rx":330,"ry":100,"rot":-28,"sat":330,"w":8}'>
+  <div class="stage"></div><div class="grid"></div>
+  <div class="subj" data-src="assets/mano-robot-senalando.png" data-rim="left" style="left:440px;top:1010px;width:760px;--tint:.20"></div>
+  <header class="hd"><div class="brand"><svg><use href="#logo-w"/></svg>aicia</div><span class="idx mono"><b>05</b> / 05</span></header>
+  <div class="eyebrow tx">Hablemos</div>
+  <h1 class="title tx">¿Lo vemos<br>para tu <span class="serif">negocio?</span></h1>
+  <p class="lede tx">Pedí tu demo y te mostramos cómo funcionaría en tu negocio, paso a paso.</p>
+  <div class="cta">Pedí tu demo<span class="go"><svg class="ic"><use href="#g-arrow"/></svg></span></div>
+  <div class="alt">o escribinos por mensaje a <span class="mono">@aicia_ia</span></div>
+  <div class="vignette"></div><div class="grain"></div>
+</section>
+
+<script>
+/* ---------- Íconos estilo app: superelipse (esquinas continuas) ---------- */
+function squircle(n = 5, s = 100, steps = 160) {
+  const pts = [];
+  for (let i = 0; i < steps; i++) {
+    const t = (i / steps) * Math.PI * 2, c = Math.cos(t), si = Math.sin(t);
+    const x = Math.sign(c) * Math.abs(c) ** (2 / n), y = Math.sign(si) * Math.abs(si) ** (2 / n);
+    pts.push(`${(50 + x * 50).toFixed(2)},${(50 + y * 50).toFixed(2)}`);
+  }
+  return 'M' + pts.join('L') + 'Z';
+}
+function gear(cx = 12, cy = 12, ro = 9.4, ri = 7.2, hole = 3.1, teeth = 8) {
+  let d = '';
+  const tw = Math.PI / teeth * 0.52;
+  for (let i = 0; i < teeth; i++) {
+    const a = (i / teeth) * Math.PI * 2;
+    const p = [[a - tw * 1.25, ri], [a - tw * .62, ro], [a + tw * .62, ro], [a + tw * 1.25, ri]];
+    const nxt = ((i + 1) / teeth) * Math.PI * 2 - tw * 1.25;
+    p.forEach(([ang, r], k) => { const x = cx + r * Math.cos(ang), y = cy + r * Math.sin(ang); d += (i === 0 && k === 0 ? 'M' : 'L') + x.toFixed(2) + ',' + y.toFixed(2); });
+    d += `A${ri},${ri} 0 0 1 ${(cx + ri * Math.cos(nxt)).toFixed(2)},${(cy + ri * Math.sin(nxt)).toFixed(2)}`;
+  }
+  d += `Z M${cx + hole},${cy} A${hole},${hole} 0 1 0 ${cx - hole},${cy} A${hole},${hole} 0 1 0 ${cx + hole},${cy}Z`;
+  return d;
+}
+document.getElementById('gearPath').setAttribute('d', gear());
+const SQ = squircle();
+document.querySelectorAll('svg.app').forEach(svg => {
+  const g = svg.dataset.g, s = svg.dataset.s;
+  svg.innerHTML = `<path d="${SQ}" fill="url(#${s})"/><path d="${SQ}" fill="url(#ap-glow)"/><path d="${SQ}" fill="url(#ap-sheen)"/>
+    <path d="${SQ}" fill="none" stroke="rgba(255,255,255,.28)" stroke-width="1"/>
+    <g class="gl" transform="translate(23 23) scale(2.25)"><use href="#${g}" width="24" height="24"/></g>`;
+});
+
+/* ---------- Protagonistas: imagen + tinte índigo + filo de luz ---------- */
+function buildSubjects() {
+  return Promise.all([...document.querySelectorAll('.subj')].map(el => new Promise(res => {
+    const src = el.dataset.src;
+    const img = new Image(); img.alt = '';
+    img.onload = () => {
+      el.style.height = (el.clientWidth * img.naturalHeight / img.naturalWidth) + 'px';
+      const side = el.dataset.rim === 'right' ? '270deg' : '90deg';
+      el.innerHTML = '';
+      el.append(img);
+      const tint = document.createElement('div'); tint.className = 'tint';
+      const rim = document.createElement('div'); rim.className = 'rim';
+      for (const d of [tint, rim]) { d.style.webkitMaskImage = d.style.maskImage = `url("${src}")`; }
+      rim.style.background = `linear-gradient(${side},rgba(199,201,255,.85) 0%,rgba(129,132,255,.25) 22%,transparent 45%)`;
+      el.append(tint, rim);
+      res();
+    };
+    img.src = src;
+  })));
+}
+
+/* ---------- Órbita: atrás arriba, adelante abajo, con satélite ---------- */
+function buildOrbits() {
+  document.querySelectorAll('.story[data-orbit]').forEach((sec, i) => {
+    const o = JSON.parse(sec.dataset.orbit);
+    const id = 'o' + i;
+    const W = o.w || 8, dim = !!o.dim;
+    const grad = `<linearGradient id="${id}g" gradientUnits="userSpaceOnUse" x1="${o.cx - o.rx}" y1="0" x2="${o.cx + o.rx}" y2="0">
+        <stop offset="0" stop-color="#C7C9FF" stop-opacity="${dim ? .35 : .15}"/><stop offset=".25" stop-color="#C7C9FF"/>
+        <stop offset=".55" stop-color="#FFFFFF"/><stop offset=".8" stop-color="#9A9BFA"/><stop offset="1" stop-color="#6366F1" stop-opacity="${dim ? .35 : .2}"/></linearGradient>`;
+    const ell = (extra = '') => `<ellipse cx="${o.cx}" cy="${o.cy}" rx="${o.rx}" ry="${o.ry}" fill="none" stroke="url(#${id}g)" stroke-width="${W}" stroke-linecap="round" ${o.dash ? `stroke-dasharray="${o.dash}"` : ''} ${extra}/>`;
+    const clip = (name, top) => `<clipPath id="${id}${name}"><rect x="${o.cx - o.rx - 60}" y="${top ? o.cy - o.ry - 60 : o.cy}" width="${2 * o.rx + 120}" height="${o.ry + 60}"/></clipPath>`;
+    const rot = `rotate(${o.rot} ${o.cx} ${o.cy})`;
+    const svg = (cls, half, alpha) => `<svg class="${cls}" viewBox="0 0 1080 1920" width="1080" height="1920"><defs>${grad}${clip('t', true)}${clip('b', false)}</defs>
+      <g transform="${rot}" opacity="${alpha}">
+        ${dim ? '' : `<g clip-path="url(#${id}${half})" filter="url(#orbGlow)" opacity=".55">${ell()}</g>`}
+        <g clip-path="url(#${id}${half})">${ell()}</g></g></svg>`;
+    sec.insertAdjacentHTML('beforeend', svg('orb-back', 't', dim ? .5 : .62) + svg('orb-front', 'b', dim ? .7 : 1));
+    if (o.sat != null) {
+      const t = o.sat * Math.PI / 180, r = o.rot * Math.PI / 180;
+      const x0 = o.rx * Math.cos(t), y0 = o.ry * Math.sin(t);
+      const x = o.cx + x0 * Math.cos(r) - y0 * Math.sin(r), y = o.cy + x0 * Math.sin(r) + y0 * Math.cos(r);
+      const s = o.ss || 84;
+      sec.insertAdjacentHTML('beforeend', `<img class="sat sph-img" data-sph="sat" style="--s:${s}px;left:${x - s / 2}px;top:${y - s / 2}px" alt="">`);
+    }
+  });
+}
+
+/* ---------- Esferas del logo en WebGL (ray tracing analítico) ---------- */
+const VS = `attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}`;
+const FS = `
+precision highp float;
+uniform vec2 uRes; uniform vec4 uView; uniform float uTheme; uniform vec2 uShow;
+const vec3 C1 = vec3(430.,-600.,0.);  const float R1 = 270.;
+const vec3 C2 = vec3(700.,-320.,70.); const float R2 = 92.;
+vec3 lin(vec3 c){return pow(c,vec3(2.2));}
+float softSh(vec3 ro, vec3 rd, vec3 c, float r, float k){
+  vec3 oc = ro - c; float b = dot(oc, rd); float cc = dot(oc,oc) - r*r; float h = b*b - cc;
+  float d = sqrt(max(0.0, r*r - h)) - r; float t = -b - sqrt(max(h, 0.0));
+  return (t < 0.0) ? 1.0 : smoothstep(0.0, 1.0, 2.5*k*d/t);
+}
+vec3 shade(vec3 n, vec3 C, float R, vec3 Co, float Ro, float other){
+  vec3 P = C + n*R;
+  float t = clamp(0.5 + 0.5*dot(n.xy, normalize(vec2(1.,-1.))), 0., 1.);
+  vec3 a0 = mix(lin(vec3(.388,.400,.945)), lin(vec3(.263,.220,.792)), t);
+  vec3 a1 = mix(lin(vec3(1.)), lin(vec3(.80,.81,1.)), t);
+  vec3 alb = mix(a0, a1, uTheme);
+  vec3 L = normalize(vec3(-.58,.62,.52)); vec3 V = vec3(0.,0.,1.);
+  float wrap = clamp((dot(n, L) + .35)/1.35, 0., 1.);
+  float sh = mix(1., softSh(P + n*.5, L, Co, Ro, 6.), other);
+  vec3 v = Co - P; float d = length(v); vec3 vd = v/d;
+  float aoK = clamp((Ro*Ro)/(d*d) * max(dot(n, vd), 0.), 0., 1.) * other;
+  vec3 sky = lin(vec3(.80,.81,1.));
+  vec3 grd = mix(lin(vec3(.05,.05,.12)), lin(vec3(.20,.17,.62)), uTheme);
+  vec3 hemi = mix(grd, sky, n.y*.5 + .5);
+  vec3 tint = mix(lin(vec3(.13,.11,.42)), lin(vec3(.47,.43,.97)), uTheme);
+  vec3 col = alb * mix(tint, vec3(1.08), wrap*sh) + alb*hemi*mix(.10,.16,uTheme);
+  col *= 1. - aoK*.75;
+  col += alb * lin(vec3(.62,.62,1.)) * aoK * .55;
+  float fr = pow(1. - max(n.z, 0.), 2.6);
+  float side = clamp(dot(normalize(n.xy + 1e-4), normalize(L.xy))*.5 + .5, 0., 1.);
+  vec3 rimL = mix(lin(vec3(.78,.79,1.)), lin(vec3(.90,.91,1.)), uTheme);
+  vec3 rimD = mix(lin(vec3(.39,.40,.95)), lin(vec3(.62,.60,1.)), uTheme);
+  col += mix(rimD*.55, rimL*.75, side) * fr * mix(1., .6, uTheme);
+  vec3 H = normalize(L + V); float nh = max(dot(n, H), 0.);
+  col += vec3(1.) * (pow(nh, 110.)*.85 + pow(nh, 14.)*.07) * sh;
+  return col;
+}
+vec3 tone(vec3 c){ c = c/(1. + .18*c); return pow(c, vec3(1./2.2)); }
+void main(){
+  float ps = uView.z/uRes.x;
+  vec2 q = vec2(uView.x + gl_FragCoord.x*ps, -(uView.y + (uRes.y - gl_FragCoord.y)*ps));
+  vec3 acc = vec3(0.); float a = 0.;
+  for (int i = 0; i < 2; i++){
+    if ((i == 0 && uShow.x < .5) || (i == 1 && uShow.y < .5)) continue;
+    vec3 C = i == 0 ? C1 : C2; float R = i == 0 ? R1 : R2;
+    vec3 Co = i == 0 ? C2 : C1; float Ro = i == 0 ? R2 : R1;
+    float other = i == 0 ? uShow.y : uShow.x;
+    vec2 dxy = q - C.xy; float dist = length(dxy);
+    float cov = clamp((R - dist)/ps + .5, 0., 1.);
+    if (cov > 0.){
+      vec2 e = dist > R*.998 ? dxy*(R*.998/dist) : dxy;
+      vec2 nxy = e/R; vec3 n = vec3(nxy, sqrt(max(0., 1. - dot(nxy,nxy))));
+      vec3 c = tone(shade(n, C, R, Co, Ro, other));
+      acc = c*cov + acc*(1. - cov); a = cov + a*(1. - cov);
+    }
+  }
+  gl_FragColor = vec4(acc, a);
+}`;
+function renderSpheres(theme, size, vb, show) {
+  const cv = document.createElement('canvas'); cv.width = cv.height = size;
+  const gl = cv.getContext('webgl', {premultipliedAlpha:true, preserveDrawingBuffer:true, antialias:false, alpha:true});
+  if (!gl) throw new Error('WebGL no disponible');
+  const sh = (t, s) => { const o = gl.createShader(t); gl.shaderSource(o, s); gl.compileShader(o); if (!gl.getShaderParameter(o, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(o)); return o; };
+  const pr = gl.createProgram(); gl.attachShader(pr, sh(gl.VERTEX_SHADER, VS)); gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, FS)); gl.linkProgram(pr); gl.useProgram(pr);
+  const b = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, b); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,3,-1,-1,3]), gl.STATIC_DRAW);
+  const loc = gl.getAttribLocation(pr, 'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+  gl.uniform2f(gl.getUniformLocation(pr, 'uRes'), size, size);
+  gl.uniform4f(gl.getUniformLocation(pr, 'uView'), ...vb);
+  gl.uniform1f(gl.getUniformLocation(pr, 'uTheme'), theme === 'light' ? 1 : 0);
+  gl.uniform2f(gl.getUniformLocation(pr, 'uShow'), ...show);
+  gl.viewport(0, 0, size, size); gl.clearColor(0,0,0,0); gl.clear(gl.COLOR_BUFFER_BIT); gl.drawArrays(gl.TRIANGLES, 0, 3);
+  return cv.toDataURL('image/png');
+}
+
+(async () => {
+  if (location.search.includes('qa')) document.documentElement.classList.add('qa');
+  buildOrbits();
+  const urls = {
+    sat: renderSpheres('light', 512, [604, 224, 192, 192], [0, 1]),
+    pair: renderSpheres('light', 1200, [110, 180, 740, 740], [1, 1]),
+  };
+  const imgs = [...document.querySelectorAll('img[data-sph]')];
+  await Promise.all([buildSubjects(), ...imgs.map(im => new Promise(r => { im.onload = r; im.src = urls[im.dataset.sph]; }))]);
+  await document.fonts.ready;
+  window.__ready = true;
+})().catch(e => { window.__error = String(e && e.stack || e); });
+</script>
+</body>
+</html>
