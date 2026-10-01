@@ -154,24 +154,26 @@ img.sph{display:block;pointer-events:none;user-select:none}
 /* =========================================================
    V4 · Senses: degradé pizarra → lavanda + arco de líneas
    ========================================================= */
-.v4 .bg{background:linear-gradient(180deg,#151935 0%,#232A5C 28%,#343A92 54%,#7E82E4 76%,#C9CBFF 90%,#E6E6FF 100%)}
-.v4 .bg .arc{width:2100px;height:2100px;left:-510px;top:1096px;border-radius:50%;background:repeating-radial-gradient(circle at 50% 50%,rgba(255,255,255,0) 0 9px,rgba(255,255,255,.55) 9px 10px);-webkit-mask:radial-gradient(closest-side,transparent 64%,#000 79%,#000 92%,transparent 100%);mask:radial-gradient(closest-side,transparent 64%,#000 79%,#000 92%,transparent 100%);opacity:.45}
-.v4 .bg .arc2{width:2100px;height:2100px;left:-510px;top:1096px;border-radius:50%;box-shadow:0 -2px 0 0 rgba(255,255,255,.7),0 -40px 120px -20px rgba(255,255,255,.45)}
+.v4 .bg{background:linear-gradient(180deg,#12152E 0%,#1E2456 26%,#313793 54%,#7E82E4 76%,#C9CBFF 90%,#EAEAFF 100%)}
+.v4 .bg .orb{width:980px;height:980px;left:470px;top:60px;border-radius:50%;background:radial-gradient(closest-side,rgba(124,128,255,.40),rgba(99,102,241,.14) 55%,transparent)}
+.v4 .bg .arc{width:2100px;height:2100px;left:-510px;top:1096px;border-radius:50%;background:repeating-radial-gradient(circle at 50% 50%,rgba(255,255,255,0) 0 9px,rgba(255,255,255,.5) 9px 10px);-webkit-mask:radial-gradient(closest-side,transparent 64%,#000 79%,#000 92%,transparent 100%);mask:radial-gradient(closest-side,transparent 64%,#000 79%,#000 92%,transparent 100%);opacity:.4}
+.v4 .bg .arc2{width:2100px;height:2100px;left:-510px;top:1096px;border-radius:50%;box-shadow:0 -1.5px 0 0 rgba(255,255,255,.75),0 -40px 120px -20px rgba(255,255,255,.42)}
 .v4 .bg .halo{width:1300px;height:700px;left:-110px;top:1010px;border-radius:50%;background:radial-gradient(closest-side,rgba(199,201,255,.55),transparent);filter:blur(40px)}
-.v4 .bg .s-a{width:560px;left:720px;top:250px;filter:blur(26px);opacity:.45}
-.v4 .pill{left:var(--m);top:398px;display:flex;align-items:center;gap:14px;height:56px;padding:0 26px 0 12px;border-radius:999px;font-size:23px;font-weight:500;color:#fff;letter-spacing:-0.005em;background:rgba(255,255,255,.10);backdrop-filter:blur(18px);box-shadow:inset 0 0 0 1px rgba(255,255,255,.20),inset 0 1px 0 rgba(255,255,255,.25)}
-.v4 .pill b{height:34px;padding:0 14px;border-radius:999px;display:inline-flex;align-items:center;background:#fff;color:var(--indigo-d);font-weight:600;font-size:20px}
-.v4 .title{left:var(--m);top:500px;font-size:112px;width:960px;color:#fff;white-space:nowrap}
-.v4 .title .serif{font-size:132px;letter-spacing:-0.025em;line-height:.8;color:var(--lav)}
-.v4 .lede{left:var(--m);top:866px;width:952px;font-size:35px;line-height:1.34;color:#fff;letter-spacing:-0.012em;text-wrap:pretty}
-.v4 .vals{left:var(--m);top:1000px;height:64px;padding:0 28px;border-radius:999px;display:flex;align-items:center;background:rgba(255,255,255,.08);backdrop-filter:blur(18px);box-shadow:inset 0 0 0 1px rgba(255,255,255,.16),inset 0 1px 0 rgba(255,255,255,.2)}
-.v4 .vals span{display:flex;align-items:center;gap:10px;padding:0 20px;font-size:23px;font-weight:500;color:#fff;letter-spacing:-0.01em;border-left:1px solid rgba(255,255,255,.24);white-space:nowrap}
-.v4 .vals span:first-child{padding-left:0;border-left:0}
-.v4 .vals .ic{font-size:24px;color:var(--lav)}
-.v4 .cards{left:var(--m);right:var(--m);top:1228px;display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-.v4 .card{border-radius:40px;padding:28px 28px 32px;height:384px;display:flex;flex-direction:column;background:linear-gradient(180deg,rgba(255,255,255,.80),rgba(255,255,255,.62));backdrop-filter:blur(24px) saturate(140%);box-shadow:inset 0 0 0 1px rgba(255,255,255,.75),0 30px 60px -24px rgba(30,30,90,.45),0 8px 18px -8px rgba(30,30,90,.20);color:var(--ink)}
-.v4 .card .ti{flex:none;width:70px;height:70px;border-radius:22px;display:grid;place-items:center;font-size:34px;color:#fff;background:linear-gradient(140deg,#6366F1,#4338CA);box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 10px 20px -8px rgba(67,56,202,.7)}
-.v4 .card .k{margin-top:58px;font-size:17px;font-weight:500;color:var(--indigo-d);letter-spacing:0.04em;text-transform:uppercase}
+.v4 .pill{left:var(--m);top:386px;display:flex;align-items:center;gap:14px;height:54px;padding:0 26px 0 22px;border-radius:999px;font-size:22px;font-weight:500;color:#fff;letter-spacing:0;background:linear-gradient(180deg,rgba(255,255,255,.11),rgba(255,255,255,.05));backdrop-filter:blur(18px);box-shadow:inset 0 0 0 1px rgba(255,255,255,.16),inset 0 1px 0 rgba(255,255,255,.22)}
+.v4 .pill i{width:9px;height:9px;border-radius:50%;background:var(--lav);box-shadow:0 0 0 4px rgba(199,201,255,.14),0 0 14px 2px rgba(199,201,255,.65)}
+.v4 .title{left:var(--m);top:480px;font-size:112px;width:960px;color:#fff;white-space:nowrap}
+.v4 .title .serif{font-size:132px;letter-spacing:-0.025em;line-height:.8;color:var(--lav);background:linear-gradient(100deg,#B9BBFF 0%,#E6E7FF 52%,#C3C5FF 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;padding:0 .08em .14em 0}
+.v4 .lede{left:var(--m);top:848px;width:952px;font-size:34px;line-height:1.38;color:rgba(226,228,255,.80);letter-spacing:-0.012em;text-wrap:pretty}
+.v4 .lede b{color:#fff;font-weight:500}
+.v4 .vals{left:var(--m);right:var(--m);top:984px;height:62px;border-radius:999px;display:grid;grid-template-columns:repeat(3,1fr);column-gap:22px;align-items:center;background:linear-gradient(180deg,rgba(255,255,255,.11),rgba(255,255,255,.05));backdrop-filter:blur(18px);box-shadow:inset 0 0 0 1px rgba(255,255,255,.16),inset 0 1px 0 rgba(255,255,255,.22),0 20px 40px -24px rgba(10,10,40,.55)}
+.v4 .vals span{position:relative;display:flex;justify-content:center;align-items:center;gap:10px;height:30px;font-size:22px;font-weight:500;color:#fff;letter-spacing:-0.01em;white-space:nowrap}
+.v4 .vals span + span::before{content:"";position:absolute;left:-11px;top:0;bottom:0;width:1px;background:rgba(255,255,255,.2)}
+.v4 .vals .ic{font-size:22px;color:var(--lav)}
+.v4 .cards{left:var(--m);right:var(--m);top:1222px;display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.v4 .card{position:relative;border-radius:44px;padding:26px 28px 32px;height:384px;display:flex;flex-direction:column;background:linear-gradient(180deg,rgba(255,255,255,.84),rgba(255,255,255,.66));backdrop-filter:blur(28px) saturate(160%);box-shadow:inset 0 0 0 1px rgba(255,255,255,.72),inset 0 1.5px 0 #fff,0 1px 2px rgba(30,30,90,.08),0 24px 48px -22px rgba(30,30,90,.40),0 60px 90px -50px rgba(40,36,140,.45);color:var(--ink)}
+.v4 .card .ti{flex:none;width:64px;height:64px;border-radius:18px;display:grid;place-items:center;font-size:30px;color:#fff;background:linear-gradient(150deg,#6E71F4,#4F46E5 55%,#4338CA);box-shadow:inset 0 1px 0 rgba(255,255,255,.35),inset 0 -1px 0 rgba(20,10,80,.25),0 10px 18px -8px rgba(67,56,202,.7)}
+.v4 .card .n{position:absolute;top:30px;right:30px;font-size:18px;color:#55567A}
+.v4 .card .k{margin-top:70px;font-size:17px;font-weight:500;color:var(--indigo-d);letter-spacing:0.04em;text-transform:uppercase}
 .v4 .card h3{margin-top:10px;font-size:36px;font-weight:600;letter-spacing:-0.035em;line-height:1.05}
 .v4 .card p{margin-top:12px;font-size:24px;line-height:1.3;color:#3A3B5C;letter-spacing:-0.008em;text-wrap:pretty}
 
@@ -332,19 +334,18 @@ img.sph{display:block;pointer-events:none;user-select:none}
 
 <!-- ============ V4 · Senses ============ -->
 <section class="story v4" id="v4">
-  <div class="bg"><div class="halo"></div><div class="arc"></div><div class="arc2"></div><img class="sph s-a" data-sph="indigo" alt=""><div class="grain"></div></div>
+  <div class="bg"><div class="orb"></div><div class="halo"></div><div class="arc"></div><div class="arc2"></div><div class="grain"></div></div>
   <header class="meta">
     <div class="brand"><svg><use href="#logo-w"/></svg>aicia</div>
-    <dl><div><dt>Para</dt><dd>Dueños de negocio</dd></div><div><dt>Desde</dt><dd>Montevideo</dd></div></dl>
   </header>
-  <div class="pill"><b>Aicia</b>Agencia de IA y automatizaciones</div>
+  <div class="pill"><i></i>Agencia de IA y automatizaciones</div>
   <h1 class="title">Lo repetitivo,<br>lo hace Aicia.<br>Vos, <span class="serif">lo importante.</span></h1>
-  <p class="lede">Encontramos dónde tu negocio pierde tiempo y plata, y lo resolvemos con IA, automatizaciones, webs y apps.</p>
+  <p class="lede">Encontramos dónde tu negocio <b>pierde tiempo y plata</b>, y lo resolvemos con IA, automatizaciones, webs y apps.</p>
   <div class="vals"><span><svg class="ic"><use href="#i-trend"/></svg>Resultados medibles</span><span><svg class="ic"><use href="#i-clock"/></svg>Rápido de implementar</span><span><svg class="ic"><use href="#i-check"/></svg>Sin esfuerzo tuyo</span></div>
   <div class="cards">
-    <div class="card"><div class="ti"><svg class="ic"><use href="#i-chat"/></svg></div><span class="k mono">IA</span><h3>Responde</h3><p>Ningún cliente sin respuesta, aunque escriba a las 23:00.</p></div>
-    <div class="card"><div class="ti"><svg class="ic"><use href="#i-flow"/></svg></div><span class="k mono">Automatización</span><h3>Automatiza</h3><p>Las tareas que hoy te comen horas, hechas solas.</p></div>
-    <div class="card"><div class="ti"><svg class="ic"><use href="#i-code"/></svg></div><span class="k mono">Webs y apps</span><h3>Desarrolla</h3><p>La web o la app que tu negocio necesita para vender más.</p></div>
+    <div class="card"><span class="n mono">01</span><div class="ti"><svg class="ic"><use href="#i-chat"/></svg></div><span class="k mono">IA</span><h3>Responde</h3><p>Ningún cliente sin respuesta, aunque escriba a las 23:00.</p></div>
+    <div class="card"><span class="n mono">02</span><div class="ti"><svg class="ic"><use href="#i-flow"/></svg></div><span class="k mono">Automatización</span><h3>Automatiza</h3><p>Las tareas que hoy te comen horas, hechas solas.</p></div>
+    <div class="card"><span class="n mono">03</span><div class="ti"><svg class="ic"><use href="#i-code"/></svg></div><span class="k mono">Webs y apps</span><h3>Desarrolla</h3><p>La web o la app que tu negocio necesita para vender más.</p></div>
   </div>
 </section>
 
