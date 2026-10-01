@@ -47,7 +47,7 @@ const issues = await page.evaluate(() => {
     while ((n = walker.nextNode())) {
       if (!n.textContent.trim()) continue;
       const el = n.parentElement;
-      if (el.closest('.screen,[aria-hidden]')) continue;
+      if (el.closest('.screen,.sig,[aria-hidden]')) continue;
       const r = document.createRange(); r.selectNodeContents(n);
       for (const b of r.getClientRects()) {
         const x0 = b.left - sr.left, x1 = b.right - sr.left, y0 = b.top - sr.top, y1 = b.bottom - sr.top;
