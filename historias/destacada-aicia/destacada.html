@@ -38,7 +38,7 @@ body{display:flex;flex-direction:column;align-items:center;gap:80px;padding:80px
 .subj{z-index:2;isolation:isolate}
 .subj > *{position:absolute;inset:0;width:100%;height:100%}
 .subj img{display:block;filter:url(#cut)}
-.subj.fade{-webkit-mask-image:linear-gradient(180deg,#000 70%,transparent 97%);mask-image:linear-gradient(180deg,#000 70%,transparent 97%)}
+.subj.fade{-webkit-mask-image:linear-gradient(180deg,#000 0%,#000 56%,rgba(0,0,0,.86) 63%,rgba(0,0,0,.62) 70%,rgba(0,0,0,.38) 77%,rgba(0,0,0,.18) 83%,rgba(0,0,0,.06) 88%,transparent 92%);mask-image:linear-gradient(180deg,#000 0%,#000 56%,rgba(0,0,0,.86) 63%,rgba(0,0,0,.62) 70%,rgba(0,0,0,.38) 77%,rgba(0,0,0,.18) 83%,rgba(0,0,0,.06) 88%,transparent 92%)}
 .subj .tint,.subj .rim{-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
 .subj .tint{background:linear-gradient(180deg,#6366F1,#3B32B8);mix-blend-mode:color;opacity:var(--tint,.28)}
 .subj .rim{mix-blend-mode:screen;opacity:var(--rim,.55)}
