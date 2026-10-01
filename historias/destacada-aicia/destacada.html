@@ -69,7 +69,9 @@ body{display:flex;flex-direction:column;align-items:center;gap:80px;padding:80px
 
 /* Ícono estilo app: cuadrado de esquinas continuas, glifo blanco, brillo interior */
 svg.app{display:block;flex:none;overflow:visible;filter:drop-shadow(0 1px 1px rgba(0,0,0,.25)) drop-shadow(0 12px 18px rgba(10,8,70,.45))}
-svg.app .gl{fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+svg.app .gl{fill:none;stroke:#fff;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+svg.app .gl .ink{stroke:#3D35C4;fill:none}
+svg.app .gl .inkf{fill:#3D35C4;stroke:none}
 svg.app .gl .f{fill:#fff;stroke:none}
 .ic{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex:none}
 
@@ -173,11 +175,14 @@ svg.app .gl .f{fill:#fff;stroke:none}
     <linearGradient id="lgw" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#C7C9FF"/></linearGradient>
     <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6366F1"/><stop offset="1" stop-color="#4338CA"/></linearGradient>
     <!-- superficies de ícono -->
-    <linearGradient id="ap-indigo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7477F6"/><stop offset=".55" stop-color="#5149E6"/><stop offset="1" stop-color="#4036C4"/></linearGradient>
-    <linearGradient id="ap-light" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A3A5FB"/><stop offset=".55" stop-color="#7477F2"/><stop offset="1" stop-color="#585BE0"/></linearGradient>
-    <linearGradient id="ap-deep" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4F4BD6"/><stop offset=".55" stop-color="#3A31AE"/><stop offset="1" stop-color="#2A2387"/></linearGradient>
-    <linearGradient id="ap-sheen" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".34"/><stop offset=".48" stop-color="#fff" stop-opacity=".06"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
-    <radialGradient id="ap-glow" cx=".5" cy="1.05" r=".7"><stop offset="0" stop-color="#C7C9FF" stop-opacity=".35"/><stop offset="1" stop-color="#C7C9FF" stop-opacity="0"/></radialGradient>
+    <linearGradient id="ap-indigo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8689FF"/><stop offset=".5" stop-color="#5B52F0"/><stop offset="1" stop-color="#4232CC"/></linearGradient>
+    <linearGradient id="ap-light" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B2AEFF"/><stop offset=".45" stop-color="#8A80FA"/><stop offset="1" stop-color="#5F50E4"/></linearGradient>
+    <linearGradient id="ap-deep" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5C60EC"/><stop offset=".5" stop-color="#3A32B8"/><stop offset="1" stop-color="#231C84"/></linearGradient>
+    <radialGradient id="ap-hl" cx=".3" cy=".08" r=".78"><stop offset="0" stop-color="#fff" stop-opacity=".48"/><stop offset=".45" stop-color="#fff" stop-opacity=".12"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+    <linearGradient id="ap-shade" x1="0" y1="0" x2="0" y2="1"><stop offset=".5" stop-color="#0A063C" stop-opacity="0"/><stop offset="1" stop-color="#0A063C" stop-opacity=".30"/></linearGradient>
+    <linearGradient id="ap-rim" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".85"/><stop offset=".3" stop-color="#fff" stop-opacity=".18"/><stop offset=".75" stop-color="#fff" stop-opacity=".06"/><stop offset="1" stop-color="#fff" stop-opacity=".28"/></linearGradient>
+    <clipPath id="sq-clip"><path id="sqClipPath" d=""/></clipPath>
+    <filter id="gl-shadow" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy=".7" stdDeviation=".7" flood-color="#160F5E" flood-opacity=".5"/></filter>
     <!-- recorte: nitidez + borde sin halo blanco -->
     <filter id="cut" color-interpolation-filters="sRGB" x="-2%" y="-2%" width="104%" height="104%">
       <feConvolveMatrix in="SourceGraphic" order="3" kernelMatrix="0 -0.28 0 -0.28 2.12 -0.28 0 -0.28 0" preserveAlpha="true" result="s"/>
@@ -190,15 +195,16 @@ svg.app .gl .f{fill:#fff;stroke:none}
   <symbol id="logo" viewBox="150 220 660 660"><circle cx="430" cy="600" r="270" fill="url(#lg)"/><circle cx="700" cy="320" r="92" fill="url(#lg)"/></symbol>
   <symbol id="logo-w" viewBox="150 220 660 660"><circle cx="430" cy="600" r="270" fill="url(#lgw)"/><circle cx="700" cy="320" r="92" fill="url(#lgw)"/></symbol>
   <!-- Glifos (grilla 24, trazo 2, estilo sistema) -->
-  <symbol id="g-message" viewBox="0 0 24 24"><path class="f" d="M12 3.6c-5 0-9 3.3-9 7.4 0 2.3 1.3 4.4 3.3 5.7-.15 1.25-.75 2.45-1.8 3.3 2.15-.1 3.95-.9 5.15-1.95.75.15 1.55.25 2.35.25 5 0 9-3.3 9-7.3s-4-7.4-9-7.4z"/><circle cx="8" cy="11" r="1.25" fill="#4F46E5" stroke="none"/><circle cx="12" cy="11" r="1.25" fill="#4F46E5" stroke="none"/><circle cx="16" cy="11" r="1.25" fill="#4F46E5" stroke="none"/></symbol>
+  <symbol id="g-message" viewBox="0 0 24 24"><path class="f" fill="#fff" stroke="none" fill-rule="evenodd" d="M12 3.2c-5.1 0-9.2 3.4-9.2 7.6 0 2.4 1.3 4.5 3.4 5.9-.2 1.3-.8 2.5-1.9 3.4 2.2-.1 4.1-.9 5.3-2 .8.2 1.6.3 2.4.3 5.1 0 9.2-3.4 9.2-7.6S17.1 3.2 12 3.2zM9.25 10.85a1.35 1.35 0 1 1-2.7 0 1.35 1.35 0 1 1 2.7 0zM13.35 10.85a1.35 1.35 0 1 1-2.7 0 1.35 1.35 0 1 1 2.7 0zM17.450000000000003 10.85a1.35 1.35 0 1 1-2.7 0 1.35 1.35 0 1 1 2.7 0z"/></symbol>
+  <symbol id="g-ai" viewBox="0 0 24 24"><path class="f" fill="#fff" stroke="none" fill-rule="evenodd" d="M12 3.2c-5.1 0-9.2 3.4-9.2 7.6 0 2.4 1.3 4.5 3.4 5.9-.2 1.3-.8 2.5-1.9 3.4 2.2-.1 4.1-.9 5.3-2 .8.2 1.6.3 2.4.3 5.1 0 9.2-3.4 9.2-7.6S17.1 3.2 12 3.2zM12 6.9c.46 2.6 1.38 3.52 3.98 3.98-2.6.46-3.52 1.38-3.98 3.98-.46-2.6-1.38-3.52-3.98-3.98 2.6-.46 3.52-1.38 3.98-3.98z"/></symbol>
   <symbol id="g-flow" viewBox="0 0 24 24"><path d="M4.8 12.2a7.2 7.2 0 0 1 12.3-5.1"/><path d="M17.9 3.4v4.3h-4.3"/><path d="M19.2 11.8a7.2 7.2 0 0 1-12.3 5.1"/><path d="M6.1 20.6v-4.3h4.3"/></symbol>
-  <symbol id="g-code" viewBox="0 0 24 24"><path d="M8.2 7 3.2 12l5 5"/><path d="M15.8 7l5 5-5 5"/><path d="M13.6 4.4 10.4 19.6"/></symbol>
+  <symbol id="g-code" viewBox="0 0 24 24"><path class="f" fill="#fff" stroke="none" d="M6.4 3.8h11.2A3.4 3.4 0 0 1 21 7.2v9.6a3.4 3.4 0 0 1-3.4 3.4H6.4A3.4 3.4 0 0 1 3 16.8V7.2a3.4 3.4 0 0 1 3.4-3.4z"/><circle class="inkf" fill="#3D35C4" stroke="none" cx="6.5" cy="6.7" r=".8"/><circle class="inkf" fill="#3D35C4" stroke="none" cx="8.8" cy="6.7" r=".8"/><circle class="inkf" fill="#3D35C4" stroke="none" cx="11.1" cy="6.7" r=".8"/><path class="ink" stroke="#3D35C4" fill="none" d="M3.4 9h17.2" stroke-width=".9" opacity=".3"/><path class="ink" stroke="#3D35C4" fill="none" d="M10 11.7l-2.4 2.45L10 16.6M14 11.7l2.4 2.45L14 16.6" stroke-width="1.8"/><path class="ink" stroke="#3D35C4" fill="none" d="M12.85 11.1 11.15 17.2" stroke-width="1.5"/></symbol>
   <symbol id="g-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.3"/><path d="M15.3 15.3 20.3 20.3" stroke-width="2.6"/></symbol>
-  <symbol id="g-gear" viewBox="0 0 24 24"><path id="gearPath" class="f" fill-rule="evenodd" d=""/></symbol>
+  <symbol id="g-gear" viewBox="0 0 24 24"><path id="gearPath" class="f" fill="#fff" stroke="none" fill-rule="evenodd" d=""/></symbol>
   <symbol id="g-chart" viewBox="0 0 24 24"><path d="M4 3.5v16.5h16.5"/><path d="M7.5 15.5l4-4.2 3 3 5.2-5.8"/><path d="M15.4 8.4h4.4v4.4"/></symbol>
-  <symbol id="g-people" viewBox="0 0 24 24"><circle class="f" cx="9" cy="8" r="3.6"/><path class="f" d="M2.6 19.4c.6-3.4 3.2-5.5 6.4-5.5s5.8 2.1 6.4 5.5c.1.6-.3 1.1-.9 1.1H3.5c-.6 0-1-.5-.9-1.1z"/><circle class="f" cx="16.6" cy="8.6" r="2.8" opacity=".75"/><path class="f" opacity=".75" d="M16.4 13.4c2.7 0 4.7 1.7 5.2 4.6.1.5-.3.9-.8.9h-3.7c-.2-2.2-1.2-4-2.7-5.2.6-.2 1.3-.3 2-.3z"/></symbol>
+  <symbol id="g-people" viewBox="0 0 24 24"><circle class="f" fill="#fff" stroke="none" cx="9" cy="8" r="3.6"/><path class="f" fill="#fff" stroke="none" d="M2.6 19.4c.6-3.4 3.2-5.5 6.4-5.5s5.8 2.1 6.4 5.5c.1.6-.3 1.1-.9 1.1H3.5c-.6 0-1-.5-.9-1.1z"/><circle class="f" fill="#fff" stroke="none" cx="16.6" cy="8.6" r="2.8" opacity=".75"/><path class="f" fill="#fff" stroke="none" opacity=".75" d="M16.4 13.4c2.7 0 4.7 1.7 5.2 4.6.1.5-.3.9-.8.9h-3.7c-.2-2.2-1.2-4-2.7-5.2.6-.2 1.3-.3 2-.3z"/></symbol>
   <symbol id="g-table" viewBox="0 0 24 24"><rect x="3.2" y="4.5" width="17.6" height="15" rx="3"/><path d="M3.2 9.5h17.6M3.2 14.5h17.6M9.5 9.5v10"/></symbol>
-  <symbol id="g-cal" viewBox="0 0 24 24"><rect x="3.2" y="5" width="17.6" height="15.5" rx="3.2"/><path class="f" d="M3.2 8.2A3.2 3.2 0 0 1 6.4 5h11.2a3.2 3.2 0 0 1 3.2 3.2V10H3.2z"/><path d="M8 3v3.5M16 3v3.5"/><path d="M8.8 15.2l2.1 2.1 4.3-4.3"/></symbol>
+  <symbol id="g-cal" viewBox="0 0 24 24"><rect x="3.2" y="5" width="17.6" height="15.5" rx="3.2"/><path class="f" fill="#fff" stroke="none" d="M3.2 8.2A3.2 3.2 0 0 1 6.4 5h11.2a3.2 3.2 0 0 1 3.2 3.2V10H3.2z"/><path d="M8 3v3.5M16 3v3.5"/><path d="M8.8 15.2l2.1 2.1 4.3-4.3"/></symbol>
   <symbol id="g-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
   <symbol id="g-arrow" viewBox="0 0 24 24"><path d="M7 17 17 7"/><path d="M9 7h8v8"/></symbol>
   <symbol id="g-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 11v5M12 8h.01"/></symbol>
@@ -213,7 +219,7 @@ svg.app .gl .f{fill:#fff;stroke:none}
   <h1 class="title tx">Hola,<br>somos <span class="acc">Aicia.</span></h1>
   <p class="lede tx">Hacemos que tu negocio <b>funcione solo</b>, con IA, automatizaciones, webs y apps.</p>
   <div class="dock glass ui">
-    <div class="it"><svg class="app" viewBox="0 0 100 100" data-g="g-message" data-s="ap-indigo"></svg><span>IA</span></div>
+    <div class="it"><svg class="app" viewBox="0 0 100 100" data-g="g-ai" data-s="ap-indigo"></svg><span>IA</span></div>
     <div class="it"><svg class="app" viewBox="0 0 100 100" data-g="g-flow" data-s="ap-light"></svg><span>Automatización</span></div>
     <div class="it"><svg class="app" viewBox="0 0 100 100" data-g="g-code" data-s="ap-deep"></svg><span>Webs y apps</span></div>
   </div>
@@ -251,7 +257,7 @@ svg.app .gl .f{fill:#fff;stroke:none}
   <div class="eyebrow tx">Qué hacemos</div>
   <h1 class="title tx">Tu negocio,<br>en <span class="serif">automático.</span></h1>
   <div class="svc tx">
-    <div class="it"><svg class="app" viewBox="0 0 100 100" data-g="g-message" data-s="ap-indigo"></svg><div><h3>Asistentes de IA</h3><p>Responden y agendan en WhatsApp, Instagram y web.</p></div></div>
+    <div class="it"><svg class="app" viewBox="0 0 100 100" data-g="g-ai" data-s="ap-indigo"></svg><div><h3>Asistentes de IA</h3><p>Responden y agendan en WhatsApp, Instagram y web.</p></div></div>
     <div class="it"><svg class="app" viewBox="0 0 100 100" data-g="g-flow" data-s="ap-light"></svg><div><h3>Automatizaciones</h3><p>Seguimientos, planillas y avisos que se hacen solos.</p></div></div>
     <div class="it"><svg class="app" viewBox="0 0 100 100" data-g="g-code" data-s="ap-deep"></svg><div><h3>Webs y apps</h3><p>A medida de tu negocio y conectadas a todo.</p></div></div>
   </div>
@@ -315,11 +321,12 @@ function gear(cx = 12, cy = 12, ro = 9.4, ri = 7.2, hole = 3.1, teeth = 8) {
 }
 document.getElementById('gearPath').setAttribute('d', gear());
 const SQ = squircle();
+document.getElementById('sqClipPath').setAttribute('d', SQ);
 document.querySelectorAll('svg.app').forEach(svg => {
   const g = svg.dataset.g, s = svg.dataset.s;
-  svg.innerHTML = `<path d="${SQ}" fill="url(#${s})"/><path d="${SQ}" fill="url(#ap-glow)"/><path d="${SQ}" fill="url(#ap-sheen)"/>
-    <path d="${SQ}" fill="none" stroke="rgba(255,255,255,.28)" stroke-width="1"/>
-    <g class="gl" transform="translate(23 23) scale(2.25)"><use href="#${g}" width="24" height="24"/></g>`;
+  svg.innerHTML = `<path d="${SQ}" fill="url(#${s})"/><path d="${SQ}" fill="url(#ap-hl)"/><path d="${SQ}" fill="url(#ap-shade)"/>
+    <path d="${SQ}" fill="none" stroke="url(#ap-rim)" stroke-width="2.6" clip-path="url(#sq-clip)"/>
+    <g class="gl" filter="url(#gl-shadow)" transform="translate(22 22) scale(2.333)"><use href="#${g}" width="24" height="24"/></g>`;
 });
 
 /* ---------- Protagonistas: imagen + tinte índigo + filo de luz ---------- */
