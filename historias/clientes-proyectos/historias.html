@@ -244,6 +244,18 @@ svg.app .gl .f{fill:#fff;stroke:none}
 .lap{z-index:2;isolation:isolate}
 .lap > *{position:absolute}
 .lap-scr{left:0;top:0;width:100%;height:100%;z-index:3;filter:blur(.45px) saturate(.96)}
+.lap .subj img{filter:url(#cut) contrast(1.08) brightness(.94) saturate(.9)}
+.lap .fx{left:0;top:0;width:100%;height:100%;pointer-events:none}
+.lap .fx.m{z-index:2;-webkit-mask:url(assets/macbook-manos.png) 0 0/100% 100% no-repeat;mask:url(assets/macbook-manos.png) 0 0/100% 100% no-repeat}
+.lap .blacks{background:#0B0A24;mix-blend-mode:lighten;opacity:.5}
+.lap .falloff{mix-blend-mode:multiply;background:
+  radial-gradient(64% 54% at 51% 30%,rgba(255,255,255,0) 45%,rgba(60,52,150,.32) 100%),
+  linear-gradient(180deg,rgba(255,255,255,0) 55%,rgba(40,34,120,.34) 100%)}
+.lap .spill{mix-blend-mode:screen;background:
+  radial-gradient(260px 96px at 690px 546px,rgba(226,228,255,.26),rgba(160,163,255,.08) 55%,transparent 75%),
+  radial-gradient(520px 240px at 680px 600px,rgba(129,132,255,.09),transparent 70%)}
+.lap .bloom-out{z-index:1;background:radial-gradient(400px 330px at 735px 370px,rgba(199,201,255,.30),rgba(129,132,255,.12) 50%,transparent 75%)}
+.lap-scr.bloom{z-index:4;filter:blur(22px);opacity:.2;mix-blend-mode:screen}
 .lap-scr > *{position:absolute;left:0;top:0;transform-origin:0 0}
 .site{width:1512px;height:982px;overflow:hidden;border-radius:18px 18px 6px 6px;font-family:"Geist",system-ui,sans-serif;color:#0B0A2A;background:linear-gradient(180deg,#F4F4FE 0%,#ECECFA 100%)}
 .site > *{position:absolute}
@@ -407,7 +419,10 @@ svg.app .gl .f{fill:#fff;stroke:none}
   <!-- Foto real (manos + MacBook). La pantalla original se pintó de negro (preparar-macbook.mjs)
        y el sitio de Aicia se calza encima en perspectiva con las 4 esquinas medidas. -->
   <div class="lap" style="left:-204px;top:840px;width:1440px;height:1080px" data-w="1200" data-quad="472,93 820,252 740,462 413,418">
+    <div class="fx bloom-out"></div>
     <div class="subj" data-src="assets/macbook-manos.png" data-rim="left" style="left:0;top:0;width:1440px;--tint:.12;--rim:.38"></div>
+    <!-- Integración: negros al índigo de la escena, caída de luz, luz de la pantalla sobre el teclado -->
+    <div class="fx m blacks"></div><div class="fx m falloff"></div><div class="fx m spill"></div>
     <div class="lap-scr" aria-hidden="true">
       <div class="site">
         <svg class="wave" viewBox="0 0 1512 982" width="1512" height="982">
@@ -433,6 +448,7 @@ svg.app .gl .f{fill:#fff;stroke:none}
       </div>
       <div class="glare"></div>
     </div>
+    <div class="lap-scr bloom" aria-hidden="true"></div>
   </div>
   <div class="eyebrow tx">Proyectos</div>
   <h1 class="title tx">Lo que<br><span class="serif">construimos.</span></h1>
@@ -618,6 +634,8 @@ function renderSpheres(theme, size, vb, show) {
 /* ---------- Pantalla en perspectiva: rectángulo → las 4 esquinas medidas en la foto ---------- */
 function fitScreens() {
   document.querySelectorAll('.lap').forEach(lap => {
+    const bloom = lap.querySelector('.lap-scr.bloom'), site = lap.querySelector('.lap-scr .site');
+    if (bloom && site && !bloom.children.length) bloom.append(site.cloneNode(true));
     const k = lap.clientWidth / +lap.dataset.w;
     const q = lap.dataset.quad.split(' ').map(p => p.split(',').map(n => +n * k));
     lap.querySelectorAll('.lap-scr > *').forEach(el => {
