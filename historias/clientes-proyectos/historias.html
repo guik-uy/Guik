@@ -219,7 +219,6 @@ svg.app .gl .f{fill:#fff;stroke:none}
    Clientes y Proyectos
    ========================================================= */
 .c1{--gx:50%;--gy:71%;--gw:1150px;--gh:900px}
-.p1{--gx:58%;--gy:76%;--gw:1100px;--gh:900px}
 .card{--gx:50%;--gy:42%;--gw:900px;--gh:820px}
 .c1 .eyebrow,.p1 .eyebrow{left:var(--m);top:384px}
 .c1 .title,.p1 .title{left:var(--m);top:440px;font-size:132px}
@@ -240,14 +239,9 @@ svg.app .gl .f{fill:#fff;stroke:none}
 .card .pill .lg-i{width:34px;height:34px;margin-left:-6px;flex:none}
 .card .pill b{font-weight:600;background:linear-gradient(90deg,#E4E5FF,#B9BBFF);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 
-/* MacBook con fondo de pantalla */
-.mac-screen{z-index:3;overflow:hidden;border-radius:3px 3px 0 0;background:radial-gradient(70% 90% at 50% 105%,#7B7EF8 0%,#4F46E5 35%,#2A2384 70%,#120F45 100%)}
-.mac-screen::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 60% at 50% 120%,rgba(199,201,255,.55),transparent 70%)}
-.mac-screen img{position:absolute;left:50%;top:50%;width:150px;transform:translate(-50%,-52%);filter:drop-shadow(0 12px 24px rgba(10,6,60,.6))}
-.mac-screen .notch{position:absolute;left:50%;top:0;width:58px;height:9px;margin-left:-29px;background:#0E0E12;border-radius:0 0 6px 6px;z-index:2}
-.mac-screen .bar{position:absolute;left:0;right:0;top:0;height:13px;background:rgba(10,8,40,.35);backdrop-filter:blur(6px)}
-.mac-screen .dock{position:absolute;left:50%;bottom:9px;transform:translateX(-50%);display:flex;gap:7px;padding:6px 8px;border-radius:14px;background:rgba(255,255,255,.14);backdrop-filter:blur(10px);box-shadow:inset 0 0 0 .5px rgba(255,255,255,.3)}
-.mac-screen .dock svg.app{width:30px;height:30px;filter:drop-shadow(0 3px 5px rgba(10,8,70,.45))}
+/* Proyectos: vista explotada (boceto → diseño → producto) */
+.p1{--gx:50%;--gy:68%;--gw:1150px;--gh:950px;--mw:1000px;--mh:1000px}
+.p1 .build{left:0;top:0;z-index:3;pointer-events:none;overflow:visible}
 
 /* Portadas de destacadas (círculo) */
 .cover{--gx:50%;--gy:50%;--gw:1000px;--gh:1000px}
@@ -386,20 +380,10 @@ svg.app .gl .f{fill:#fff;stroke:none}
 <!-- ======================= PROYECTOS · PORTADA ======================= -->
 <section class="story p1" data-file="aicia-proyectos-01-portada.png">
   <div class="stage"></div><div class="grid"></div>
-  <div class="subj" data-src="assets/macbook.png" data-rim="left" style="left:94px;top:940px;width:892px;--tint:.18;--rim:.45"></div>
-  <div class="mac-screen" style="left:201.5px;top:1132.5px;width:676px;height:440px">
-    <div class="bar"></div><div class="notch"></div>
-    <img class="sph-img" data-sph="pair" alt="">
-    <div class="dock">
-      <svg class="app" viewBox="0 0 100 100" data-g="g-ai" data-s="ap-indigo"></svg>
-      <svg class="app" viewBox="0 0 100 100" data-g="g-flow" data-s="ap-light"></svg>
-      <svg class="app" viewBox="0 0 100 100" data-g="g-code" data-s="ap-deep"></svg>
-      <svg class="app" viewBox="0 0 100 100" data-g="g-cal" data-s="ap-indigo"></svg>
-    </div>
-  </div>
+  <svg class="build" id="build" viewBox="0 0 1080 1920" width="1080" height="1920" aria-hidden="true"></svg>
   <div class="eyebrow tx">Proyectos</div>
-  <h1 class="title tx">Lo que<br><span class="serif">construimos.</span></h1>
-  <p class="lede tx">Webs, apps y automatizaciones hechas<br>a medida de cada negocio.</p>
+  <h1 class="title tx">De la idea<br><span class="serif">a lo real.</span></h1>
+  <p class="lede tx">Webs, apps, agentes de IA y automatizaciones<br>hechos a medida de cada negocio.</p>
   <div class="vignette"></div><div class="grain"></div>
   <div class="basefade"></div><div class="sig">aicia</div>
 </section>
@@ -578,6 +562,87 @@ function renderSpheres(theme, size, vb, show) {
   return cv.toDataURL('image/png');
 }
 
+/* ---------- Proyectos: capas en proyección axonométrica ---------- */
+function buildStack(sphUrl) {
+  const svg = document.getElementById('build'); if (!svg) return;
+  const W = 600, D = 400, th = 30 * Math.PI / 180, k = .58, sc = 1.08;
+  const a = sc * Math.cos(th), b = sc * Math.sin(th) * k, c = -sc * Math.sin(th), d = sc * Math.cos(th) * k;
+  const cx = 540, top = 1104, gap = 150;
+  const P = (x, y, z) => [cx + a * (x - W / 2) + c * (y - D / 2), top + b * (x - W / 2) + d * (y - D / 2) - z + 2 * gap];
+  const M = z => `translate(${cx} ${top - z + 2 * gap}) matrix(${a} ${b} ${c} ${d} 0 0) translate(${-W / 2} ${-D / 2})`;
+  const ns = 'vector-effect="non-scaling-stroke"';
+  const R = (x, y, w, h, r, attrs) => `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${r}" ${ns} ${attrs}/>`;
+  const layout = (st) => [
+    R(36, 80, 250, 26, 13, st.h1), R(36, 118, 190, 26, 13, st.h1),
+    R(36, 164, 230, 11, 5.5, st.p), R(36, 184, 176, 11, 5.5, st.p),
+    R(36, 218, 124, 38, 19, st.btn),
+    R(316, 70, 248, 196, 18, st.hero),
+    ...[36, 214, 392].map(x => R(x, 290, 172, 80, 16, st.card) +
+      `<circle cx="${x + 30}" cy="330" r="13" ${ns} ${st.dot}/>` + R(x + 54, 318, 90, 9, 4.5, st.p) + R(x + 54, 334, 62, 9, 4.5, st.p)),
+  ].join('');
+  const chrome = (st) => `<path d="M0 44H${W}" ${ns} ${st.line}/>` +
+    [26, 46, 66].map(x => `<circle cx="${x}" cy="22" r="6" ${ns} ${st.dot}/>`).join('') + R(200, 12, 200, 20, 10, st.url);
+
+  // 1 · Boceto: líneas punteadas sobre papel cuadriculado
+  let grid = '';
+  for (let x = 40; x < W; x += 40) grid += `<path d="M${x} 0V${D}" ${ns}/>`;
+  for (let y = 40; y < D; y += 40) grid += `<path d="M0 ${y}H${W}" ${ns}/>`;
+  const dash = 'fill="none" stroke="#C7C9FF" stroke-opacity=".55" stroke-width="1.6" stroke-dasharray="6 7"';
+  const L1 = `<g transform="${M(0)}">
+      ${R(0, 0, W, D, 22, 'fill="rgba(12,11,44,.35)" stroke="#C7C9FF" stroke-opacity=".6" stroke-width="1.8" stroke-dasharray="8 8"')}
+      <g stroke="#C7C9FF" stroke-opacity=".10" stroke-width="1">${grid}</g>
+      <path d="M0 44H${W}" ${ns} ${dash}/>
+      ${R(36, 80, 250, 64, 14, dash)}${R(36, 164, 230, 31, 10, dash)}${R(36, 218, 124, 38, 19, dash)}
+      ${R(316, 70, 248, 196, 18, dash)}${[36, 214, 392].map(x => R(x, 290, 172, 80, 16, dash)).join('')}
+      <path d="M316 70L564 266M564 70L316 266" ${ns} ${dash}/>
+    </g>`;
+
+  // 2 · Diseño: estructura sólida, sin color
+  const wf = 'fill="rgba(199,201,255,.07)" stroke="#C7C9FF" stroke-opacity=".5" stroke-width="1.6"';
+  const ds = { h1: wf, p: wf, btn: wf, hero: wf, card: wf, dot: wf, line: 'stroke="#C7C9FF" stroke-opacity=".35" stroke-width="1.4"', url: wf };
+  const L2 = `<g transform="${M(gap)}">
+      ${R(0, 0, W, D, 22, 'fill="rgba(16,15,52,.72)" stroke="#C7C9FF" stroke-opacity=".7" stroke-width="2"')}
+      ${chrome(ds)}${layout(ds)}
+      <path d="M316 70L564 266M564 70L316 266" ${ns} stroke="#C7C9FF" stroke-opacity=".3" stroke-width="1.4"/>
+    </g>`;
+
+  // 3 · Producto: la versión final, con luz y color
+  const fs = {
+    h1: 'fill="#FFFFFF"', p: 'fill="#C7C9FF" fill-opacity=".5"', btn: 'fill="url(#pj-btn)"',
+    hero: 'fill="url(#pj-hero)"', card: 'fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.14)" stroke-width="1.4"',
+    dot: 'fill="url(#pj-btn)"', line: 'stroke="rgba(255,255,255,.10)" stroke-width="1.4"', url: 'fill="rgba(255,255,255,.09)"',
+  };
+  const L3 = `<g transform="${M(2 * gap)}">
+      ${R(0, 0, W, D, 22, 'fill="url(#pj-win)"')}
+      ${R(0, 0, W, D, 22, 'fill="url(#pj-sheen)"')}
+      ${chrome({ ...fs, dot: 'fill="rgba(255,255,255,.28)"' })}${layout(fs)}
+      <image href="${sphUrl}" x="372" y="98" width="136" height="136"/>
+      ${R(36, 218, 124, 38, 19, 'fill="none" stroke="rgba(255,255,255,.45)" stroke-width="1.2"')}
+      ${R(0, 0, W, D, 22, 'fill="none" stroke="url(#pj-rim)" stroke-width="2.2"')}
+    </g>`;
+
+  // Guías verticales entre capas (vista explotada)
+  const corners = [[0, 0], [W, 0], [W, D], [0, D]];
+  const guide = (z0, z1) => corners.map(([x, y]) => { const [x0, y0] = P(x, y, z0), [x1, y1] = P(x, y, z1);
+    return `<path d="M${x0.toFixed(1)} ${y0.toFixed(1)}V${y1.toFixed(1)}"/>`; }).join('');
+  const gst = 'fill="none" stroke="#C7C9FF" stroke-opacity=".38" stroke-width="1.5" stroke-dasharray="3 7" stroke-linecap="round"';
+
+  svg.innerHTML = `<defs>
+      <linearGradient id="pj-win" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1D1B57"/><stop offset=".6" stop-color="#131140"/><stop offset="1" stop-color="#0E0C33"/></linearGradient>
+      <linearGradient id="pj-sheen" x1="0" y1="0" x2=".7" y2=".9"><stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset=".35" stop-color="#fff" stop-opacity=".03"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+      <linearGradient id="pj-rim" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".75"/><stop offset=".45" stop-color="#C7C9FF" stop-opacity=".25"/><stop offset="1" stop-color="#9A9BFA" stop-opacity=".45"/></linearGradient>
+      <linearGradient id="pj-btn" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8487FA"/><stop offset=".55" stop-color="#5B54EC"/><stop offset="1" stop-color="#4338CA"/></linearGradient>
+      <radialGradient id="pj-hero" cx=".5" cy="1.05" r=".95"><stop offset="0" stop-color="#7B7EF8"/><stop offset=".38" stop-color="#4F46E5"/><stop offset=".75" stop-color="#2A2384"/><stop offset="1" stop-color="#16124F"/></radialGradient>
+      <filter id="pj-sh" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="30" stdDeviation="24" flood-color="#03021A" flood-opacity=".6"/></filter>
+      <filter id="pj-glow" x="-40%" y="-40%" width="180%" height="190%"><feDropShadow dx="0" dy="36" stdDeviation="30" flood-color="#03021A" flood-opacity=".7"/><feDropShadow dx="0" dy="0" stdDeviation="40" flood-color="#6366F1" flood-opacity=".35"/></filter>
+    </defs>
+    ${L1}
+    <g ${gst}>${guide(0, gap)}</g>
+    <g filter="url(#pj-sh)">${L2}</g>
+    <g ${gst}>${guide(gap, 2 * gap)}</g>
+    <g filter="url(#pj-glow)">${L3}</g>`;
+}
+
 (async () => {
   if (location.search.includes('qa')) document.documentElement.classList.add('qa');
   buildOrbits();
@@ -586,6 +651,7 @@ function renderSpheres(theme, size, vb, show) {
     pair: renderSpheres('light', 1200, [110, 180, 740, 740], [1, 1]),
   };
   const imgs = [...document.querySelectorAll('img[data-sph]')];
+  buildStack(urls.pair);
   await Promise.all([buildSubjects(), ...imgs.map(im => new Promise(r => { im.onload = r; im.src = urls[im.dataset.sph]; }))]);
   await document.fonts.ready;
   window.__ready = true;
