@@ -82,5 +82,5 @@ node portadas-destacadas/render.mjs    # portadas 2160×2160
 - El logo de AeroSport es de baja resolución. Si Guille consigue uno más grande, reemplazarlo.
 
 ### Pendiente
-- **Proyectos**: portada final "Lo que *construimos.*": MacBook (`assets/macbook.png`) con la vista explotada en 3 capas (boceto → diseño → producto) dentro de la pantalla, hecha en SVG por `buildStack()` en `historias.html` (escala `sc .54`, `gap 74`). Sin esferas en el centro, se mantiene el dock. Próximo: historias de cada proyecto con el logo del cliente chico arriba y la página/app mostrada. La tarjeta Bs.As. Top (web) sigue como placeholder.
+- **Proyectos**: portada "Lo que *construimos.*": MacBook (`assets/macbook.png`). En la pantalla hay un escritorio con 4 ventanas que muestran todo lo que hace Aicia: web (navegador), app (celular adelante), agente de IA (chat) y automatización (flujo de 3 nodos). Abajo queda el dock. Todo en HTML/CSS dentro de `.mac-screen`. La bajada es "Webs, apps, agentes de IA y automatizaciones hechos a medida de cada negocio." Se descartaron el logo grande, la vista explotada y el flujo n8n a pantalla completa. Próximo: historias de cada proyecto con el logo del cliente chico arriba y la página/app mostrada. La tarjeta Bs.As. Top (web) sigue como placeholder.
 - Opcional: video de demo de un proyecto si Guille pasa grabaciones de pantalla.
