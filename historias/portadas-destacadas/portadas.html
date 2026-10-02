@@ -2,13 +2,13 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<title>Aicia · Destacadas Clientes y Proyectos</title>
+<title>Aicia · Portadas de destacadas</title>
 <style>
-@font-face{font-family:"Geist";src:url(fonts/geist-latin-wght-normal.woff2) format("woff2");font-weight:100 900;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2212}
-@font-face{font-family:"Geist";src:url(fonts/geist-latin-ext-wght-normal.woff2) format("woff2");font-weight:100 900;unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
-@font-face{font-family:"Geist Mono";src:url(fonts/geist-mono-latin-400-normal.woff2) format("woff2");font-weight:400}
-@font-face{font-family:"Geist Mono";src:url(fonts/geist-mono-latin-500-normal.woff2) format("woff2");font-weight:500}
-@font-face{font-family:"Instrument Serif";src:url(fonts/instrument-serif-latin-400-italic.woff2) format("woff2");font-style:italic;font-weight:400}
+@font-face{font-family:"Geist";src:url(../clientes-proyectos/fonts/geist-latin-wght-normal.woff2) format("woff2");font-weight:100 900;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2212}
+@font-face{font-family:"Geist";src:url(../clientes-proyectos/fonts/geist-latin-ext-wght-normal.woff2) format("woff2");font-weight:100 900;unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Geist Mono";src:url(../clientes-proyectos/fonts/geist-mono-latin-400-normal.woff2) format("woff2");font-weight:400}
+@font-face{font-family:"Geist Mono";src:url(../clientes-proyectos/fonts/geist-mono-latin-500-normal.woff2) format("woff2");font-weight:500}
+@font-face{font-family:"Instrument Serif";src:url(../clientes-proyectos/fonts/instrument-serif-latin-400-italic.woff2) format("woff2");font-style:italic;font-weight:400}
 
 :root{
   --night:#06061A; --indigo:#4F46E5; --indigo-l:#6366F1; --indigo-d:#4338CA;
@@ -253,9 +253,24 @@ svg.app .gl .f{fill:#fff;stroke:none}
 .cover .disc{left:50%;top:50%;width:820px;height:820px;margin:-410px 0 0 -410px;border-radius:50%;background:radial-gradient(closest-side,rgba(99,102,241,.55),rgba(79,70,229,.18) 60%,transparent);z-index:1}
 .cover .glyph{left:50%;top:50%;width:360px;height:360px;margin:-180px 0 0 -180px;z-index:4;fill:none;stroke:#fff;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 30px rgba(199,201,255,.45)) drop-shadow(0 18px 30px rgba(4,3,26,.6))}
 .cover img.glyph{stroke:none}
+
+/* =========================================================
+   Portadas de destacadas · cuadradas, pensadas para verse chicas
+   ========================================================= */
+.sq{width:1080px;height:1080px;position:relative;overflow:hidden;flex:none;isolation:isolate;
+  background:
+    radial-gradient(62% 48% at 50% 6%,rgba(255,255,255,.10),transparent 70%),
+    radial-gradient(circle at 50% 46%,#6E68F6 0%,#5148E6 20%,#3328A8 44%,#1A1650 70%,#0B0A24 100%)}
+.sq > *{position:absolute}
+.sq .shade{inset:0;background:radial-gradient(circle at 50% 50%,transparent 52%,rgba(4,3,20,.38) 78%)}
+.sq .halo{left:50%;top:50%;width:760px;height:760px;margin:-380px 0 0 -380px;border-radius:50%;background:radial-gradient(closest-side,rgba(199,201,255,.42),rgba(154,155,250,.14) 50%,transparent 74%)}
+.sq .grain{inset:0;opacity:.05;mix-blend-mode:overlay;z-index:5}
+.sq svg.g{left:50%;top:50%;width:580px;height:580px;margin:-290px 0 0 -290px;overflow:visible;fill:none;stroke:url(#gStroke);stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;
+  filter:drop-shadow(0 0 22px rgba(214,215,255,.55)) drop-shadow(0 14px 22px rgba(6,4,40,.55))}
+.sq img.g{left:50%;top:50%;width:600px;height:600px;margin:-300px 0 0 -300px;filter:drop-shadow(0 30px 40px rgba(6,4,40,.55))}
 </style>
 </head>
-<body>
+<body style="display:flex;flex-direction:column;align-items:center;gap:60px;padding:60px 0">
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -301,67 +316,27 @@ svg.app .gl .f{fill:#fff;stroke:none}
 
 <!-- ======================= 01 · INTRO ======================= -->
 
-<!-- ======================= CLIENTES · PORTADA ======================= -->
-<section class="story c1" data-file="aicia-clientes-01-portada.png">
-  <div class="stage"></div><div class="grid"></div>
-  <div class="subj" data-src="assets/manos-robot-humano-bn.png" data-rim="left" style="left:-140px;top:1064px;width:1240px;--tint:.24;--rim:.5"></div>
-  <div class="spark" style="left:446px;top:1336px;width:176px;height:176px"></div>
-  <div class="eyebrow tx">Clientes</div>
-  <h1 class="title tx">Ellos ya<br><span class="serif">automatizan.</span></h1>
-  <p class="lede tx">Negocios reales que ya trabajan con Aicia.<br>Conocé sus historias.</p>
-  <div class="vignette"></div><div class="grain"></div>
-  <div class="basefade"></div><div class="sig">aicia</div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <linearGradient id="gStroke" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#CFD0FF"/></linearGradient>
+</defs></svg>
+
+<section class="sq" data-file="portada-aicia.png">
+  <div class="halo"></div>
+  <img class="g sph-img" data-sph="hi" alt="">
+  <div class="shade"></div><div class="grain"></div>
 </section>
 
-<!-- ======================= CLIENTES · FC BARBER SHOP ======================= -->
-<section class="story card" data-file="aicia-clientes-02-fc-barber-shop.png">
-  <div class="stage"></div><div class="grid"></div>
-  <div class="center lab"><div class="eyebrow">Cliente</div></div>
-  <img class="logo" src="assets/logo-fc-barber.png" alt="FC Barber Shop" style="top:684px;width:470px">
-  <div class="rule" style="top:1090px"></div>
-  <div class="center tx" style="top:1136px">
-    <div class="name">FC Barber Shop</div>
-    <div class="kind">Barbería</div>
-    <div class="pill glass"><img class="sph-i sph-img" data-sph="sat" alt=""><span>Automatiza con <b>Aicia</b></span></div>
-  </div>
-  <div class="vignette"></div><div class="grain"></div>
-  <div class="basefade"></div><div class="sig">aicia</div>
+<section class="sq" data-file="portada-clientes.png">
+  <div class="halo"></div>
+  <svg class="g" viewBox="0 0 24 24"><circle cx="9" cy="8.4" r="3.4"/><path d="M3 19.4c.7-3.2 3.1-5 6-5s5.3 1.8 6 5"/><path d="M15.4 5.2a3.1 3.1 0 0 1 0 6.2"/><path d="M17.4 14.7c1.7.6 2.9 2.1 3.4 4.6"/></svg>
+  <div class="shade"></div><div class="grain"></div>
 </section>
 
-<!-- ======================= PROYECTOS · PORTADA ======================= -->
-<section class="story p1" data-file="aicia-proyectos-01-portada.png">
-  <div class="stage"></div><div class="grid"></div>
-  <div class="subj" data-src="assets/macbook.png" data-rim="left" style="left:94px;top:940px;width:892px;--tint:.18;--rim:.45"></div>
-  <div class="mac-screen" style="left:201.5px;top:1132.5px;width:676px;height:440px">
-    <div class="bar"></div><div class="notch"></div>
-    <img class="sph-img" data-sph="pair" alt="">
-    <div class="dock">
-      <svg class="app" viewBox="0 0 100 100" data-g="g-ai" data-s="ap-indigo"></svg>
-      <svg class="app" viewBox="0 0 100 100" data-g="g-flow" data-s="ap-light"></svg>
-      <svg class="app" viewBox="0 0 100 100" data-g="g-code" data-s="ap-deep"></svg>
-      <svg class="app" viewBox="0 0 100 100" data-g="g-cal" data-s="ap-indigo"></svg>
-    </div>
-  </div>
-  <div class="eyebrow tx">Proyectos</div>
-  <h1 class="title tx">Lo que<br><span class="serif">construimos.</span></h1>
-  <p class="lede tx">Webs, apps y automatizaciones hechas<br>a medida de cada negocio.</p>
-  <div class="vignette"></div><div class="grain"></div>
-  <div class="basefade"></div><div class="sig">aicia</div>
-</section>
-
-<!-- ======================= PROYECTOS · BS.AS. TOP PÁDEL ======================= -->
-<section class="story card" data-file="aicia-proyectos-02-bsas-top-padel.png">
-  <div class="stage"></div><div class="grid"></div>
-  <div class="center lab"><div class="eyebrow">Proyecto</div></div>
-  <img class="logo" src="assets/logo-bsas-top-blanco.png" alt="Bs.As. Top Pádel" style="top:666px;width:400px">
-  <div class="rule" style="top:1090px"></div>
-  <div class="center tx" style="top:1136px">
-    <div class="name">Página web</div>
-    <div class="kind">Club de pádel</div>
-    <div class="pill glass"><img class="sph-i sph-img" data-sph="sat" alt=""><span>Hecha por <b>Aicia</b></span></div>
-  </div>
-  <div class="vignette"></div><div class="grain"></div>
-  <div class="basefade"></div><div class="sig">aicia</div>
+<section class="sq" data-file="portada-proyectos.png">
+  <div class="halo"></div>
+  <svg class="g" viewBox="0 0 24 24"><path d="M8 7.2 3.2 12 8 16.8"/><path d="M16 7.2l4.8 4.8L16 16.8"/><path d="M13.5 4.8 10.5 19.2"/></svg>
+  <div class="shade"></div><div class="grain"></div>
 </section>
 
 <script>
@@ -529,6 +504,7 @@ function renderSpheres(theme, size, vb, show) {
   const urls = {
     sat: renderSpheres('light', 512, [604, 224, 192, 192], [0, 1]),
     pair: renderSpheres('light', 1200, [110, 180, 740, 740], [1, 1]),
+    hi: renderSpheres('light', 2048, [110, 180, 740, 740], [1, 1]),
   };
   const imgs = [...document.querySelectorAll('img[data-sph]')];
   await Promise.all([buildSubjects(), ...imgs.map(im => new Promise(r => { im.onload = r; im.src = urls[im.dataset.sph]; }))]);
