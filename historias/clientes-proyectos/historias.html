@@ -239,26 +239,15 @@ svg.app .gl .f{fill:#fff;stroke:none}
 .card .pill .lg-i{width:34px;height:34px;margin-left:-6px;flex:none}
 .card .pill b{font-weight:600;background:linear-gradient(90deg,#E4E5FF,#B9BBFF);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 
-/* Proyectos: MacBook con un flujo de automatización en pantalla */
-.p1{--gx:58%;--gy:76%;--gw:1100px;--gh:900px}
-.mac-screen{z-index:3;overflow:hidden;border-radius:3px 3px 0 0;font-family:"Geist",system-ui,sans-serif;
-  background:radial-gradient(55% 60% at 52% 58%,rgba(91,82,240,.42),rgba(79,70,229,.10) 60%,transparent 80%),
-    radial-gradient(circle at 1px 1px,rgba(199,201,255,.17) 1.1px,transparent 1.5px) 0 0/18px 18px,
-    linear-gradient(180deg,#0C0B2A 0%,#121040 100%)}
-.mac-screen > *{position:absolute}
-.mac-screen .notch{left:50%;top:0;width:58px;height:9px;margin-left:-29px;background:#0E0E12;border-radius:0 0 6px 6px;z-index:2}
-.mac-screen .bar{left:0;right:0;top:0;height:13px;background:rgba(6,5,24,.55)}
-.mac-screen .tool{left:0;right:0;top:13px;height:38px;display:flex;align-items:center;gap:8px;padding:0 16px;background:rgba(255,255,255,.035);box-shadow:inset 0 -1px 0 rgba(255,255,255,.07)}
-.mac-screen .tool .lg-i{width:18px;height:18px}
-.mac-screen .tool b{font-size:13px;font-weight:600;color:#F1F1FF;letter-spacing:-0.01em}
-.mac-screen .tool .on{margin-left:auto;display:flex;align-items:center;gap:6px;height:22px;padding:0 10px;border-radius:11px;font-size:11.5px;font-weight:500;color:#E4E5FF;background:rgba(199,201,255,.10);box-shadow:inset 0 0 0 .6px rgba(199,201,255,.3)}
-.mac-screen .tool .on i{width:6px;height:6px;border-radius:50%;background:#C7C9FF;box-shadow:0 0 6px 1px rgba(199,201,255,.8)}
-.mac-screen .wires{left:0;top:0}
-.mac-screen .node{width:130px;margin-left:-65px;display:flex;flex-direction:column;align-items:center;gap:9px}
-.mac-screen .node svg.app{width:60px;height:60px;filter:drop-shadow(0 6px 10px rgba(6,4,40,.6)) drop-shadow(0 0 14px rgba(99,102,241,.35))}
-.mac-screen .node span{font-size:15px;font-weight:500;color:#E4E5FF;letter-spacing:-0.01em;white-space:nowrap}
-.mac-screen .node .ok{position:absolute;left:83px;top:-5px;width:19px;height:19px;border-radius:50%;background:#fff;display:grid;place-items:center;box-shadow:0 0 0 2.5px #121040,0 2px 6px rgba(4,3,30,.5)}
-.mac-screen .node .ok svg{width:12px;height:12px;fill:none;stroke:#4338CA;stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round}
+/* MacBook con fondo de pantalla */
+.mac-screen{z-index:3;overflow:hidden;border-radius:3px 3px 0 0;background:radial-gradient(70% 90% at 50% 105%,#7B7EF8 0%,#4F46E5 35%,#2A2384 70%,#120F45 100%)}
+.mac-screen::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 60% at 50% 120%,rgba(199,201,255,.55),transparent 70%)}
+.mac-screen img{position:absolute;left:50%;top:50%;width:150px;transform:translate(-50%,-52%);filter:drop-shadow(0 12px 24px rgba(10,6,60,.6))}
+.mac-screen .notch{position:absolute;left:50%;top:0;width:58px;height:9px;margin-left:-29px;background:#0E0E12;border-radius:0 0 6px 6px;z-index:2}
+.mac-screen .bar{position:absolute;left:0;right:0;top:0;height:13px;background:rgba(10,8,40,.35);backdrop-filter:blur(6px)}
+.mac-screen .dock{position:absolute;left:50%;bottom:9px;transform:translateX(-50%);display:flex;gap:7px;padding:6px 8px;border-radius:14px;background:rgba(255,255,255,.14);backdrop-filter:blur(10px);box-shadow:inset 0 0 0 .5px rgba(255,255,255,.3)}
+.mac-screen .dock svg.app{width:30px;height:30px;filter:drop-shadow(0 3px 5px rgba(10,8,70,.45))}
+.mac-screen .build{position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible}
 
 /* Portadas de destacadas (círculo) */
 .cover{--gx:50%;--gy:50%;--gw:1000px;--gh:1000px}
@@ -308,8 +297,6 @@ svg.app .gl .f{fill:#fff;stroke:none}
   <symbol id="g-arrow-r" viewBox="0 0 24 24"><path d="M4.5 12h15"/><path d="M13.5 6l6 6-6 6"/></symbol>
   <symbol id="g-arrow" viewBox="0 0 24 24"><path d="M7 17 17 7"/><path d="M9 7h8v8"/></symbol>
   <symbol id="g-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 11v5M12 8h.01"/></symbol>
-  <symbol id="g-spark" viewBox="0 0 24 24"><path d="M10.5 4.2c.7 4.4 2.9 6.6 7.3 7.3-4.4.7-6.6 2.9-7.3 7.3-.7-4.4-2.9-6.6-7.3-7.3 4.4-.7 6.6-2.9 7.3-7.3z"/><path d="M18.2 2.8c.25 1.6 1.05 2.4 2.65 2.65-1.6.25-2.4 1.05-2.65 2.65-.25-1.6-1.05-2.4-2.65-2.65 1.6-.25 2.4-1.05 2.65-2.65z"/></symbol>
-  <symbol id="g-send" viewBox="0 0 24 24"><path d="M20.6 3.4 3.6 10.2l6.9 3.3 3.3 6.9z"/><path d="M20.6 3.4 10.5 13.5"/></symbol>
   <symbol id="g-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.6"/><path d="M12 7.4V12l3.2 2"/></symbol>
 </svg>
 
@@ -402,21 +389,13 @@ svg.app .gl .f{fill:#fff;stroke:none}
   <div class="subj" data-src="assets/macbook.png" data-rim="left" style="left:94px;top:940px;width:892px;--tint:.18;--rim:.45"></div>
   <div class="mac-screen" style="left:201.5px;top:1132.5px;width:676px;height:440px">
     <div class="bar"></div><div class="notch"></div>
-    <div class="tool"><svg class="lg-i" aria-hidden="true"><use href="#logo-w"/></svg><b>Turnos automáticos</b><span class="on"><i></i>Activo</span></div>
-      <svg class="wires" viewBox="0 0 676 440" width="676" height="440">
-        <defs><linearGradient id="wire" gradientUnits="userSpaceOnUse" x1="120" y1="0" x2="560" y2="0"><stop offset="0" stop-color="#9A9BFA"/><stop offset="1" stop-color="#E4E5FF"/></linearGradient>
-        <filter id="wglow" x="-20%" y="-50%" width="140%" height="200%"><feGaussianBlur stdDeviation="3.2"/></filter></defs>
-        <g fill="none" stroke="#8487FA" stroke-width="5" stroke-opacity=".55" filter="url(#wglow)"><path d="M136 238C172 238 172 238 209 238"/><path d="M281 238C328 238 328 158 374 158"/><path d="M281 238C328 238 328 318 374 318"/><path d="M446 158C493 158 493 238 540 238"/><path d="M446 318C493 318 493 238 540 238"/></g>
-        <g fill="none" stroke="url(#wire)" stroke-width="2.2" stroke-linecap="round"><path d="M136 238C172 238 172 238 209 238"/><path d="M281 238C328 238 328 158 374 158"/><path d="M281 238C328 238 328 318 374 318"/><path d="M446 158C493 158 493 238 540 238"/><path d="M446 318C493 318 493 238 540 238"/></g>
-        <g fill="#0E0D30" stroke="#C7C9FF" stroke-width="1.6"><circle cx="136" cy="238" r="4.2"/><circle cx="209" cy="238" r="4.2"/><circle cx="281" cy="238" r="4.2"/><circle cx="374" cy="158" r="4.2"/><circle cx="374" cy="318" r="4.2"/><circle cx="446" cy="158" r="4.2"/><circle cx="446" cy="318" r="4.2"/><circle cx="540" cy="238" r="4.2"/></g>
-        <g class="pk"><circle cx="172" cy="238" r="9" fill="#C7C9FF" opacity=".35" filter="url(#wglow)"/><circle cx="172" cy="238" r="3.6" fill="#fff"/>
-          <circle cx="327.5" cy="278" r="9" fill="#C7C9FF" opacity=".35" filter="url(#wglow)"/><circle cx="327.5" cy="278" r="3.6" fill="#fff"/></g>
-      </svg>
-      <div class="node" style="left:100px;top:208px"><svg class="app" viewBox="0 0 100 100" data-g="g-message" data-s="ap-indigo"></svg><i class="ok"><svg viewBox="0 0 24 24"><use href="#g-check" width="24" height="24"/></svg></i><span>WhatsApp</span></div>
-      <div class="node" style="left:245px;top:208px"><svg class="app" viewBox="0 0 100 100" data-g="g-spark" data-s="ap-light"></svg><i class="ok"><svg viewBox="0 0 24 24"><use href="#g-check" width="24" height="24"/></svg></i><span>Agente IA</span></div>
-      <div class="node" style="left:410px;top:128px"><svg class="app" viewBox="0 0 100 100" data-g="g-cal" data-s="ap-indigo"></svg><i class="ok"><svg viewBox="0 0 24 24"><use href="#g-check" width="24" height="24"/></svg></i><span>Agenda</span></div>
-      <div class="node" style="left:410px;top:288px"><svg class="app" viewBox="0 0 100 100" data-g="g-table" data-s="ap-deep"></svg><i class="ok"><svg viewBox="0 0 24 24"><use href="#g-check" width="24" height="24"/></svg></i><span>Planilla</span></div>
-      <div class="node" style="left:576px;top:208px"><svg class="app" viewBox="0 0 100 100" data-g="g-send" data-s="ap-indigo"></svg><i class="ok"><svg viewBox="0 0 24 24"><use href="#g-check" width="24" height="24"/></svg></i><span>Confirmación</span></div>
+    <svg class="build" id="build" viewBox="0 0 676 440" aria-hidden="true"></svg>
+    <div class="dock">
+      <svg class="app" viewBox="0 0 100 100" data-g="g-ai" data-s="ap-indigo"></svg>
+      <svg class="app" viewBox="0 0 100 100" data-g="g-flow" data-s="ap-light"></svg>
+      <svg class="app" viewBox="0 0 100 100" data-g="g-code" data-s="ap-deep"></svg>
+      <svg class="app" viewBox="0 0 100 100" data-g="g-cal" data-s="ap-indigo"></svg>
+    </div>
   </div>
   <div class="eyebrow tx">Proyectos</div>
   <h1 class="title tx">Lo que<br><span class="serif">construimos.</span></h1>
@@ -599,6 +578,88 @@ function renderSpheres(theme, size, vb, show) {
   return cv.toDataURL('image/png');
 }
 
+/* ---------- Proyectos: capas en proyección axonométrica ---------- */
+function buildStack(sphUrl) {
+  const svg = document.getElementById('build'); if (!svg) return;
+  // Dentro de la pantalla de la MacBook (viewBox 676×440): escala reducida; sombras proporcionales
+  const W = 600, D = 400, th = 30 * Math.PI / 180, k = .58, sc = .54, f = sc / 1.08;
+  const a = sc * Math.cos(th), b = sc * Math.sin(th) * k, c = -sc * Math.sin(th), d = sc * Math.cos(th) * k;
+  const cx = 338, top = 128, gap = 74;
+  const P = (x, y, z) => [cx + a * (x - W / 2) + c * (y - D / 2), top + b * (x - W / 2) + d * (y - D / 2) - z + 2 * gap];
+  const M = z => `translate(${cx} ${top - z + 2 * gap}) matrix(${a} ${b} ${c} ${d} 0 0) translate(${-W / 2} ${-D / 2})`;
+  const ns = 'vector-effect="non-scaling-stroke"';
+  const R = (x, y, w, h, r, attrs) => `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${r}" ${ns} ${attrs}/>`;
+  const layout = (st) => [
+    R(36, 80, 250, 26, 13, st.h1), R(36, 118, 190, 26, 13, st.h1),
+    R(36, 164, 230, 11, 5.5, st.p), R(36, 184, 176, 11, 5.5, st.p),
+    R(36, 218, 124, 38, 19, st.btn),
+    R(316, 70, 248, 196, 18, st.hero),
+    ...[36, 214, 392].map(x => R(x, 290, 172, 80, 16, st.card) +
+      `<circle cx="${x + 30}" cy="330" r="13" ${ns} ${st.dot}/>` + R(x + 54, 318, 90, 9, 4.5, st.p) + R(x + 54, 334, 62, 9, 4.5, st.p)),
+  ].join('');
+  const chrome = (st) => `<path d="M0 44H${W}" ${ns} ${st.line}/>` +
+    [26, 46, 66].map(x => `<circle cx="${x}" cy="22" r="6" ${ns} ${st.dot}/>`).join('') + R(200, 12, 200, 20, 10, st.url);
+
+  // 1 · Boceto: líneas punteadas sobre papel cuadriculado
+  let grid = '';
+  for (let x = 40; x < W; x += 40) grid += `<path d="M${x} 0V${D}" ${ns}/>`;
+  for (let y = 40; y < D; y += 40) grid += `<path d="M0 ${y}H${W}" ${ns}/>`;
+  const dash = 'fill="none" stroke="#C7C9FF" stroke-opacity=".55" stroke-width="1.6" stroke-dasharray="6 7"';
+  const L1 = `<g transform="${M(0)}">
+      ${R(0, 0, W, D, 22, 'fill="rgba(12,11,44,.35)" stroke="#C7C9FF" stroke-opacity=".6" stroke-width="1.8" stroke-dasharray="8 8"')}
+      <g stroke="#C7C9FF" stroke-opacity=".10" stroke-width="1">${grid}</g>
+      <path d="M0 44H${W}" ${ns} ${dash}/>
+      ${R(36, 80, 250, 64, 14, dash)}${R(36, 164, 230, 31, 10, dash)}${R(36, 218, 124, 38, 19, dash)}
+      ${R(316, 70, 248, 196, 18, dash)}${[36, 214, 392].map(x => R(x, 290, 172, 80, 16, dash)).join('')}
+      <path d="M316 70L564 266M564 70L316 266" ${ns} ${dash}/>
+    </g>`;
+
+  // 2 · Diseño: estructura sólida, sin color
+  const wf = 'fill="rgba(199,201,255,.07)" stroke="#C7C9FF" stroke-opacity=".5" stroke-width="1.6"';
+  const ds = { h1: wf, p: wf, btn: wf, hero: wf, card: wf, dot: wf, line: 'stroke="#C7C9FF" stroke-opacity=".35" stroke-width="1.4"', url: wf };
+  const L2 = `<g transform="${M(gap)}">
+      ${R(0, 0, W, D, 22, 'fill="rgba(16,15,52,.72)" stroke="#C7C9FF" stroke-opacity=".7" stroke-width="2"')}
+      ${chrome(ds)}${layout(ds)}
+      <path d="M316 70L564 266M564 70L316 266" ${ns} stroke="#C7C9FF" stroke-opacity=".3" stroke-width="1.4"/>
+    </g>`;
+
+  // 3 · Producto: la versión final, con luz y color
+  const fs = {
+    h1: 'fill="#FFFFFF"', p: 'fill="#C7C9FF" fill-opacity=".5"', btn: 'fill="url(#pj-btn)"',
+    hero: 'fill="url(#pj-hero)"', card: 'fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.14)" stroke-width="1.4"',
+    dot: 'fill="url(#pj-btn)"', line: 'stroke="rgba(255,255,255,.10)" stroke-width="1.4"', url: 'fill="rgba(255,255,255,.09)"',
+  };
+  const L3 = `<g transform="${M(2 * gap)}">
+      ${R(0, 0, W, D, 22, 'fill="url(#pj-win)"')}
+      ${R(0, 0, W, D, 22, 'fill="url(#pj-sheen)"')}
+      ${chrome({ ...fs, dot: 'fill="rgba(255,255,255,.28)"' })}${layout(fs)}
+      <image href="${sphUrl}" x="372" y="98" width="136" height="136"/>
+      ${R(36, 218, 124, 38, 19, 'fill="none" stroke="rgba(255,255,255,.45)" stroke-width="1.2"')}
+      ${R(0, 0, W, D, 22, 'fill="none" stroke="url(#pj-rim)" stroke-width="2.2"')}
+    </g>`;
+
+  // Guías verticales entre capas (vista explotada)
+  const corners = [[0, 0], [W, 0], [W, D], [0, D]];
+  const guide = (z0, z1) => corners.map(([x, y]) => { const [x0, y0] = P(x, y, z0), [x1, y1] = P(x, y, z1);
+    return `<path d="M${x0.toFixed(1)} ${y0.toFixed(1)}V${y1.toFixed(1)}"/>`; }).join('');
+  const gst = 'fill="none" stroke="#C7C9FF" stroke-opacity=".38" stroke-width="1.5" stroke-dasharray="3 7" stroke-linecap="round"';
+
+  svg.innerHTML = `<defs>
+      <linearGradient id="pj-win" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1D1B57"/><stop offset=".6" stop-color="#131140"/><stop offset="1" stop-color="#0E0C33"/></linearGradient>
+      <linearGradient id="pj-sheen" x1="0" y1="0" x2=".7" y2=".9"><stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset=".35" stop-color="#fff" stop-opacity=".03"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+      <linearGradient id="pj-rim" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".75"/><stop offset=".45" stop-color="#C7C9FF" stop-opacity=".25"/><stop offset="1" stop-color="#9A9BFA" stop-opacity=".45"/></linearGradient>
+      <linearGradient id="pj-btn" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8487FA"/><stop offset=".55" stop-color="#5B54EC"/><stop offset="1" stop-color="#4338CA"/></linearGradient>
+      <radialGradient id="pj-hero" cx=".5" cy="1.05" r=".95"><stop offset="0" stop-color="#7B7EF8"/><stop offset=".38" stop-color="#4F46E5"/><stop offset=".75" stop-color="#2A2384"/><stop offset="1" stop-color="#16124F"/></radialGradient>
+      <filter id="pj-sh" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="${30 * f}" stdDeviation="${24 * f}" flood-color="#03021A" flood-opacity=".6"/></filter>
+      <filter id="pj-glow" x="-40%" y="-40%" width="180%" height="190%"><feDropShadow dx="0" dy="${36 * f}" stdDeviation="${30 * f}" flood-color="#03021A" flood-opacity=".7"/><feDropShadow dx="0" dy="0" stdDeviation="${40 * f}" flood-color="#6366F1" flood-opacity=".35"/></filter>
+    </defs>
+    ${L1}
+    <g ${gst}>${guide(0, gap)}</g>
+    <g filter="url(#pj-sh)">${L2}</g>
+    <g ${gst}>${guide(gap, 2 * gap)}</g>
+    <g filter="url(#pj-glow)">${L3}</g>`;
+}
+
 (async () => {
   if (location.search.includes('qa')) document.documentElement.classList.add('qa');
   buildOrbits();
@@ -607,6 +668,7 @@ function renderSpheres(theme, size, vb, show) {
     pair: renderSpheres('light', 1200, [110, 180, 740, 740], [1, 1]),
   };
   const imgs = [...document.querySelectorAll('img[data-sph]')];
+  buildStack(urls.pair);
   await Promise.all([buildSubjects(), ...imgs.map(im => new Promise(r => { im.onload = r; im.src = urls[im.dataset.sph]; }))]);
   await document.fonts.ready;
   window.__ready = true;
