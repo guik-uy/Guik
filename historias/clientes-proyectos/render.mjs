@@ -1,4 +1,4 @@
-// Renderiza las 5 historias de una versión a PNG 1080×1920 + tira de vista previa.
+// Renderiza las historias de Clientes y Proyectos (y las portadas de destacadas) a PNG 1080×1920 + vista previa.
 // Uso: NODE_PATH=$(npm root -g) node render.mjs [--qa]
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
@@ -10,8 +10,7 @@ const require = createRequire(import.meta.url);
 const { chromium } = require('playwright');
 const dir = path.dirname(fileURLToPath(import.meta.url));
 const qa = process.argv.includes('--qa');
-const htmlFile = process.argv.slice(2).find(a => a.endsWith('.html')) || 'destacada.html';
-const prefix = htmlFile.replace(/\.html$/, '').replace('destacada', 'aicia-destacada');
+const htmlFile = 'historias.html';
 const out = path.join(dir, qa ? 'qa' : '.');
 fs.mkdirSync(out, { recursive: true });
 
@@ -76,26 +75,31 @@ console.log(issues.length ? 'QA:\n  ' + issues.join('\n  ') : 'QA: sin problemas
 
 const files = [];
 for (const [i, el] of (await page.$$('section.story')).entries()) {
-  const f = path.join(out, `${prefix}-0${i + 1}.png`);
+  const f = path.join(out, await el.getAttribute('data-file'));
   await el.screenshot({ path: f });
   files.push(f);
   console.log('ok', path.relative(dir, f));
 }
 
 if (!qa) {
-  const w = 360, h = 640, gap = 28, pad = 48;
-  const html = `<!doctype html><body style="margin:0;background:#101018;display:flex;gap:${gap}px;padding:${pad}px;width:max-content">
-    ${files.map((f, i) => `<figure style="margin:0;display:flex;flex-direction:column;gap:14px;align-items:flex-start">
+  const stories = files.filter(f => !path.basename(f).startsWith('portada'));
+  const covers = files.filter(f => path.basename(f).startsWith('portada'));
+  const w = 360, h = 640;
+  const html = `<!doctype html><body style="margin:0;background:#101018;padding:48px;width:max-content;font:500 18px/1 system-ui;color:#9a9bb8">
+    <div style="display:flex;gap:28px">${stories.map(f => `<figure style="margin:0;display:flex;flex-direction:column;gap:14px">
       <img src="${path.basename(f)}" style="width:${w}px;height:${h}px;border-radius:22px;display:block;box-shadow:0 20px 40px -20px #000">
-      <figcaption style="font:500 18px/1 system-ui;color:#9a9bb8;letter-spacing:.02em">0${i + 1}</figcaption></figure>`).join('')}
+      <figcaption>${path.basename(f, '.png').replace('aicia-', '')}</figcaption></figure>`).join('')}</div>
+    <div style="display:flex;gap:56px;margin-top:48px;align-items:center">${covers.map(f => `<figure style="margin:0;display:flex;flex-direction:column;align-items:center;gap:14px">
+      <div style="width:150px;height:150px;border-radius:50%;overflow:hidden;box-shadow:0 0 0 3px #2b2b36,0 0 0 6px #101018,0 0 0 7.5px #6b6b7a"><img src="${path.basename(f)}" style="width:150px;height:267px;object-fit:cover;margin-top:-58px;display:block"></div>
+      <figcaption>${path.basename(f, '.png').replace('portada-destacada-', '')}</figcaption></figure>`).join('')}</div>
   </body>`;
   fs.writeFileSync(path.join(dir, '.preview.html'), html);
   const p2 = await browser.newPage({ deviceScaleFactor: 2 });
   await p2.goto(base + '.preview.html');
   await p2.waitForLoadState('load');
-  await p2.screenshot({ path: path.join(dir, `${prefix}-preview.png`), fullPage: true });
+  await p2.screenshot({ path: path.join(dir, 'vista-previa.png'), fullPage: true });
   fs.unlinkSync(path.join(dir, '.preview.html'));
-  console.log(`ok ${prefix}-preview.png`);
+  console.log('ok vista-previa.png');
 }
 await browser.close();
 server.close();
