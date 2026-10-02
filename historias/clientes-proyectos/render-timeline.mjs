@@ -67,7 +67,8 @@ if (TEST) {
   console.log('ok', meta.png);
   const out = path.join(dir, '.video-out', path.basename(meta.mp4, '.mp4'));
   fs.rmSync(out, { recursive: true, force: true }); fs.mkdirSync(out, { recursive: true });
-  const N = Math.round(DUR * FPS), t0 = Date.now();
+  const dur = +arg('dur', 0) || await page.evaluate(() => window.DUR) || DUR;
+  const N = Math.round(dur * FPS), t0 = Date.now();
   for (let n = 0; n < N; n++) {
     await shot(n / FPS, path.join(out, String(n + 1).padStart(4, '0') + '.jpg'));
     if (n % 60 === 0) console.log(`cuadro ${n + 1}/${N} (${((Date.now() - t0) / 1000).toFixed(0)} s)`);
