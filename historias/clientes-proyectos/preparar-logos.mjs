@@ -1,5 +1,6 @@
 // Adapta logos de clientes para fondo oscuro.
-// Bs.As. Top: el negro pasa a blanco y el verde se aclara un poco; recorta el espacio vacío.
+// Logos con texto negro (Bs.As. Top, Fusion): el negro pasa a blanco y el color se aclara un poco.
+// Todos: recorta el espacio vacío alrededor.
 // Uso: NODE_PATH=$(npm root -g) node preparar-logos.mjs
 import { createRequire } from 'node:module'; import fs from 'node:fs'; import path from 'node:path'; import { fileURLToPath } from 'node:url';
 const require = createRequire(import.meta.url); const { chromium } = require('playwright');
@@ -36,4 +37,6 @@ async function proc(src, dst, mode) {
 }
 await proc('logo-bsas-top-original-b.png', 'logo-bsas-top-blanco.png', 'invert');
 await proc('logo-fc-barber-original.png', 'logo-fc-barber.png', 'crop');
+await proc('logo-fusion-original.png', 'logo-fusion-blanco.png', 'invert');
+await proc('logo-aerosport-original.png', 'logo-aerosport.png', 'crop');
 await b.close();
