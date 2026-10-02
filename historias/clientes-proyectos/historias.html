@@ -244,8 +244,6 @@ svg.app .gl .f{fill:#fff;stroke:none}
 .mac-screen::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 60% at 50% 120%,rgba(199,201,255,.55),transparent 70%)}
 .mac-screen .notch{position:absolute;left:50%;top:0;width:58px;height:9px;margin-left:-29px;background:#0E0E12;border-radius:0 0 6px 6px;z-index:2}
 .mac-screen .bar{position:absolute;left:0;right:0;top:0;height:13px;background:rgba(10,8,40,.35);backdrop-filter:blur(6px)}
-.mac-screen .dock{position:absolute;left:50%;bottom:9px;transform:translateX(-50%);display:flex;gap:7px;padding:6px 8px;border-radius:14px;background:rgba(255,255,255,.14);backdrop-filter:blur(10px);box-shadow:inset 0 0 0 .5px rgba(255,255,255,.3)}
-.mac-screen .dock svg.app{width:30px;height:30px;filter:drop-shadow(0 3px 5px rgba(10,8,70,.45))}
 /* Pantalla: web, app, agente de IA y automatización */
 .mac-screen .win{position:absolute;border-radius:10px;overflow:hidden;background:linear-gradient(180deg,rgba(26,24,74,.94),rgba(14,12,46,.96));box-shadow:inset 0 0 0 .7px rgba(255,255,255,.22),inset 0 1px 0 rgba(255,255,255,.16),0 16px 30px -10px rgba(6,4,40,.75),0 2px 6px rgba(6,4,40,.35)}
 .mac-screen .win > *{position:absolute}
@@ -276,7 +274,7 @@ svg.app .gl .f{fill:#fff;stroke:none}
 .mac-screen .typing i:nth-child(2){opacity:.7}.mac-screen .typing i:nth-child(3){opacity:.4}
 .mac-screen .auto .wires{left:0;top:0}
 .mac-screen .nd{width:36px;height:36px;filter:drop-shadow(0 4px 7px rgba(6,4,40,.6)) drop-shadow(0 0 8px rgba(99,102,241,.35))}
-.mac-screen .on{left:12px;bottom:11px;display:flex;align-items:center;gap:4px;height:15px;padding:0 7px;border-radius:8px;font-size:8.5px;font-weight:500;color:#E4E5FF;background:rgba(199,201,255,.10);box-shadow:inset 0 0 0 .5px rgba(199,201,255,.3)}
+.mac-screen .on{display:none;display:flex;align-items:center;gap:4px;height:15px;padding:0 7px;border-radius:8px;font-size:8.5px;font-weight:500;color:#E4E5FF;background:rgba(199,201,255,.10);box-shadow:inset 0 0 0 .5px rgba(199,201,255,.3)}
 .mac-screen .phn{position:absolute;width:118px;height:250px;padding:3px;border-radius:21px;background:linear-gradient(145deg,#4A4A58,#1A1A22 40%,#2C2C36);box-shadow:inset 0 0 0 .6px rgba(255,255,255,.3),0 20px 34px -10px rgba(4,3,30,.85),0 4px 10px rgba(4,3,30,.45);z-index:2}
 .mac-screen .ps{position:relative;width:100%;height:100%;border-radius:18px;overflow:hidden;background:linear-gradient(180deg,#191748,#100E36)}
 .mac-screen .ps > *{position:absolute}
@@ -287,7 +285,11 @@ svg.app .gl .f{fill:#fff;stroke:none}
 .mac-screen .row i{position:absolute;left:6px;top:6px;width:12px;height:12px;border-radius:4px;background:rgba(199,201,255,.35)}
 .mac-screen .row b{position:absolute;left:24px;height:4px;border-radius:2px;background:rgba(226,228,255,.55)}
 .mac-screen .row b:nth-of-type(1){top:7px;width:46px}.mac-screen .row b:nth-of-type(2){top:14px;width:30px;background:rgba(199,201,255,.3)}
-.mac-screen .tabs{left:0;right:0;bottom:0;height:28px;display:flex;justify-content:space-around;align-items:center;padding:0 16px 4px;background:rgba(255,255,255,.04);box-shadow:inset 0 .6px 0 rgba(255,255,255,.08)}
+.mac-screen .app .feat{left:12px;right:12px}
+.mac-screen .app .row{left:12px;right:12px;height:26px}
+.mac-screen .inp{left:10px;right:10px;bottom:10px;height:18px;border-radius:9px;background:rgba(255,255,255,.06);box-shadow:inset 0 0 0 .6px rgba(255,255,255,.12)}
+.mac-screen .lbl{transform:translateX(-50%);font-size:9px;font-weight:500;color:#D2D4EE;white-space:nowrap}
+.mac-screen .tabs{left:0;right:0;bottom:0;height:30px;display:flex;justify-content:space-around;align-items:center;padding:0 16px 4px;background:rgba(255,255,255,.04);box-shadow:inset 0 .6px 0 rgba(255,255,255,.08)}
 .mac-screen .tabs i{width:9px;height:9px;border-radius:3px;background:rgba(199,201,255,.35)}
 .mac-screen .tabs i:first-child{background:#C7C9FF}
 
@@ -433,53 +435,42 @@ svg.app .gl .f{fill:#fff;stroke:none}
   <div class="subj" data-src="assets/macbook.png" data-rim="left" style="left:94px;top:940px;width:892px;--tint:.18;--rim:.45"></div>
   <div class="mac-screen" style="left:201.5px;top:1132.5px;width:676px;height:440px">
     <div class="bar"></div><div class="notch"></div>
-    <!-- Web -->
-    <div class="win web" style="left:22px;top:30px;width:322px;height:224px">
+    <!-- Mosaico: web (grande), app (alta), agente de IA y automatización; separación pareja de 12 px -->
+    <div class="win web" style="left:12px;top:25px;width:490px;height:237px">
       <div class="wt"><i></i><i></i><i></i><span class="url"></span></div>
-      <span class="sk" style="left:16px;top:42px;width:146px;height:12px"></span>
-      <span class="sk" style="left:16px;top:60px;width:108px;height:12px"></span>
-      <span class="sk p" style="left:16px;top:82px;width:138px"></span><span class="sk p" style="left:16px;top:92px;width:104px"></span>
-      <span class="btn" style="left:16px;top:108px"></span>
-      <span class="hero" style="left:180px;top:36px;width:126px;height:90px"></span>
-      <span class="cd" style="left:16px;top:142px"><i></i><b></b><b></b></span><span class="cd" style="left:114px;top:142px"><i></i><b></b><b></b></span><span class="cd" style="left:212px;top:142px"><i></i><b></b><b></b></span>
+      <span class="sk" style="left:20px;top:48px;width:190px;height:13px"></span>
+      <span class="sk" style="left:20px;top:68px;width:138px;height:13px"></span>
+      <span class="sk p" style="left:20px;top:92px;width:176px"></span><span class="sk p" style="left:20px;top:102px;width:132px"></span>
+      <span class="btn" style="left:20px;top:120px"></span>
+      <span class="hero" style="left:280px;top:38px;width:190px;height:110px"></span>
+      <span class="cd" style="left:20px;top:164px;width:142px;height:56px"><i></i><b></b><b></b></span><span class="cd" style="left:174px;top:164px;width:142px;height:56px"><i></i><b></b><b></b></span><span class="cd" style="left:328px;top:164px;width:142px;height:56px"><i></i><b></b><b></b></span>
     </div>
-    <!-- Agente de IA -->
-    <div class="win chat" style="left:418px;top:30px;width:236px;height:168px">
+    <div class="win app" style="left:514px;top:25px;width:150px;height:403px">
+      <div class="wt"><i></i><i></i><i></i><b>App</b></div>
+      <span class="sk" style="left:14px;top:38px;width:58px;height:9px"></span>
+      <span class="feat" style="top:58px;height:92px"></span>
+      <span class="row" style="top:162px"><i></i><b></b><b></b></span><span class="row" style="top:196px"><i></i><b></b><b></b></span><span class="row" style="top:230px"><i></i><b></b><b></b></span><span class="row" style="top:264px"><i></i><b></b><b></b></span><span class="row" style="top:298px"><i></i><b></b><b></b></span><span class="row" style="top:332px"><i></i><b></b><b></b></span>
+      <span class="tabs"><i></i><i></i><i></i><i></i></span>
+    </div>
+    <div class="win chat" style="left:12px;top:274px;width:214px;height:154px">
       <div class="wt"><svg class="app av" viewBox="0 0 100 100" data-g="g-spark" data-s="ap-light"></svg><b>Agente IA</b><em><i></i>en línea</em></div>
-      <span class="bub in" style="top:34px;width:112px"><b style="width:84px"></b><b style="width:58px"></b></span>
-      <span class="bub out" style="top:70px;width:138px"><b style="width:112px"></b><b style="width:80px"></b></span>
-      <span class="bub in" style="top:110px;width:86px"><b style="width:60px"></b></span>
-      <span class="typing"><i></i><i></i><i></i></span>
+      <span class="bub in" style="top:32px;width:104px"><b style="width:76px"></b><b style="width:52px"></b></span>
+      <span class="bub out" style="top:66px;width:124px"><b style="width:98px"></b><b style="width:70px"></b></span>
+      <span class="typing" style="top:104px"><i></i><i></i><i></i></span>
+      <span class="inp"></span>
     </div>
-    <!-- Automatización -->
-    <div class="win auto" style="left:418px;top:214px;width:236px;height:150px">
-      <div class="wt"><i></i><i></i><i></i><b>Automatización</b></div>
-      <svg class="wires" viewBox="0 0 236 150" width="236" height="150">
-        <g fill="none" stroke="#8487FA" stroke-width="4" stroke-opacity=".5" filter="url(#mglow)"><path d="M54 74H98M138 74H182"/></g>
-        <g fill="none" stroke="#D9DAFF" stroke-width="1.6" stroke-linecap="round"><path d="M54 74H98M138 74H182"/></g>
-        <g fill="#0E0D30" stroke="#C7C9FF" stroke-width="1.2"><circle cx="54" cy="74" r="2.8"/><circle cx="98" cy="74" r="2.8"/><circle cx="138" cy="74" r="2.8"/><circle cx="182" cy="74" r="2.8"/></g>
-        <circle cx="76" cy="74" r="2.6" fill="#fff"/><circle cx="160" cy="74" r="2.6" fill="#fff"/>
+    <div class="win auto" style="left:238px;top:274px;width:264px;height:154px">
+      <div class="wt"><i></i><i></i><i></i><b>Automatización</b><em><i></i>Activo</em></div>
+      <svg class="wires" viewBox="0 0 264 154" width="264" height="154">
+        <g fill="none" stroke="#8487FA" stroke-width="4" stroke-opacity=".5" filter="url(#mglow)"><path d="M70 82H112M152 82H194"/></g>
+        <g fill="none" stroke="#D9DAFF" stroke-width="1.6" stroke-linecap="round"><path d="M70 82H112M152 82H194"/></g>
+        <g fill="#0E0D30" stroke="#C7C9FF" stroke-width="1.2"><circle cx="70" cy="82" r="2.8"/><circle cx="112" cy="82" r="2.8"/><circle cx="152" cy="82" r="2.8"/><circle cx="194" cy="82" r="2.8"/></g>
+        <circle cx="91" cy="82" r="2.6" fill="#fff"/><circle cx="173" cy="82" r="2.6" fill="#fff"/>
       </svg>
-      <svg class="app nd" style="left:17px;top:56px" viewBox="0 0 100 100" data-g="g-message" data-s="ap-indigo"></svg>
-      <svg class="app nd" style="left:101px;top:56px" viewBox="0 0 100 100" data-g="g-spark" data-s="ap-light"></svg>
-      <svg class="app nd" style="left:185px;top:56px" viewBox="0 0 100 100" data-g="g-cal" data-s="ap-indigo"></svg>
-      <span class="on"><i></i>Activo</span>
-    </div>
-    <!-- App -->
-    <div class="phn" style="left:288px;top:92px">
-      <div class="ps">
-        <span class="island"></span>
-        <span class="sk" style="left:12px;top:34px;width:52px;height:8px"></span>
-        <span class="feat"></span>
-        <span class="row" style="top:126px"><i></i><b></b><b></b></span><span class="row" style="top:156px"><i></i><b></b><b></b></span><span class="row" style="top:186px"><i></i><b></b><b></b></span>
-        <span class="tabs"><i></i><i></i><i></i></span>
-      </div>
-    </div>
-    <div class="dock">
-      <svg class="app" viewBox="0 0 100 100" data-g="g-ai" data-s="ap-indigo"></svg>
-      <svg class="app" viewBox="0 0 100 100" data-g="g-flow" data-s="ap-light"></svg>
-      <svg class="app" viewBox="0 0 100 100" data-g="g-code" data-s="ap-deep"></svg>
-      <svg class="app" viewBox="0 0 100 100" data-g="g-cal" data-s="ap-indigo"></svg>
+      <svg class="app nd" style="left:32px;top:64px" viewBox="0 0 100 100" data-g="g-message" data-s="ap-indigo"></svg>
+      <svg class="app nd" style="left:114px;top:64px" viewBox="0 0 100 100" data-g="g-spark" data-s="ap-light"></svg>
+      <svg class="app nd" style="left:196px;top:64px" viewBox="0 0 100 100" data-g="g-cal" data-s="ap-indigo"></svg>
+      <span class="lbl" style="left:50px;top:110px">WhatsApp</span><span class="lbl" style="left:132px;top:110px">Agente IA</span><span class="lbl" style="left:214px;top:110px">Agenda</span>
     </div>
   </div>
   <div class="eyebrow tx">Proyectos</div>
