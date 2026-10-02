@@ -6,7 +6,8 @@
   "scripts": {
     "aicia": "node destacada-aicia/render.mjs",
     "clientes": "node clientes-proyectos/render.mjs",
-    "portadas": "node portadas-destacadas/render.mjs"
+    "portadas": "node portadas-destacadas/render.mjs",
+    "publicaciones": "node publicaciones/render.mjs"
   },
   "devDependencies": {
     "playwright": "1.56.1"

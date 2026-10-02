@@ -21,6 +21,7 @@ Hay 3 destacadas, como máximo: **Aicia**, **Clientes** y **Proyectos**.
 | `historias/clientes-proyectos/` | Portada de Clientes + 5 tarjetas de clientes + 2 de Proyectos (`historias.html`) | Clientes **final**. Portada de Proyectos **final**. Historias de proyecto pendientes |
 | `historias/portadas-destacadas/` | Íconos de portada de las 3 destacadas (`portadas.html`) | **Final, aprobada** |
 | `historias/que-es-aicia/` | 6 versiones viejas | No se usan, son solo referencia |
+| `historias/publicaciones/` | 3 publicaciones del feed, 1080×1350 (`publicaciones.html`) | Primera versión, esperando el OK de Guille |
 
 ### Cómo renderizar (en tu compu)
 ```bash
@@ -30,7 +31,8 @@ npx playwright install chromium
 node destacada-aicia/render.mjs        # 5 PNG + vista previa (--qa para control sin pisar)
 node clientes-proyectos/render.mjs     # PNG con nombre según data-file + vista-previa.png
 node portadas-destacadas/render.mjs    # portadas 2160×2160
-# atajos: npm run aicia | npm run clientes | npm run portadas
+node publicaciones/render.mjs          # 3 publicaciones 1080×1350 + vista previa del feed
+# atajos: npm run aicia | npm run clientes | npm run portadas | npm run publicaciones
 ```
 - Las historias son HTML/CSS a 1080×1920. `render.mjs` las sirve con un servidor local, porque las máscaras CSS no funcionan con file://, y saca PNG.
 - El QA automático revisa márgenes de texto (64–1016 px), zonas seguras de IG (y 250–1620), texto cortado y solapamientos.
@@ -80,6 +82,19 @@ node portadas-destacadas/render.mjs    # portadas 2160×2160
   2. Duplicá una `<section>` de tarjeta con su propio `data-file`.
   3. Ajustá `top/width` hasta que tenga el mismo peso visual que los demás.
 - El logo de AeroSport es de baja resolución. Si Guille consigue uno más grande, reemplazarlo.
+
+### Publicaciones del feed (`historias/publicaciones/`)
+- Son la **versión clara** del estilo Aicia, para el feed. Siguen las referencias que pasó Guille: fondo blanco, titular grande y una foto recortada.
+  - Fondo papel frío con luz lavanda detrás del protagonista, grilla índigo muy suave y grano.
+  - Titular en Geist: la primera línea en gris y la segunda en negro, con **una** palabra en Instrument Serif itálica índigo.
+  - Botón índigo con flecha. Arriba va el logo + "aicia" y "@aicia_ia".
+  - Fotos en blanco y negro, con el índigo como único color.
+- Formato 1080×1350 (4:5). El texto va dentro de 80–1000 px porque la grilla del perfil recorta los costados a 3:4.
+- Publicaciones:
+  1. **"El problema no es tu *equipo.*"**: "Es seguir haciendo todo a mano.", con el botón "Automatizá lo repetitivo". Usa `assets/robot-estres.png`.
+  2. **"Tu negocio, potenciado con *IA.*"**: "Agentes de IA, automatizaciones, webs y apps a medida.", con el botón "Pedí tu demo". Usa `assets/manos-ia.png` en blanco y negro, con una chispa índigo entre los dedos.
+  3. **"No seas uno *más.*"**: "Mientras todos hacen lo mismo, vos das el paso.", con el botón "Destacate con IA". Usa `assets/peon-indigo.png`.
+- `preparar-imagenes.mjs` agranda al doble los recortes de Guille (`*-original.png`) con un enfoque suave, y pasa el peón de azul rey al índigo de Aicia.
 
 ### Pendiente
 - **Proyectos**: portada "Lo que *construimos.*" con una **foto real** de dos manos levantando una MacBook (`assets/macbook-manos.png`, que sale de `macbook-manos-original.png` con `preparar-macbook.mjs`; ese script borra la pantalla verde y mide sus 4 esquinas). Encima de la pantalla va un sitio de Aicia premium y claro, calzado en perspectiva con `fitScreens()` (homografía → `matrix3d`): nav, "Tu negocio, en *automático.*" y una onda índigo difuminada. La foto lleva capas de integración en `.lap`: los negros levantados al índigo (`.blacks`, lighten), la caída de luz (`.falloff`, multiply), la luz de la pantalla sobre el teclado (`.spill`, screen), un resplandor detrás de la tapa (`.bloom-out`) y el brillo de la pantalla (`.lap-scr.bloom`). Están en intensidades bajas, porque más fuerte se ve lavado. La bajada es "Webs, apps, agentes de IA y automatizaciones hechos a medida de cada negocio." Se descartaron el logo grande, la vista explotada, el flujo n8n y el mosaico de ventanas. 
