@@ -5,12 +5,24 @@ import { createRequire } from 'node:module'; import fs from 'node:fs'; import pa
 const require = createRequire(import.meta.url); const { chromium } = require('playwright');
 const A = path.join(path.dirname(fileURLToPath(import.meta.url)), 'assets');
 const items = [
+  { src: 'monitor-frente-original.png', out: 'monitor-frente.png', quad: [[158.5, 202.5], [576.5, 202.5], [576.5, 437], [158.5, 437]] },
   { src: 'studio-display-original.png', out: 'studio-display.png', seed: [540, 480] },
   { src: 'ipad-manos-original.png', out: 'ipad-manos.png', seed: [593, 380], fix: { 2: [857.5, 579.5] }, // el pulgar tapa el borde derecho
     thumb: [[815,475],[827,477],[840,489],[852,506],[862,520],[862,592],[831,592],[829,573],[825,557],[820,540],[815,523],[811,507],[807,490],[809,480]] },
 ];
 const b = await chromium.launch(); const p = await b.newPage();
 for (const it of items) {
+  if (it.quad) { // pantalla medida a mano: solo pintarla
+    const r = await p.evaluate(async ({ data, Q }) => {
+      const img = new Image(); img.src = data; await img.decode();
+      const W = img.naturalWidth, H = img.naturalHeight, c = document.createElement('canvas'); c.width = W; c.height = H;
+      const x = c.getContext('2d'); x.drawImage(img, 0, 0); x.fillStyle = '#08080b';
+      x.beginPath(); Q.forEach(([a, b], i) => i ? x.lineTo(a, b) : x.moveTo(a, b)); x.closePath(); x.lineWidth = 2; x.strokeStyle = '#08080b'; x.fill(); x.stroke();
+      return c.toDataURL('image/png');
+    }, { data: 'data:image/png;base64,' + fs.readFileSync(path.join(A, it.src)).toString('base64'), Q: it.quad });
+    fs.writeFileSync(path.join(A, it.out), Buffer.from(r.split(',')[1], 'base64'));
+    console.log(it.out, 'esquinas', JSON.stringify(it.quad)); continue;
+  }
   const r = await p.evaluate(async ({ data, seed, fix, thumb }) => {
     const img = new Image(); img.src = data; await img.decode();
     const W = img.naturalWidth, H = img.naturalHeight, c = document.createElement('canvas'); c.width = W; c.height = H;

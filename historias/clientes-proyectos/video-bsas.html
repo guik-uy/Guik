@@ -8,8 +8,9 @@
      0–3,2 s  Studio Display con la web cargando + texto
      3,2–4,4  la cámara entra en la pantalla (el monitor crece y se va, la web queda de frente)
      4,4–12,2 recorrido por la web con títulos
-     12,2–13,5 la web cae dentro del iPad que sostienen las manos (el pulgar queda adelante)
-     13,5–16  cierre "Hecha por Aicia." -->
+     11,85–12,35 la página sube rápido al inicio
+     12,35–13,65 la web se achica y entra en el monitor de frente (la cámara se aleja)
+     13,65–16 cierre "Hecha por Aicia." -->
 <style>
 @font-face{font-family:"Geist";src:url(fonts/geist-latin-wght-normal.woff2) format("woff2");font-weight:100 900;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2212}
 @font-face{font-family:"Geist";src:url(fonts/geist-latin-ext-wght-normal.woff2) format("woff2");font-weight:100 900;unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
@@ -52,7 +53,8 @@ body{font-family:"Geist",system-ui,sans-serif;-webkit-font-smoothing:antialiased
 .dev .blacks{background:#0B0A24;mix-blend-mode:lighten;opacity:.5}
 .dev .falloff{mix-blend-mode:multiply;background:radial-gradient(70% 60% at 50% 40%,rgba(255,255,255,0) 45%,rgba(60,52,150,.32) 100%),linear-gradient(180deg,rgba(255,255,255,0) 55%,rgba(40,34,120,.34) 100%)}
 .dev .tint,.dev .rim,.dev .blacks,.dev .falloff{-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
-.dev.over{z-index:7}
+.dev .cshadow{border-radius:50%;background:radial-gradient(closest-side,rgba(2,2,14,.8),rgba(2,2,14,.35) 55%,rgba(2,2,14,0))}
+#glow{z-index:3;left:0;top:0;width:1080px;height:1920px;pointer-events:none;background:radial-gradient(760px 520px at 540px 1095px,rgba(129,132,255,.55),rgba(99,102,241,.18) 50%,transparent 75%);opacity:0}
 
 /* Pantalla: barra de navegador + página + brillo del vidrio */
 #scr{left:0;top:0;width:1512px;z-index:6;transform-origin:0 0;overflow:hidden;background:#0A0A0A;will-change:transform}
@@ -82,13 +84,13 @@ body{font-family:"Geist",system-ui,sans-serif;-webkit-font-smoothing:antialiased
   <div class="stage"></div><div class="grid"></div>
   <div id="shadow"></div>
   <div class="dev" id="sd" data-bake="studio-display"></div>
-  <div class="dev" id="ip" data-bake="ipad"></div>
+  <div class="dev" id="mf" data-bake="monitor-frente"></div>
+  <div id="glow"></div>
   <div id="scr">
     <div class="bar"><i></i><i></i><i></i><span class="addr"><svg viewBox="0 0 24 24"><rect x="6" y="10.5" width="12" height="9" rx="2"/><path d="M8.8 10.5V8a3.2 3.2 0 0 1 6.4 0v2.5"/></svg>Buenos Aires Top</span></div>
-    <div class="pg"><img id="pgA" alt=""><img id="pgB" alt="" src="assets/bsas-web-hero.jpg"></div>
+    <div class="pg"><img id="pgA" alt=""></div>
     <div class="gl"></div>
   </div>
-  <div class="dev over" id="ipThumb"></div>
 
   <!-- Escena 1 -->
   <img class="tx cl-logo g1" src="assets/logo-bsas-top-blanco.png" alt="Bs.As. Top Padel">
@@ -114,15 +116,15 @@ const BAKED = Q.has('baked');
 const DEV = {
   sd: { src: 'assets/studio-display.png', w: 1080, h: 1080, s: 1.3, left: -162, top: 544, aspect: 1.78,
         quad: [[294.4, 381.7], [776.6, 286.3], [783.4, 611.7], [288, 679.4]] },
-  ip: { src: 'assets/ipad-manos.png', w: 1199, h: 781, s: 1.3, left: -232.9, top: 904.7, aspect: 1.43,
-        quad: [[332.4, 189.4], [857.5, 187.5], [857.5, 579.5], [331.8, 579.3]],
-        thumb: [[815,475],[827,477],[840,489],[852,506],[862,520],[862,592],[831,592],[829,573],[825,557],[820,540],[815,523],[811,507],[807,490],[809,480]] },
+  mf: { src: 'assets/monitor-frente.png', w: 736, h: 736, s: 1.75, left: -103.1, top: 610.4, aspect: 418 / 234.5,
+        quad: [[158.5, 202.5], [576.5, 202.5], [576.5, 437], [158.5, 437]], shadow: [368, 523, 230, 26] },
 };
 const PANEL = { cx: 540, cy: 1095, w: 1032, aspect: 1.65 };
 const ABS0 = 3.70, SRC_FPS = 60, NFR = 432;
 
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 const lerp = (a, b, u) => a + (b - a) * u;
+const io4 = u => (u = clamp(u)) < .5 ? 8 * u ** 4 : 1 - Math.pow(-2 * u + 2, 4) / 2;
 const io = u => (u = clamp(u)) < .5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2;
 const out = u => 1 - Math.pow(1 - clamp(u), 3);
 const seg = (t, a, b) => clamp((t - a) / (b - a));
@@ -133,7 +135,8 @@ function build() {
     Object.assign(el.style, { left: d.left + 'px', top: d.top + 'px', width: d.w * d.s + 'px', height: d.h * d.s + 'px' });
     if (BAKED) el.innerHTML = `<img src=".video-out/bake/${el.dataset.bake}.png" alt="">`;
     else {
-      el.innerHTML = `<div class="subj"><img src="${d.src}" alt=""><div class="tint"></div><div class="rim"></div></div><div class="blacks"></div><div class="falloff"></div>`;
+      const sh = d.shadow ? `<div class="cshadow" style="left:${(d.shadow[0] - d.shadow[2] / 2) * d.s}px;top:${(d.shadow[1] - d.shadow[3] / 2) * d.s}px;width:${d.shadow[2] * d.s}px;height:${d.shadow[3] * d.s}px"></div>` : '';
+      el.innerHTML = `${sh}<div class="subj"><img src="${d.src}" alt=""><div class="tint"></div><div class="rim"></div></div><div class="blacks"></div><div class="falloff"></div>`;
       el.querySelectorAll('.tint,.rim,.blacks,.falloff').forEach(m => { m.style.webkitMaskImage = m.style.maskImage = `url("${d.src}")`; });
     }
     const pts = d.quad.map(([x, y]) => [d.left + x * d.s, d.top + y * d.s]);
@@ -141,17 +144,12 @@ function build() {
     d.sw = Math.max(...pts.map(p => p[0])) - Math.min(...pts.map(p => p[0]));
     el.style.transformOrigin = `${d.c0[0] - d.left}px ${d.c0[1] - d.top}px`;
   }
-  // pulgar por delante de la pantalla del iPad
-  const th = document.getElementById('ipThumb'), d = DEV.ip;
-  Object.assign(th.style, { left: d.left + 'px', top: d.top + 'px', width: d.w * d.s + 'px', height: d.h * d.s + 'px', transformOrigin: document.getElementById('ip').style.transformOrigin });
-  th.innerHTML = document.getElementById('ip').innerHTML;
-  th.style.clipPath = `polygon(${d.thumb.map(([x, y]) => `${(x / d.w * 100).toFixed(3)}% ${(y / d.h * 100).toFixed(3)}%`).join(',')})`;
 }
 
 // Cámara de un dispositivo: escala k alrededor del centro de su pantalla, que se mueve a c
 function cam(id, k, c, op) {
   const d = DEV[id];
-  for (const el of id === 'ip' ? [document.getElementById('ip'), document.getElementById('ipThumb')] : [document.getElementById(id)]) {
+  for (const el of [document.getElementById(id)]) {
     el.style.transform = `translate(${c[0] - d.c0[0]}px,${c[1] - d.c0[1]}px) scale(${k})`;
     el.style.opacity = op;
   }
@@ -176,8 +174,10 @@ function recAbs(t) {
   if (t < .5) return 3.70;
   if (t < 1.1) return 3.70 + (t - .5);
   if (t < 4.4) return 4.30;
-  if (t < 12.2) return 4.30 + (t - 4.4) * .84;
-  return 10.85;
+  const r = t2 => 4.30 + (t2 - 4.4) * .84;
+  if (t < 11.85) return r(t);
+  if (t < 12.35) return lerp(r(11.85), 4.30, io(seg(t, 11.85, 12.35)));
+  return 4.30;
 }
 const frameSrc = t => `.frames/bsas60/${String(Math.min(NFR, Math.max(1, Math.round((recAbs(t) - ABS0) * SRC_FPS) + 1))).padStart(4, '0')}.jpg`;
 
@@ -186,48 +186,54 @@ function txt(sel, op, dy) { document.querySelectorAll(sel).forEach((e, i) => { c
 window.renderAt = async function (t) {
   const scr = document.getElementById('scr');
   let q, aspect, rad;
-  // --- Studio Display: acercamiento lento, después la cámara entra en la pantalla
+  // --- Studio Display: acercamiento lento; después la cámara entra en la pantalla.
+  // La web queda pegada al monitor hasta la mitad del viaje y recién ahí se endereza, mientras el monitor se desvanece.
   const sd = DEV.sd, kEnd = PANEL.w / sd.sw;
+  let blur = 0;
   if (t < 4.4) {
-    const push = 1 + .045 * out(t / 3.2);
-    const e = io(seg(t, 3.2, 4.4));
-    const k = push * Math.exp(e * Math.log(kEnd * 1.3 / push));
+    const push = 1 + .045 * out(t / 3.0);
+    const u = seg(t, 3.0, 4.35), e = io4(u);
+    const k = push * Math.exp(e * Math.log(kEnd * 1.22 / push));
     const c = [lerp(sd.c0[0], PANEL.cx, e), lerp(sd.c0[1], PANEL.cy, e)];
-    const qs = cam('sd', k, c, 1 - io(seg(t, 3.55, 4.15)));
-    const f = io(seg(t, 3.3, 4.4));
+    const qs = cam('sd', k, c, 1 - io(seg(t, 3.62, 4.08)));
+    const f = io(seg(t, 3.5, 4.35));
     q = mix(qs, panel(), f); aspect = lerp(sd.aspect, PANEL.aspect, f); rad = lerp(4, 26, f);
+    blur = 1.3 * Math.sin(Math.PI * u) ** 2;
   } else cam('sd', 1, sd.c0, 0);
+  document.getElementById('sd').style.filter = blur > .05 ? `blur(${blur.toFixed(2)}px)` : '';
+  document.getElementById('glow').style.opacity = .4 * Math.sin(Math.PI * seg(t, 3.4, 5.2));
   // --- Recorrido adentro
   const p2 = 1 + .035 * io(seg(t, 4.4, 12.2));
-  if (t >= 4.4 && t < 12.2) { q = panel(p2); aspect = PANEL.aspect; rad = 26; }
-  // --- iPad: la web cae adentro y la cámara se aleja
-  const ip = DEV.ip, kStart = PANEL.w * 1.035 / ip.sw;
-  if (t >= 12.2) {
-    const g = io(seg(t, 12.2, 13.5));
-    const k = Math.exp(lerp(Math.log(kStart * 1.25), Math.log(1), out(seg(t, 12.2, 13.5)))) * (1 + .03 * out(seg(t, 13.5, 16)));
-    const c = [lerp(PANEL.cx, ip.c0[0], g), lerp(PANEL.cy, ip.c0[1], g)];
-    const qi = cam('ip', k, c, io(seg(t, 12.25, 12.85)));
-    q = mix(panel(1.035), qi, g); aspect = lerp(PANEL.aspect, ip.aspect, g); rad = lerp(26, 20, g);
-  } else cam('ip', 1, ip.c0, 0);
+  if (t >= 4.4 && t < 12.35) { q = panel(p2); aspect = PANEL.aspect; rad = 26; }
+  // --- Monitor de frente: la web se achica y entra justo en la pantalla, la cámara se aleja
+  const mf = DEV.mf, kStart = PANEL.w * 1.035 / mf.sw;
+  if (t >= 12.35) {
+    const g = io(seg(t, 12.35, 13.65));
+    const k = Math.exp(lerp(Math.log(kStart), 0, g)) * (1 + .025 * out(seg(t, 13.65, 16)));
+    const c = [lerp(PANEL.cx, mf.c0[0], g), lerp(PANEL.cy, mf.c0[1], g)];
+    const qm = cam('mf', k, c, io(seg(t, 12.35, 12.85)));
+    const h = io(seg(t, 12.35, 12.95));
+    q = mix(panel(1.035), qm, h); aspect = lerp(PANEL.aspect, mf.aspect, h); rad = lerp(26, 2, h);
+  } else cam('mf', 1, mf.c0, 0);
   // sombra suave bajo la web cuando flota sola
-  const sh = document.getElementById('shadow'), inside = seg(t, 3.9, 4.4) * (1 - seg(t, 12.2, 12.7));
+  const sh = document.getElementById('shadow'), inside = seg(t, 3.9, 4.4) * (1 - seg(t, 12.35, 12.8));
   const pr = panel(p2); sh.style.opacity = inside * .9;
   sh.style.transform = `translate(${pr[0][0] + 30}px,${pr[0][1] + 60}px) scale(${(pr[1][0] - pr[0][0] - 60) / 100},${(pr[3][1] - pr[0][1] - 20) / 100})`;
 
   const W = 1512, H = Math.round(W / aspect);
   scr.style.height = H + 'px'; scr.style.borderRadius = (rad * W / Math.hypot(q[1][0] - q[0][0], q[1][1] - q[0][1])) + 'px';
   fitTo(scr, W, H, q);
+  scr.style.filter = blur > .05 ? `blur(${blur.toFixed(2)}px)` : '';
   // página: grabación + vuelta al inicio en el iPad
-  const A = document.getElementById('pgA'), B = document.getElementById('pgB'), src = frameSrc(t);
+  const A = document.getElementById('pgA'), src = frameSrc(t);
   if (A.getAttribute('src') !== src) { A.src = src; await A.decode(); }
-  B.style.opacity = io(seg(t, 12.2, 12.45));
 
   // --- Textos
-  txt('.g1', i => clamp(out(seg(t, .15 + i * .12, .75 + i * .12))) * (1 - io(seg(t, 2.75, 3.2))), i => lerp(26, 0, out(seg(t, .15 + i * .12, .75 + i * .12))) - 18 * io(seg(t, 2.75, 3.2)));
-  txt('.g2e', out(seg(t, 4.2, 4.7)) * (1 - io(seg(t, 11.9, 12.3))), 0);
+  txt('.g1', i => clamp(out(seg(t, .15 + i * .12, .75 + i * .12))) * (1 - io(seg(t, 2.65, 3.2))), i => lerp(26, 0, out(seg(t, .15 + i * .12, .75 + i * .12))) - 22 * io(seg(t, 2.65, 3.2)));
+  txt('.g2e', out(seg(t, 4.2, 4.7)) * (1 - io(seg(t, 11.7, 12.1))), 0);
   txt('.c1', out(seg(t, 4.3, 4.9)) * (1 - io(seg(t, 7.45, 7.85))), lerp(22, 0, out(seg(t, 4.3, 4.9))) - 14 * io(seg(t, 7.45, 7.85)));
-  txt('.c2', out(seg(t, 7.75, 8.35)) * (1 - io(seg(t, 11.9, 12.3))), lerp(22, 0, out(seg(t, 7.75, 8.35))) - 14 * io(seg(t, 11.9, 12.3)));
-  txt('.g3', i => out(seg(t, 13.3 + i * .12, 13.9 + i * .12)), i => lerp(26, 0, out(seg(t, 13.3 + i * .12, 13.9 + i * .12))));
+  txt('.c2', out(seg(t, 7.75, 8.35)) * (1 - io(seg(t, 11.7, 12.1))), lerp(22, 0, out(seg(t, 7.75, 8.35))) - 14 * io(seg(t, 11.7, 12.1)));
+  txt('.g3', i => out(seg(t, 13.4 + i * .12, 14.0 + i * .12)), i => lerp(26, 0, out(seg(t, 13.4 + i * .12, 14.0 + i * .12))));
 };
 
 (async () => {

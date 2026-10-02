@@ -87,13 +87,15 @@ node portadas-destacadas/render.mjs    # portadas 2160×2160
   1. **0–3,2 s:** Studio Display (`assets/studio-display.png`) con la web cargando. Texto: logo del club, "Proyecto · Página web", "Reservas *online.*" y la bajada.
   2. **3,2–4,4 s:** la cámara entra en la pantalla.
   3. **4,4–12,2 s:** la web de frente, con los títulos "Reservas en *pocos pasos.*" y "Todo el club, *a la vista.*".
-  4. **12,2–13,5 s:** la web cae dentro del iPad sostenido por las manos (`assets/ipad-manos.png`). El pulgar queda delante de la pantalla.
-  5. **Cierre:** "Hecha por *Aicia.*" y "¿Querés una web así para tu negocio? Escribinos."
+  4. **11,85–12,35 s:** la página sube rápido al inicio, como un scroll.
+  5. **12,35–13,65 s:** la web se achica y entra justo en el monitor de frente (`assets/monitor-frente.png`, pantalla medida a mano). Bajo el pie va una sombra de contacto.
+  6. **Cierre:** "Hecha por *Aicia.*" y "¿Querés una web así para tu negocio? Escribinos."
+  - A Guille le gusta la entrada al cuadrante tal cual: solo pulirla, no cambiarla. Hoy la web queda pegada al monitor hasta la mitad del viaje (io4), con un leve desenfoque en el pico y un brillo detrás.
 - **Historias en video** (línea de tiempo):
   - `video-bsas.html` define la escena y `window.renderAt(t)`.
   - `bash preparar-cuadros-bsas.sh grabacion.mp4` saca los cuadros de la grabación a `.frames/bsas60/`, a 60 fps. No van al repo.
   - `node render-timeline.mjs video-bsas.html` hornea los dispositivos a 2x, graba 480 cuadros (unos 2 min) y arma el MP4 con grano.
   - `preparar-dispositivos.mjs` encuentra la pantalla de cada foto, mide las esquinas y la pinta de negro. La máscara del pulgar del iPad está medida a mano.
-  - Fotos de mockups que pasó Guille y todavía no se usan: iPhone en la mano y ventana de vidrio flotante. Están en el chat, no en el repo.
+  - Fotos de mockups que pasó Guille y todavía no se usan: iPhone en la mano y ventana de vidrio flotante (están en el chat, no en el repo), y el iPad con manos (`assets/ipad-manos*.png`, listo y con la máscara del pulgar).
 - Pendiente opcional: una segunda historia de Bs.As. Top en imagen (por ejemplo, el paso de reservas en otro mockup). Máximo 2 historias por proyecto.
 - Opcional: video de demo de un proyecto si Guille pasa grabaciones de pantalla.
