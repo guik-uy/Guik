@@ -38,5 +38,6 @@ async function proc(src, dst, mode) {
 await proc('logo-bsas-top-original-b.png', 'logo-bsas-top-blanco.png', 'invert');
 await proc('logo-fc-barber-original.png', 'logo-fc-barber.png', 'crop');
 await proc('logo-fusion-original.png', 'logo-fusion-blanco.png', 'invert');
+await proc('logo-alas-fit-original.png', 'logo-alas-fit-blanco.png', 'invert');
 await proc('logo-aerosport-original.png', 'logo-aerosport.png', 'crop');
 await b.close();
