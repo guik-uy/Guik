@@ -1,4 +1,5 @@
-// Renderiza las 5 historias de destacada.html a PNG 1080×1920 + tira de vista previa.
+// Renderiza las 5 historias de una versión a PNG 1080×1920 + tira de vista previa.
+// Uso: NODE_PATH=$(npm root -g) node render.mjs [destacada.html|destacada-v2.html|destacada-v3.html] [--qa]
 // Uso: NODE_PATH=$(npm root -g) node render.mjs [--qa]
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
@@ -10,6 +11,8 @@ const require = createRequire(import.meta.url);
 const { chromium } = require('playwright');
 const dir = path.dirname(fileURLToPath(import.meta.url));
 const qa = process.argv.includes('--qa');
+const htmlFile = process.argv.slice(2).find(a => a.endsWith('.html')) || 'destacada.html';
+const prefix = htmlFile.replace(/\.html$/, '').replace('destacada', 'aicia-destacada');
 const out = path.join(dir, qa ? 'qa' : '.');
 fs.mkdirSync(out, { recursive: true });
 
@@ -30,7 +33,7 @@ const browser = await chromium.launch({
 const page = await browser.newPage({ viewport: { width: 1200, height: 2100 }, deviceScaleFactor: 1 });
 page.on('console', m => console.log('[page]', m.text()));
 page.on('pageerror', e => console.log('[error]', e.message));
-await page.goto(base + 'destacada.html' + (qa ? '?qa' : ''));
+await page.goto(base + htmlFile + (qa ? '?qa' : ''));
 await page.waitForFunction(() => window.__ready || window.__error, null, { timeout: 120000 });
 const err = await page.evaluate(() => window.__error);
 if (err) { console.error('Error en la página:', err); process.exit(1); }
@@ -74,7 +77,7 @@ console.log(issues.length ? 'QA:\n  ' + issues.join('\n  ') : 'QA: sin problemas
 
 const files = [];
 for (const [i, el] of (await page.$$('section.story')).entries()) {
-  const f = path.join(out, `aicia-destacada-0${i + 1}.png`);
+  const f = path.join(out, `${prefix}-0${i + 1}.png`);
   await el.screenshot({ path: f });
   files.push(f);
   console.log('ok', path.relative(dir, f));
@@ -91,9 +94,9 @@ if (!qa) {
   const p2 = await browser.newPage({ deviceScaleFactor: 2 });
   await p2.goto(base + '.preview.html');
   await p2.waitForLoadState('load');
-  await p2.screenshot({ path: path.join(dir, 'aicia-destacada-preview.png'), fullPage: true });
+  await p2.screenshot({ path: path.join(dir, `${prefix}-preview.png`), fullPage: true });
   fs.unlinkSync(path.join(dir, '.preview.html'));
-  console.log('ok aicia-destacada-preview.png');
+  console.log(`ok ${prefix}-preview.png`);
 }
 await browser.close();
 server.close();
