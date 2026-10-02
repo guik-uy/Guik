@@ -83,9 +83,17 @@ node portadas-destacadas/render.mjs    # portadas 2160×2160
 
 ### Pendiente
 - **Proyectos**: portada "Lo que *construimos.*" con una **foto real** de dos manos levantando una MacBook (`assets/macbook-manos.png`, que sale de `macbook-manos-original.png` con `preparar-macbook.mjs`; ese script borra la pantalla verde y mide sus 4 esquinas). Encima de la pantalla va un sitio de Aicia premium y claro, calzado en perspectiva con `fitScreens()` (homografía → `matrix3d`): nav, "Tu negocio, en *automático.*" y una onda índigo difuminada. La foto lleva capas de integración en `.lap`: los negros levantados al índigo (`.blacks`, lighten), la caída de luz (`.falloff`, multiply), la luz de la pantalla sobre el teclado (`.spill`, screen), un resplandor detrás de la tapa (`.bloom-out`) y el brillo de la pantalla (`.lap-scr.bloom`). Están en intensidades bajas, porque más fuerte se ve lavado. La bajada es "Webs, apps, agentes de IA y automatizaciones hechos a medida de cada negocio." Se descartaron el logo grande, la vista explotada, el flujo n8n y el mosaico de ventanas. 
-- **Proyectos · Bs.As. Top (web)**: historia en **video** `aicia-proyectos-02-bsas-top-web.mp4` (14 s, 1080×1920, 30 fps), con su PNG estático del mismo nombre. Es la misma foto de las manos con la MacBook. En la pantalla corre la grabación de la web: inicio → "Elegí tu turno" → "Cómo es jugar acá" → "Entrená con nosotros", con una barra de navegador oscura que dice "Buenos Aires Top". Arriba van el logo del club chico, "Proyecto · Página web", "Reservas *online.*" y la bajada "Web para Bs.As. Top Padel: los jugadores eligen día, horario y cancha, y reservan solos."
-- **Historias en video** (`<section data-video data-frames>`):
-  1. `bash preparar-cuadros-bsas.sh grabacion.mp4` saca los cuadros a `.frames/bsas/`. No van al repo.
-  2. `node render-video.mjs`: el navegador calcula una sola vez las placas fijas (abajo, arriba, máscara, brillo y barra) y ffmpeg arma cada cuadro con `perspective` a las 4 esquinas. Todo se mezcla en RGB (`gbrp`); si no, sale un tinte violeta.
+- **Proyectos · Bs.As. Top (web)**: historia en **video** `aicia-proyectos-02-bsas-top-web.mp4` (16 s, 1080×1920, 30 fps), con su PNG estático del mismo nombre. A propósito no repite la escena de la portada. Recorrido:
+  1. **0–3,2 s:** Studio Display (`assets/studio-display.png`) con la web cargando. Texto: logo del club, "Proyecto · Página web", "Reservas *online.*" y la bajada.
+  2. **3,2–4,4 s:** la cámara entra en la pantalla.
+  3. **4,4–12,2 s:** la web de frente, con los títulos "Reservas en *pocos pasos.*" y "Todo el club, *a la vista.*".
+  4. **12,2–13,5 s:** la web cae dentro del iPad sostenido por las manos (`assets/ipad-manos.png`). El pulgar queda delante de la pantalla.
+  5. **Cierre:** "Hecha por *Aicia.*" y "¿Querés una web así para tu negocio? Escribinos."
+- **Historias en video** (línea de tiempo):
+  - `video-bsas.html` define la escena y `window.renderAt(t)`.
+  - `bash preparar-cuadros-bsas.sh grabacion.mp4` saca los cuadros de la grabación a `.frames/bsas60/`, a 60 fps. No van al repo.
+  - `node render-timeline.mjs video-bsas.html` hornea los dispositivos a 2x, graba 480 cuadros (unos 2 min) y arma el MP4 con grano.
+  - `preparar-dispositivos.mjs` encuentra la pantalla de cada foto, mide las esquinas y la pinta de negro. La máscara del pulgar del iPad está medida a mano.
+  - Fotos de mockups que pasó Guille y todavía no se usan: iPhone en la mano y ventana de vidrio flotante. Están en el chat, no en el repo.
 - Pendiente opcional: una segunda historia de Bs.As. Top en imagen (por ejemplo, el paso de reservas en otro mockup). Máximo 2 historias por proyecto.
 - Opcional: video de demo de un proyecto si Guille pasa grabaciones de pantalla.
