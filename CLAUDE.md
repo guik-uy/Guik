@@ -84,20 +84,20 @@ node portadas-destacadas/render.mjs    # portadas 2160×2160
 ### Pendiente
 - **Proyectos**: portada "Lo que *construimos.*" con una **foto real** de dos manos levantando una MacBook (`assets/macbook-manos.png`, que sale de `macbook-manos-original.png` con `preparar-macbook.mjs`; ese script borra la pantalla verde y mide sus 4 esquinas). Encima de la pantalla va un sitio de Aicia premium y claro, calzado en perspectiva con `fitScreens()` (homografía → `matrix3d`): nav, "Tu negocio, en *automático.*" y una onda índigo difuminada. La foto lleva capas de integración en `.lap`: los negros levantados al índigo (`.blacks`, lighten), la caída de luz (`.falloff`, multiply), la luz de la pantalla sobre el teclado (`.spill`, screen), un resplandor detrás de la tapa (`.bloom-out`) y el brillo de la pantalla (`.lap-scr.bloom`). Están en intensidades bajas, porque más fuerte se ve lavado. La bajada es "Webs, apps, agentes de IA y automatizaciones hechos a medida de cada negocio." Se descartaron el logo grande, la vista explotada, el flujo n8n y el mosaico de ventanas. 
 - **Proyectos · Bs.As. Top (web)**: historia en **video** `aicia-proyectos-02-bsas-top-web.mp4` (22 s, 1080×1920, 30 fps), con su PNG estático del mismo nombre. A propósito no repite la escena de la portada. Guille la aprobó y pidió solo pulirla, sin cambiar los movimientos. Recorrido:
-  1. **0–3 s:** Studio Display (`assets/studio-display.png`) con la web. Texto: logo del club, "Proyecto · Página web", "Reservas *online.*" y la bajada.
+  1. **0–3 s:** Studio Display (`assets/studio-display.png`). La web **arranca recargándose**, como pidió Guille: fondo solo → aparece el inicio con su animación. Texto: logo del club, "Proyecto · Página web", "Reservas *online.*" y la bajada.
   2. **3–4,4 s:** la cámara entra en la pantalla. La web queda pegada al monitor hasta la mitad del viaje (io4), se endereza y se asienta un 1,2 %.
-  3. **4,4–17,4 s:** una **reserva completa**, sacada de la grabación `2026-10-02_18-34-10.mp4`: turno (viernes 19:30) → cancha → datos → seña con Mercado Pago → turno confirmado.
+  3. **4,4–17,4 s:** una **reserva completa**, sacada de la grabación `2026-10-02_20-10-58.mp4` (datos de prueba: Juan Perez): turno (viernes 22:30) → Cancha 2 → datos → seña de $24.000 con Mercado Pago → turno confirmado.
      - Un título por paso: "Elegí día y *horario.*", "Elegí la *cancha.*", "Completá tus *datos.*", "Seña con *Mercado Pago.*" y "Reserva *confirmada.*".
      - Zoom suave dentro de la página (`PCAM`) para que se lea.
      - Los cortes llevan un pestañeo a oscuro.
-     - Se saltean el autocompletado del navegador (mostraba un teléfono real) y la página de Mercado Pago.
+     - Se saltea la página de Mercado Pago.
   4. **17,4–17,9 s:** la página vuelve arriba.
   5. **17,9–19,2 s:** la web entra en el monitor de frente (`assets/monitor-frente.png`), que pasa de desenfocado a nítido.
   6. **Cierre:** "Hecha por *Aicia.*" y "¿Querés una web así para tu negocio? Escribinos."
   - Los textos entran y salen con desenfoque suave.
 - **Historias en video** (línea de tiempo):
   - `video-bsas.html` define la escena y `window.renderAt(t)`.
-  - `bash preparar-cuadros-bsas.sh grabacion.mp4` saca los tramos de la grabación a `.frames/bsas2/`, a 60 fps, con el número de cuadro absoluto (`CLIPS` decide el ritmo). No van al repo.
+  - `bash preparar-cuadros-bsas.sh grabacion.mp4` saca los tramos de la grabación a `.frames/bsas3/`, a 60 fps, con el número de cuadro absoluto (`CLIPS` decide el ritmo). No van al repo.
   - `node render-timeline.mjs video-bsas.html` hornea los dispositivos a 2x, graba 660 cuadros (unos 4 min) y arma el MP4 con grano.
   - `preparar-dispositivos.mjs` encuentra la pantalla de cada foto, mide las esquinas y la pinta de negro. La máscara del pulgar del iPad está medida a mano.
   - Fotos de mockups que pasó Guille y todavía no se usan: iPhone en la mano y ventana de vidrio flotante (están en el chat, no en el repo), y el iPad con manos (`assets/ipad-manos*.png`, listo y con la máscara del pulgar).
