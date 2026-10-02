@@ -3,14 +3,15 @@
 <head>
 <meta charset="utf-8">
 <title>Aicia · Proyectos · Bs.As. Top (video)</title>
-<!-- Historia en video de la web de Bs.As. Top, armada como línea de tiempo.
+<!-- Historia en video de la web de Bs.As. Top, armada como línea de tiempo (22 s).
      renderAt(t) deja la escena en el segundo t; render-timeline.mjs la graba cuadro por cuadro.
-     0–3,2 s  Studio Display con la web cargando + texto
-     3,2–4,4  la cámara entra en la pantalla (el monitor crece y se va, la web queda de frente)
-     4,4–12,2 recorrido por la web con títulos
-     11,85–12,35 la página sube rápido al inicio
-     12,35–13,65 la web se achica y entra en el monitor de frente (la cámara se aleja)
-     13,65–16 cierre "Hecha por Aicia." -->
+     0–3 s       Studio Display con la web + texto
+     3–4,4 s     la cámara entra en la pantalla y la web queda de frente
+     4,4–17,4 s  una reserva completa: turno → cancha → datos → seña con Mercado Pago → confirmada
+                 (zoom suave dentro de la página para que se lea; fundidos cortos entre tramos)
+     17,4–17,9 s la página vuelve arriba
+     17,9–19,2 s la web entra en el monitor de frente y la cámara se aleja
+     19,2–22 s   cierre "Hecha por Aicia." -->
 <style>
 @font-face{font-family:"Geist";src:url(fonts/geist-latin-wght-normal.woff2) format("woff2");font-weight:100 900;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2212}
 @font-face{font-family:"Geist";src:url(fonts/geist-latin-ext-wght-normal.woff2) format("woff2");font-weight:100 900;unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
@@ -65,7 +66,9 @@ body{font-family:"Geist",system-ui,sans-serif;-webkit-font-smoothing:antialiased
 #scr .addr svg{width:14px;height:14px;fill:none;stroke:#A1A1A6;stroke-width:2;stroke-linecap:round}
 #scr .pg{position:absolute;left:0;right:0;top:52px;bottom:0;overflow:hidden}
 #scr .pg{background:#0A0A0A}
-#scr .pg img{position:absolute;left:0;top:0;width:100%;height:auto;display:block}
+#scr .pcam{position:absolute;left:0;top:0;width:1512px;height:918px;transform-origin:0 0}
+#scr .pcam img{position:absolute;left:0;top:0;width:1512px;height:918px;display:block}
+#scr .dip{position:absolute;inset:0;background:#0A0A0A;opacity:0}
 #scr .gl{position:absolute;inset:0;pointer-events:none;background:linear-gradient(112deg,rgba(255,255,255,0) 18%,rgba(255,255,255,.08) 34%,rgba(255,255,255,0) 50%),radial-gradient(120% 90% at 0% 0%,rgba(255,255,255,.06),transparent 55%)}
 #shadow{z-index:4;left:0;top:0;width:100px;height:100px;border-radius:40px;background:rgba(3,2,20,.7);filter:blur(40px);transform-origin:0 0}
 </style>
@@ -88,7 +91,7 @@ body{font-family:"Geist",system-ui,sans-serif;-webkit-font-smoothing:antialiased
   <div id="glow"></div>
   <div id="scr">
     <div class="bar"><i></i><i></i><i></i><span class="addr"><svg viewBox="0 0 24 24"><rect x="6" y="10.5" width="12" height="9" rx="2"/><path d="M8.8 10.5V8a3.2 3.2 0 0 1 6.4 0v2.5"/></svg>Buenos Aires Top</span></div>
-    <div class="pg"><img id="pgA" alt=""></div>
+    <div class="pg"><div class="pcam" id="pcam"><img id="pgA" alt=""></div><div class="dip" id="dip"></div></div>
     <div class="gl"></div>
   </div>
 
@@ -97,10 +100,13 @@ body{font-family:"Geist",system-ui,sans-serif;-webkit-font-smoothing:antialiased
   <div class="tx eyebrow g1">Proyecto · Página web</div>
   <h1 class="tx title g1">Reservas<br><span class="serif">online.</span></h1>
   <p class="tx lede g1">Web para Bs.As. Top Padel: los jugadores eligen<br>día, horario y cancha, y reservan solos.</p>
-  <!-- Escena 2 -->
-  <div class="tx eyebrow g2e">Bs.As. Top Padel</div>
-  <h2 class="tx title sm c1">Reservas en<br><span class="serif">pocos pasos.</span></h2>
-  <h2 class="tx title sm c2">Todo el club,<br><span class="serif">a la vista.</span></h2>
+  <!-- Escena 2: un título por paso de la reserva -->
+  <div class="tx eyebrow g2e">Bs.As. Top Padel · Así se reserva</div>
+  <h2 class="tx title sm cp">Elegí día y<br><span class="serif">horario.</span></h2>
+  <h2 class="tx title sm cp">Elegí la<br><span class="serif">cancha.</span></h2>
+  <h2 class="tx title sm cp">Completá tus<br><span class="serif">datos.</span></h2>
+  <h2 class="tx title sm cp">Seña con<br><span class="serif">Mercado Pago.</span></h2>
+  <h2 class="tx title sm cp">Reserva<br><span class="serif">confirmada.</span></h2>
   <!-- Escena 3 -->
   <div class="tx eyebrow g3">Bs.As. Top Padel · Página web</div>
   <h2 class="tx title g3">Hecha por<br><span class="serif">Aicia.</span></h2>
@@ -120,7 +126,32 @@ const DEV = {
         quad: [[158.5, 202.5], [576.5, 202.5], [576.5, 437], [158.5, 437]], shadow: [368, 523, 230, 26] },
 };
 const PANEL = { cx: 540, cy: 1095, w: 1032, aspect: 1.65 };
-const ABS0 = 3.70, SRC_FPS = 60, NFR = 432;
+// Tramos de la grabación: [t inicio, t fin, segundo inicio, segundo fin]. CUTS = cortes con fundido corto.
+const CLIPS = [
+  [0, 4.4, 31.6, 35.0],        // inicio en el Studio Display (cámara lenta suave)
+  [4.4, 5.6, 35.0, 36.0],      // baja a "Elegí tu turno"
+  [5.6, 7.6, 36.0, 37.4],      // elige el viernes, 19:30
+  [7.6, 7.9, 37.4, 37.95],     // pasa a la cancha
+  [7.9, 8.9, 37.95, 38.05],    // fotos de las canchas
+  [8.9, 9.2, 38.05, 38.6],
+  [9.2, 10.6, 38.6, 40.8],     // formulario de datos
+  [10.6, 12.9, 43.2, 46.6],    // celular y "Confirmar reserva" (sin el autocompletado del navegador)
+  [12.9, 14.9, 46.6, 49.35],   // seña con Mercado Pago
+  [14.9, 17.4, 67.6, 69.25],   // turno confirmado (sin la página de Mercado Pago)
+  [17.4, 17.9, 69.25, 70.6],   // vuelve arriba
+  [17.9, 22.05, 70.7, 72.1],   // inicio, ya en el monitor (antes de que la página recargue)
+];
+const CUTS = [10.6, 14.9], XF = .3;
+// Cámara dentro de la página: [t, zoom, centro x, centro y] en px de la página (1512 × 918)
+const PCAM = [
+  [0, 1, 756, 0], [4.7, 1, 756, 0],
+  [5.6, 1.1, 715, 380], [7.55, 1.12, 715, 390],       // turno: el bloque ocupa casi todo el ancho
+  [7.95, 1.1, 725, 520], [8.95, 1.13, 725, 525],      // fotos de las canchas
+  [9.45, 1.3, 1010, 470], [12.85, 1.32, 1010, 480],   // formulario (mitad derecha)
+  [13.25, 1.12, 745, 480], [14.85, 1.14, 745, 480],   // seña: monto y Mercado Pago
+  [15.15, 1.22, 756, 470], [17.3, 1.24, 756, 470],    // turno confirmado (tarjeta centrada)
+  [17.85, 1, 756, 0], [22.1, 1, 756, 0],
+];
 
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 const lerp = (a, b, u) => a + (b - a) * u;
@@ -169,27 +200,25 @@ function fitTo(el, w, h, q) {
   el.style.transform = `matrix3d(${a / w},${d / w},0,${g / w},${b / h},${e / h},0,${hh / h},0,0,1,0,${x0},${y0},0,1)`;
 }
 
-// Segundo de la grabación que se ve en el instante t
-function recAbs(t) {
-  if (t < .5) return 3.70;
-  if (t < 1.1) return 3.70 + (t - .5);
-  if (t < 4.4) return 4.30;
-  const r = t2 => 4.30 + (t2 - 4.4) * .84;
-  if (t < 11.85) return r(t);
-  if (t < 12.35) return lerp(r(11.85), 4.30, io(seg(t, 11.85, 12.35)));
-  return 4.30;
+// Segundo de la grabación en el instante t (si t cae justo antes/después de un corte, se queda en el borde del tramo)
+function absAt(t) { for (const [t0, t1, a0, a1] of CLIPS) if (t < t1) return lerp(a0, a1, seg(t, t0, t1)); return CLIPS.at(-1)[3]; }
+const frameSrc = abs => `.frames/bsas2/f${String(Math.round(abs * 60)).padStart(5, '0')}.jpg`;
+function pageCam(t) {
+  let i = 0; while (i < PCAM.length - 2 && t > PCAM[i + 1][0]) i++;
+  const [ta, za, xa, ya] = PCAM[i], [tb, zb, xb, yb] = PCAM[i + 1], u = io(seg(t, ta, tb));
+  return [lerp(za, zb, u), lerp(xa, xb, u), lerp(ya, yb, u)];
 }
-const frameSrc = t => `.frames/bsas60/${String(Math.min(NFR, Math.max(1, Math.round((recAbs(t) - ABS0) * SRC_FPS) + 1))).padStart(4, '0')}.jpg`;
 
-function txt(sel, op, dy) { document.querySelectorAll(sel).forEach((e, i) => { const o = typeof op === 'function' ? op(i) : op, y = typeof dy === 'function' ? dy(i) : dy; e.style.opacity = o; e.style.transform = `translateY(${y}px)`; }); }
+// Texto: entra y sale con opacidad, un poco de movimiento y desenfoque
+function txt(sel, f) { document.querySelectorAll(sel).forEach((e, i) => { const [o, y, b] = f(i); e.style.opacity = o; e.style.transform = `translateY(${y}px)`; e.style.filter = b > .05 ? `blur(${b.toFixed(2)}px)` : ''; }); }
+const inOut = (t, a, b, ia = .55, ob = .4) => { const i = out(seg(t, a, a + ia)), o = io(seg(t, b - ob, b)); return [i * (1 - o), 24 * (1 - i) - 16 * o, 7 * (1 - i) + 7 * o]; };
 
 window.renderAt = async function (t) {
   const scr = document.getElementById('scr');
-  let q, aspect, rad;
+  let q, aspect, rad, blur = 0;
   // --- Studio Display: acercamiento lento; después la cámara entra en la pantalla.
   // La web queda pegada al monitor hasta la mitad del viaje y recién ahí se endereza, mientras el monitor se desvanece.
   const sd = DEV.sd, kEnd = PANEL.w / sd.sw;
-  let blur = 0;
   if (t < 4.4) {
     const push = 1 + .045 * out(t / 3.0);
     const u = seg(t, 3.0, 4.35), e = io4(u);
@@ -197,43 +226,54 @@ window.renderAt = async function (t) {
     const c = [lerp(sd.c0[0], PANEL.cx, e), lerp(sd.c0[1], PANEL.cy, e)];
     const qs = cam('sd', k, c, 1 - io(seg(t, 3.62, 4.08)));
     const f = io(seg(t, 3.5, 4.35));
-    q = mix(qs, panel(), f); aspect = lerp(sd.aspect, PANEL.aspect, f); rad = lerp(4, 26, f);
+    q = mix(qs, panel(1.012), f); aspect = lerp(sd.aspect, PANEL.aspect, f); rad = lerp(4, 26, f);
     blur = 1.3 * Math.sin(Math.PI * u) ** 2;
   } else cam('sd', 1, sd.c0, 0);
   document.getElementById('sd').style.filter = blur > .05 ? `blur(${blur.toFixed(2)}px)` : '';
-  document.getElementById('glow').style.opacity = .4 * Math.sin(Math.PI * seg(t, 3.4, 5.2));
-  // --- Recorrido adentro
-  const p2 = 1 + .035 * io(seg(t, 4.4, 12.2));
-  if (t >= 4.4 && t < 12.35) { q = panel(p2); aspect = PANEL.aspect; rad = 26; }
+  // --- Adentro: la web flota de frente; al llegar se asienta suave (1,2 % más grande → tamaño final)
+  const p2 = (1 + .035 * io(seg(t, 4.4, 17.4))) * (1 + .012 * (1 - out(seg(t, 4.35, 5.1))));
+  if (t >= 4.4 && t < 17.9) { q = panel(p2); aspect = PANEL.aspect; rad = 26; }
   // --- Monitor de frente: la web se achica y entra justo en la pantalla, la cámara se aleja
-  const mf = DEV.mf, kStart = PANEL.w * 1.035 / mf.sw;
-  if (t >= 12.35) {
-    const g = io(seg(t, 12.35, 13.65));
-    const k = Math.exp(lerp(Math.log(kStart), 0, g)) * (1 + .025 * out(seg(t, 13.65, 16)));
+  const mf = DEV.mf, pEnd = 1.035, kStart = PANEL.w * pEnd / mf.sw;
+  const mfEl = document.getElementById('mf');
+  if (t >= 17.9) {
+    const u = seg(t, 17.9, 19.2), g = io(u);
+    const k = Math.exp(lerp(Math.log(kStart), 0, g)) * (1 + .025 * out(seg(t, 19.2, 22)));
     const c = [lerp(PANEL.cx, mf.c0[0], g), lerp(PANEL.cy, mf.c0[1], g)];
-    const qm = cam('mf', k, c, io(seg(t, 12.35, 12.85)));
-    const h = io(seg(t, 12.35, 12.95));
-    q = mix(panel(1.035), qm, h); aspect = lerp(PANEL.aspect, mf.aspect, h); rad = lerp(26, 2, h);
-  } else cam('mf', 1, mf.c0, 0);
+    const qm = cam('mf', k, c, io(seg(t, 17.9, 18.45)));
+    const h = io(seg(t, 17.9, 18.55));
+    q = mix(panel(pEnd), qm, h); aspect = lerp(PANEL.aspect, mf.aspect, h); rad = lerp(26, 2, h);
+    blur = .9 * Math.sin(Math.PI * u) ** 2;
+    const dof = 2.4 * (1 - out(seg(t, 17.9, 18.7)));   // el monitor aparece de desenfocado a nítido
+    mfEl.style.filter = dof > .05 ? `blur(${dof.toFixed(2)}px)` : '';
+  } else { cam('mf', 1, mf.c0, 0); mfEl.style.filter = ''; }
+  document.getElementById('glow').style.opacity = .4 * Math.sin(Math.PI * seg(t, 3.4, 5.2)) + .22 * Math.sin(Math.PI * seg(t, 17.6, 19.4));
   // sombra suave bajo la web cuando flota sola
-  const sh = document.getElementById('shadow'), inside = seg(t, 3.9, 4.4) * (1 - seg(t, 12.35, 12.8));
+  const sh = document.getElementById('shadow'), inside = seg(t, 3.9, 4.4) * (1 - seg(t, 17.9, 18.35));
   const pr = panel(p2); sh.style.opacity = inside * .9;
   sh.style.transform = `translate(${pr[0][0] + 30}px,${pr[0][1] + 60}px) scale(${(pr[1][0] - pr[0][0] - 60) / 100},${(pr[3][1] - pr[0][1] - 20) / 100})`;
 
-  const W = 1512, H = Math.round(W / aspect);
+  const W = 1512, H = Math.round(W / aspect), Hp = H - 52;
   scr.style.height = H + 'px'; scr.style.borderRadius = (rad * W / Math.hypot(q[1][0] - q[0][0], q[1][1] - q[0][1])) + 'px';
   fitTo(scr, W, H, q);
   scr.style.filter = blur > .05 ? `blur(${blur.toFixed(2)}px)` : '';
-  // página: grabación + vuelta al inicio en el iPad
-  const A = document.getElementById('pgA'), src = frameSrc(t);
-  if (A.getAttribute('src') !== src) { A.src = src; await A.decode(); }
+  // cámara dentro de la página (zoom a la parte que importa, sin salirse de la página)
+  const [z, cx, cy] = pageCam(t);
+  let tx = W / 2 - cx * z, ty = Hp / 2 - cy * z;
+  tx = clamp(tx, W - 1512 * z, 0); ty = 918 * z > Hp ? clamp(ty, Hp - 918 * z, 0) : 0;
+  document.getElementById('pcam').style.transform = `translate(${tx}px,${ty}px) scale(${z})`;
+  // cuadros de la grabación; en los cortes, pestañeo corto a oscuro (sin doble exposición)
+  const A = document.getElementById('pgA'), cut = CUTS.find(c => Math.abs(t - c) < XF / 2);
+  const srcA = frameSrc(absAt(cut != null && t < cut ? cut - 1e-3 : t));
+  if (A.getAttribute('src') !== srcA) { A.src = srcA; await A.decode(); }
+  document.getElementById('dip').style.opacity = cut != null ? .9 * Math.sin(Math.PI * seg(t, cut - XF / 2, cut + XF / 2)) : 0;
 
   // --- Textos
-  txt('.g1', i => clamp(out(seg(t, .15 + i * .12, .75 + i * .12))) * (1 - io(seg(t, 2.65, 3.2))), i => lerp(26, 0, out(seg(t, .15 + i * .12, .75 + i * .12))) - 22 * io(seg(t, 2.65, 3.2)));
-  txt('.g2e', out(seg(t, 4.2, 4.7)) * (1 - io(seg(t, 11.7, 12.1))), 0);
-  txt('.c1', out(seg(t, 4.3, 4.9)) * (1 - io(seg(t, 7.45, 7.85))), lerp(22, 0, out(seg(t, 4.3, 4.9))) - 14 * io(seg(t, 7.45, 7.85)));
-  txt('.c2', out(seg(t, 7.75, 8.35)) * (1 - io(seg(t, 11.7, 12.1))), lerp(22, 0, out(seg(t, 7.75, 8.35))) - 14 * io(seg(t, 11.7, 12.1)));
-  txt('.g3', i => out(seg(t, 13.4 + i * .12, 14.0 + i * .12)), i => lerp(26, 0, out(seg(t, 13.4 + i * .12, 14.0 + i * .12))));
+  txt('.g1', i => { const a = .15 + i * .12, [o, y, b] = inOut(t, a, 3.2, .6, .55); return [o, y, b]; });
+  txt('.g2e', () => inOut(t, 4.45, 17.35, .5, .4));
+  const CP = [[5.45, 7.55], [7.7, 9.1], [9.25, 12.8], [12.95, 14.8], [15.0, 17.35]];
+  txt('.cp', i => inOut(t, CP[i][0], CP[i][1], .5, .35));
+  txt('.g3', i => { const [o, y, b] = inOut(t, 19.0 + i * .12, 99, .65); return [o, y, b]; });
 };
 
 (async () => {

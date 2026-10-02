@@ -15,7 +15,7 @@ const { chromium } = require('playwright');
 const dir = path.dirname(fileURLToPath(import.meta.url));
 const arg = (k, d) => { const i = process.argv.indexOf('--' + k); return i > 0 ? process.argv[i + 1] : d; };
 const html = process.argv.slice(2).find(a => a.endsWith('.html')) || 'video-bsas.html';
-const DUR = +arg('dur', 16), FPS = +arg('fps', 30), POSTER = +arg('poster', 2), TEST = arg('test', '');
+const DUR = +arg('dur', 22), FPS = +arg('fps', 30), POSTER = +arg('poster', 2), TEST = arg('test', '');
 
 const types = { '.html': 'text/html; charset=utf-8', '.png': 'image/png', '.jpg': 'image/jpeg', '.webp': 'image/webp', '.woff2': 'font/woff2', '.svg': 'image/svg+xml' };
 const server = http.createServer((req, res) => {
