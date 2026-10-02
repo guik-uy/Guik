@@ -18,7 +18,7 @@ Hay 3 destacadas, como máximo: **Aicia**, **Clientes** y **Proyectos**.
 | Carpeta | Qué es | Estado |
 |---|---|---|
 | `historias/destacada-aicia/` | 5 historias "¿Qué es Aicia?" (`destacada.html`) | **Final, aprobada** |
-| `historias/clientes-proyectos/` | Portada de Clientes + 5 tarjetas de clientes + 2 de Proyectos (`historias.html`) | Clientes **final**. Portada de Proyectos **nueva, a revisar**. Tarjeta de Proyectos pendiente |
+| `historias/clientes-proyectos/` | Portada de Clientes + 5 tarjetas de clientes + 2 de Proyectos (`historias.html`) | Clientes **final**. Portada de Proyectos **a revisar**. Tarjeta de Proyectos pendiente |
 | `historias/portadas-destacadas/` | Íconos de portada de las 3 destacadas (`portadas.html`) | **Final, aprobada** |
 | `historias/que-es-aicia/` | 6 versiones viejas | No se usan, son solo referencia |
 
@@ -82,5 +82,5 @@ node portadas-destacadas/render.mjs    # portadas 2160×2160
 - El logo de AeroSport es de baja resolución. Si Guille consigue uno más grande, reemplazarlo.
 
 ### Pendiente
-- **Proyectos**: portada nueva "De la idea *a lo real.*" con vista explotada en 3 capas (boceto punteado → diseño → producto final), hecha en SVG por `buildStack()` en `historias.html`. El resto de la destacada Guille la quiere "diferente": esperar su idea antes de diseñar. La tarjeta Bs.As. Top (web) sigue como placeholder.
+- **Proyectos**: portada "Lo que *construimos.*" con una MacBook. En la pantalla hay un flujo de automatización tipo n8n (WhatsApp → Agente IA → Agenda y Planilla → Confirmación). Guille pidió sacar el logo grande y el dock que había antes; también descartó la versión de capas "De la idea a lo real". El resto de la destacada la quiere "diferente": esperar su idea antes de diseñar. La tarjeta Bs.As. Top (web) sigue como placeholder.
 - Opcional: video de demo de un proyecto si Guille pasa grabaciones de pantalla.
