@@ -99,7 +99,13 @@ node portadas-destacadas/render.mjs    # portadas 2160×2160
 - **Historias en video** (línea de tiempo):
   - `video-bsas.html` define la escena y `window.renderAt(t)`.
   - `bash preparar-cuadros-bsas.sh grabacion.mp4` saca los tramos de la grabación a `.frames/bsas3/`, a 60 fps, con el número de cuadro absoluto (`CLIPS` decide el ritmo). No van al repo.
-  - `node render-timeline.mjs video-bsas.html` hornea los dispositivos a 2x, graba ~820 cuadros (unos 5 min; la duración sale de `window.DUR`) y arma el MP4 con grano.
+  - `node render-timeline.mjs video-bsas.html [--fresh]` hornea los dispositivos a 2x y graba ~820 cuadros (la duración sale de `window.DUR`). Tarda unos 25–30 min y se puede cortar y retomar.
+  - Calidad final, pedida por Guille:
+    - Cada cuadro se dibuja **al doble de resolución** y ffmpeg lo achica con lanczos.
+    - **Desenfoque de movimiento real** en `window.MBLUR`: entrada, scroll, tramo rápido y salida, promediando 4 instantes con obturador de 180°.
+    - **Fundido entre cuadros contiguos** de la grabación, para la cámara lenta sin saltos.
+    - **Remapeo de tiempo** y **cámara de página** con curvas monótonas (Fritsch–Carlson), así la velocidad nunca cambia de golpe.
+    - MP4 x264 con crf 15 y preset slower, y grano suave (3) para que Instagram lo comprima mejor.
   - `preparar-dispositivos.mjs` encuentra la pantalla de cada foto, mide las esquinas y la pinta de negro. La máscara del pulgar del iPad está medida a mano.
   - Fotos de mockups que pasó Guille y todavía no se usan: iPhone en la mano y ventana de vidrio flotante (están en el chat, no en el repo), y el iPad con manos (`assets/ipad-manos*.png`, listo y con la máscara del pulgar).
 - Pendiente opcional: una segunda historia de Bs.As. Top en imagen (por ejemplo, el paso de reservas en otro mockup). Máximo 2 historias por proyecto.

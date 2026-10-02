@@ -92,7 +92,7 @@ body{font-family:"Geist",system-ui,sans-serif;-webkit-font-smoothing:antialiased
   <div id="glow"></div>
   <div id="scr">
     <div class="bar"><i></i><i></i><i></i><span class="addr"><svg viewBox="0 0 24 24"><rect x="6" y="10.5" width="12" height="9" rx="2"/><path d="M8.8 10.5V8a3.2 3.2 0 0 1 6.4 0v2.5"/></svg>Buenos Aires Top</span></div>
-    <div class="pg"><div class="pcam" id="pcam"><img id="pgA" alt=""></div><div class="dip" id="dip"></div></div>
+    <div class="pg"><div class="pcam" id="pcam"><img id="pgA" alt=""><img id="pgB" alt=""></div><div class="dip" id="dip"></div></div>
     <div class="gl"></div>
   </div>
 
@@ -207,14 +207,40 @@ function fitTo(el, w, h, q) {
   el.style.transform = `matrix3d(${a / w},${d / w},0,${g / w},${b / h},${e / h},0,${hh / h},0,0,1,0,${x0},${y0},0,1)`;
 }
 
-// Segundo de la grabación en el instante t (si t cae justo antes/después de un corte, se queda en el borde del tramo)
-function absAt(t) { for (const [t0, t1, a0, a1] of CLIPS) if (t < t1) return lerp(a0, a1, seg(t, t0, t1)); return CLIPS.at(-1)[3]; }
-const frameSrc = abs => `.frames/bsas3/f${String(Math.round(abs * 60)).padStart(5, '0')}.jpg`;
-function pageCam(t) {
-  let i = 0; while (i < PCAM.length - 2 && t > PCAM[i + 1][0]) i++;
-  const [ta, za, xa, ya] = PCAM[i], [tb, zb, xb, yb] = PCAM[i + 1], u = io(seg(t, ta, tb));
-  return [lerp(za, zb, u), lerp(xa, xb, u), lerp(ya, yb, u)];
+// Curva monótona (Fritsch–Carlson) por puntos: velocidad continua, sin pasarse ni volver atrás.
+function monotone(xs, ys) {
+  const n = xs.length, d = [], m = new Array(n);
+  for (let k = 0; k < n - 1; k++) d.push((ys[k + 1] - ys[k]) / (xs[k + 1] - xs[k]));
+  m[0] = d[0]; m[n - 1] = d[n - 2];
+  for (let k = 1; k < n - 1; k++) m[k] = d[k - 1] * d[k] <= 0 ? 0 : (d[k - 1] + d[k]) / 2;
+  for (let k = 0; k < n - 1; k++) {
+    if (d[k] === 0) { m[k] = 0; m[k + 1] = 0; continue; }
+    const al = m[k] / d[k], be = m[k + 1] / d[k], r = al * al + be * be;
+    if (r > 9) { const tau = 3 / Math.sqrt(r); m[k] = tau * al * d[k]; m[k + 1] = tau * be * d[k]; }
+  }
+  return x => {
+    if (x <= xs[0]) return ys[0]; if (x >= xs[n - 1]) return ys[n - 1];
+    let k = 0; while (x > xs[k + 1]) k++;
+    const h = xs[k + 1] - xs[k], u = (x - xs[k]) / h, u2 = u * u, u3 = u2 * u;
+    return (2 * u3 - 3 * u2 + 1) * ys[k] + (u3 - 2 * u2 + u) * h * m[k] + (-2 * u3 + 3 * u2) * ys[k + 1] + (u3 - u2) * h * m[k + 1];
+  };
 }
+// Tramos continuos de la grabación (se cortan donde hay un salto) → una curva por tramo
+const RUNS = (() => {
+  const runs = []; let cur = null;
+  for (const [t0, t1, a0, a1] of CLIPS) {
+    if (!cur || Math.abs(cur.a.at(-1) - a0) > 1e-6 || Math.abs(cur.t.at(-1) - t0) > 1e-6) { cur = { t: [t0], a: [a0] }; runs.push(cur); }
+    cur.t.push(t1); cur.a.push(a1);
+  }
+  return runs.map(r => ({ t0: r.t[0], t1: r.t.at(-1), f: monotone(r.t, r.a) }));
+})();
+function absAt(t) { for (const r of RUNS) if (t < r.t1) return r.f(Math.max(t, r.t0)); return RUNS.at(-1).f(t); }
+const frameNo = abs => abs * 60;
+const frameSrc = n => `.frames/bsas3/f${String(n).padStart(5, '0')}.jpg`;
+const PZ = monotone(PCAM.map(k => k[0]), PCAM.map(k => k[1])), PX = monotone(PCAM.map(k => k[0]), PCAM.map(k => k[2])), PY = monotone(PCAM.map(k => k[0]), PCAM.map(k => k[3]));
+const pageCam = t => [PZ(t), PX(t), PY(t)];
+// Ventanas con desenfoque de movimiento real (el grabador promedia varios instantes por cuadro)
+window.MBLUR = [[2.9, 4.6], [4.4, 5.45], [9.4, 10.5], [22.5, 24.7]];
 
 // Texto: entra y sale con opacidad, un poco de movimiento y desenfoque
 function txt(sel, f) { document.querySelectorAll(sel).forEach((e, i) => { const [o, y, b] = f(i); e.style.opacity = o; e.style.transform = `translateY(${y}px)`; e.style.filter = b > .05 ? `blur(${b.toFixed(2)}px)` : ''; }); }
@@ -234,7 +260,6 @@ window.renderAt = async function (t) {
     const qs = cam('sd', k, c, 1 - io(seg(t, 3.62, 4.08)));
     const f = io(seg(t, 3.5, 4.35));
     q = mix(qs, panel(1.012), f); aspect = lerp(sd.aspect, PANEL.aspect, f); rad = lerp(4, 26, f);
-    blur = 1.3 * Math.sin(Math.PI * u) ** 2;
   } else cam('sd', 1, sd.c0, 0);
   document.getElementById('sd').style.filter = blur > .05 ? `blur(${blur.toFixed(2)}px)` : '';
   // --- Adentro: la web flota de frente; al llegar se asienta suave (1,2 % más grande → tamaño final)
@@ -250,7 +275,6 @@ window.renderAt = async function (t) {
     const qm = cam('mf', k, c, io(seg(t, T_EX, T_EX + .55)));
     const h = io(seg(t, T_EX, T_EX + .65));
     q = mix(panel(pEnd), qm, h); aspect = lerp(PANEL.aspect, mf.aspect, h); rad = lerp(26, 2, h);
-    blur = .9 * Math.sin(Math.PI * u) ** 2;
     const dof = 2.4 * (1 - out(seg(t, T_EX, T_EX + .8)));   // el monitor aparece de desenfocado a nítido
     mfEl.style.filter = dof > .05 ? `blur(${dof.toFixed(2)}px)` : '';
   } else { cam('mf', 1, mf.c0, 0); mfEl.style.filter = ''; }
@@ -269,10 +293,15 @@ window.renderAt = async function (t) {
   let tx = W / 2 - cx * z, ty = Hp / 2 - cy * z;
   tx = clamp(tx, W - 1512 * z, 0); ty = 918 * z > Hp ? clamp(ty, Hp - 918 * z, 0) : 0;
   document.getElementById('pcam').style.transform = `translate(${tx}px,${ty}px) scale(${z})`;
-  // cuadros de la grabación; en los cortes, pestañeo corto a oscuro (sin doble exposición)
-  const A = document.getElementById('pgA'), cut = CUTS.find(c => Math.abs(t - c) < XF / 2);
-  const srcA = frameSrc(absAt(cut != null && t < cut ? cut - 1e-3 : t));
-  if (A.getAttribute('src') !== srcA) { A.src = srcA; await A.decode(); }
+  // cuadros de la grabación: se funden el anterior y el siguiente según la fracción (cámara lenta fluida);
+  // en los cortes, pestañeo corto a oscuro (sin doble exposición)
+  const A = document.getElementById('pgA'), B = document.getElementById('pgB'), cut = CUTS.find(c => Math.abs(t - c) < XF / 2);
+  const fn = frameNo(absAt(cut != null && t < cut ? cut - 1e-3 : t)), f0 = Math.floor(fn + 1e-6), fr = cut != null ? 0 : fn - f0;
+  const s0 = frameSrc(f0), s1 = fr > .02 ? frameSrc(f0 + 1) : null, loads = [];
+  if (A.getAttribute('src') !== s0) { A.src = s0; loads.push(A.decode()); }
+  if (s1 && B.getAttribute('src') !== s1) { B.src = s1; loads.push(B.decode().catch(() => {})); }
+  await Promise.all(loads);
+  B.style.opacity = s1 && B.naturalWidth ? fr.toFixed(3) : 0;
   document.getElementById('dip').style.opacity = cut != null ? .9 * Math.sin(Math.PI * seg(t, cut - XF / 2, cut + XF / 2)) : 0;
 
   // --- Textos

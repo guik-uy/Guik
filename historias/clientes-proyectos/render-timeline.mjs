@@ -2,7 +2,8 @@
 // 1) "Hornea" los dispositivos con sus efectos de integración a 2x (una sola vez) → .video-out/bake/
 // 2) Recorre el tiempo cuadro por cuadro, captura y arma el MP4 (grano y color bt709 con ffmpeg).
 // También guarda el PNG estático de la historia (instante --poster, por defecto 2 s).
-// Uso: NODE_PATH=$(npm root -g) node render-timeline.mjs video-bsas.html [--dur 16] [--fps 30] [--poster 2] [--test 1,3.6,6]
+// Uso: NODE_PATH=$(npm root -g) node render-timeline.mjs video-bsas.html [--fresh] [--ss 2] [--sub 4] [--fps 30] [--poster 2] [--test 1,3.6,6]
+// Se puede cortar y volver a correr: retoma desde el último cuadro (--fresh empieza de cero).
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
@@ -52,31 +53,45 @@ const bake = path.join(dir, '.video-out', 'bake'); fs.mkdirSync(bake, { recursiv
   console.log('dispositivos horneados:', ids.join(', '));
 }
 
-// 2) Cuadros
-const page = await open('?baked&t=0');
+// 2) Cuadros, dibujados al doble de resolución (texto y bordes más limpios; ffmpeg achica con lanczos al final)
+const SS = +arg('ss', 2), SUB = +arg('sub', 4), SHUTTER = .5; // escala · instantes por cuadro con desenfoque · obturador (fracción del cuadro)
+const page = await open('?baked&t=0', SS);
 const story = await page.$('.story');
 const meta = await page.$eval('.story', s => ({ png: s.dataset.file, mp4: s.dataset.video }));
-const shot = async (t, file, type = 'jpeg') => { await page.evaluate(t => window.renderAt(t), t); await story.screenshot(type === 'png' ? { path: file } : { path: file, type: 'jpeg', quality: 95 }); };
+const MB = await page.evaluate(() => window.MBLUR || []);
+const shot = async (t, file, type = 'jpeg') => { await page.evaluate(t => window.renderAt(t), t); await story.screenshot(type === 'png' ? { path: file } : { path: file, type: 'jpeg', quality: 93 }); };
+// Desenfoque de movimiento real: en las ventanas MBLUR el cuadro es el promedio de SUB instantes dentro del obturador
+const frame = async (t, file, tmp) => {
+  if (!MB.some(([a, b]) => t >= a && t <= b)) return shot(t, file);
+  const subs = [];
+  for (let j = 0; j < SUB; j++) { const f = path.join(tmp, `s${j}.jpg`); await shot(t + ((j + .5) / SUB - .5) * SHUTTER / FPS, f); subs.push('-i', f); }
+  execFileSync('ffmpeg', ['-v', 'error', '-y', ...subs, '-filter_complex', `mix=inputs=${SUB}`, '-q:v', '2', file]);
+};
 
 if (TEST) {
   const out = path.join(dir, '.video-out', 'test'); fs.mkdirSync(out, { recursive: true });
-  for (const t of TEST.split(',').map(Number)) await shot(t, path.join(out, `t${t.toFixed(2)}.jpg`));
+  for (const t of TEST.split(',').map(Number)) await frame(t, path.join(out, `t${t.toFixed(2)}.jpg`), out);
   console.log('pruebas en', path.relative(dir, out));
 } else {
-  await shot(POSTER, path.join(dir, meta.png), 'png');
+  const tmpPng = path.join(dir, '.video-out', 'poster.png');
+  await shot(POSTER, tmpPng, 'png');
+  execFileSync('ffmpeg', ['-v', 'error', '-y', '-i', tmpPng, '-vf', 'scale=1080:1920:flags=lanczos', path.join(dir, meta.png)]);
   console.log('ok', meta.png);
-  const out = path.join(dir, '.video-out', path.basename(meta.mp4, '.mp4'));
-  fs.rmSync(out, { recursive: true, force: true }); fs.mkdirSync(out, { recursive: true });
+  const out = path.join(dir, '.video-out', path.basename(meta.mp4, '.mp4')), tmp = path.join(dir, '.video-out', 'sub');
+  if (process.argv.includes('--fresh')) fs.rmSync(out, { recursive: true, force: true });
+  fs.mkdirSync(out, { recursive: true }); fs.mkdirSync(tmp, { recursive: true });
   const dur = +arg('dur', 0) || await page.evaluate(() => window.DUR) || DUR;
   const N = Math.round(dur * FPS), t0 = Date.now();
   for (let n = 0; n < N; n++) {
-    await shot(n / FPS, path.join(out, String(n + 1).padStart(4, '0') + '.jpg'));
+    const f = path.join(out, String(n + 1).padStart(4, '0') + '.jpg');
+    if (fs.existsSync(f) && fs.statSync(f).size > 0) continue; // se puede retomar si se corta
+    await frame(n / FPS, f, tmp);
     if (n % 60 === 0) console.log(`cuadro ${n + 1}/${N} (${((Date.now() - t0) / 1000).toFixed(0)} s)`);
   }
   execFileSync('ffmpeg', ['-v', 'error', '-y', '-framerate', String(FPS), '-i', path.join(out, '%04d.jpg'),
-    '-vf', 'format=gbrp,noise=alls=5:allf=t+u,scale=out_color_matrix=bt709:out_range=tv,format=yuv420p',
+    '-vf', 'scale=1080:1920:flags=lanczos+accurate_rnd+full_chroma_int,format=gbrp,noise=alls=3:allf=t+u,scale=out_color_matrix=bt709:out_range=tv,format=yuv420p',
     '-colorspace', 'bt709', '-color_primaries', 'bt709', '-color_trc', 'bt709',
-    '-c:v', 'libx264', '-preset', 'slow', '-crf', '18', '-profile:v', 'high', '-movflags', '+faststart', path.join(dir, meta.mp4)], { stdio: 'inherit' });
+    '-c:v', 'libx264', '-preset', 'slower', '-crf', '15', '-profile:v', 'high', '-level', '4.2', '-movflags', '+faststart', path.join(dir, meta.mp4)], { stdio: 'inherit' });
   console.log(`ok ${meta.mp4} (${N} cuadros, ${((Date.now() - t0) / 1000).toFixed(0)} s)`);
 }
 await browser.close();
