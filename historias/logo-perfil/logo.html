@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <title>Aicia · Logo de perfil</title>
 <style>
+@font-face{font-family:"Geist";src:url(fonts/geist-latin-wght-normal.woff2) format("woff2");font-weight:100 900}
 *{box-sizing:border-box;margin:0;padding:0}
 html{background:#15151d}
 body{display:flex;flex-wrap:wrap;gap:80px;padding:80px;justify-content:center}
@@ -32,6 +33,18 @@ body{display:flex;flex-wrap:wrap;gap:80px;padding:80px;justify-content:center}
   -webkit-mask:radial-gradient(72% 68% at 40% 40%,#000 0%,rgba(0,0,0,.5) 48%,transparent 82%);mask:radial-gradient(72% 68% at 40% 40%,#000 0%,rgba(0,0,0,.5) 48%,transparent 82%)}
 .perfil2 .logo2{filter:drop-shadow(0 0 30px rgba(129,132,255,.40)) drop-shadow(0 22px 34px rgba(4,3,26,.55))}
 .perfil2 .grain{opacity:.045}
+/* ---- Logo de texto: "aicia" igual que la firma de abajo de las historias y publicaciones (Geist 600, -0,035em, blanco) ---- */
+.texto{background:
+  radial-gradient(860px 760px at 50% 48%,rgba(79,70,229,.62),rgba(67,56,202,.20) 42%,transparent 70%),
+  radial-gradient(900px 600px at 0% 0%,rgba(67,56,202,.16),transparent 70%),
+  linear-gradient(180deg,#05051A 0%,#090924 38%,#100E36 100%)}
+.texto .g2{z-index:1;background-image:linear-gradient(rgba(199,201,255,.08) 1.5px,transparent 1.5px),linear-gradient(90deg,rgba(199,201,255,.08) 1.5px,transparent 1.5px);background-size:120px 120px;background-position:0 0;
+  -webkit-mask:radial-gradient(72% 68% at 50% 48%,#000 0%,rgba(0,0,0,.5) 48%,transparent 82%);mask:radial-gradient(72% 68% at 50% 48%,#000 0%,rgba(0,0,0,.5) 48%,transparent 82%)}
+.texto .grain{opacity:.045}
+.wm{left:0;top:0;z-index:3;font-family:"Geist",system-ui,sans-serif;font-weight:600;letter-spacing:-0.035em;line-height:1;color:#fff;white-space:nowrap}
+.texto .wm{text-shadow:0 0 46px rgba(129,132,255,.38),0 10px 30px rgba(3,3,16,.45)}
+.sq.transp{width:1600px;height:700px;background:transparent}
+
 /* En chico el grano no suma y ensucia la compresión de Instagram: casi nada */
 .perfil .grain{opacity:.03}
 img.mark{display:block;filter:drop-shadow(0 0 46px rgba(99,102,241,.45)) drop-shadow(0 34px 46px rgba(3,2,22,.55))}
@@ -68,6 +81,19 @@ img.mark{display:block;filter:drop-shadow(0 0 46px rgba(99,102,241,.45)) drop-sh
   <div class="grid"></div>
   <img class="mark" data-sph alt="Aicia">
   <div class="vig"></div><div class="grain"></div>
+</section>
+
+
+<!-- Logo de texto: "aicia" como la firma de las historias y publicaciones -->
+<section class="sq texto" data-file="aicia-logo-texto.png">
+  <div class="grid g2"></div>
+  <div class="wm" data-ink="620">aicia</div>
+  <div class="grain"></div>
+</section>
+
+<!-- El mismo logo de texto, sin fondo (PNG transparente) para usar en cualquier lado -->
+<section class="sq transp" data-file="aicia-logo-texto-transparente.png" data-size="1600x700" data-transparent>
+  <div class="wm" data-ink="1300">aicia</div>
 </section>
 
 <script>
@@ -148,7 +174,27 @@ function renderSpheres(theme, size, vb, show) {
   return cv.toDataURL('image/png');
 }
 
+// "aicia": tamaño según el ancho de la tinta (data-ink) y centrado por la caja real de las letras
+async function placeWordmarks() {
+  await document.fonts.load('600 100px "Geist"'); await document.fonts.ready;
+  const cx = new OffscreenCanvas(10, 10).getContext('2d');
+  document.querySelectorAll('.wm').forEach(el => {
+    const sec = el.closest('section'), W = sec.clientWidth, H = sec.clientHeight;
+    cx.font = '600 100px "Geist"'; cx.letterSpacing = '-3.5px';
+    const m = cx.measureText(el.textContent), inkW = m.actualBoundingBoxLeft + m.actualBoundingBoxRight;
+    const fs = 100 * (+el.dataset.ink) / inkW;
+    el.style.fontSize = fs + 'px';
+    const k = fs / 100, L = m.actualBoundingBoxLeft * k, R = m.actualBoundingBoxRight * k, A = m.actualBoundingBoxAscent * k, D = m.actualBoundingBoxDescent * k;
+    // la caja de línea (line-height 1) tiene la línea base en ~ (ascent de la fuente); se mide en el DOM
+    const probe = document.createElement('span'); probe.style.cssText = 'display:inline-block;width:1px;height:0;vertical-align:baseline';
+    el.append(probe); const baseY = probe.getBoundingClientRect().top - el.getBoundingClientRect().top; probe.remove();
+    const left = W / 2 - (R - L) / 2 - (-L) , top = H / 2 - baseY - (D - A) / 2;
+    el.style.left = (W / 2 - (L + R) / 2 + L) + 'px'; el.style.top = top + 'px';
+  });
+}
+
 (async () => {
+  await placeWordmarks();
   const url = renderSpheres('dark', 2160, [-1, 10, 1025, 1025], [1, 1]);
   const im = document.querySelector('img[data-sph]');
   await new Promise(r => { im.onload = r; im.src = url; });

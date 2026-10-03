@@ -11,7 +11,7 @@ const require = createRequire(import.meta.url);
 const { chromium } = require('playwright');
 const dir = path.dirname(fileURLToPath(import.meta.url));
 
-const types = { '.html': 'text/html; charset=utf-8', '.png': 'image/png' };
+const types = { '.html': 'text/html; charset=utf-8', '.png': 'image/png', '.woff2': 'font/woff2' };
 const server = http.createServer((req, res) => {
   const f = path.join(dir, decodeURIComponent(new URL(req.url, 'http://x').pathname));
   if (!f.startsWith(dir) || !fs.existsSync(f) || fs.statSync(f).isDirectory()) { res.writeHead(404); return res.end(); }
@@ -22,7 +22,7 @@ await new Promise(r => server.listen(0, '127.0.0.1', r));
 const base = `http://127.0.0.1:${server.address().port}/`;
 
 const browser = await chromium.launch({ args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--enable-webgl', '--ignore-gpu-blocklist'] });
-const page = await browser.newPage({ viewport: { width: 1300, height: 1300 }, deviceScaleFactor: 2 });
+const page = await browser.newPage({ viewport: { width: 1800, height: 1300 }, deviceScaleFactor: 2 });
 page.on('pageerror', e => console.log('[error]', e.message));
 await page.goto(base + 'logo.html');
 await page.waitForFunction(() => window.__ready || window.__error, null, { timeout: 120000 });
@@ -34,9 +34,14 @@ for (const el of await page.$$('section.sq')) {
   const f = await el.getAttribute('data-file');
   // Se dibuja al doble (2160) y se achica a 1080 con lanczos: bordes más suaves y el tamaño que pide Instagram
   const tmp = path.join(dir, '.' + f);
-  await el.screenshot({ path: tmp });
-  execFileSync('ffmpeg', ['-v', 'error', '-y', '-i', tmp, '-vf', 'scale=1080:1080:flags=lanczos+accurate_rnd+full_chroma_int', path.join(dir, f)]);
+  const [w, h] = ((await el.getAttribute('data-size')) || '1080x1080').split('x');
+  const transp = (await el.getAttribute('data-transparent')) !== null; // sin fondo (PNG con transparencia)
+  if (transp) await page.evaluate(() => { document.documentElement.style.background = document.body.style.background = 'transparent'; });
+  await el.screenshot({ path: tmp, omitBackground: transp });
+  if (transp) await page.evaluate(() => { document.documentElement.style.background = document.body.style.background = ''; });
+  execFileSync('ffmpeg', ['-v', 'error', '-y', '-i', tmp, '-vf', `scale=${w}:${h}:flags=lanczos+accurate_rnd+full_chroma_int`, path.join(dir, f)]);
   fs.unlinkSync(tmp);
+  if (transp) { console.log('ok', f); continue; } // no va a la vista previa en círculo
   files.push(f);
   console.log('ok', f);
 }
