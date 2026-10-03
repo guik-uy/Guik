@@ -157,7 +157,10 @@ node exportar-instagram.mjs            # TODO listo para subir → historias/ins
     - **Desenfoque de movimiento real** en `window.MBLUR`: entrada, scroll, tramo rápido y salida, promediando 4 instantes con obturador de 180°.
     - **Fundido entre cuadros contiguos** de la grabación, para la cámara lenta sin saltos.
     - **Remapeo de tiempo** y **cámara de página** con curvas monótonas (Fritsch–Carlson), así la velocidad nunca cambia de golpe.
-    - MP4 x264 con crf 15 y preset slower, y grano suave (3) para que Instagram lo comprima mejor.
+    - MP4 x264 con crf 12, preset veryslow, tune film y aq-mode 3 (cuida los fondos oscuros). Pesa unos 23 MB, porque el chat no acepta más de ~30 MB.
+    - **Sin grano en movimiento.** Guille dijo que el video "se veía mal": ese grano Instagram lo convierte en bloques.
+    - Enfoque suave (`unsharp` 0,35) para que el texto aguante la recompresión de Instagram.
+    - Sin `--fresh`, si los cuadros ya están, solo re-codifica (~1 min). Se ajusta con `--crf` y `--sharp`.
   - `preparar-dispositivos.mjs` encuentra la pantalla de cada foto, mide las esquinas y la pinta de negro. La máscara del pulgar del iPad está medida a mano.
   - Fotos de mockups que pasó Guille y todavía no se usan: iPhone en la mano y ventana de vidrio flotante (están en el chat, no en el repo), y el iPad con manos (`assets/ipad-manos*.png`, listo y con la máscara del pulgar).
 - Pendiente opcional: una segunda historia de Bs.As. Top en imagen (por ejemplo, el paso de reservas en otro mockup). Máximo 2 historias por proyecto.

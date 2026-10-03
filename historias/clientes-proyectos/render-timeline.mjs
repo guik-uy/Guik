@@ -2,7 +2,8 @@
 // 1) "Hornea" los dispositivos con sus efectos de integración a 2x (una sola vez) → .video-out/bake/
 // 2) Recorre el tiempo cuadro por cuadro, captura y arma el MP4 (grano y color bt709 con ffmpeg).
 // También guarda el PNG estático de la historia (instante --poster, por defecto 2 s).
-// Uso: NODE_PATH=$(npm root -g) node render-timeline.mjs video-bsas.html [--fresh] [--ss 2] [--sub 4] [--fps 30] [--poster 2] [--test 1,3.6,6]
+// Uso: NODE_PATH=$(npm root -g) node render-timeline.mjs video-bsas.html [--fresh] [--ss 2] [--sub 4] [--fps 30] [--poster 2] [--test 1,3.6,6] [--crf 12] [--sharp 0.35]
+// Sin --fresh, si los cuadros ya están, solo vuelve a codificar el MP4 (unos minutos).
 // Se puede cortar y volver a correr: retoma desde el último cuadro (--fresh empieza de cero).
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
@@ -89,9 +90,11 @@ if (TEST) {
     if (n % 60 === 0) console.log(`cuadro ${n + 1}/${N} (${((Date.now() - t0) / 1000).toFixed(0)} s)`);
   }
   execFileSync('ffmpeg', ['-v', 'error', '-y', '-framerate', String(FPS), '-i', path.join(out, '%04d.jpg'),
-    '-vf', 'scale=1080:1920:flags=lanczos+accurate_rnd+full_chroma_int,format=gbrp,noise=alls=3:allf=t+u,scale=out_color_matrix=bt709:out_range=tv,format=yuv420p',
+    // Sin grano en movimiento (Instagram lo convierte en bloques); un enfoque suave para que el texto aguante la recompresión
+    '-vf', `scale=1080:1920:flags=lanczos+accurate_rnd+full_chroma_int,unsharp=5:5:${arg('sharp', '0.35')}:5:5:0,scale=out_color_matrix=bt709:out_range=tv:flags=accurate_rnd+full_chroma_int,format=yuv420p`,
     '-colorspace', 'bt709', '-color_primaries', 'bt709', '-color_trc', 'bt709',
-    '-c:v', 'libx264', '-preset', 'slower', '-crf', '15', '-profile:v', 'high', '-level', '4.2', '-movflags', '+faststart', path.join(dir, meta.mp4)], { stdio: 'inherit' });
+    '-c:v', 'libx264', '-preset', 'veryslow', '-tune', 'film', '-crf', arg('crf', '12'), '-x264-params', 'aq-mode=3:aq-strength=0.9',
+    '-profile:v', 'high', '-level', '4.2', '-g', '30', '-movflags', '+faststart', path.join(dir, meta.mp4)], { stdio: 'inherit' });
   console.log(`ok ${meta.mp4} (${N} cuadros, ${((Date.now() - t0) / 1000).toFixed(0)} s)`);
 }
 await browser.close();
