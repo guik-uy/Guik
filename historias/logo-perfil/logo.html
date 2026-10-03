@@ -30,7 +30,7 @@ img.mark{display:block;filter:drop-shadow(0 0 46px rgba(99,102,241,.45)) drop-sh
 <!-- Logo plano mejorado: mismo degradé índigo del logo, con luz suave arriba a la izquierda, sombra abajo y borde de luz lavanda -->
 <section class="sq perfil" data-file="aicia-logo-perfil.png">
   <div class="grid"></div>
-  <svg class="mark flat" viewBox="-3.5 53.5 977 977" aria-label="Aicia">
+  <svg class="mark flat" viewBox="-1 10 1025 1025" aria-label="Aicia">
     <defs>
       <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6A6DF7"/><stop offset=".55" stop-color="#5249E6"/><stop offset="1" stop-color="#463BD2"/></linearGradient>
       <radialGradient id="hl" cx=".3" cy=".24" r=".78"><stop offset="0" stop-color="#fff" stop-opacity=".26"/><stop offset=".45" stop-color="#fff" stop-opacity=".07"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
@@ -132,7 +132,7 @@ function renderSpheres(theme, size, vb, show) {
 }
 
 (async () => {
-  const url = renderSpheres('dark', 2160, [-3.5, 53.5, 977, 977], [1, 1]);
+  const url = renderSpheres('dark', 2160, [-1, 10, 1025, 1025], [1, 1]);
   const im = document.querySelector('img[data-sph]');
   await new Promise(r => { im.onload = r; im.src = url; });
   window.__ready = true;

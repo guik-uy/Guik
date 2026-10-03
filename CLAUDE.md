@@ -117,7 +117,7 @@ node exportar-instagram.mjs            # TODO listo para subir → historias/ins
 - `aicia-logo-perfil.png` (**el elegido por Guille**) es el logo plano con el mismo degradé #6366F1 → #4338CA. Lleva luz suave arriba a la izquierda, sombra abajo, un borde de luz lavanda y un resplandor índigo alrededor.
 - `aicia-logo-perfil-3d.png` (descartada, queda de referencia) es la variante con esferas índigo con luz real: el mismo shader WebGL de las portadas, en tema oscuro.
 - **Optimizado para verse chico**, como pidió Guille:
-  - Encuadre `viewBox -3.5 53.5 977 977`: el logo ocupa más, y la bolita chica queda dentro del círculo de Instagram.
+  - Encuadre `viewBox -1 10 1025 1025`: un poco más alejado, igual que la foto de perfil que usaba Guille (el círculo grande ocupa ~53 % del ancho). Las dos bolitas quedan bien dentro del círculo de Instagram.
   - La luz de fondo va corrida arriba a la izquierda, con una sombra más marcada, así el borde de abajo a la derecha se despega del fondo.
   - Grano casi nulo (`.perfil .grain`), porque en chico ensucia la compresión.
   - Se dibuja a 2160 y se achica a **1080×1080** con lanczos.
