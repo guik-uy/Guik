@@ -9,6 +9,7 @@
 ## Repo
 - La raíz (`index.html`, `manifest.json`, `sw.js`) es **Guik**, una app de gimnasio aparte. No tocarla salvo que la pida.
 - `historias/` contiene las **historias destacadas de Instagram de Aicia**, que es el trabajo actual.
+- `aicia-web/` es la **página web de Aicia** (ver "Web de Aicia" más abajo).
 - Rama de trabajo: `claude/eloquent-volta-h5jy6a`.
 
 ## Historias de Instagram (Aicia)
@@ -187,3 +188,23 @@ node exportar-instagram.mjs            # TODO listo para subir → historias/ins
 - Tarjetas de FC Barber Shop tipo billete de $2.000 ("¿Pensaste que era plata?"): Guille las mostró. La recomendación fue no sumarlas a Proyectos como diseño suelto. Solo entran si el QR lleva a algo que hizo Aicia (reservas o agente), contado como "del papel a la reserva". Ojo: imitan un billete real.
 - Pendiente opcional: una segunda historia de Bs.As. Top en imagen (por ejemplo, el paso de reservas en otro mockup). Máximo 2 historias por proyecto.
 - Opcional: video de demo de un proyecto si Guille pasa grabaciones de pantalla.
+
+## Web de Aicia (`aicia-web/`)
+- Pedido de Guille: "armar la página de Aicia con el estilo que venimos manejando". Es **una sola página** (`index.html`), estática, sin dependencias: HTML + CSS + un poco de JS. Se puede subir tal cual a Vercel, Netlify o GitHub Pages.
+- Vista previa en vivo (artifact privado de Guille): https://claude.ai/artifact/FhFKDhWpoyxtcHj5SnL2jE. Para actualizarla, se genera la versión para el visor (sin `<head>`, con las fuentes embebidas en base64 y el título "Web de Aicia") y se publica con la misma ruta.
+- **Mismo estilo que las historias**: noche índigo, una luz índigo por sección con la grilla que se desvanece, grano, vidrio (`.glass`), íconos tipo app (superelipse con `ap-indigo/ap-light/ap-deep`), Geist + una frase en Instrument Serif itálica lavanda por titular, recortes con tinte índigo y luz de borde (`.subj`).
+  - Las luces de cada sección se extienden 160 px arriba y abajo y se funden con la vecina: no hay cortes entre secciones. Las secciones no aíslan capas a propósito, así todas las luces quedan debajo de todo el texto.
+- **Secciones y textos** (todos salen de las historias aprobadas, nada inventado):
+  1. Inicio: "Agencia de IA y automatizaciones" / "Tu negocio, en *automático.*" / "Creamos agentes de IA, automatizaciones, webs y apps **a medida de tu negocio**, para que responda, agende y haga seguimiento solo." / botones "Pedí tu demo" (WhatsApp) y "Ver servicios". A la derecha, la escena de la historia "¿Qué hacemos?": mano robot + iPhone con el chat de WhatsApp y la notificación "Turno agendado". El chat **se anima una vez** (Martina "escribiendo…", los mensajes entran de a uno) y lleva la nota "Vista de ejemplo".
+  2. El problema: "Tu negocio, todo *a mano.*" + las 4 notificaciones de la historia 2, sobre la cabeza de documentos.
+  3. Servicios: "Hacemos que tu negocio *funcione solo.*" + 3 tarjetas (Asistentes de IA, Automatizaciones, Webs y apps) con sus frases aprobadas y 3 ejemplos cada una + "Se conecta con lo que ya usás" (WhatsApp, Instagram, Facebook, Gmail, Google Calendar, Google Sheets).
+  4. Cómo trabajamos: "Tres pasos. Sin *vueltas.*" (Diagnóstico, Implementación, Resultados).
+  5. Clientes: "Ellos ya *dieron el paso.*" + apretón robot-humano en blanco y negro + los 5 logos con nombre y rubro.
+  6. Proyectos: "Reservas *online.*" con el video de Bs.As. Top (versión web liviana) y los 5 pasos de la reserva + "Más proyectos, muy pronto."
+  7. Contacto: "¿Lo vemos para tu *negocio?*" + "Pedí tu demo" + WhatsApp +598 91 284 655 e Instagram @aicia_ia, con la mano robot señalando el botón.
+  8. Pie: logo, secciones, contacto y "aicia" gigante en degradé blanco → lavanda (como el logo de texto).
+- Todos los "Pedí tu demo" abren WhatsApp con el mensaje "Hola Aicia! Quiero pedir una demo para mi negocio."
+- Celular primero: en el teléfono todo va en una columna, los clientes en lista y la escena del chat se achica con `--k`.
+- `bash preparar-assets.sh` genera `assets/` desde `historias/`: recortes a WebP (los chicos al doble con lanczos), logos de clientes, el video a 720×1280 (~1,7 MB) y su portada.
+- `node capturas.mjs` saca capturas de escritorio (1440) y celular (390) en `capturas/` (no va al repo) y controla desbordes e imágenes sin cargar.
+- Pendiente: dominio, imagen para compartir (og:image) y, si Guille quiere, formulario o Google Analytics. Estado: **primera versión, esperando el OK de Guille**.

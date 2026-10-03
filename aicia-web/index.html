@@ -1,0 +1,690 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aicia — Agencia de IA en Montevideo</title>
+<meta name="description" content="Agentes de IA, automatizaciones, webs y apps a medida de tu negocio. Agencia de IA en Montevideo, Uruguay.">
+<meta name="theme-color" content="#06061A">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Aicia · Tu negocio, en automático">
+<meta property="og:description" content="Agentes de IA, automatizaciones, webs y apps a medida de tu negocio.">
+<meta property="og:locale" content="es_UY">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='150 220 660 660'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%238689FF'/%3E%3Cstop offset='1' stop-color='%234232CC'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='430' cy='600' r='270' fill='url(%23g)'/%3E%3Ccircle cx='700' cy='320' r='92' fill='url(%23g)'/%3E%3C/svg%3E">
+<link rel="preload" href="fonts/geist-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:"Geist";src:url(fonts/geist-latin-wght-normal.woff2) format("woff2");font-weight:100 900;font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2212}
+@font-face{font-family:"Geist";src:url(fonts/geist-latin-ext-wght-normal.woff2) format("woff2");font-weight:100 900;font-display:swap;unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Geist Mono";src:url(fonts/geist-mono-latin-400-normal.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Geist Mono";src:url(fonts/geist-mono-latin-500-normal.woff2) format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:"Instrument Serif";src:url(fonts/instrument-serif-latin-400-italic.woff2) format("woff2");font-style:italic;font-weight:400;font-display:swap}
+
+/* Layout: una sola columna de escenas oscuras, cada una con su propia luz índigo y su grilla, como las historias de Instagram */
+:root{
+  --night:#06061A; --indigo:#4F46E5; --indigo-d:#4338CA;
+  --lav:#C7C9FF; --lav2:#9A9BFA;
+  --t1:#F4F4FA; --t2:#B9BBDA; --t3:#8F91B8;
+  --line:rgba(199,201,255,.12);
+  --sans:"Geist",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --serif:"Instrument Serif","Iowan Old Style",Georgia,serif;
+  --mono:"Geist Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --gut:clamp(20px,5vw,48px);
+  --nav:68px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{background:var(--night);scroll-behavior:smooth;scroll-padding-top:calc(var(--nav) + 12px);-webkit-text-size-adjust:100%}
+body{margin:0;min-height:100%;overflow-x:clip;color:var(--t1);font-family:var(--sans);font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  background:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .05 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"),
+    linear-gradient(180deg,#05051A 0%,#090924 30%,#07071D 62%,#05051A 100%) var(--night)}
+img,video,svg{display:block;max-width:100%}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--lav);outline-offset:3px;border-radius:8px}
+.wrap{width:100%;max-width:1200px;margin-inline:auto;padding-inline:var(--gut)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- Escena (igual que las historias) ---------- */
+.sec{position:relative;overflow-x:clip;padding-block:clamp(88px,11vw,150px)}
+.sec > .wrap{position:relative;z-index:2}
+/* La luz se extiende por arriba y por abajo y se funde con la escena vecina: sin cortes entre secciones */
+.stage,.grid{position:absolute;left:0;right:0;pointer-events:none;z-index:0}
+.stage{top:-160px;bottom:-160px;background:radial-gradient(var(--gw,900px) var(--gh,700px) at var(--gx,70%) var(--gy,55%),rgba(79,70,229,.52),rgba(67,56,202,.17) 42%,transparent 70%);
+  -webkit-mask:linear-gradient(180deg,transparent 0,#000 160px,#000 calc(100% - 160px),transparent 100%);mask:linear-gradient(180deg,transparent 0,#000 160px,#000 calc(100% - 160px),transparent 100%)}
+.grid{top:0;bottom:0;background-image:linear-gradient(rgba(199,201,255,.065) 1px,transparent 1px),linear-gradient(90deg,rgba(199,201,255,.065) 1px,transparent 1px);background-size:96px 96px;background-position:center 0;
+  -webkit-mask:radial-gradient(var(--mw,820px) var(--mh,640px) at var(--gx,70%) var(--gy,55%),#000 0%,rgba(0,0,0,.45) 45%,transparent 75%),linear-gradient(180deg,transparent 0,#000 18%,#000 82%,transparent 100%);
+  -webkit-mask-composite:source-in;
+  mask:radial-gradient(var(--mw,820px) var(--mh,640px) at var(--gx,70%) var(--gy,55%),#000 0%,rgba(0,0,0,.45) 45%,transparent 75%) intersect,linear-gradient(180deg,transparent 0,#000 18%,#000 82%,transparent 100%)}
+
+/* ---------- Tipografía ---------- */
+.eyebrow{display:inline-block;font-size:clamp(15px,1.25vw,18px);font-weight:600;letter-spacing:-0.012em;background:linear-gradient(90deg,#D9DAFF,#9A9BFA);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+h1,h2,h3{margin:0;font-weight:600;color:#fff}
+.h1{font-size:clamp(46px,12.4vw,112px);letter-spacing:-0.05em;line-height:.96}
+.h2{font-size:clamp(42px,8.4vw,88px);letter-spacing:-0.045em;line-height:1;margin-top:18px;text-wrap:balance}
+.serif{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:-0.015em;font-size:1.12em;line-height:.8;padding:0 .08em .14em 0;
+  background:linear-gradient(100deg,#B9BBFF 0%,#ECEDFF 52%,#C3C5FF 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.lede{margin:24px 0 0;max-width:33em;font-size:clamp(17px,1.5vw,20px);line-height:1.5;letter-spacing:-0.011em;color:rgba(226,228,255,.78);text-wrap:pretty}
+.lede b{color:#fff;font-weight:500}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.ic{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex:none}
+
+/* ---------- Materiales ---------- */
+.glass{background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.04)),rgba(14,13,40,.42);-webkit-backdrop-filter:blur(24px) saturate(170%);backdrop-filter:blur(24px) saturate(170%);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.12),inset 0 1px 0 rgba(255,255,255,.20),0 1px 2px rgba(0,0,0,.25),0 30px 60px -24px rgba(4,3,24,.75)}
+.tag{display:inline-flex;align-items:center;gap:12px;height:40px;padding:0 18px 0 16px;border-radius:999px;font-size:15px;font-weight:500;color:#fff}
+.dot{width:8px;height:8px;border-radius:50%;flex:none;background:var(--lav);box-shadow:0 0 0 4px rgba(199,201,255,.14),0 0 14px 2px rgba(199,201,255,.65)}
+
+/* Ícono estilo app: superelipse, glifo blanco, brillo interior (mismo sistema que las historias) */
+svg.app{flex:none;overflow:visible;filter:drop-shadow(0 1px 1px rgba(0,0,0,.25)) drop-shadow(0 10px 16px rgba(10,8,70,.45))}
+svg.app .gl{fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* Botones */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;height:56px;padding:0 24px;border-radius:999px;font:600 17px/1 var(--sans);letter-spacing:-0.015em;text-decoration:none;white-space:nowrap;transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .25s,background .25s}
+.btn-main{padding:0 8px 0 26px;color:var(--indigo-d);background:linear-gradient(180deg,#FFFFFF,#ECECFF);
+  box-shadow:inset 0 -2px 0 rgba(67,56,202,.12),0 0 0 6px rgba(199,201,255,.08),0 0 44px 2px rgba(129,132,255,.36),0 18px 30px -16px rgba(5,4,30,.8)}
+.btn-main .go{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:20px;background:linear-gradient(150deg,#6E71F4,#4F46E5 55%,#4338CA);box-shadow:inset 0 1px 0 rgba(255,255,255,.35);transition:transform .25s cubic-bezier(.2,.8,.2,1)}
+.btn-main:hover{transform:translateY(-1px);box-shadow:inset 0 -2px 0 rgba(67,56,202,.12),0 0 0 7px rgba(199,201,255,.11),0 0 56px 6px rgba(129,132,255,.5),0 20px 34px -16px rgba(5,4,30,.8)}
+.btn-main:hover .go{transform:translateX(2px)}
+.btn-ghost{color:var(--t1);background:rgba(255,255,255,.05);box-shadow:inset 0 0 0 1px rgba(255,255,255,.14)}
+.btn-ghost:hover{background:rgba(255,255,255,.09)}
+.btn-lg{height:68px;font-size:20px;padding-left:32px}
+.btn-lg .go{width:52px;height:52px;font-size:24px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn,.btn .go{transition:none}}
+
+/* ---------- Barra de navegación ---------- */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;transition:background .3s,box-shadow .3s}
+.nav.on{background:rgba(7,7,28,.66);-webkit-backdrop-filter:blur(20px) saturate(160%);backdrop-filter:blur(20px) saturate(160%);box-shadow:0 1px 0 rgba(199,201,255,.08)}
+.nav .wrap{height:var(--nav);display:flex;align-items:center;gap:28px}
+.brand{display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:#fff;font-weight:600;font-size:24px;letter-spacing:-0.045em;line-height:1}
+.brand svg{width:28px;height:28px;filter:drop-shadow(0 0 12px rgba(129,132,255,.35))}
+.nav-links{display:flex;gap:30px;margin:0 0 0 auto;padding:0;list-style:none;font-size:15px}
+.nav-links a{color:var(--t2);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:#fff}
+.nav .btn{height:42px;padding:0 6px 0 18px;font-size:15px;gap:10px}
+.nav .btn .go{width:30px;height:30px;font-size:15px}
+@media (max-width:880px){.nav-links{display:none}.nav .btn{margin-left:auto}}
+
+/* =========================================================
+   Inicio
+   ========================================================= */
+.hero{margin-top:calc(-1 * var(--nav));padding-top:calc(var(--nav) + clamp(40px,7vw,96px));padding-bottom:clamp(56px,8vw,110px);--gx:76%;--gy:58%;--gw:1100px;--gh:900px;--mw:1000px;--mh:820px}
+.hero-in{display:grid;gap:40px;align-items:center}
+.hero .tag{margin-bottom:28px}
+.hero .lede{max-width:30em}
+.hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:36px}
+.hero-vis{position:relative;min-width:0}
+.note{display:flex;align-items:center;gap:8px;margin:14px 0 0;font-size:14px;color:var(--t3)}
+
+/* Escena del teléfono (coordenadas de la historia "¿Qué hacemos?", escaladas con --k) */
+.rig-box{position:relative;height:calc(740px * var(--k));--k:.72}
+.rig{position:absolute;left:calc(50% - 358px * var(--k));top:0;width:740px;height:740px;transform:scale(var(--k));transform-origin:0 0}
+.rig > *{position:absolute}
+.halo{left:40px;top:40px;width:640px;height:640px;border-radius:50%;background:radial-gradient(closest-side,rgba(99,102,241,.42),rgba(99,102,241,.12) 55%,transparent);z-index:0}
+.subj{isolation:isolate}
+.subj > *{position:absolute;inset:0;width:100%;height:100%}
+.subj .tint,.subj .rim{-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+.subj .tint{background:linear-gradient(180deg,#6366F1,#3B32B8);mix-blend-mode:color;opacity:var(--tint,.22)}
+.subj .rim{mix-blend-mode:screen;opacity:var(--rim,.55);background:linear-gradient(90deg,rgba(199,201,255,.85) 0%,rgba(129,132,255,.25) 22%,transparent 45%)}
+.subj.r .rim{background:linear-gradient(270deg,rgba(199,201,255,.85) 0%,rgba(129,132,255,.25) 22%,transparent 45%)}
+.subj.mono img{filter:grayscale(1) contrast(1.06) brightness(1.04)}
+.rig .hand{left:0;top:0;width:740px;height:1046px;z-index:2;filter:drop-shadow(0 6px 10px rgba(5,4,30,.45));
+  -webkit-mask:linear-gradient(180deg,#000 0%,#000 56%,transparent 76%);mask:linear-gradient(180deg,#000 0%,#000 56%,transparent 76%)}
+.hand .tint,.hand .rim{-webkit-mask-image:url(assets/mano-celular.webp);mask-image:url(assets/mano-celular.webp)}
+.phone{left:149.7px;top:89.8px;width:417.4px;height:626.1px;z-index:1;isolation:isolate}
+.phone > *{position:absolute}
+.phone .ph-img,.phone .ph-tint,.phone .ph-rim{left:0;top:0;width:100%;height:100%}
+.phone .ph-img{z-index:1}
+.phone .ph-tint,.phone .ph-rim{z-index:2;-webkit-mask:url(assets/iphone.webp) 0 0/100% 100% no-repeat;mask:url(assets/iphone.webp) 0 0/100% 100% no-repeat}
+.phone .ph-tint{background:linear-gradient(180deg,#6366F1,#3B32B8);mix-blend-mode:color;opacity:.22}
+.phone .ph-rim{background:linear-gradient(90deg,rgba(199,201,255,.75) 0%,rgba(129,132,255,.2) 18%,transparent 34%);mix-blend-mode:screen;opacity:.55}
+.toast{left:98px;top:622px;width:516px;z-index:3;display:flex;gap:18px;align-items:center;padding:20px 24px 20px 20px;border-radius:36px;
+  background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.03)),rgba(11,10,34,.80)}
+.toast svg.app{width:64px;height:64px}
+.toast .nt{flex:1;display:flex;flex-direction:column;gap:5px}
+.toast .nh{display:flex;justify-content:space-between;align-items:baseline}
+.toast b{font-size:24px;font-weight:600;letter-spacing:-0.02em;color:#fff}
+.toast .mono{font-size:17px;color:#C3C5E4}
+.toast p{margin:0;font-size:23px;line-height:1.3;color:var(--t1);letter-spacing:-0.01em}
+
+/* Chat estilo WhatsApp (Vista de ejemplo) */
+.wa{left:91.3px;top:62.4px;width:234.8px;height:500.8px;z-index:0;border-radius:30px;overflow:hidden;background:#EFEAE2;font-family:var(--sans);color:#111B21;letter-spacing:-0.01em;line-height:1.3}
+.wa > *{position:absolute}
+.wa::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:3;background:linear-gradient(125deg,rgba(255,255,255,.16) 0%,rgba(255,255,255,.04) 26%,transparent 44%),linear-gradient(180deg,transparent 70%,rgba(20,16,80,.10))}
+.wa .wall{inset:0;opacity:.9;background-size:150px 150px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150' fill='none' stroke='%23A3937B' stroke-opacity='.30' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg transform='translate(67.8 128.3) rotate(13) scale(0.56) translate(-12 -12)'%3E%3Ccircle cx='12' cy='12' r='8.5'/%3E%3Cpath d='M12 7.5V12l3 2'/%3E%3C/g%3E%3Cg transform='translate(27.7 76.8) scale(0.55) translate(-12 -12)'%3E%3Cpath d='M4 15c3-6 6-6 8 0s5 6 8 0'/%3E%3C/g%3E%3Cg transform='translate(98.1 92.3) rotate(-21) scale(0.52) translate(-12 -12)'%3E%3Cpath d='M9 18V6l10-2v12'/%3E%3Ccircle cx='6.5' cy='18' r='2.5'/%3E%3Ccircle cx='16.5' cy='16' r='2.5'/%3E%3C/g%3E%3Cg transform='translate(93.5 124.8) rotate(-3) scale(0.54) translate(-12 -12)'%3E%3Cpath d='M12 20s-7-4.4-7-9.5A4 4 0 0 1 12 8a4 4 0 0 1 7 2.5C19 15.6 12 20 12 20z'/%3E%3C/g%3E%3Cg transform='translate(8.9 28.5) rotate(-33) scale(0.47) translate(-12 -12)'%3E%3Cpath d='M5 8h11v6a5 5 0 0 1-5 5h-1a5 5 0 0 1-5-5z'/%3E%3Cpath d='M16 10h1.5a2.5 2.5 0 0 1 0 5H16'/%3E%3Cpath d='M8 3v2M11 3v2'/%3E%3C/g%3E%3Cg transform='translate(29.3 35.0) rotate(-37) scale(0.43) translate(-12 -12)'%3E%3Crect x='3' y='6' width='18' height='12' rx='2.5'/%3E%3Cpath d='M3.5 7l8.5 6 8.5-6'/%3E%3C/g%3E%3Cg transform='translate(68.6 41.7) scale(0.54) translate(-12 -12)'%3E%3Cpath d='M4 20l4-1L19 8l-3-3L5 16z'/%3E%3C/g%3E%3Cg transform='translate(127.1 0.1) rotate(-22) scale(0.52) translate(-12 -12)'%3E%3Ccircle cx='12' cy='12' r='8.5'/%3E%3Cpath d='M12 7.5V12l3 2'/%3E%3C/g%3E%3Cg transform='translate(127.1 150.1) rotate(-22) scale(0.52) translate(-12 -12)'%3E%3Ccircle cx='12' cy='12' r='8.5'/%3E%3Cpath d='M12 7.5V12l3 2'/%3E%3C/g%3E%3Cg transform='translate(56.3 106.3) rotate(20) scale(0.51) translate(-12 -12)'%3E%3Cpath d='M3 12h4l2-5 4 10 2-5h6'/%3E%3C/g%3E%3Cg transform='translate(76.3 -2.2) rotate(2) scale(0.42) translate(-12 -12)'%3E%3Cpath d='M4 8.5A2.5 2.5 0 0 1 6.5 6h2l1.5-2h4l1.5 2h2A2.5 2.5 0 0 1 20 8.5v8a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 16.5z'/%3E%3Ccircle cx='12' cy='12.5' r='3'/%3E%3C/g%3E%3Cg transform='translate(76.3 147.8) rotate(2) scale(0.42) translate(-12 -12)'%3E%3Cpath d='M4 8.5A2.5 2.5 0 0 1 6.5 6h2l1.5-2h4l1.5 2h2A2.5 2.5 0 0 1 20 8.5v8a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 16.5z'/%3E%3Ccircle cx='12' cy='12.5' r='3'/%3E%3C/g%3E%3Cg transform='translate(28.1 -0.6) rotate(33) scale(0.47) translate(-12 -12)'%3E%3Crect x='6' y='3' width='12' height='18' rx='3'/%3E%3Cpath d='M10.5 18h3'/%3E%3C/g%3E%3Cg transform='translate(28.1 149.4) rotate(33) scale(0.47) translate(-12 -12)'%3E%3Crect x='6' y='3' width='12' height='18' rx='3'/%3E%3Cpath d='M10.5 18h3'/%3E%3C/g%3E%3Cg transform='translate(-13.5 105.1) rotate(-33) scale(0.50) translate(-12 -12)'%3E%3Cpath d='M12 3l2.6 5.6 6.1.7-4.5 4.1 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.1 6.1-.7z'/%3E%3C/g%3E%3Cg transform='translate(136.5 105.1) rotate(-33) scale(0.50) translate(-12 -12)'%3E%3Cpath d='M12 3l2.6 5.6 6.1.7-4.5 4.1 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.1 6.1-.7z'/%3E%3C/g%3E%3Cg transform='translate(110.9 38.7) rotate(-33) scale(0.50) translate(-12 -12)'%3E%3Cpath d='M13 3L5 13.5h6L10 21l8-10.5h-6z'/%3E%3C/g%3E%3Cg transform='translate(36.3 57.1) rotate(-7) scale(0.54) translate(-12 -12)'%3E%3Ccircle cx='12' cy='12' r='8.5'/%3E%3Cpath d='M8.5 14c1.8 2 5.2 2 7 0'/%3E%3Cpath d='M9 9.5h.01M15 9.5h.01'/%3E%3C/g%3E%3C/svg%3E")}
+.wa .stat{left:0;right:0;top:0;height:42px;display:flex;align-items:center;justify-content:space-between;padding:0 18px 0 27px;font-size:10.5px;font-weight:600;color:#000;z-index:2}
+.wa .stat .r{display:flex;align-items:center;gap:4px}
+.wa .hdr{left:0;right:0;top:0;height:82px;padding:42px 10px 0 6px;display:flex;align-items:center;gap:6px;background:rgba(246,245,243,.98);box-shadow:0 .5px 0 rgba(0,0,0,.12);z-index:1}
+.wa .hdr .back{width:12px;height:14px;flex:none}
+.wa .hdr .av{width:28px;height:28px;border-radius:50%;flex:none;display:grid;place-items:center;font-size:10.5px;font-weight:600;color:#fff;background:linear-gradient(145deg,#9A8CF0,#5B4FD6)}
+.wa .hdr .nm{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px;margin-left:2px}
+.wa .hdr .nm b{font-size:13px;font-weight:600;letter-spacing:-0.015em;white-space:nowrap}
+.wa .hdr .nm span{font-size:9.5px;color:#667781;transition:color .2s}
+.wa .hdr .nm span.typing{color:#1FA855}
+.wa .hdr .act{display:flex;gap:13px;flex:none}
+.wa .hdr .act svg{width:15px;height:15px}
+.wa .body{left:0;right:0;top:82px;bottom:44px;padding:8px;display:flex;flex-direction:column;justify-content:flex-end;gap:3px;overflow:hidden}
+.wa .day{align-self:center;margin:2px 0 6px;padding:3px 9px;border-radius:7px;background:#fff;color:#54656F;font-size:9.5px;font-weight:500;box-shadow:0 1px .5px rgba(11,20,26,.13)}
+.wa .m{position:relative;max-width:86%;padding:6px 8px 5px 9px;border-radius:9px;font-size:12.5px;box-shadow:0 1px .5px rgba(11,20,26,.13)}
+.wa .m.in{align-self:flex-start;background:#fff}
+.wa .m.out{align-self:flex-end;background:#D9FDD3}
+.wa .m.in + .m.out,.wa .m.out + .m.in{margin-top:5px}
+.wa .m .t{float:right;display:inline-flex;align-items:center;gap:2px;margin:6px 0 -3px 8px;font-size:8.5px;line-height:1;color:#667781;letter-spacing:0}
+.wa .m .t svg{width:13px;height:9px}
+.wa .m.tail.in{border-bottom-left-radius:0}
+.wa .m.tail.out{border-bottom-right-radius:0}
+.wa .m.tail::after{content:"";position:absolute;bottom:0;width:7px;height:9px;background:inherit}
+.wa .m.tail.in::after{left:-6px;clip-path:path("M7 0 C7 5 5 8 0 9 L7 9 Z")}
+.wa .m.tail.out::after{right:-6px;clip-path:path("M0 0 C0 5 2 8 7 9 L0 9 Z")}
+.wa .bar{left:0;right:0;bottom:0;height:44px;padding:5px 9px 12px;display:flex;align-items:center;gap:8px;background:rgba(246,245,243,.98);box-shadow:0 -.5px 0 rgba(0,0,0,.12)}
+.wa .bar svg{width:15px;height:15px;flex:none}
+.wa .bar .in{flex:1;height:22px;border-radius:11px;background:#fff;box-shadow:inset 0 0 0 .6px rgba(0,0,0,.14);display:flex;align-items:center;justify-content:flex-end;padding-right:6px;color:#54656F}
+.wa .bar .in svg{width:12px;height:12px}
+.wa .home{left:50%;bottom:4px;width:80px;height:3px;margin-left:-40px;border-radius:2px;background:rgba(0,0,0,.85);z-index:2}
+/* Animación del chat: los mensajes entran de a uno (solo si hay JS y sin "reducir movimiento") */
+.play .m,.play .toast{opacity:0;transform:translateY(10px) scale(.97);transition:opacity .45s cubic-bezier(.2,.8,.2,1),transform .45s cubic-bezier(.2,.8,.2,1)}
+.play .m{transform-origin:bottom left}
+.play .m.out{transform-origin:bottom right}
+.play .toast{transform:translateY(24px)}
+.play .m.show,.play .toast.show{opacity:1;transform:none}
+
+@media (max-width:479px){
+  .rig-box{--k:.68}
+  .hero-cta{gap:10px}
+  .hero-cta .btn{height:52px;font-size:16px;padding:0 20px}
+  .hero-cta .btn-main{padding:0 7px 0 22px}
+  .hero-cta .btn-main .go{width:38px;height:38px}
+}
+@media (min-width:480px){.rig-box{--k:.8}}
+@media (min-width:920px){
+  .hero-in{grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:24px}
+  .h1{font-size:clamp(64px,7.2vw,108px)}
+  .rig-box{--k:.84}
+  .rig{left:calc(-40px * var(--k))}
+}
+@media (min-width:1200px){.rig-box{--k:.96}}
+
+/* =========================================================
+   El problema
+   ========================================================= */
+.prob{--gx:74%;--gy:52%;--gw:900px;--gh:900px}
+.prob-in{display:grid;gap:48px;align-items:center}
+.notifs{display:flex;flex-direction:column;gap:14px;margin:0;padding:0;list-style:none;position:relative;z-index:2}
+.notif{display:flex;align-items:center;gap:16px;width:100%;max-width:440px;padding:15px 20px 15px 15px;border-radius:26px;
+  background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.03)),rgba(11,10,34,.78)}
+.notif svg.app{width:50px;height:50px}
+.notif .nt{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
+.notif .nh{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.notif b{font-size:17px;font-weight:600;letter-spacing:-0.02em;color:#fff}
+.notif .mono{font-size:12.5px;color:#C3C5E4;white-space:nowrap}
+.notif p{margin:0;font-size:15.5px;color:#D2D4EE;letter-spacing:-0.005em}
+.prob-vis{position:relative;min-width:0}
+.prob-img{display:none}
+@media (min-width:920px){
+  .prob-in{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px}
+  .notifs{padding-block:40px}
+  .notif:nth-child(even){margin-left:auto}
+  .prob-img{display:block;position:absolute;z-index:1;right:4%;top:50%;width:min(560px,92%);aspect-ratio:1080/1350;transform:translateY(-50%);--tint:.30;--rim:.45;
+    -webkit-mask:linear-gradient(180deg,#000 62%,transparent 94%);mask:linear-gradient(180deg,#000 62%,transparent 94%)}
+  .prob-img .tint,.prob-img .rim{-webkit-mask-image:url(assets/cabeza-documentos.webp);mask-image:url(assets/cabeza-documentos.webp)}
+}
+
+/* =========================================================
+   Servicios
+   ========================================================= */
+.svc{--gx:50%;--gy:78%;--gw:1200px;--gh:760px;--mw:1100px;--mh:700px}
+.sec-hd{max-width:760px}
+.sec-hd.center{margin-inline:auto;text-align:center}
+.sec-hd.center .lede{margin-inline:auto}
+.cards{display:grid;gap:16px;margin:56px 0 0;padding:0;list-style:none}
+.card{display:flex;flex-direction:column;padding:30px 28px 28px;border-radius:30px;min-width:0;
+  background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.02)),rgba(10,9,32,.55);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.09),inset 0 1px 0 rgba(255,255,255,.13),0 30px 60px -30px rgba(4,3,24,.8)}
+.card svg.app{width:60px;height:60px}
+.card h3{margin-top:24px;font-size:25px;letter-spacing:-0.03em;line-height:1.1}
+.card > p{margin:10px 0 0;font-size:16.5px;line-height:1.45;color:var(--t2)}
+.card ul{margin:24px 0 0;padding:20px 0 0;list-style:none;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:11px}
+.card li{display:flex;gap:11px;align-items:flex-start;font-size:15.5px;line-height:1.4;color:#DFE0F5}
+.card li .ic{margin-top:2px;font-size:17px;color:var(--lav)}
+.tools{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:12px 10px;margin-top:40px}
+.tools > span{width:100%;text-align:center;font-size:15px;color:var(--t3);margin-bottom:4px}
+.tools ul{display:contents;list-style:none}
+.tools li{height:38px;padding:0 16px;border-radius:999px;display:inline-flex;align-items:center;font-size:14.5px;font-weight:500;color:#E4E5FA;background:rgba(255,255,255,.04);box-shadow:inset 0 0 0 1px rgba(255,255,255,.10)}
+@media (min-width:920px){.cards{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+/* =========================================================
+   Cómo trabajamos
+   ========================================================= */
+.how{--gx:18%;--gy:60%;--gw:900px;--gh:700px}
+.steps{position:relative;display:grid;gap:44px;margin:56px 0 0;padding:0;list-style:none}
+.steps li{position:relative;display:flex;gap:22px;align-items:flex-start}
+.steps li + li::before{content:"";position:absolute;left:31px;top:-44px;height:44px;width:2px;background:linear-gradient(180deg,rgba(199,201,255,0),rgba(199,201,255,.45),rgba(199,201,255,0))}
+.steps svg.app{width:64px;height:64px}
+.steps .k{font-size:13px;letter-spacing:.06em;color:var(--lav2)}
+.steps h3{margin-top:6px;font-size:25px;letter-spacing:-0.03em;line-height:1.1}
+.steps p{margin:8px 0 0;font-size:16.5px;line-height:1.45;color:var(--t2);max-width:22em}
+@media (min-width:920px){
+  .steps{grid-template-columns:repeat(3,minmax(0,1fr));gap:40px}
+  .steps li{flex-direction:column;gap:22px}
+  .steps li + li::before{left:-40px;top:31px;width:calc(40px + 0px);height:2px;background:linear-gradient(90deg,rgba(199,201,255,0),rgba(199,201,255,.45),rgba(199,201,255,0))}
+  .steps::before{content:"";position:absolute;left:82px;right:0;top:31px;height:2px;background:linear-gradient(90deg,rgba(199,201,255,.40),rgba(199,201,255,.18) 70%,rgba(199,201,255,0))}
+  .steps li + li::before{display:none}
+  .steps li > svg.app{position:relative;z-index:1}
+}
+
+/* =========================================================
+   Clientes
+   ========================================================= */
+.cli{--gx:50%;--gy:50%;--gw:1100px;--gh:800px;--mw:1000px;--mh:760px}
+.cli-img{position:relative;width:min(1000px,118%);margin:24px auto 0;left:50%;transform:translateX(-50%);aspect-ratio:1700/1060;--tint:.18;--rim:.45;
+  -webkit-mask:linear-gradient(90deg,transparent 2%,#000 22%,#000 78%,transparent 98%);mask:linear-gradient(90deg,transparent 2%,#000 22%,#000 78%,transparent 98%)}
+.cli-img .tint,.cli-img .rim{-webkit-mask-image:url(assets/apreton.webp);mask-image:url(assets/apreton.webp)}
+.logos{position:relative;z-index:2;display:grid;gap:10px;margin:-6% 0 0;padding:0;list-style:none}
+.logos li{display:flex;align-items:center;gap:18px;padding:14px 18px;border-radius:24px}
+.logos .lg{width:84px;height:56px;flex:none;display:grid;place-items:center}
+.logos img{width:calc(var(--w) * .5px);height:auto;filter:drop-shadow(0 10px 18px rgba(4,3,26,.55))}
+.logos b{display:block;font-size:17px;font-weight:600;letter-spacing:-0.02em;color:#fff}
+.logos span{display:block;font-size:14.5px;color:var(--t2)}
+@media (min-width:920px){
+  .logos{grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;margin-top:-90px}
+  .logos li{flex-direction:column;justify-content:flex-end;gap:16px;padding:26px 14px 22px;text-align:center;border-radius:28px}
+  .logos .lg{width:100%;height:110px}
+  .logos img{width:calc(var(--w) * 1px)}
+}
+
+/* =========================================================
+   Proyectos
+   ========================================================= */
+.proj{--gx:28%;--gy:55%;--gw:900px;--gh:900px}
+.proj-in{display:grid;gap:48px;align-items:center}
+.vframe{position:relative;width:min(340px,82vw);aspect-ratio:9/16;margin-inline:auto;border-radius:34px;overflow:hidden;background:#07071F;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.12),0 0 0 8px rgba(255,255,255,.03),0 0 80px 10px rgba(99,102,241,.28),0 40px 80px -30px rgba(3,2,20,.9)}
+.vframe video{width:100%;height:100%;object-fit:cover}
+.vframe::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;box-shadow:inset 0 0 0 1px rgba(255,255,255,.10);background:linear-gradient(125deg,rgba(255,255,255,.08),transparent 30%)}
+.client{display:flex;align-items:center;gap:14px;margin-top:26px}
+.client .lg{width:52px;height:52px;border-radius:14px;display:grid;place-items:center}
+.client img{width:40px;height:auto}
+.client b{display:block;font-size:17px;font-weight:600;letter-spacing:-0.02em}
+.client span{display:block;font-size:14.5px;color:var(--t2)}
+.flow{margin:30px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:2px;counter-reset:f}
+.flow li{position:relative;display:flex;align-items:center;gap:14px;padding:9px 0;font-size:16.5px;color:#E6E7FA;counter-increment:f}
+.flow li::before{content:counter(f);width:28px;height:28px;flex:none;border-radius:50%;display:grid;place-items:center;font:500 12.5px/1 var(--mono);color:var(--lav);background:rgba(199,201,255,.08);box-shadow:inset 0 0 0 1px rgba(199,201,255,.22)}
+.flow li + li::after{content:"";position:absolute;left:13.5px;top:-8px;height:12px;width:1px;background:rgba(199,201,255,.25)}
+.flow li:last-child::before{content:"";background:linear-gradient(150deg,#6E71F4,#4F46E5 55%,#4338CA);box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 0 18px rgba(129,132,255,.5)}
+.flow li:last-child{color:#fff;font-weight:500}
+.flow li:last-child .ic{position:absolute;left:7px;font-size:14px;color:#fff}
+.soon{display:inline-flex;align-items:center;gap:11px;margin:30px 0 0;font:500 14px/1 var(--mono);letter-spacing:.02em;color:var(--lav)}
+@media (min-width:920px){
+  .proj-in{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:72px}
+  .vframe{width:360px}
+}
+
+/* =========================================================
+   Contacto
+   ========================================================= */
+.cta{--gx:70%;--gy:66%;--gw:1150px;--gh:900px;padding-bottom:0}
+.cta-in{display:grid;align-items:end}
+.cta-tx{position:relative;z-index:2;padding-bottom:clamp(40px,6vw,96px)}
+.cta-row{margin-top:36px}
+.contact{display:flex;flex-wrap:wrap;gap:12px 28px;margin:28px 0 0;padding:0;list-style:none;font-size:15.5px;color:var(--t3)}
+.contact a{color:#fff;text-decoration:none;font-weight:500;border-bottom:1px solid rgba(199,201,255,.3)}
+.contact a:hover{border-color:var(--lav)}
+.cta-vis{position:relative;height:clamp(320px,92vw,480px);margin-inline:calc(-1 * var(--gut))}
+.point{position:absolute;right:0;bottom:0;height:100%;aspect-ratio:1104/1472;--tint:.20;
+  -webkit-mask:linear-gradient(180deg,#000 55%,transparent 98%);mask:linear-gradient(180deg,#000 55%,transparent 98%)}
+.point .tint,.point .rim{-webkit-mask-image:url(assets/mano-senalando.webp);mask-image:url(assets/mano-senalando.webp)}
+@media (min-width:920px){
+  .cta-in{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr)}
+  .cta-vis{height:620px;margin:0}
+  .point{right:calc((min(100vw,1200px) - 100vw) / 2 - var(--gut));height:auto;width:620px}
+}
+
+/* =========================================================
+   Pie
+   ========================================================= */
+.foot{position:relative;overflow:clip;padding-top:56px;border-top:1px solid rgba(199,201,255,.08);background:radial-gradient(900px 420px at 50% 100%,rgba(79,70,229,.30),rgba(67,56,202,.08) 50%,transparent 75%)}
+.foot-top{display:grid;gap:32px}
+.foot-top p{margin:12px 0 0;font-size:15px;color:var(--t3);max-width:26em}
+.foot h4{margin:0 0 12px;font-size:13px;font-weight:500;color:var(--t3);letter-spacing:.02em}
+.foot ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px;font-size:15.5px}
+.foot ul a{color:var(--t1);text-decoration:none}
+.foot ul a:hover{color:var(--lav)}
+.foot-cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.mega{margin:56px 0 0;text-align:center;font-weight:600;font-size:clamp(120px,31vw,400px);line-height:.78;letter-spacing:-0.06em;user-select:none;
+  background:linear-gradient(180deg,#FFFFFF 0%,#E9E9FF 38%,rgba(199,201,255,.35) 72%,rgba(199,201,255,0) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;
+  filter:drop-shadow(0 0 40px rgba(129,132,255,.22))}
+.foot-bot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;padding-block:20px calc(24px + env(safe-area-inset-bottom,0px));font-size:13.5px;color:var(--t3);border-top:1px solid rgba(199,201,255,.08);margin-top:-2px;position:relative}
+@media (min-width:920px){
+  .foot-top{grid-template-columns:minmax(0,1.4fr) minmax(0,1fr)}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="lgx" gradientUnits="userSpaceOnUse" x1="0" y1="228" x2="0" y2="870"><stop offset="0" stop-color="#8689FF"/><stop offset=".5" stop-color="#5B52F0"/><stop offset="1" stop-color="#4232CC"/></linearGradient>
+    <linearGradient id="ap-indigo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8689FF"/><stop offset=".5" stop-color="#5B52F0"/><stop offset="1" stop-color="#4232CC"/></linearGradient>
+    <linearGradient id="ap-light" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B2AEFF"/><stop offset=".45" stop-color="#8A80FA"/><stop offset="1" stop-color="#5F50E4"/></linearGradient>
+    <linearGradient id="ap-deep" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5C60EC"/><stop offset=".5" stop-color="#3A32B8"/><stop offset="1" stop-color="#231C84"/></linearGradient>
+    <radialGradient id="ap-hl" cx=".3" cy=".08" r=".78"><stop offset="0" stop-color="#fff" stop-opacity=".48"/><stop offset=".45" stop-color="#fff" stop-opacity=".12"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+    <linearGradient id="ap-shade" x1="0" y1="0" x2="0" y2="1"><stop offset=".5" stop-color="#0A063C" stop-opacity="0"/><stop offset="1" stop-color="#0A063C" stop-opacity=".30"/></linearGradient>
+    <linearGradient id="ap-rim" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".85"/><stop offset=".3" stop-color="#fff" stop-opacity=".18"/><stop offset=".75" stop-color="#fff" stop-opacity=".06"/><stop offset="1" stop-color="#fff" stop-opacity=".28"/></linearGradient>
+    <clipPath id="sq-clip"><path id="sqClipPath" d=""/></clipPath>
+    <filter id="gl-shadow" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy=".7" stdDeviation=".7" flood-color="#160F5E" flood-opacity=".5"/></filter>
+  </defs>
+  <symbol id="logo" viewBox="150 220 660 660"><circle cx="430" cy="600" r="270" fill="url(#lgx)"/><circle cx="700" cy="320" r="92" fill="url(#lgx)"/></symbol>
+  <!-- Glifos (grilla 24, trazo 2) -->
+  <symbol id="g-ai" viewBox="0 0 24 24"><path d="M12 3.6c-5 0-9 3.3-9 7.4 0 2.3 1.3 4.4 3.3 5.7-.15 1.25-.75 2.45-1.8 3.3 2.15-.1 3.95-.9 5.15-1.95.75.15 1.55.25 2.35.25 5 0 9-3.3 9-7.3s-4-7.4-9-7.4z"/><circle cx="8.2" cy="11" r="1.05" fill="#fff" stroke="none"/><circle cx="12" cy="11" r="1.05" fill="#fff" stroke="none"/><circle cx="15.8" cy="11" r="1.05" fill="#fff" stroke="none"/></symbol>
+  <symbol id="g-flow" viewBox="0 0 24 24"><path d="M4.8 12.2a7.2 7.2 0 0 1 12.3-5.1"/><path d="M17.9 3.4v4.3h-4.3"/><path d="M19.2 11.8a7.2 7.2 0 0 1-12.3 5.1"/><path d="M6.1 20.6v-4.3h4.3"/></symbol>
+  <symbol id="g-code" viewBox="0 0 24 24"><path d="M8.2 7 3.2 12l5 5"/><path d="M15.8 7l5 5-5 5"/><path d="M13.6 4.4 10.4 19.6"/></symbol>
+  <symbol id="g-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.3"/><path d="M15.3 15.3 20.3 20.3" stroke-width="2.6"/></symbol>
+  <symbol id="g-gear" viewBox="0 0 24 24"><path id="gearPath" d=""/></symbol>
+  <symbol id="g-chart" viewBox="0 0 24 24"><path d="M4 3.5v16.5h16.5"/><path d="M7.5 15.5l4-4.2 3 3 5.2-5.8"/><path d="M15.4 8.4h4.4v4.4"/></symbol>
+  <symbol id="g-people" viewBox="0 0 24 24"><circle cx="9" cy="8.3" r="3.3"/><path d="M3.2 19.2c.7-3.1 3-4.8 5.8-4.8s5.1 1.7 5.8 4.8"/><path d="M15.6 5.3a3 3 0 0 1 0 6"/><path d="M17.4 14.6c1.6.6 2.8 2 3.3 4.4"/></symbol>
+  <symbol id="g-table" viewBox="0 0 24 24"><rect x="3.2" y="4.5" width="17.6" height="15" rx="3"/><path d="M3.2 9.5h17.6M3.2 14.5h17.6M9.5 9.5v10"/></symbol>
+  <symbol id="g-cal" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="3.2"/><path d="M3.5 10h17M8 3v4M16 3v4"/><path d="M9 15.2l2.1 2.1 4-4"/></symbol>
+  <symbol id="g-message" viewBox="0 0 24 24"><path d="M12 3.6c-5 0-9 3.3-9 7.4 0 2.3 1.3 4.4 3.3 5.7-.15 1.25-.75 2.45-1.8 3.3 2.15-.1 3.95-.9 5.15-1.95.75.15 1.55.25 2.35.25 5 0 9-3.3 9-7.3s-4-7.4-9-7.4z"/><circle cx="8.2" cy="11" r="1.05" fill="#fff" stroke="none"/><circle cx="12" cy="11" r="1.05" fill="#fff" stroke="none"/><circle cx="15.8" cy="11" r="1.05" fill="#fff" stroke="none"/></symbol>
+  <symbol id="g-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="g-arrow-r" viewBox="0 0 24 24"><path d="M4.5 12h15"/><path d="M13.5 6l6 6-6 6"/></symbol>
+  <symbol id="g-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 11v5M12 8h.01"/></symbol>
+</svg>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="brand" href="#inicio" aria-label="Aicia, ir al inicio"><svg aria-hidden="true"><use href="#logo"/></svg>aicia</a>
+    <ul class="nav-links">
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#como-trabajamos">Cómo trabajamos</a></li>
+      <li><a href="#clientes">Clientes</a></li>
+      <li><a href="#proyectos">Proyectos</a></li>
+    </ul>
+    <a class="btn btn-main" href="https://wa.me/59891284655?text=Hola%20Aicia!%20Quiero%20pedir%20una%20demo%20para%20mi%20negocio." target="_blank" rel="noopener">Pedí tu demo<span class="go"><svg class="ic"><use href="#g-arrow-r"/></svg></span></a>
+  </div>
+</header>
+
+<main>
+
+<!-- ======================= INICIO ======================= -->
+<section class="sec hero" id="inicio">
+  <div class="stage"></div><div class="grid"></div>
+  <div class="wrap hero-in">
+    <div class="hero-tx">
+      <div class="tag glass"><span class="dot"></span>Agencia de IA y automatizaciones</div>
+      <h1 class="h1">Tu negocio,<br>en <span class="serif">automático.</span></h1>
+      <p class="lede">Creamos agentes de IA, automatizaciones, webs y apps <b>a medida de tu negocio</b>, para que responda, agende y haga seguimiento solo.</p>
+      <div class="hero-cta">
+        <a class="btn btn-main" href="https://wa.me/59891284655?text=Hola%20Aicia!%20Quiero%20pedir%20una%20demo%20para%20mi%20negocio." target="_blank" rel="noopener">Pedí tu demo<span class="go"><svg class="ic"><use href="#g-arrow-r"/></svg></span></a>
+        <a class="btn btn-ghost" href="#servicios">Ver servicios</a>
+      </div>
+    </div>
+    <div class="hero-vis">
+      <div class="rig-box">
+        <div class="rig" id="rig" aria-hidden="true">
+          <div class="halo"></div>
+          <div class="phone">
+            <div class="wa" id="chat">
+              <div class="wall"></div>
+              <div class="stat"><span>23:48</span><span class="r">
+                <svg width="15" height="9" viewBox="0 0 17 10" fill="#000"><rect x="0" y="7" width="3" height="3" rx=".8"/><rect x="4.6" y="5" width="3" height="5" rx=".8"/><rect x="9.2" y="2.6" width="3" height="7.4" rx=".8"/><rect x="13.8" y="0" width="3" height="10" rx=".8"/></svg>
+                <svg width="13" height="9" viewBox="0 0 15 10" fill="#000"><path d="M7.5 2.2c2.1 0 4 .8 5.4 2.1l1.1-1.1A9.2 9.2 0 0 0 7.5.6 9.2 9.2 0 0 0 1 3.2l1.1 1.1a7.6 7.6 0 0 1 5.4-2.1zm0 3c1.2 0 2.3.5 3.2 1.3l1.1-1.1a6.1 6.1 0 0 0-8.6 0l1.1 1.1c.9-.8 2-1.3 3.2-1.3zm0 3a1.4 1.4 0 0 0-1 .4l1 1 1-1a1.4 1.4 0 0 0-1-.4z"/></svg>
+                <svg width="22" height="10" viewBox="0 0 25 12"><rect x=".6" y=".6" width="21" height="10.8" rx="3.2" fill="none" stroke="#000" stroke-opacity=".45"/><rect x="2.2" y="2.2" width="15" height="7.6" rx="1.8" fill="#000"/><path d="M23 4.2v3.6c.8-.3 1.3-1 1.3-1.8s-.5-1.5-1.3-1.8z" fill="#000" fill-opacity=".45"/></svg>
+              </span></div>
+              <div class="hdr">
+                <svg class="back" viewBox="0 0 11 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 1 2 7l7 6"/></svg>
+                <div class="av">MR</div>
+                <div class="nm"><b>Martina R.</b><span id="status">en línea</span></div>
+                <div class="act"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="13" height="12" rx="3"/><path d="M15 10.5l6-3.5v10l-6-3.5"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3.5h3.2l1.6 4-2.1 1.3a11 11 0 0 0 5.5 5.5l1.3-2.1 4 1.6v3.2a2 2 0 0 1-2.2 2A16 16 0 0 1 3 5.7a2 2 0 0 1 2-2.2z"/></svg></div>
+              </div>
+              <div class="body">
+                <div class="day">Hoy</div>
+                <div class="m in tail">Hola, ¿tienen turno para mañana?<span class="t">23:47</span></div>
+                <div class="m out tail">¡Hola Martina! Tengo 10:30 o 16:00. ¿Cuál te queda mejor?<span class="t">23:47<svg viewBox="0 0 16 11" fill="none" stroke="#53BDEB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6l3 3 6-7"/><path d="M6.5 8.2 7.5 9l6-7"/></svg></span></div>
+                <div class="m in tail">10:30, gracias<span class="t">23:48</span></div>
+                <div class="m out">Listo, te agendé para mañana a las 10:30.<span class="t">23:48<svg viewBox="0 0 16 11" fill="none" stroke="#53BDEB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6l3 3 6-7"/><path d="M6.5 8.2 7.5 9l6-7"/></svg></span></div>
+                <div class="m out tail">Te mando un recordatorio antes.<span class="t">23:48<svg viewBox="0 0 16 11" fill="none" stroke="#53BDEB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6l3 3 6-7"/><path d="M6.5 8.2 7.5 9l6-7"/></svg></span></div>
+              </div>
+              <div class="bar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg><div class="in"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="5"/><path d="M9 14.5c1.6 1.3 4.4 1.3 6 0"/><path d="M9.5 9.5h.01M14.5 9.5h.01"/></svg></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8.5A2.5 2.5 0 0 1 6.5 6h1.8l1.5-2h4.4l1.5 2h1.8A2.5 2.5 0 0 1 20 8.5v8a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 16.5z"/><circle cx="12" cy="12.5" r="3.2"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg></div>
+              <div class="home"></div>
+            </div>
+            <img class="ph-img" src="assets/iphone.webp" alt="" width="1104" height="1656">
+            <div class="ph-tint"></div><div class="ph-rim"></div>
+          </div>
+          <div class="subj hand"><img src="assets/mano-celular.webp" alt="" width="886" height="1252"><div class="tint"></div><div class="rim"></div></div>
+          <div class="toast glass"><svg class="app" viewBox="0 0 100 100" data-g="g-check" data-s="ap-indigo"></svg><div class="nt"><div class="nh"><b>Aicia</b><span class="mono">ahora</span></div><p>Turno agendado: jueves 10:30.</p></div></div>
+        </div>
+      </div>
+      <p class="note"><svg class="ic"><use href="#g-info"/></svg>Vista de ejemplo: un asistente de IA respondiendo por WhatsApp.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= EL PROBLEMA ======================= -->
+<section class="sec prob" id="problema">
+  <div class="stage"></div><div class="grid"></div>
+  <div class="wrap prob-in">
+    <div class="sec-hd">
+      <span class="eyebrow">El problema</span>
+      <h2 class="h2">Tu negocio,<br>todo <span class="serif">a mano.</span></h2>
+      <p class="lede">Responder, agendar y seguir clientes a mano te come el día. Y cada tarea repetida <b>te cuesta dinero y tiempo.</b></p>
+    </div>
+    <div class="prob-vis">
+      <div class="subj r prob-img" aria-hidden="true"><img src="assets/cabeza-documentos.webp" alt="" width="1080" height="1350" loading="lazy"><div class="tint"></div><div class="rim"></div></div>
+      <ul class="notifs">
+        <li class="notif glass"><svg class="app" viewBox="0 0 100 100" data-g="g-message" data-s="ap-indigo"></svg><div class="nt"><div class="nh"><b>Consultas sin responder</b><span class="mono">ahora</span></div><p>El cliente le escribe a otro.</p></div></li>
+        <li class="notif glass"><svg class="app" viewBox="0 0 100 100" data-g="g-people" data-s="ap-light"></svg><div class="nt"><div class="nh"><b>Clientes que se enfrían</b><span class="mono">2 h</span></div><p>Nadie les hizo seguimiento.</p></div></li>
+        <li class="notif glass"><svg class="app" viewBox="0 0 100 100" data-g="g-table" data-s="ap-deep"></svg><div class="nt"><div class="nh"><b>Planillas a mano</b><span class="mono">ayer</span></div><p>Horas perdidas cada semana.</p></div></li>
+        <li class="notif glass"><svg class="app" viewBox="0 0 100 100" data-g="g-cal" data-s="ap-indigo"></svg><div class="nt"><div class="nh"><b>Turnos que se pisan</b><span class="mono">lun</span></div><p>La agenda, un caos.</p></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= SERVICIOS ======================= -->
+<section class="sec svc" id="servicios">
+  <div class="stage"></div><div class="grid"></div>
+  <div class="wrap">
+    <div class="sec-hd center">
+      <span class="eyebrow">Servicios</span>
+      <h2 class="h2">Hacemos que tu negocio <span class="serif">funcione solo.</span></h2>
+      <p class="lede">Tres servicios que trabajan juntos para ahorrarte tiempo y no perder clientes.</p>
+    </div>
+    <ul class="cards">
+      <li class="card">
+        <svg class="app" viewBox="0 0 100 100" data-g="g-ai" data-s="ap-indigo"></svg>
+        <h3>Asistentes de IA</h3>
+        <p>Responden al instante, 24/7 y como una persona real.</p>
+        <ul>
+          <li><svg class="ic"><use href="#g-check"/></svg>Atienden por WhatsApp, Instagram y tu web</li>
+          <li><svg class="ic"><use href="#g-check"/></svg>Responden consultas y agendan turnos</li>
+          <li><svg class="ic"><use href="#g-check"/></svg>Captan y ordenan a tus clientes potenciales</li>
+        </ul>
+      </li>
+      <li class="card">
+        <svg class="app" viewBox="0 0 100 100" data-g="g-flow" data-s="ap-light"></svg>
+        <h3>Automatizaciones</h3>
+        <p>Las tareas repetitivas, hechas solas y sin errores.</p>
+        <ul>
+          <li><svg class="ic"><use href="#g-check"/></svg>Seguimiento de clientes</li>
+          <li><svg class="ic"><use href="#g-check"/></svg>Recordatorios y avisos automáticos</li>
+          <li><svg class="ic"><use href="#g-check"/></svg>Planillas y reportes que se completan solos</li>
+        </ul>
+      </li>
+      <li class="card">
+        <svg class="app" viewBox="0 0 100 100" data-g="g-code" data-s="ap-deep"></svg>
+        <h3>Webs y apps</h3>
+        <p>A medida de tu negocio y conectadas a todo.</p>
+        <ul>
+          <li><svg class="ic"><use href="#g-check"/></svg>Webs con reservas y pagos online</li>
+          <li><svg class="ic"><use href="#g-check"/></svg>Apps hechas para tu forma de trabajar</li>
+          <li><svg class="ic"><use href="#g-check"/></svg>Conectadas con tus herramientas</li>
+        </ul>
+      </li>
+    </ul>
+    <div class="tools">
+      <span>Se conecta con lo que ya usás</span>
+      <ul><li>WhatsApp</li><li>Instagram</li><li>Facebook</li><li>Gmail</li><li>Google Calendar</li><li>Google Sheets</li></ul>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= CÓMO TRABAJAMOS ======================= -->
+<section class="sec how" id="como-trabajamos">
+  <div class="stage"></div><div class="grid"></div>
+  <div class="wrap">
+    <div class="sec-hd">
+      <span class="eyebrow">Cómo trabajamos</span>
+      <h2 class="h2">Tres pasos.<br>Sin <span class="serif">vueltas.</span></h2>
+    </div>
+    <ol class="steps">
+      <li><svg class="app" viewBox="0 0 100 100" data-g="g-search" data-s="ap-light"></svg><div><span class="k mono">01</span><h3>Diagnóstico</h3><p>Encontramos dónde tu negocio pierde tiempo y/o dinero.</p></div></li>
+      <li><svg class="app" viewBox="0 0 100 100" data-g="g-gear" data-s="ap-indigo"></svg><div><span class="k mono">02</span><h3>Implementación</h3><p>Lo resolvemos con las herramientas que ya usás.</p></div></li>
+      <li><svg class="app" viewBox="0 0 100 100" data-g="g-chart" data-s="ap-deep"></svg><div><span class="k mono">03</span><h3>Resultados</h3><p>Medimos cuánto ahorrás y seguimos mejorando.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ======================= CLIENTES ======================= -->
+<section class="sec cli" id="clientes">
+  <div class="stage"></div><div class="grid"></div>
+  <div class="wrap">
+    <div class="sec-hd center">
+      <span class="eyebrow">Clientes</span>
+      <h2 class="h2">Ellos ya <span class="serif">dieron el paso.</span></h2>
+      <p class="lede">Negocios reales que ya trabajan con Aicia.</p>
+    </div>
+    <div class="subj mono cli-img" aria-hidden="true"><img src="assets/apreton.webp" alt="" width="1700" height="1060" loading="lazy"><div class="tint"></div><div class="rim"></div></div>
+    <ul class="logos">
+      <li class="glass"><div class="lg"><img src="assets/logo-fc-barber.webp" alt="FC Barber Shop" style="--w:104" loading="lazy"></div><div><b>FC Barber Shop</b><span>Barbería</span></div></li>
+      <li class="glass"><div class="lg"><img src="assets/logo-bsas-top.webp" alt="Bs.As. Top Padel" style="--w:96" loading="lazy"></div><div><b>Bs.As. Top Padel</b><span>Club de pádel</span></div></li>
+      <li class="glass"><div class="lg"><img src="assets/logo-fusion.webp" alt="Fusion" style="--w:128" loading="lazy"></div><div><b>Fusion</b><span>Tienda de ropa</span></div></li>
+      <li class="glass"><div class="lg"><img src="assets/logo-alas-fit.webp" alt="Alas Fit" style="--w:128" loading="lazy"></div><div><b>Alas Fit</b><span>Gimnasio</span></div></li>
+      <li class="glass"><div class="lg"><img src="assets/logo-aerosport.webp" alt="AeroSport" style="--w:150" loading="lazy"></div><div><b>AeroSport</b><span>Club de pádel</span></div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ======================= PROYECTOS ======================= -->
+<section class="sec proj" id="proyectos">
+  <div class="stage"></div><div class="grid"></div>
+  <div class="wrap proj-in">
+    <div class="proj-vid">
+      <div class="vframe"><video id="vid" src="assets/bsas-reservas.mp4" poster="assets/bsas-reservas-poster.webp" autoplay muted loop playsinline preload="metadata" aria-label="Recorrido por la web de reservas de Bs.As. Top Padel"></video></div>
+    </div>
+    <div class="proj-tx">
+      <span class="eyebrow">Proyectos</span>
+      <h2 class="h2">Reservas<br><span class="serif">online.</span></h2>
+      <div class="client"><div class="lg glass"><img src="assets/logo-bsas-top.webp" alt="" loading="lazy"></div><div><b>Bs.As. Top Padel</b><span>Club de pádel · Página web</span></div></div>
+      <p class="lede">Hicimos la web del club. Los jugadores eligen turno y cancha, cargan sus datos y pagan la seña con Mercado Pago, sin llamar ni escribir.</p>
+      <ol class="flow">
+        <li>Elegí día y horario</li>
+        <li>Elegí la cancha</li>
+        <li>Completá tus datos</li>
+        <li>Seña con Mercado Pago</li>
+        <li><svg class="ic"><use href="#g-check"/></svg>Reserva confirmada</li>
+      </ol>
+      <p class="soon"><span class="dot"></span>Más proyectos, muy pronto.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= CONTACTO ======================= -->
+<section class="sec cta" id="contacto">
+  <div class="stage"></div><div class="grid"></div>
+  <div class="wrap cta-in">
+    <div class="cta-tx">
+      <span class="eyebrow">Hablemos</span>
+      <h2 class="h2">¿Lo vemos<br>para tu <span class="serif">negocio?</span></h2>
+      <p class="lede">Pedí tu demo y te mostramos cómo funcionaría en tu negocio, paso a paso.</p>
+      <div class="cta-row"><a class="btn btn-main btn-lg" href="https://wa.me/59891284655?text=Hola%20Aicia!%20Quiero%20pedir%20una%20demo%20para%20mi%20negocio." target="_blank" rel="noopener">Pedí tu demo<span class="go"><svg class="ic"><use href="#g-arrow-r"/></svg></span></a></div>
+      <ul class="contact">
+        <li>WhatsApp <a href="https://wa.me/59891284655" target="_blank" rel="noopener">+598 91 284 655</a></li>
+        <li>Instagram <a href="https://www.instagram.com/aicia_ia/" target="_blank" rel="noopener">@aicia_ia</a></li>
+      </ul>
+    </div>
+    <div class="cta-vis" aria-hidden="true">
+      <div class="subj point"><img src="assets/mano-senalando.webp" alt="" width="1104" height="1472" loading="lazy"><div class="tint"></div><div class="rim"></div></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <a class="brand" href="#inicio" aria-label="Aicia, ir al inicio"><svg aria-hidden="true"><use href="#logo"/></svg>aicia</a>
+        <p>Agencia de IA en Montevideo, Uruguay. Agentes de IA, automatizaciones, webs y apps a medida.</p>
+      </div>
+      <div class="foot-cols">
+        <div><h4>Secciones</h4><ul><li><a href="#servicios">Servicios</a></li><li><a href="#como-trabajamos">Cómo trabajamos</a></li><li><a href="#clientes">Clientes</a></li><li><a href="#proyectos">Proyectos</a></li></ul></div>
+        <div><h4>Contacto</h4><ul><li><a href="https://wa.me/59891284655" target="_blank" rel="noopener">WhatsApp</a></li><li><a href="https://www.instagram.com/aicia_ia/" target="_blank" rel="noopener">Instagram</a></li></ul></div>
+      </div>
+    </div>
+    <div class="mega" aria-hidden="true">aicia</div>
+    <div class="foot-bot"><span>© 2026 Aicia</span><span>Hecho en Montevideo</span></div>
+  </div>
+</footer>
+
+<script>
+/* ---------- Íconos estilo app: superelipse (esquinas continuas) ---------- */
+function squircle(n = 5, steps = 160) {
+  const pts = [];
+  for (let i = 0; i < steps; i++) {
+    const t = (i / steps) * Math.PI * 2, c = Math.cos(t), s = Math.sin(t);
+    const x = Math.sign(c) * Math.abs(c) ** (2 / n), y = Math.sign(s) * Math.abs(s) ** (2 / n);
+    pts.push(`${(50 + x * 50).toFixed(2)},${(50 + y * 50).toFixed(2)}`);
+  }
+  return 'M' + pts.join('L') + 'Z';
+}
+function gear(cx, cy, ro, ri, hole, teeth) {
+  let d = '';
+  const tw = Math.PI / teeth * 0.52;
+  for (let i = 0; i < teeth; i++) {
+    const a = (i / teeth) * Math.PI * 2;
+    const p = [[a - tw * 1.25, ri], [a - tw * .62, ro], [a + tw * .62, ro], [a + tw * 1.25, ri]];
+    const nxt = ((i + 1) / teeth) * Math.PI * 2 - tw * 1.25;
+    p.forEach(([ang, r], k) => { d += (i === 0 && k === 0 ? 'M' : 'L') + (cx + r * Math.cos(ang)).toFixed(2) + ',' + (cy + r * Math.sin(ang)).toFixed(2); });
+    d += `A${ri},${ri} 0 0 1 ${(cx + ri * Math.cos(nxt)).toFixed(2)},${(cy + ri * Math.sin(nxt)).toFixed(2)}`;
+  }
+  return d + `Z M${cx + hole},${cy} A${hole},${hole} 0 1 0 ${cx - hole},${cy} A${hole},${hole} 0 1 0 ${cx + hole},${cy}Z`;
+}
+document.getElementById('gearPath').setAttribute('d', gear(12, 12, 8.8, 6.7, 2.7, 8));
+const SQ = squircle();
+document.getElementById('sqClipPath').setAttribute('d', SQ);
+document.querySelectorAll('svg.app').forEach(svg => {
+  svg.innerHTML = `<path d="${SQ}" fill="url(#${svg.dataset.s})"/><path d="${SQ}" fill="url(#ap-hl)"/><path d="${SQ}" fill="url(#ap-shade)"/>
+    <path d="${SQ}" fill="none" stroke="url(#ap-rim)" stroke-width="2.6" clip-path="url(#sq-clip)"/>
+    <g class="gl" filter="url(#gl-shadow)" transform="translate(22 22) scale(2.333)"><use href="#${svg.dataset.g}" width="24" height="24"/></g>`;
+});
+
+/* ---------- Barra: vidrio al bajar ---------- */
+const nav = document.getElementById('nav');
+const onScroll = () => nav.classList.toggle('on', window.scrollY > 8);
+addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- Chat de ejemplo: los mensajes entran de a uno, una sola vez ---------- */
+(() => {
+  const rig = document.getElementById('rig');
+  if (calm || !rig) return;
+  const msgs = [...rig.querySelectorAll('.m')], toast = rig.querySelector('.toast'), status = document.getElementById('status');
+  rig.classList.add('play');
+  const typing = on => { status.textContent = on ? 'escribiendo…' : 'en línea'; status.classList.toggle('typing', on); };
+  const steps = [[500, () => typing(true)], [1300, () => { typing(false); msgs[0].classList.add('show'); }], [2100, () => msgs[1].classList.add('show')],
+    [2800, () => typing(true)], [3500, () => { typing(false); msgs[2].classList.add('show'); }], [4200, () => msgs[3].classList.add('show')],
+    [4800, () => msgs[4].classList.add('show')], [5500, () => toast.classList.add('show')]];
+  steps.forEach(([t, f]) => setTimeout(f, t));
+})();
+
+/* ---------- Video del proyecto: solo corre cuando se ve ---------- */
+(() => {
+  const v = document.getElementById('vid');
+  if (!v) return;
+  if (calm) { v.removeAttribute('autoplay'); v.pause(); v.controls = true; return; }
+  if ('IntersectionObserver' in window) new IntersectionObserver(([e]) => { e.isIntersecting ? v.play().catch(() => {}) : v.pause(); }, { threshold: .2 }).observe(v);
+})();
+</script>
+</body>
+</html>
