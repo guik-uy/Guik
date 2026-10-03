@@ -38,7 +38,7 @@ const issues = await page.evaluate(() => {
     const sr = sec.getBoundingClientRect(), tag = `0${i + 1}`;
     const walker = document.createTreeWalker(sec, NodeFilter.SHOW_TEXT); let n; // la firma de abajo va fuera del control, como en las historias
     while ((n = walker.nextNode())) {
-      if (!n.textContent.trim() || n.parentElement.closest('.sig')) continue;
+      if (!n.textContent.trim() || n.parentElement.closest('.sig, .tag')) continue;
       const r = document.createRange(); r.selectNodeContents(n);
       for (const b of r.getClientRects()) {
         const x0 = b.left - sr.left, x1 = b.right - sr.left, y0 = b.top - sr.top, y1 = b.bottom - sr.top, t = n.textContent.trim().slice(0, 28);
