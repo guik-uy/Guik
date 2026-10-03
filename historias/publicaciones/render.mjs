@@ -65,11 +65,11 @@ for (const el of await page.$$('section.post')) {
 }
 
 if (!qa) {
-  // Vista previa: el feed (4:5) arriba y la grilla del perfil (recorte 3:4) abajo
+  // Vista previa: el feed (4:5) arriba, de a 3 por fila, y la grilla del perfil (recorte 3:4) abajo
   const img = (f, w, h, crop) => `<div style="width:${w}px;height:${h}px;overflow:hidden;background:#fff"><img src="${path.basename(f)}" style="display:block;height:${h}px;${crop ? `margin-left:${-(h * .8 - w) / 2}px` : `width:${w}px`}"></div>`;
   const html = `<!doctype html><body style="margin:0;background:#101018;padding:48px;width:max-content;font:500 18px/1 system-ui;color:#9a9bb8">
-    <div style="display:flex;gap:28px">${files.map(f => `<figure style="margin:0;display:flex;flex-direction:column;gap:14px"><div style="border-radius:14px;overflow:hidden;box-shadow:0 20px 40px -20px #000">${img(f, 432, 540)}</div><figcaption>${path.basename(f, '.png').replace('aicia-', '')}</figcaption></figure>`).join('')}</div>
-    <div style="display:flex;gap:3px;margin-top:48px">${files.map(f => img(f, 300, 400, true)).join('')}</div>
+    <div style="display:flex;flex-wrap:wrap;gap:36px 28px;width:1352px">${files.map(f => `<figure style="margin:0;display:flex;flex-direction:column;gap:14px"><div style="border-radius:14px;overflow:hidden;box-shadow:0 20px 40px -20px #000">${img(f, 432, 540)}</div><figcaption>${path.basename(f, '.png').replace('aicia-', '')}</figcaption></figure>`).join('')}</div>
+    <div style="display:grid;grid-template-columns:repeat(3,300px);gap:3px;margin-top:48px">${files.map(f => img(f, 300, 400, true)).join('')}</div>
   </body>`;
   fs.writeFileSync(path.join(dir, '.preview.html'), html);
   const p2 = await browser.newPage({ deviceScaleFactor: 2 });

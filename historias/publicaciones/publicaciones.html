@@ -60,12 +60,41 @@ body{display:flex;flex-direction:column;align-items:center;gap:80px;padding:80px
 /* Luz suave entre los dedos (publicación 2), sin punto */
 .spark{z-index:3;width:380px;height:380px;margin:-190px 0 0 -190px;border-radius:50%;pointer-events:none;
   background:radial-gradient(closest-side,rgba(167,170,255,.34) 0%,rgba(99,102,241,.18) 32%,rgba(99,102,241,.06) 62%,transparent 100%)}
+/* ================= Versión fondo azul (igual que las historias) ================= */
+.post.dark{background:#06061A;color:#fff}
+.dark .stage{background:
+  radial-gradient(var(--gw,1000px) var(--gh,900px) at var(--gx,55%) var(--gy,72%),rgba(79,70,229,.62),rgba(67,56,202,.20) 42%,transparent 70%),
+  radial-gradient(900px 600px at 0% 0%,rgba(67,56,202,.16),transparent 70%),
+  linear-gradient(180deg,#05051A 0%,#090924 38%,#100E36 100%)}
+.dark .grid{background-image:linear-gradient(rgba(199,201,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(199,201,255,.07) 1px,transparent 1px)}
+.dark .grain{opacity:.07;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.dark .vignette{background:radial-gradient(130% 90% at 50% 45%,transparent 60%,rgba(3,3,14,.55) 100%)}
+.dark .title{color:#fff}
+.dark .title .soft{color:#8F91BC}
+.dark .title .serif{background:linear-gradient(100deg,#B9BBFF 0%,#ECEDFF 52%,#C3C5FF 100%);-webkit-background-clip:text;background-clip:text}
+.dark .lede{color:rgba(226,228,255,.80)}
+.dark .lede b{color:#fff}
+.dark .tag{color:rgba(199,201,255,.62);text-shadow:none}
+.dark .sig{color:#fff;text-shadow:0 1px 14px rgba(3,3,16,.45)}
+/* Foto integrada como en las historias: tinte índigo + luz de borde lavanda */
+.dark .subj .tint,.dark .subj .rim{position:absolute;inset:0;-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+.dark .subj .tint{background:linear-gradient(180deg,#6366F1,#3B32B8);mix-blend-mode:color;opacity:var(--tint,.18)}
+.dark .subj .rim{mix-blend-mode:screen;opacity:var(--rim,.5)}
+/* Oscurecido de abajo, igual que en las historias: la firma siempre se lee */
+.dark .basefade{left:0;right:0;bottom:0;height:340px;z-index:5;pointer-events:none;background:linear-gradient(180deg,rgba(4,4,20,0) 0%,rgba(4,4,20,.55) 55%,rgba(4,4,20,.9) 100%)}
+.dark .shadow{background:radial-gradient(closest-side,rgba(2,2,12,.7),rgba(2,2,12,.25) 55%,transparent)}
+/* Botón blanco con la flecha en un círculo índigo (como "Pedí tu demo" de la destacada) */
+.dark .pill{padding:0 10px 0 32px;gap:18px;color:var(--indigo-d);background:linear-gradient(180deg,#FFFFFF,#ECECFF);
+  box-shadow:inset 0 -2px 0 rgba(67,56,202,.12),0 0 0 6px rgba(199,201,255,.10),0 0 46px 4px rgba(129,132,255,.42),0 22px 38px -16px rgba(5,4,30,.8)}
+.dark .pill svg{width:54px;height:54px;padding:13px;border-radius:50%;opacity:1;background:linear-gradient(150deg,#6E71F4,#4F46E5 55%,#4338CA);box-shadow:inset 0 1px 0 rgba(255,255,255,.35)}
+.dark .spark{mix-blend-mode:screen;background:radial-gradient(closest-side,rgba(199,201,255,.50) 0%,rgba(129,132,255,.28) 30%,rgba(99,102,241,.10) 60%,transparent 100%)}
 </style>
 </head>
 <body>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
+    <linearGradient id="lgw" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#C7C9FF"/></linearGradient>
     <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6366F1"/><stop offset="1" stop-color="#4338CA"/></linearGradient>
     <!-- borde del recorte sin halo -->
     <filter id="edge" color-interpolation-filters="sRGB" x="-2%" y="-2%" width="104%" height="104%">
@@ -74,6 +103,7 @@ body{display:flex;flex-direction:column;align-items:center;gap:80px;padding:80px
       <feComposite in="SourceGraphic" in2="eb" operator="in"/>
     </filter>
   </defs>
+  <symbol id="logo-w" viewBox="150 220 660 660"><circle cx="430" cy="600" r="270" fill="url(#lgw)"/><circle cx="700" cy="320" r="92" fill="url(#lgw)"/></symbol>
   <symbol id="logo" viewBox="150 220 660 660"><circle cx="430" cy="600" r="270" fill="url(#lg)"/><circle cx="700" cy="320" r="92" fill="url(#lg)"/></symbol>
   <symbol id="g-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></symbol>
 </svg>
@@ -85,7 +115,7 @@ body{display:flex;flex-direction:column;align-items:center;gap:80px;padding:80px
   <h1 class="title tx" style="top:140px;font-size:104px"><span class="soft">El problema</span><br>no es tu <span class="serif">equipo.</span></h1>
   <p class="lede tx" style="left:var(--m);top:368px;width:560px">Es seguir haciendo <b>todo a mano.</b></p>
   <div class="pill" style="left:var(--m);top:440px">Automatizá lo repetitivo<svg><use href="#g-arrow"/></svg></div>
-  <div class="tag">Agencia de IA</div>  <div class="sig">aicia</div><svg class="mark" aria-label="Aicia"><use href="#logo"/></svg>
+  <div class="tag">Agencia de IA</div><div class="sig">aicia</div><svg class="mark" aria-label="Aicia"><use href="#logo"/></svg>
   <div class="vignette"></div><div class="grain"></div>
 </section>
 
@@ -97,7 +127,7 @@ body{display:flex;flex-direction:column;align-items:center;gap:80px;padding:80px
   <h1 class="title tx" style="top:140px;font-size:100px"><span class="soft">Tu negocio,</span><br>potenciado con <span class="serif">IA.</span></h1>
   <p class="lede tx" style="left:var(--m);top:1078px;width:600px">Agentes de IA, automatizaciones, webs y apps <b>a medida.</b></p>
   <div class="pill" style="right:var(--m);top:1096px">Pedí tu demo<svg><use href="#g-arrow"/></svg></div>
-  <div class="tag">Agencia de IA</div>  <div class="sig">aicia</div><svg class="mark" aria-label="Aicia"><use href="#logo"/></svg>
+  <div class="tag">Agencia de IA</div><div class="sig">aicia</div><svg class="mark" aria-label="Aicia"><use href="#logo"/></svg>
   <div class="vignette"></div><div class="grain"></div>
 </section>
 
@@ -109,13 +139,59 @@ body{display:flex;flex-direction:column;align-items:center;gap:80px;padding:80px
   <h1 class="title tx" style="top:140px;font-size:124px"><span class="soft">No seas</span><br>uno <span class="serif">más.</span></h1>
   <p class="lede tx" style="left:650px;top:760px;width:350px">Mientras todos hacen lo mismo, <b>vos das el paso.</b></p>
   <div class="pill" style="left:650px;top:916px">Destacate con IA<svg><use href="#g-arrow"/></svg></div>
-  <div class="tag on-dark">Agencia de IA</div>  <div class="sig">aicia</div><svg class="mark" aria-label="Aicia"><use href="#logo"/></svg>
+  <div class="tag on-dark">Agencia de IA</div><div class="sig">aicia</div><svg class="mark" aria-label="Aicia"><use href="#logo"/></svg>
   <div class="vignette"></div><div class="grain"></div>
+</section>
+
+<!-- ================= Versión fondo azul ================= -->
+
+<!-- 1 azul · El problema -->
+<section class="post dark" data-file="aicia-post-01-equipo-azul.png" style="--gx:68%;--gy:60%;--gw:900px;--gh:900px">
+  <div class="stage"></div><div class="grid"></div>
+  <div class="subj" data-rim="right" style="left:-25px;bottom:0;width:1320px;--tint:.16;--rim:.42"><img src="assets/robot-estres.png" alt=""></div>
+  <h1 class="title tx" style="top:140px;font-size:104px"><span class="soft">El problema</span><br>no es tu <span class="serif">equipo.</span></h1>
+  <p class="lede tx" style="left:var(--m);top:368px;width:560px">Es seguir haciendo <b>todo a mano.</b></p>
+  <div class="pill" style="left:var(--m);top:440px">Automatizá lo repetitivo<svg><use href="#g-arrow"/></svg></div>
+  <div class="tag">Agencia de IA</div><div class="sig">aicia</div><svg class="mark" aria-label="Aicia"><use href="#logo-w"/></svg>
+  <div class="basefade"></div><div class="vignette"></div><div class="grain"></div>
+</section>
+
+<!-- 2 azul · La solución -->
+<section class="post dark" data-file="aicia-post-02-potenciado-azul.png" style="--gx:50%;--gy:52%;--gw:1000px;--gh:760px;--mw:980px;--mh:760px">
+  <div class="stage"></div><div class="grid"></div>
+  <div class="subj bw" data-rim="left" style="left:-108px;top:362px;width:1280px;--tint:.16;--rim:.38"><img src="assets/manos-ia.png" alt=""></div>
+  <div class="spark" style="left:540px;top:702px"></div>
+  <h1 class="title tx" style="top:140px;font-size:100px"><span class="soft">Tu negocio,</span><br>potenciado con <span class="serif">IA.</span></h1>
+  <p class="lede tx" style="left:var(--m);top:1078px;width:600px">Agentes de IA, automatizaciones, webs y apps <b>a medida.</b></p>
+  <div class="pill" style="right:var(--m);top:1096px">Pedí tu demo<svg><use href="#g-arrow"/></svg></div>
+  <div class="tag">Agencia de IA</div><div class="sig">aicia</div><svg class="mark" aria-label="Aicia"><use href="#logo-w"/></svg>
+  <div class="basefade"></div><div class="vignette"></div><div class="grain"></div>
+</section>
+
+<!-- 3 azul · El resultado -->
+<section class="post dark" data-file="aicia-post-03-destacate-azul.png" style="--gx:40%;--gy:66%;--gw:900px;--gh:900px">
+  <div class="stage"></div><div class="grid"></div>
+  <div class="shadow" style="left:290px;top:1226px;width:290px;height:50px"></div><div class="shadow" style="left:214px;top:1207px;width:440px;height:90px;opacity:.35"></div>
+  <div class="subj" data-rim="right" style="left:-60px;top:40px;width:1180px;--tint:0;--rim:.55"><img src="assets/peon-indigo.png" alt=""></div>
+  <h1 class="title tx" style="top:140px;font-size:124px"><span class="soft">No seas</span><br>uno <span class="serif">más.</span></h1>
+  <p class="lede tx" style="left:650px;top:760px;width:350px">Mientras todos hacen lo mismo, <b>vos das el paso.</b></p>
+  <div class="pill" style="left:650px;top:916px">Destacate con IA<svg><use href="#g-arrow"/></svg></div>
+  <div class="tag">Agencia de IA</div><div class="sig">aicia</div><svg class="mark" aria-label="Aicia"><use href="#logo-w"/></svg>
+  <div class="basefade"></div><div class="vignette"></div><div class="grain"></div>
 </section>
 
 <script>
 (async () => {
   try {
+    // Versión azul: tinte y luz de borde con la silueta de la foto (igual que en las historias)
+    document.querySelectorAll('.dark .subj[data-rim]').forEach(el => {
+      const src = el.querySelector('img').getAttribute('src'), side = el.dataset.rim === 'right' ? '270deg' : '90deg';
+      const tint = document.createElement('div'); tint.className = 'tint';
+      const rim = document.createElement('div'); rim.className = 'rim';
+      for (const d of [tint, rim]) d.style.webkitMaskImage = d.style.maskImage = `url("${src}")`;
+      rim.style.background = `linear-gradient(${side},rgba(199,201,255,.85) 0%,rgba(129,132,255,.25) 22%,transparent 45%)`;
+      el.append(tint, rim);
+    });
     await document.fonts.ready;
     await Promise.all([...document.images].map(i => i.decode()));
     window.__ready = true;

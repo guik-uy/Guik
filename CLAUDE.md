@@ -21,7 +21,7 @@ Hay 3 destacadas, como máximo: **Aicia**, **Clientes** y **Proyectos**.
 | `historias/clientes-proyectos/` | Portada de Clientes + 5 tarjetas de clientes + 2 de Proyectos (`historias.html`) | Clientes **final**. Portada de Proyectos **final**. Historias de proyecto pendientes |
 | `historias/portadas-destacadas/` | Íconos de portada de las 3 destacadas (`portadas.html`) | **Final, aprobada** |
 | `historias/que-es-aicia/` | 6 versiones viejas | No se usan, son solo referencia |
-| `historias/publicaciones/` | 3 publicaciones del feed, 1080×1350 (`publicaciones.html`) | Primera versión, esperando el OK de Guille |
+| `historias/publicaciones/` | 3 publicaciones del feed, 1080×1350, en versión clara y fondo azul (`publicaciones.html`) | Esperando el OK de Guille |
 
 ### Cómo renderizar (en tu compu)
 ```bash
@@ -96,6 +96,12 @@ node publicaciones/render.mjs          # 3 publicaciones 1080×1350 + vista prev
   1. **"El problema no es tu *equipo.*"**: "Es seguir haciendo todo a mano.", con el botón "Automatizá lo repetitivo". Usa `assets/robot-estres.png`.
   2. **"Tu negocio, potenciado con *IA.*"**: "Agentes de IA, automatizaciones, webs y apps a medida.", con el botón "Pedí tu demo". Usa `assets/manos-ia.png` en blanco y negro, con una luz índigo suave entre los dedos (sin punto: Guille pidió sacarlo).
   3. **"No seas uno *más.*"**: "Mientras todos hacen lo mismo, vos das el paso.", con el botón "Destacate con IA". Usa `assets/peon-indigo.png`.
+- **Versión fondo azul** (`*-azul.png`, secciones `.post.dark`): el mismo diseño, pero con el estilo de las historias.
+  - Fondo noche con luz índigo detrás de la foto, grilla lavanda, grano y viñeta.
+  - Titular en blanco con la itálica lavanda.
+  - Foto con tinte índigo y luz de borde (`data-rim`, `--tint`, `--rim`).
+  - Botón blanco con la flecha en un círculo índigo, como "Pedí tu demo" de la destacada.
+  - Logo blanco y el oscurecido de abajo (`.basefade`) para que la firma se lea.
 - `preparar-imagenes.mjs` agranda al doble los recortes de Guille (`*-original.png`) con un enfoque suave, y pasa el peón de azul rey al índigo de Aicia.
 
 ### Pendiente
