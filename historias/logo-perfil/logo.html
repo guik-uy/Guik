@@ -33,16 +33,19 @@ body{display:flex;flex-wrap:wrap;gap:80px;padding:80px;justify-content:center}
   -webkit-mask:radial-gradient(72% 68% at 40% 40%,#000 0%,rgba(0,0,0,.5) 48%,transparent 82%);mask:radial-gradient(72% 68% at 40% 40%,#000 0%,rgba(0,0,0,.5) 48%,transparent 82%)}
 .perfil2 .logo2{filter:drop-shadow(0 0 30px rgba(129,132,255,.40)) drop-shadow(0 22px 34px rgba(4,3,26,.55))}
 .perfil2 .grain{opacity:.045}
-/* ---- Logo de texto: "aicia" igual que la firma de abajo de las historias y publicaciones (Geist 600, -0,035em, blanco) ---- */
+/* ---- Logo de texto: "aicia" como la firma de las historias (Geist 600, -0,035em), con el tratamiento premium de las historias:
+   escenario de luz índigo desde abajo, grilla que se desvanece, viñeta y grano; letras con degradé blanco → lavanda y un halo suave ---- */
 .texto{background:
-  radial-gradient(860px 760px at 50% 48%,rgba(79,70,229,.62),rgba(67,56,202,.20) 42%,transparent 70%),
+  radial-gradient(880px 700px at 50% 62%,rgba(79,70,229,.62),rgba(67,56,202,.20) 42%,transparent 70%),
   radial-gradient(900px 600px at 0% 0%,rgba(67,56,202,.16),transparent 70%),
   linear-gradient(180deg,#05051A 0%,#090924 38%,#100E36 100%)}
-.texto .g2{z-index:1;background-image:linear-gradient(rgba(199,201,255,.08) 1.5px,transparent 1.5px),linear-gradient(90deg,rgba(199,201,255,.08) 1.5px,transparent 1.5px);background-size:120px 120px;background-position:0 0;
-  -webkit-mask:radial-gradient(72% 68% at 50% 48%,#000 0%,rgba(0,0,0,.5) 48%,transparent 82%);mask:radial-gradient(72% 68% at 50% 48%,#000 0%,rgba(0,0,0,.5) 48%,transparent 82%)}
-.texto .grain{opacity:.045}
+.texto .g2{z-index:1;background-image:linear-gradient(rgba(199,201,255,.07) 1.5px,transparent 1.5px),linear-gradient(90deg,rgba(199,201,255,.07) 1.5px,transparent 1.5px);background-size:120px 120px;background-position:0 0;
+  -webkit-mask:radial-gradient(70% 62% at 50% 58%,#000 0%,rgba(0,0,0,.5) 45%,transparent 78%);mask:radial-gradient(70% 62% at 50% 58%,#000 0%,rgba(0,0,0,.5) 45%,transparent 78%)}
+.texto .vig{inset:0;z-index:4;pointer-events:none;background:radial-gradient(circle at 50% 50%,transparent 52%,rgba(3,3,14,.6) 100%)}
+.texto .grain{opacity:.06}
 .wm{left:0;top:0;z-index:3;font-family:"Geist",system-ui,sans-serif;font-weight:600;letter-spacing:-0.035em;line-height:1;color:#fff;white-space:nowrap}
-.texto .wm{text-shadow:0 0 46px rgba(129,132,255,.38),0 10px 30px rgba(3,3,16,.45)}
+.texto .wm,.transp .wm{color:transparent;background:linear-gradient(180deg,#FFFFFF 0%,#F3F3FF 42%,#C9CBFF 100%);-webkit-background-clip:text;background-clip:text;padding:0 .04em}
+.texto .wm{filter:drop-shadow(0 0 26px rgba(129,132,255,.30)) drop-shadow(0 14px 26px rgba(3,3,16,.55))}
 .sq.transp{width:1600px;height:700px;background:transparent}
 
 /* En chico el grano no suma y ensucia la compresión de Instagram: casi nada */
@@ -87,8 +90,8 @@ img.mark{display:block;filter:drop-shadow(0 0 46px rgba(99,102,241,.45)) drop-sh
 <!-- Logo de texto: "aicia" como la firma de las historias y publicaciones -->
 <section class="sq texto" data-file="aicia-logo-texto.png">
   <div class="grid g2"></div>
-  <div class="wm" data-ink="620">aicia</div>
-  <div class="grain"></div>
+  <div class="wm" data-ink="500">aicia</div>
+  <div class="vig"></div><div class="grain"></div>
 </section>
 
 <!-- El mismo logo de texto, sin fondo (PNG transparente) para usar en cualquier lado -->

@@ -126,8 +126,11 @@ node exportar-instagram.mjs            # TODO listo para subir → historias/ins
     - grano sutil.
   - Se dibuja a 2160 y se achica a **1080×1080** con lanczos.
 - **Logo de texto** (pedido de Guille: "un logo que diga aicia nomás"): "aicia" igual que la firma de abajo de las historias y publicaciones, en Geist 600, -0,035em y blanco.
-  - `aicia-logo-texto.png` (1080×1080): sobre el fondo de las historias (luz índigo al centro, grilla, grano), con un resplandor índigo suave.
-  - `aicia-logo-texto-transparente.png` (1600×700): sin fondo, para usar en cualquier lado.
+  - `aicia-logo-texto.png` (1080×1080): Guille pidió que fuera "más premium, como en las historias". Lleva el escenario de las historias:
+    - luz índigo desde abajo (50 % / 62 %), grilla que se desvanece, viñeta y grano;
+    - letras con degradé blanco → lavanda (#FFFFFF → #F3F3FF → #C9CBFF) y un halo índigo suave;
+    - más aire alrededor: la tinta ocupa ~46 % del ancho.
+  - `aicia-logo-texto-transparente.png` (1600×700): sin fondo, con el mismo degradé, para usar en cualquier lado.
   - Se centra por la caja real de las letras, medida con canvas en `placeWordmarks()`. `data-ink` fija el ancho de la tinta.
   - `render.mjs` acepta `data-size` y `data-transparent` por sección. La fuente Geist está en `logo-perfil/fonts/`.
 - Versiones anteriores, descartadas: el logo plano con luz y borde lavanda sobre el fondo de las historias, y la de esferas 3D (`aicia-logo-perfil-3d.png`, que queda de referencia).
