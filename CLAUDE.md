@@ -105,7 +105,7 @@ node publicaciones/render.mjs          # 3 publicaciones 1080×1350 + vista prev
   - Textos:
     1. "No es tu equipo. Es hacer todo *manual.*" (en 3 líneas, con "manual." sola en serif) / "Lo repetitivo se automatiza. **Tu equipo, a lo importante.**"
     2. "Tu negocio, potenciado *con IA.*" / "Agentes de IA, automatizaciones, webs y apps **a medida de tu negocio.**". Las manos van sin punto ni resplandor entre los dedos.
-    3. "Diferenciate de la *competencia.*" / "Usá la IA para **salir del montón.**" (a Guille no le convenció "vos das el paso").
+    3. "Diferenciate de la *competencia.*" / "Que tu negocio **no sea uno más.**" (la eligió Guille; descartó "vos das el paso" y "salir del montón").
 - La versión clara (sin sufijo) quedó como estaba, con el gris en la primera línea del título y un botón índigo en cada una.
 - `preparar-imagenes.mjs` agranda al doble los recortes de Guille (`*-original.png`) con un enfoque suave, y pasa el peón de azul rey al índigo de Aicia.
 
