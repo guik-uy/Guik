@@ -10,7 +10,7 @@ body{display:flex;flex-wrap:wrap;gap:80px;padding:80px;justify-content:center}
 /* Mismo escenario que las historias: noche índigo, luz detrás del logo, grilla de cuadrados que se desvanece, viñeta y grano */
 .sq{width:1080px;height:1080px;position:relative;overflow:hidden;flex:none;isolation:isolate;
   background:
-    radial-gradient(70% 64% at 47% 54%,rgba(79,70,229,.74),rgba(67,56,202,.26) 46%,transparent 74%),
+    radial-gradient(66% 60% at 44% 46%,rgba(79,70,229,.70),rgba(67,56,202,.24) 46%,transparent 74%),
     radial-gradient(60% 50% at 8% 0%,rgba(67,56,202,.16),transparent 70%),
     linear-gradient(180deg,#05051A 0%,#090924 45%,#110F3A 100%)}
 .sq > *{position:absolute}
@@ -19,18 +19,20 @@ body{display:flex;flex-wrap:wrap;gap:80px;padding:80px;justify-content:center}
 .grain{inset:0;z-index:5;pointer-events:none;opacity:.08;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
 /* Logo: ocupa todo el cuadro; la vista (en unidades del logo) lo centra ópticamente */
 .mark{inset:0;width:100%;height:100%;z-index:3;overflow:visible}
-.mark.flat{filter:drop-shadow(0 0 46px rgba(99,102,241,.50)) drop-shadow(0 34px 46px rgba(3,2,22,.55))}
+.mark.flat{filter:drop-shadow(0 0 40px rgba(99,102,241,.45)) drop-shadow(0 26px 40px rgba(3,2,22,.75))}
+/* En chico el grano no suma y ensucia la compresión de Instagram: casi nada */
+.perfil .grain{opacity:.03}
 img.mark{display:block;filter:drop-shadow(0 0 46px rgba(99,102,241,.45)) drop-shadow(0 34px 46px rgba(3,2,22,.55))}
 </style>
 </head>
 <body>
 
 <!-- Logo plano mejorado: mismo degradé índigo del logo, con luz suave arriba a la izquierda, sombra abajo y borde de luz lavanda -->
-<section class="sq" data-file="aicia-logo-perfil.png">
+<section class="sq perfil" data-file="aicia-logo-perfil.png">
   <div class="grid"></div>
-  <svg class="mark flat" viewBox="-78 15 1090 1090" aria-label="Aicia">
+  <svg class="mark flat" viewBox="-3.5 53.5 977 977" aria-label="Aicia">
     <defs>
-      <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6A6DF7"/><stop offset=".55" stop-color="#5249E6"/><stop offset="1" stop-color="#4136C6"/></linearGradient>
+      <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6A6DF7"/><stop offset=".55" stop-color="#5249E6"/><stop offset="1" stop-color="#463BD2"/></linearGradient>
       <radialGradient id="hl" cx=".3" cy=".24" r=".78"><stop offset="0" stop-color="#fff" stop-opacity=".26"/><stop offset=".45" stop-color="#fff" stop-opacity=".07"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
       <radialGradient id="sh" cx=".72" cy=".86" r=".8"><stop offset="0" stop-color="#120C58" stop-opacity=".34"/><stop offset=".55" stop-color="#120C58" stop-opacity=".08"/><stop offset="1" stop-color="#120C58" stop-opacity="0"/></radialGradient>
       <linearGradient id="rim" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E4E5FF" stop-opacity=".95"/><stop offset=".32" stop-color="#C7C9FF" stop-opacity=".25"/><stop offset=".6" stop-color="#C7C9FF" stop-opacity="0"/><stop offset="1" stop-color="#8F92FF" stop-opacity=".10"/></linearGradient>
@@ -130,7 +132,7 @@ function renderSpheres(theme, size, vb, show) {
 }
 
 (async () => {
-  const url = renderSpheres('dark', 2160, [-78, 15, 1090, 1090], [1, 1]);
+  const url = renderSpheres('dark', 2160, [-3.5, 53.5, 977, 977], [1, 1]);
   const im = document.querySelector('img[data-sph]');
   await new Promise(r => { im.onload = r; im.src = url; });
   window.__ready = true;
