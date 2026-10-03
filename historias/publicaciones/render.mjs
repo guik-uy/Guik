@@ -36,9 +36,9 @@ const issues = await page.evaluate(() => {
   const out = [];
   document.querySelectorAll('section.post').forEach((sec, i) => {
     const sr = sec.getBoundingClientRect(), tag = `0${i + 1}`;
-    const walker = document.createTreeWalker(sec, NodeFilter.SHOW_TEXT); let n;
+    const walker = document.createTreeWalker(sec, NodeFilter.SHOW_TEXT); let n; // la firma de abajo va fuera del control, como en las historias
     while ((n = walker.nextNode())) {
-      if (!n.textContent.trim()) continue;
+      if (!n.textContent.trim() || n.parentElement.closest('.sig')) continue;
       const r = document.createRange(); r.selectNodeContents(n);
       for (const b of r.getClientRects()) {
         const x0 = b.left - sr.left, x1 = b.right - sr.left, y0 = b.top - sr.top, y1 = b.bottom - sr.top, t = n.textContent.trim().slice(0, 28);
@@ -46,10 +46,10 @@ const issues = await page.evaluate(() => {
         if (y0 < 56 || y1 > 1290) out.push(`${tag} borde: "${t}" y ${y0.toFixed(0)}–${y1.toFixed(0)}`);
       }
     }
-    const blocks = [...sec.querySelectorAll(':scope > .tx, :scope > .pill, :scope > .hd')];
+    const blocks = [...sec.querySelectorAll(':scope > .tx, :scope > .pill, :scope > .mark')];
     for (let a = 0; a < blocks.length; a++) for (let b = a + 1; b < blocks.length; b++) {
       const A = blocks[a].getBoundingClientRect(), B = blocks[b].getBoundingClientRect();
-      if (A.left < B.right && B.left < A.right && A.top < B.bottom && B.top < A.bottom) out.push(`${tag} solapan: .${blocks[a].className.split(' ')[0]} / .${blocks[b].className.split(' ')[0]}`);
+      if (A.left < B.right && B.left < A.right && A.top < B.bottom && B.top < A.bottom) out.push(`${tag} solapan: .${blocks[a].getAttribute('class').split(' ')[0]} / .${blocks[b].getAttribute('class').split(' ')[0]}`);
     }
   });
   return out;

@@ -87,7 +87,9 @@ node publicaciones/render.mjs          # 3 publicaciones 1080×1350 + vista prev
 - Son la **versión clara** del estilo Aicia, para el feed. Siguen las referencias que pasó Guille: fondo blanco, titular grande y una foto recortada.
   - Fondo papel frío con luz lavanda detrás del protagonista, grilla índigo muy suave y grano.
   - Titular en Geist: la primera línea en gris y la segunda en negro, con **una** palabra en Instrument Serif itálica índigo.
-  - Botón índigo con flecha. Arriba va el logo + "aicia" y "@aicia_ia".
+  - Botón índigo con flecha.
+  - Abajo va "aicia" centrado, como en las historias, y el logo en la esquina inferior derecha. Guille pidió **sacar el @ de arriba**.
+  - En la del robot, la foto está más cerca a propósito, para que la firma caiga entre las piernas y el logo entre las del robot.
   - Fotos en blanco y negro, con el índigo como único color.
 - Formato 1080×1350 (4:5). El texto va dentro de 80–1000 px porque la grilla del perfil recorta los costados a 3:4.
 - Publicaciones:
