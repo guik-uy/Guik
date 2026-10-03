@@ -21,6 +21,7 @@ Hay 3 destacadas, como máximo: **Aicia**, **Clientes** y **Proyectos**.
 | `historias/clientes-proyectos/` | Portada de Clientes + 5 tarjetas de clientes + 2 de Proyectos (`historias.html`) | Clientes **final**. Portada de Proyectos **final**. Historias de proyecto pendientes |
 | `historias/portadas-destacadas/` | Íconos de portada de las 3 destacadas (`portadas.html`) | **Final, aprobada** |
 | `historias/que-es-aicia/` | 6 versiones viejas | No se usan, son solo referencia |
+| `historias/logo-perfil/` | Logo de Aicia para la foto de perfil, 2160×2160 (`logo.html`) | Primera versión, esperando el OK de Guille |
 | `historias/publicaciones/` | 3 publicaciones del feed, 1080×1350 (`publicaciones.html`). Versión azul (la elegida) y clara | Azul en pulido final |
 
 ### Cómo renderizar (en tu compu)
@@ -32,7 +33,8 @@ node destacada-aicia/render.mjs        # 5 PNG + vista previa (--qa para control
 node clientes-proyectos/render.mjs     # PNG con nombre según data-file + vista-previa.png
 node portadas-destacadas/render.mjs    # portadas 2160×2160
 node publicaciones/render.mjs          # 3 publicaciones 1080×1350 + vista previa del feed
-# atajos: npm run aicia | npm run clientes | npm run portadas | npm run publicaciones
+node logo-perfil/render.mjs            # logo de perfil 2160×2160 (plano y 3D) + vista previa en círculo
+# atajos: npm run aicia | npm run clientes | npm run portadas | npm run publicaciones | npm run logo
 ```
 - Las historias son HTML/CSS a 1080×1920. `render.mjs` las sirve con un servidor local, porque las máscaras CSS no funcionan con file://, y saca PNG.
 - El QA automático revisa márgenes de texto (64–1016 px), zonas seguras de IG (y 250–1620), texto cortado y solapamientos.
@@ -108,6 +110,12 @@ node publicaciones/render.mjs          # 3 publicaciones 1080×1350 + vista prev
     3. "Diferenciate de la *competencia.*" / "Que tu negocio **no sea uno más.**" (la eligió Guille; descartó "vos das el paso" y "salir del montón").
 - La versión clara (sin sufijo) quedó como estaba, con el gris en la primera línea del título y un botón índigo en cada una.
 - `preparar-imagenes.mjs` agranda al doble los recortes de Guille (`*-original.png`) con un enfoque suave, y pasa el peón de azul rey al índigo de Aicia.
+
+### Logo de perfil (`historias/logo-perfil/`)
+- Es el logo de Aicia (dos círculos índigo) sobre el fondo de las historias: noche índigo, luz índigo detrás, grilla de cuadrados que se desvanece, viñeta y grano. Guille pidió que fuera "casi igual pero mejor" que su foto de perfil.
+- `aicia-logo-perfil.png` (**principal**) es el logo plano con el mismo degradé #6366F1 → #4338CA. Lleva luz suave arriba a la izquierda, sombra abajo, un borde de luz lavanda y un resplandor índigo alrededor.
+- `aicia-logo-perfil-3d.png` es la variante con esferas índigo con luz real: el mismo shader WebGL de las portadas, en tema oscuro.
+- El encuadre (`viewBox -78 15 1090 1090`) centra el logo ópticamente y lo deja dentro del recorte circular de Instagram. La vista previa lo muestra en círculo a 300, 150, 77 y 32 px.
 
 ### Pendiente
 - **Proyectos**: portada "Lo que *construimos.*" con una **foto real** de dos manos levantando una MacBook (`assets/macbook-manos.png`, que sale de `macbook-manos-original.png` con `preparar-macbook.mjs`; ese script borra la pantalla verde y mide sus 4 esquinas). Encima de la pantalla va un sitio de Aicia premium y claro, calzado en perspectiva con `fitScreens()` (homografía → `matrix3d`): nav, "Tu negocio, en *automático.*" y una onda índigo difuminada. La foto lleva capas de integración en `.lap`: los negros levantados al índigo (`.blacks`, lighten), la caída de luz (`.falloff`, multiply), la luz de la pantalla sobre el teclado (`.spill`, screen), un resplandor detrás de la tapa (`.bloom-out`) y el brillo de la pantalla (`.lap-scr.bloom`). Están en intensidades bajas, porque más fuerte se ve lavado. La bajada es "Webs, apps, agentes de IA y automatizaciones hechos a medida de cada negocio." Se descartaron el logo grande, la vista explotada, el flujo n8n y el mosaico de ventanas. 
