@@ -21,7 +21,7 @@ Hay 3 destacadas, como máximo: **Aicia**, **Clientes** y **Proyectos**.
 | `historias/clientes-proyectos/` | Portada de Clientes + 5 tarjetas de clientes + 2 de Proyectos (`historias.html`) | Clientes **final**. Portada de Proyectos **final**. Historias de proyecto pendientes |
 | `historias/portadas-destacadas/` | Íconos de portada de las 3 destacadas (`portadas.html`) | **Final, aprobada** |
 | `historias/que-es-aicia/` | 6 versiones viejas | No se usan, son solo referencia |
-| `historias/publicaciones/` | 3 publicaciones del feed, 1080×1350, en versión clara y fondo azul (`publicaciones.html`) | Esperando el OK de Guille |
+| `historias/publicaciones/` | 3 publicaciones del feed, 1080×1350 (`publicaciones.html`). Versión azul (la elegida) y clara | Azul en pulido final |
 
 ### Cómo renderizar (en tu compu)
 ```bash
@@ -96,12 +96,17 @@ node publicaciones/render.mjs          # 3 publicaciones 1080×1350 + vista prev
   1. **"El problema no es tu *equipo.*"**: "Es seguir haciendo todo a mano.", con el botón "Automatizá lo repetitivo". Usa `assets/robot-estres.png`.
   2. **"Tu negocio, potenciado con *IA.*"**: "Agentes de IA, automatizaciones, webs y apps a medida.", con el botón "Pedí tu demo". Usa `assets/manos-ia.png` en blanco y negro, con una luz índigo suave entre los dedos (sin punto: Guille pidió sacarlo).
   3. **"No seas uno *más.*"**: "Mientras todos hacen lo mismo, vos das el paso.", con el botón "Destacate con IA". Usa `assets/peon-indigo.png`.
-- **Versión fondo azul** (`*-azul.png`, secciones `.post.dark`): el mismo diseño, pero con el estilo de las historias.
-  - Fondo noche con luz índigo detrás de la foto, grilla lavanda, grano y viñeta.
-  - Titular en blanco con la itálica lavanda.
-  - Foto con tinte índigo y luz de borde (`data-rim`, `--tint`, `--rim`).
-  - Botón blanco con la flecha en un círculo índigo, como "Pedí tu demo" de la destacada.
-  - Logo blanco y el oscurecido de abajo (`.basefade`) para que la firma se lea.
+- **Versión fondo azul** (`*-azul.png`, secciones `.post.dark`): es **la que eligió Guille** ("me gusta más azul"). Pidió que fuera premium y minimalista, **igual que las historias**, así que tiene la misma estructura:
+  - Arriba, una etiqueta lavanda, el título en blanco con una frase en serif lavanda y una bajada corta.
+  - Abajo, la foto grande con tinte índigo y luz de borde, fundida en el oscurecido (`.basefade`).
+  - El bloque de texto mide y se ubica igual en las 3 (`.dark .eyebrow/.title/.lede`).
+  - Solo la 2 lleva botón: el blanco con la flecha en un círculo índigo, centrado bajo las manos, como el cierre de la destacada.
+  - Pie: "AGENCIA DE IA", "aicia" y el logo blanco.
+  - Textos:
+    1. "El problema…" / "No es tu equipo. Es todo *a mano.*" / "Lo repetitivo se automatiza. **Tu equipo, a lo importante.**"
+    2. "La solución" / "Tu negocio, potenciado *con IA.*" / "Agentes de IA, automatizaciones, webs y apps **a medida de tu negocio.**", con el botón "Pedí tu demo".
+    3. "El resultado" / "No seas uno *más.*" / "Mientras todos hacen lo mismo, **vos das el paso.**"
+- La versión clara (sin sufijo) quedó como estaba, con el gris en la primera línea del título y un botón índigo en cada una.
 - `preparar-imagenes.mjs` agranda al doble los recortes de Guille (`*-original.png`) con un enfoque suave, y pasa el peón de azul rey al índigo de Aicia.
 
 ### Pendiente

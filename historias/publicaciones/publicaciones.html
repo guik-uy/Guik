@@ -80,6 +80,12 @@ body{display:flex;flex-direction:column;align-items:center;gap:80px;padding:80px
 .dark .subj .tint,.dark .subj .rim{position:absolute;inset:0;-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
 .dark .subj .tint{background:linear-gradient(180deg,#6366F1,#3B32B8);mix-blend-mode:color;opacity:var(--tint,.18)}
 .dark .subj .rim{mix-blend-mode:screen;opacity:var(--rim,.5)}
+/* Bloque de texto de la versión azul: mismas medidas en las 3, como en las historias */
+.dark .eyebrow{left:var(--m);top:128px;z-index:6;font-size:28px;font-weight:600;letter-spacing:-0.015em;background:linear-gradient(90deg,#D9DAFF,#9A9BFA);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.dark .title{top:178px;font-size:106px;letter-spacing:-0.045em}
+.dark .title .serif{font-size:1.04em}
+.dark .lede{left:var(--m);top:414px;font-size:32px;line-height:1.38;letter-spacing:-0.012em;text-wrap:initial}
+.dark .pill.cta{left:50%;top:1112px;transform:translateX(-50%)}
 /* Oscurecido de abajo, igual que en las historias: la firma siempre se lee */
 .dark .basefade{left:0;right:0;bottom:0;height:340px;z-index:5;pointer-events:none;background:linear-gradient(180deg,rgba(4,4,20,0) 0%,rgba(4,4,20,.55) 55%,rgba(4,4,20,.9) 100%)}
 .dark .shadow{background:radial-gradient(closest-side,rgba(2,2,12,.7),rgba(2,2,12,.25) 55%,transparent)}
@@ -143,39 +149,41 @@ body{display:flex;flex-direction:column;align-items:center;gap:80px;padding:80px
   <div class="vignette"></div><div class="grain"></div>
 </section>
 
-<!-- ================= Versión fondo azul ================= -->
+<!-- ================= Versión fondo azul (la elegida): misma estructura que las historias =================
+     etiqueta → título con una frase en serif lavanda → bajada corta → foto grande abajo, fundida con la luz -->
 
 <!-- 1 azul · El problema -->
-<section class="post dark" data-file="aicia-post-01-equipo-azul.png" style="--gx:68%;--gy:60%;--gw:900px;--gh:900px">
+<section class="post dark" data-file="aicia-post-01-equipo-azul.png" style="--gx:70%;--gy:68%;--gw:980px;--gh:900px">
   <div class="stage"></div><div class="grid"></div>
-  <div class="subj" data-rim="right" style="left:-25px;bottom:0;width:1320px;--tint:.16;--rim:.42"><img src="assets/robot-estres.png" alt=""></div>
-  <h1 class="title tx" style="top:140px;font-size:104px"><span class="soft">El problema</span><br>no es tu <span class="serif">equipo.</span></h1>
-  <p class="lede tx" style="left:var(--m);top:368px;width:560px">Es seguir haciendo <b>todo a mano.</b></p>
-  <div class="pill" style="left:var(--m);top:440px">Automatizá lo repetitivo<svg><use href="#g-arrow"/></svg></div>
+  <div class="subj" data-rim="right" style="left:-25px;bottom:-80px;width:1320px;--tint:.18;--rim:.42"><img src="assets/robot-estres.png" alt=""></div>
+  <div class="eyebrow tx">El problema…</div>
+  <h1 class="title tx">No es tu equipo.<br>Es todo <span class="serif">a mano.</span></h1>
+  <p class="lede tx">Lo repetitivo se automatiza.<br><b>Tu equipo, a lo importante.</b></p>
   <div class="tag">Agencia de IA</div><div class="sig">aicia</div><svg class="mark" aria-label="Aicia"><use href="#logo-w"/></svg>
   <div class="basefade"></div><div class="vignette"></div><div class="grain"></div>
 </section>
 
-<!-- 2 azul · La solución -->
-<section class="post dark" data-file="aicia-post-02-potenciado-azul.png" style="--gx:50%;--gy:52%;--gw:1000px;--gh:760px;--mw:980px;--mh:760px">
+<!-- 2 azul · La solución (el único con botón, como el cierre de la destacada) -->
+<section class="post dark" data-file="aicia-post-02-potenciado-azul.png" style="--gx:50%;--gy:62%;--gw:1000px;--gh:760px;--mw:980px;--mh:760px">
   <div class="stage"></div><div class="grid"></div>
-  <div class="subj bw" data-rim="left" style="left:-108px;top:362px;width:1280px;--tint:.16;--rim:.38"><img src="assets/manos-ia.png" alt=""></div>
-  <div class="spark" style="left:540px;top:702px"></div>
-  <h1 class="title tx" style="top:140px;font-size:100px"><span class="soft">Tu negocio,</span><br>potenciado con <span class="serif">IA.</span></h1>
-  <p class="lede tx" style="left:var(--m);top:1078px;width:600px">Agentes de IA, automatizaciones, webs y apps <b>a medida.</b></p>
-  <div class="pill" style="right:var(--m);top:1096px">Pedí tu demo<svg><use href="#g-arrow"/></svg></div>
+  <div class="subj bw" data-rim="left" style="left:-108px;top:440px;width:1280px;--tint:.16;--rim:.38"><img src="assets/manos-ia.png" alt=""></div>
+  <div class="spark" style="left:540px;top:780px"></div>
+  <div class="eyebrow tx">La solución</div>
+  <h1 class="title tx">Tu negocio,<br>potenciado <span class="serif">con IA.</span></h1>
+  <p class="lede tx">Agentes de IA, automatizaciones, webs y apps<br><b>a medida de tu negocio.</b></p>
+  <div class="pill cta">Pedí tu demo<svg><use href="#g-arrow"/></svg></div>
   <div class="tag">Agencia de IA</div><div class="sig">aicia</div><svg class="mark" aria-label="Aicia"><use href="#logo-w"/></svg>
   <div class="basefade"></div><div class="vignette"></div><div class="grain"></div>
 </section>
 
 <!-- 3 azul · El resultado -->
-<section class="post dark" data-file="aicia-post-03-destacate-azul.png" style="--gx:40%;--gy:66%;--gw:900px;--gh:900px">
+<section class="post dark" data-file="aicia-post-03-destacate-azul.png" style="--gx:44%;--gy:72%;--gw:900px;--gh:860px">
   <div class="stage"></div><div class="grid"></div>
   <div class="shadow" style="left:290px;top:1226px;width:290px;height:50px"></div><div class="shadow" style="left:214px;top:1207px;width:440px;height:90px;opacity:.35"></div>
   <div class="subj" data-rim="right" style="left:-60px;top:40px;width:1180px;--tint:0;--rim:.55"><img src="assets/peon-indigo.png" alt=""></div>
-  <h1 class="title tx" style="top:140px;font-size:124px"><span class="soft">No seas</span><br>uno <span class="serif">más.</span></h1>
-  <p class="lede tx" style="left:650px;top:760px;width:350px">Mientras todos hacen lo mismo, <b>vos das el paso.</b></p>
-  <div class="pill" style="left:650px;top:916px">Destacate con IA<svg><use href="#g-arrow"/></svg></div>
+  <div class="eyebrow tx">El resultado</div>
+  <h1 class="title tx">No seas<br>uno <span class="serif">más.</span></h1>
+  <p class="lede tx">Mientras todos hacen lo mismo,<br><b>vos das el paso.</b></p>
   <div class="tag">Agencia de IA</div><div class="sig">aicia</div><svg class="mark" aria-label="Aicia"><use href="#logo-w"/></svg>
   <div class="basefade"></div><div class="vignette"></div><div class="grain"></div>
 </section>
