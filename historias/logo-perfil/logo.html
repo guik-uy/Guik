@@ -21,14 +21,15 @@ body{display:flex;flex-wrap:wrap;gap:80px;padding:80px;justify-content:center}
 .mark{inset:0;width:100%;height:100%;z-index:3;overflow:visible}
 .mark.flat{filter:drop-shadow(0 0 40px rgba(99,102,241,.45)) drop-shadow(0 26px 40px rgba(3,2,22,.75))}
 
-/* ---- Logo de perfil (premium): misma luz que el logo original (arriba a la izquierda, azul que cae a negro abajo a la derecha),
+/* ---- Logo de perfil (premium): colores del fondo de las historias y las publicaciones (noche índigo + luz índigo), luz arriba a la izquierda como el original,
    pero con más profundidad: núcleo de luz más suave, rebote índigo detrás del logo, sombra de contacto, grilla fina y grano ---- */
 .perfil2{background:
-  radial-gradient(30% 27% at 40% 40%,rgba(110,112,255,.12),transparent 72%),
-  radial-gradient(circle 864px at 35% 31%,#2B35BB 0%,#242DA9 19%,#1C2292 42%,#191E87 50%,#14176F 59%,#0E1046 75%,#0C0B35 85%,#080824 90%,#070519 96%,#07051A 100%)}
+  radial-gradient(860px 800px at 40% 40%,rgba(79,70,229,.62),rgba(67,56,202,.20) 42%,transparent 70%),
+  radial-gradient(900px 600px at 0% 0%,rgba(67,56,202,.16),transparent 70%),
+  linear-gradient(180deg,#05051A 0%,#090924 38%,#100E36 100%)}
 .perfil2 .ao{inset:0;z-index:1;background:radial-gradient(44% 40% at 52% 68%,rgba(2,2,16,.38),rgba(2,2,16,.12) 55%,transparent 75%)}
-.perfil2 .g2{z-index:1;background-image:linear-gradient(rgba(199,201,255,.075) 1.5px,transparent 1.5px),linear-gradient(90deg,rgba(199,201,255,.075) 1.5px,transparent 1.5px);background-size:120px 120px;background-position:0 0;
-  -webkit-mask:radial-gradient(70% 66% at 36% 32%,#000 0%,rgba(0,0,0,.5) 50%,transparent 85%);mask:radial-gradient(70% 66% at 36% 32%,#000 0%,rgba(0,0,0,.5) 50%,transparent 85%)}
+.perfil2 .g2{z-index:1;background-image:linear-gradient(rgba(199,201,255,.08) 1.5px,transparent 1.5px),linear-gradient(90deg,rgba(199,201,255,.08) 1.5px,transparent 1.5px);background-size:120px 120px;background-position:0 0;
+  -webkit-mask:radial-gradient(72% 68% at 40% 40%,#000 0%,rgba(0,0,0,.5) 48%,transparent 82%);mask:radial-gradient(72% 68% at 40% 40%,#000 0%,rgba(0,0,0,.5) 48%,transparent 82%)}
 .perfil2 .logo2{filter:drop-shadow(0 0 34px rgba(99,102,241,.32))}
 .perfil2 .grain{opacity:.045}
 /* En chico el grano no suma y ensucia la compresión de Instagram: casi nada */

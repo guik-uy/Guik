@@ -115,7 +115,7 @@ node exportar-instagram.mjs            # TODO listo para subir → historias/ins
 ### Logo de perfil (`historias/logo-perfil/`)
 - **Versión actual (`aicia-logo-perfil.png`):** Guille pidió que el logo quedara **exactamente igual** a su foto de perfil, con los círculos sin tocar, y que lo premium estuviera en el fondo.
   - **Círculos:** idénticos al original, con el mismo degradé #6366F1 → #4338CA, sin brillos ni bordes. Su imagen es el logo dibujado en un cuadro de 1024,6 unidades, por eso `viewBox 0 0 1024.6 1024.6`.
-  - **Fondo:** la misma luz que el original, azul arriba a la izquierda (35 % / 31 %) que cae a negro abajo a la derecha. La curva está calibrada midiendo su imagen.
+  - **Fondo:** con **los colores de las historias y las publicaciones**, como pidió Guille. Es noche índigo (#05051A → #090924 → #100E36), con la luz índigo rgba(79,70,229,.62) arriba a la izquierda del logo (40 % / 40 %) y un toque índigo en la esquina superior izquierda.
   - **Lo que le suma:**
     - un rebote índigo suave detrás del logo;
     - una sombra de contacto abajo;
