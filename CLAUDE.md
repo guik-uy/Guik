@@ -18,7 +18,7 @@ Hay 3 destacadas, como máximo: **Aicia**, **Clientes** y **Proyectos**.
 | Carpeta | Qué es | Estado |
 |---|---|---|
 | `historias/destacada-aicia/` | 5 historias "¿Qué es Aicia?" (`destacada.html`) | **Final, aprobada** |
-| `historias/clientes-proyectos/` | Portada de Clientes + 5 tarjetas de clientes + 2 de Proyectos (`historias.html`) | Clientes **final**. Portada de Proyectos **final**. Historias de proyecto pendientes |
+| `historias/clientes-proyectos/` | Portada de Clientes + 5 tarjetas de clientes + Proyectos: portada, video de Bs.As. Top y "Próximamente" (`historias.html`, `video-bsas.html`) | Clientes **final**. Proyectos: portada y video **finales**, "Próximamente" esperando el OK de Guille |
 | `historias/portadas-destacadas/` | Íconos de portada de las 3 destacadas (`portadas.html`) | **Final, aprobada** |
 | `historias/que-es-aicia/` | 6 versiones viejas | No se usan, son solo referencia |
 | `historias/logo-perfil/` | Logo de Aicia para la foto de perfil, 1080×1080 (`logo.html`) | **Final: Guille eligió el plano** |
@@ -130,7 +130,7 @@ node exportar-instagram.mjs            # TODO listo para subir → historias/ins
   1. `1-foto-de-perfil`: el logo, 1080×1080.
   2. `2-destacada-aicia`: la portada de la destacada (1080×1080) y las 5 historias.
   3. `3-destacada-clientes`: la portada y las 6 historias.
-  4. `4-destacada-proyectos`: la portada, la historia de portada y el MP4 de Bs.As. Top (se copia tal cual).
+  4. `4-destacada-proyectos`: la portada, la historia de portada, el MP4 de Bs.As. Top (se copia tal cual) y "Próximamente".
   5. `5-publicaciones`: las 3 azules, 1080×1350.
 
 ### Pendiente
@@ -163,5 +163,11 @@ node exportar-instagram.mjs            # TODO listo para subir → historias/ins
     - Sin `--fresh`, si los cuadros ya están, solo re-codifica (~1 min). Se ajusta con `--crf` y `--sharp`.
   - `preparar-dispositivos.mjs` encuentra la pantalla de cada foto, mide las esquinas y la pinta de negro. La máscara del pulgar del iPad está medida a mano.
   - Fotos de mockups que pasó Guille y todavía no se usan: iPhone en la mano y ventana de vidrio flotante (están en el chat, no en el repo), y el iPad con manos (`assets/ipad-manos*.png`, listo y con la máscara del pulgar).
+- **Proyectos · Próximamente** (`aicia-proyectos-03-proximamente.png`, sección `.p3`): va después del video, así la destacada no muestra un solo proyecto, como pidió Guille.
+  - "Próximamente" / "Lo que *se viene.*" / "Más proyectos, testimonios y novedades. Muy pronto, acá."
+  - Debajo van 3 tarjetas de vidrio con ícono y la marca "pronto": Nuestra página web, Testimonios y Más proyectos.
+  - Sin fechas ni números, para no prometer nada que no esté.
+  - Cuando haya testimonios o proyectos nuevos, se reemplaza.
+- Tarjetas de FC Barber Shop tipo billete de $2.000 ("¿Pensaste que era plata?"): Guille las mostró. La recomendación fue no sumarlas a Proyectos como diseño suelto. Solo entran si el QR lleva a algo que hizo Aicia (reservas o agente), contado como "del papel a la reserva". Ojo: imitan un billete real.
 - Pendiente opcional: una segunda historia de Bs.As. Top en imagen (por ejemplo, el paso de reservas en otro mockup). Máximo 2 historias por proyecto.
 - Opcional: video de demo de un proyecto si Guille pasa grabaciones de pantalla.
