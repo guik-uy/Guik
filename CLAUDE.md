@@ -103,9 +103,9 @@ node publicaciones/render.mjs          # 3 publicaciones 1080×1350 + vista prev
   - Solo la 2 lleva botón: el blanco con la flecha en un círculo índigo, centrado bajo las manos, como el cierre de la destacada.
   - Pie: "AGENCIA DE IA", "aicia" y el logo blanco.
   - Textos:
-    1. "No es tu equipo. Es todo *a mano.*" / "Lo repetitivo se automatiza. **Tu equipo, a lo importante.**"
-    2. "Tu negocio, potenciado *con IA.*" / "Agentes de IA, automatizaciones, webs y apps **a medida de tu negocio.**", con el botón "Pedí tu demo".
-    3. "No seas uno *más.*" / "Mientras todos hacen lo mismo, **vos das el paso.**"
+    1. "No es tu equipo. Es hacer todo *manual.*" (en 3 líneas, con "manual." sola en serif) / "Lo repetitivo se automatiza. **Tu equipo, a lo importante.**"
+    2. "Tu negocio, potenciado *con IA.*" / "Agentes de IA, automatizaciones, webs y apps **a medida de tu negocio.**", con el botón "Pedí tu demo". Las manos van sin punto ni resplandor entre los dedos.
+    3. "Diferenciate de la *competencia.*" / "Mientras todos hacen lo mismo, **vos das el paso.**"
 - La versión clara (sin sufijo) quedó como estaba, con el gris en la primera línea del título y un botón índigo en cada una.
 - `preparar-imagenes.mjs` agranda al doble los recortes de Guille (`*-original.png`) con un enfoque suave, y pasa el peón de azul rey al índigo de Aicia.
 
