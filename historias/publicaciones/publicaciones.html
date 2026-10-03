@@ -82,9 +82,9 @@ body{display:flex;flex-direction:column;align-items:center;gap:80px;padding:80px
 .dark .subj .rim{mix-blend-mode:screen;opacity:var(--rim,.5)}
 /* Bloque de texto de la versión azul: mismas medidas en las 3, como en las historias */
 .dark .eyebrow{left:var(--m);top:128px;z-index:6;font-size:28px;font-weight:600;letter-spacing:-0.015em;background:linear-gradient(90deg,#D9DAFF,#9A9BFA);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.dark .title{top:178px;font-size:106px;letter-spacing:-0.045em}
+.dark .title{top:150px;font-size:106px;letter-spacing:-0.045em}
 .dark .title .serif{font-size:1.04em}
-.dark .lede{left:var(--m);top:414px;font-size:32px;line-height:1.38;letter-spacing:-0.012em;text-wrap:initial}
+.dark .lede{left:var(--m);top:386px;font-size:32px;line-height:1.38;letter-spacing:-0.012em;text-wrap:initial}
 .dark .pill.cta{left:50%;top:1112px;transform:translateX(-50%)}
 /* Oscurecido de abajo, igual que en las historias: la firma siempre se lee */
 .dark .basefade{left:0;right:0;bottom:0;height:340px;z-index:5;pointer-events:none;background:linear-gradient(180deg,rgba(4,4,20,0) 0%,rgba(4,4,20,.55) 55%,rgba(4,4,20,.9) 100%)}
@@ -150,13 +150,12 @@ body{display:flex;flex-direction:column;align-items:center;gap:80px;padding:80px
 </section>
 
 <!-- ================= Versión fondo azul (la elegida): misma estructura que las historias =================
-     etiqueta → título con una frase en serif lavanda → bajada corta → foto grande abajo, fundida con la luz -->
+     título con una frase en serif lavanda (sin etiqueta arriba, Guille la sacó) → bajada corta → foto grande abajo, fundida con la luz -->
 
 <!-- 1 azul · El problema -->
 <section class="post dark" data-file="aicia-post-01-equipo-azul.png" style="--gx:70%;--gy:68%;--gw:980px;--gh:900px">
   <div class="stage"></div><div class="grid"></div>
   <div class="subj" data-rim="right" style="left:-25px;bottom:-80px;width:1320px;--tint:.18;--rim:.42"><img src="assets/robot-estres.png" alt=""></div>
-  <div class="eyebrow tx">El problema…</div>
   <h1 class="title tx">No es tu equipo.<br>Es todo <span class="serif">a mano.</span></h1>
   <p class="lede tx">Lo repetitivo se automatiza.<br><b>Tu equipo, a lo importante.</b></p>
   <div class="tag">Agencia de IA</div><div class="sig">aicia</div><svg class="mark" aria-label="Aicia"><use href="#logo-w"/></svg>
@@ -168,7 +167,6 @@ body{display:flex;flex-direction:column;align-items:center;gap:80px;padding:80px
   <div class="stage"></div><div class="grid"></div>
   <div class="subj bw" data-rim="left" style="left:-108px;top:440px;width:1280px;--tint:.16;--rim:.38"><img src="assets/manos-ia.png" alt=""></div>
   <div class="spark" style="left:540px;top:780px"></div>
-  <div class="eyebrow tx">La solución</div>
   <h1 class="title tx">Tu negocio,<br>potenciado <span class="serif">con IA.</span></h1>
   <p class="lede tx">Agentes de IA, automatizaciones, webs y apps<br><b>a medida de tu negocio.</b></p>
   <div class="pill cta">Pedí tu demo<svg><use href="#g-arrow"/></svg></div>
@@ -181,7 +179,6 @@ body{display:flex;flex-direction:column;align-items:center;gap:80px;padding:80px
   <div class="stage"></div><div class="grid"></div>
   <div class="shadow" style="left:290px;top:1226px;width:290px;height:50px"></div><div class="shadow" style="left:214px;top:1207px;width:440px;height:90px;opacity:.35"></div>
   <div class="subj" data-rim="right" style="left:-60px;top:40px;width:1180px;--tint:0;--rim:.55"><img src="assets/peon-indigo.png" alt=""></div>
-  <div class="eyebrow tx">El resultado</div>
   <h1 class="title tx">No seas<br>uno <span class="serif">más.</span></h1>
   <p class="lede tx">Mientras todos hacen lo mismo,<br><b>vos das el paso.</b></p>
   <div class="tag">Agencia de IA</div><div class="sig">aicia</div><svg class="mark" aria-label="Aicia"><use href="#logo-w"/></svg>

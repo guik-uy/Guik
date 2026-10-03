@@ -97,15 +97,15 @@ node publicaciones/render.mjs          # 3 publicaciones 1080×1350 + vista prev
   2. **"Tu negocio, potenciado con *IA.*"**: "Agentes de IA, automatizaciones, webs y apps a medida.", con el botón "Pedí tu demo". Usa `assets/manos-ia.png` en blanco y negro, con una luz índigo suave entre los dedos (sin punto: Guille pidió sacarlo).
   3. **"No seas uno *más.*"**: "Mientras todos hacen lo mismo, vos das el paso.", con el botón "Destacate con IA". Usa `assets/peon-indigo.png`.
 - **Versión fondo azul** (`*-azul.png`, secciones `.post.dark`): es **la que eligió Guille** ("me gusta más azul"). Pidió que fuera premium y minimalista, **igual que las historias**, así que tiene la misma estructura:
-  - Arriba, una etiqueta lavanda, el título en blanco con una frase en serif lavanda y una bajada corta.
+  - Arriba, el título en blanco con una frase en serif lavanda y una bajada corta. **Sin etiqueta arriba**: Guille sacó "El problema…", "La solución" y "El resultado".
   - Abajo, la foto grande con tinte índigo y luz de borde, fundida en el oscurecido (`.basefade`).
-  - El bloque de texto mide y se ubica igual en las 3 (`.dark .eyebrow/.title/.lede`).
+  - El bloque de texto mide y se ubica igual en las 3 (`.dark .title/.lede`).
   - Solo la 2 lleva botón: el blanco con la flecha en un círculo índigo, centrado bajo las manos, como el cierre de la destacada.
   - Pie: "AGENCIA DE IA", "aicia" y el logo blanco.
   - Textos:
-    1. "El problema…" / "No es tu equipo. Es todo *a mano.*" / "Lo repetitivo se automatiza. **Tu equipo, a lo importante.**"
-    2. "La solución" / "Tu negocio, potenciado *con IA.*" / "Agentes de IA, automatizaciones, webs y apps **a medida de tu negocio.**", con el botón "Pedí tu demo".
-    3. "El resultado" / "No seas uno *más.*" / "Mientras todos hacen lo mismo, **vos das el paso.**"
+    1. "No es tu equipo. Es todo *a mano.*" / "Lo repetitivo se automatiza. **Tu equipo, a lo importante.**"
+    2. "Tu negocio, potenciado *con IA.*" / "Agentes de IA, automatizaciones, webs y apps **a medida de tu negocio.**", con el botón "Pedí tu demo".
+    3. "No seas uno *más.*" / "Mientras todos hacen lo mismo, **vos das el paso.**"
 - La versión clara (sin sufijo) quedó como estaba, con el gris en la primera línea del título y un botón índigo en cada una.
 - `preparar-imagenes.mjs` agranda al doble los recortes de Guille (`*-original.png`) con un enfoque suave, y pasa el peón de azul rey al índigo de Aicia.
 
