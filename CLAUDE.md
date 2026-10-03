@@ -164,8 +164,11 @@ node exportar-instagram.mjs            # TODO listo para subir → historias/ins
   - `preparar-dispositivos.mjs` encuentra la pantalla de cada foto, mide las esquinas y la pinta de negro. La máscara del pulgar del iPad está medida a mano.
   - Fotos de mockups que pasó Guille y todavía no se usan: iPhone en la mano y ventana de vidrio flotante (están en el chat, no en el repo), y el iPad con manos (`assets/ipad-manos*.png`, listo y con la máscara del pulgar).
 - **Proyectos · Próximamente** (`aicia-proyectos-03-proximamente.png`, sección `.p3`): va después del video, así la destacada no muestra un solo proyecto, como pidió Guille.
-  - "Próximamente" / "Lo que *se viene.*" / "Más proyectos, testimonios y novedades. Muy pronto, acá."
-  - Debajo van 3 tarjetas de vidrio con ícono y la marca "pronto": Nuestra página web, Testimonios y Más proyectos.
+  - "Próximamente" / "Lo que *se viene.*" / "Más proyectos, testimonios y novedades."
+  - Debajo van 3 tarjetas de vidrio compactas con ícono y la marca "pronto": Nuestra página web, Testimonios y Más proyectos.
+  - Abajo, como imagen protagonista, el **filósofo de mármol con la laptop** que pasó Guille. Va en blanco y negro (`.subj.mono`), con tinte índigo y luz de borde.
+    - `assets/filosofo-laptop.png` sale de `filosofo-laptop-original.jpg` (fondo blanco) con `preparar-filosofo.mjs`.
+    - Ese script hace un relleno desde el borde más los huecos blancos grandes, suaviza el borde quitándole el blanco (así no queda halo) y agranda al doble.
   - Sin fechas ni números, para no prometer nada que no esté.
   - Cuando haya testimonios o proyectos nuevos, se reemplaza.
 - Tarjetas de FC Barber Shop tipo billete de $2.000 ("¿Pensaste que era plata?"): Guille las mostró. La recomendación fue no sumarlas a Proyectos como diseño suelto. Solo entran si el QR lleva a algo que hizo Aicia (reservas o agente), contado como "del papel a la reserva". Ojo: imitan un billete real.
