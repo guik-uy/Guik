@@ -20,6 +20,17 @@ body{display:flex;flex-wrap:wrap;gap:80px;padding:80px;justify-content:center}
 /* Logo: ocupa todo el cuadro; la vista (en unidades del logo) lo centra ópticamente */
 .mark{inset:0;width:100%;height:100%;z-index:3;overflow:visible}
 .mark.flat{filter:drop-shadow(0 0 40px rgba(99,102,241,.45)) drop-shadow(0 26px 40px rgba(3,2,22,.75))}
+
+/* ---- Logo de perfil (premium): misma luz que el logo original (arriba a la izquierda, azul que cae a negro abajo a la derecha),
+   pero con más profundidad: núcleo de luz más suave, rebote índigo detrás del logo, sombra de contacto, grilla fina y grano ---- */
+.perfil2{background:
+  radial-gradient(30% 27% at 40% 40%,rgba(110,112,255,.12),transparent 72%),
+  radial-gradient(circle 864px at 35% 31%,#2B35BB 0%,#242DA9 19%,#1C2292 42%,#191E87 50%,#14176F 59%,#0E1046 75%,#0C0B35 85%,#080824 90%,#070519 96%,#07051A 100%)}
+.perfil2 .ao{inset:0;z-index:1;background:radial-gradient(44% 40% at 52% 68%,rgba(2,2,16,.38),rgba(2,2,16,.12) 55%,transparent 75%)}
+.perfil2 .g2{z-index:1;background-image:linear-gradient(rgba(199,201,255,.075) 1.5px,transparent 1.5px),linear-gradient(90deg,rgba(199,201,255,.075) 1.5px,transparent 1.5px);background-size:120px 120px;background-position:0 0;
+  -webkit-mask:radial-gradient(70% 66% at 36% 32%,#000 0%,rgba(0,0,0,.5) 50%,transparent 85%);mask:radial-gradient(70% 66% at 36% 32%,#000 0%,rgba(0,0,0,.5) 50%,transparent 85%)}
+.perfil2 .logo2{filter:drop-shadow(0 0 34px rgba(99,102,241,.32))}
+.perfil2 .grain{opacity:.045}
 /* En chico el grano no suma y ensucia la compresión de Instagram: casi nada */
 .perfil .grain{opacity:.03}
 img.mark{display:block;filter:drop-shadow(0 0 46px rgba(99,102,241,.45)) drop-shadow(0 34px 46px rgba(3,2,22,.55))}
@@ -27,23 +38,16 @@ img.mark{display:block;filter:drop-shadow(0 0 46px rgba(99,102,241,.45)) drop-sh
 </head>
 <body>
 
-<!-- Logo plano mejorado: mismo degradé índigo del logo, con luz suave arriba a la izquierda, sombra abajo y borde de luz lavanda -->
-<section class="sq perfil" data-file="aicia-logo-perfil.png">
-  <div class="grid"></div>
-  <svg class="mark flat" viewBox="-1 10 1025 1025" aria-label="Aicia">
-    <defs>
-      <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6A6DF7"/><stop offset=".55" stop-color="#5249E6"/><stop offset="1" stop-color="#463BD2"/></linearGradient>
-      <radialGradient id="hl" cx=".3" cy=".24" r=".78"><stop offset="0" stop-color="#fff" stop-opacity=".26"/><stop offset=".45" stop-color="#fff" stop-opacity=".07"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
-      <radialGradient id="sh" cx=".72" cy=".86" r=".8"><stop offset="0" stop-color="#120C58" stop-opacity=".34"/><stop offset=".55" stop-color="#120C58" stop-opacity=".08"/><stop offset="1" stop-color="#120C58" stop-opacity="0"/></radialGradient>
-      <linearGradient id="rim" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E4E5FF" stop-opacity=".95"/><stop offset=".32" stop-color="#C7C9FF" stop-opacity=".25"/><stop offset=".6" stop-color="#C7C9FF" stop-opacity="0"/><stop offset="1" stop-color="#8F92FF" stop-opacity=".10"/></linearGradient>
-    </defs>
-    <g id="c"><circle cx="430" cy="600" r="270"/><circle cx="700" cy="320" r="92"/></g>
-    <use href="#c" fill="url(#lg)"/>
-    <circle cx="430" cy="600" r="270" fill="url(#sh)"/><circle cx="700" cy="320" r="92" fill="url(#sh)"/>
-    <circle cx="430" cy="600" r="270" fill="url(#hl)"/><circle cx="700" cy="320" r="92" fill="url(#hl)"/>
-    <circle cx="430" cy="600" r="268.4" fill="none" stroke="url(#rim)" stroke-width="3.2"/><circle cx="700" cy="320" r="90.9" fill="none" stroke="url(#rim)" stroke-width="2.2"/>
+<!-- Logo de perfil: los círculos EXACTAMENTE como el logo de Guille (mismo degradé #6366F1 → #4338CA, misma posición y tamaño:
+     su imagen es el logo dibujado en un cuadro de 1024,6 unidades). Lo premium está en el fondo. -->
+<section class="sq perfil2" data-file="aicia-logo-perfil.png">
+  <div class="ao"></div>
+  <div class="grid g2"></div>
+  <svg class="mark logo2" viewBox="0 0 1024.6 1024.6" aria-label="Aicia">
+    <defs><linearGradient id="lgx" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6366F1"/><stop offset="1" stop-color="#4338CA"/></linearGradient></defs>
+    <circle cx="430" cy="600" r="270" fill="url(#lgx)"/><circle cx="700" cy="320" r="92" fill="url(#lgx)"/>
   </svg>
-  <div class="vig"></div><div class="grain"></div>
+  <div class="grain"></div>
 </section>
 
 <!-- Variante 3D: las mismas esferas índigo con luz real (WebGL, tema oscuro) -->

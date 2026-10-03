@@ -113,14 +113,17 @@ node exportar-instagram.mjs            # TODO listo para subir → historias/ins
 - `preparar-imagenes.mjs` agranda al doble los recortes de Guille (`*-original.png`) con un enfoque suave, y pasa el peón de azul rey al índigo de Aicia.
 
 ### Logo de perfil (`historias/logo-perfil/`)
-- Es el logo de Aicia (dos círculos índigo) sobre el fondo de las historias: noche índigo, luz índigo detrás, grilla de cuadrados que se desvanece, viñeta y grano. Guille pidió que fuera "casi igual pero mejor" que su foto de perfil.
-- `aicia-logo-perfil.png` (**el elegido por Guille**) es el logo plano con el mismo degradé #6366F1 → #4338CA. Lleva luz suave arriba a la izquierda, sombra abajo, un borde de luz lavanda y un resplandor índigo alrededor.
-- `aicia-logo-perfil-3d.png` (descartada, queda de referencia) es la variante con esferas índigo con luz real: el mismo shader WebGL de las portadas, en tema oscuro.
-- **Optimizado para verse chico**, como pidió Guille:
-  - Encuadre `viewBox -1 10 1025 1025`: un poco más alejado, igual que la foto de perfil que usaba Guille (el círculo grande ocupa ~53 % del ancho). Las dos bolitas quedan bien dentro del círculo de Instagram.
-  - La luz de fondo va corrida arriba a la izquierda, con una sombra más marcada, así el borde de abajo a la derecha se despega del fondo.
-  - Grano casi nulo (`.perfil .grain`), porque en chico ensucia la compresión.
+- **Versión actual (`aicia-logo-perfil.png`):** Guille pidió que el logo quedara **exactamente igual** a su foto de perfil, con los círculos sin tocar, y que lo premium estuviera en el fondo.
+  - **Círculos:** idénticos al original, con el mismo degradé #6366F1 → #4338CA, sin brillos ni bordes. Su imagen es el logo dibujado en un cuadro de 1024,6 unidades, por eso `viewBox 0 0 1024.6 1024.6`.
+  - **Fondo:** la misma luz que el original, azul arriba a la izquierda (35 % / 31 %) que cae a negro abajo a la derecha. La curva está calibrada midiendo su imagen.
+  - **Lo que le suma:**
+    - un rebote índigo suave detrás del logo;
+    - una sombra de contacto abajo;
+    - la grilla fina de las historias, desvanecida;
+    - un resplandor índigo leve alrededor de los círculos;
+    - grano sutil.
   - Se dibuja a 2160 y se achica a **1080×1080** con lanczos.
+- Versiones anteriores, descartadas: el logo plano con luz y borde lavanda sobre el fondo de las historias, y la de esferas 3D (`aicia-logo-perfil-3d.png`, que queda de referencia).
 - La vista previa lo muestra en círculo a 300, 150, 110, 77, 56 y 32 px.
 
 ### Exportación para Instagram (`exportar-instagram.mjs`)
