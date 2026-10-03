@@ -1,4 +1,4 @@
-// Exporta TODO lo de Instagram de Aicia, listo para subir, en historias/instagram/ (+ aicia-instagram.zip).
+// Exporta TODO lo de Instagram de Aicia, listo para subir, en historias/instagram/ (+ aicia-instagram.zip y una versión solo con imágenes).
 // Cada pieza se dibuja al doble de resolución y se achica con lanczos (texto y bordes más limpios), en PNG RGB sin transparencia.
 // Uso: NODE_PATH=$(npm root -g) node exportar-instagram.mjs
 import { createRequire } from 'node:module';
@@ -61,4 +61,6 @@ fs.copyFileSync(path.join(root, 'clientes-proyectos', 'aicia-proyectos-02-bsas-t
 console.log('ok', path.join(F.proyectos, 'aicia-proyectos-02-bsas-top-web.mp4'));
 
 execFileSync('zip', ['-q', '-r', '-X', 'aicia-instagram.zip', ...Object.values(F)], { cwd: out });
-console.log('ok aicia-instagram.zip');
+// Solo imágenes (sin el video): pesa menos de la mitad, para mandarlo por chat
+execFileSync('zip', ['-q', '-r', '-X', 'aicia-instagram-imagenes.zip', ...Object.values(F), '-x', '*.mp4'], { cwd: out });
+console.log('ok aicia-instagram.zip y aicia-instagram-imagenes.zip');

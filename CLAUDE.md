@@ -124,7 +124,7 @@ node exportar-instagram.mjs            # TODO listo para subir → historias/ins
 - La vista previa lo muestra en círculo a 300, 150, 110, 77, 56 y 32 px.
 
 ### Exportación para Instagram (`exportar-instagram.mjs`)
-- Junta todo lo final en `historias/instagram/` (no va al repo, se regenera) y arma `aicia-instagram.zip`.
+- Junta todo lo final en `historias/instagram/` (no va al repo, se regenera). Arma `aicia-instagram.zip` (35 MB, con el video) y `aicia-instagram-imagenes.zip` (19 MB, sin el video: el chat no acepta archivos de más de ~30 MB).
 - Cada pieza se dibuja al **doble de resolución** y se achica con lanczos. Sale en PNG RGB sin transparencia, con el diseño idéntico al aprobado.
 - Carpetas, en orden:
   1. `1-foto-de-perfil`: el logo, 1080×1080.
