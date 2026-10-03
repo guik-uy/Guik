@@ -30,7 +30,7 @@ body{display:flex;flex-wrap:wrap;gap:80px;padding:80px;justify-content:center}
 .perfil2 .ao{inset:0;z-index:1;background:radial-gradient(44% 40% at 52% 68%,rgba(2,2,16,.38),rgba(2,2,16,.12) 55%,transparent 75%)}
 .perfil2 .g2{z-index:1;background-image:linear-gradient(rgba(199,201,255,.08) 1.5px,transparent 1.5px),linear-gradient(90deg,rgba(199,201,255,.08) 1.5px,transparent 1.5px);background-size:120px 120px;background-position:0 0;
   -webkit-mask:radial-gradient(72% 68% at 40% 40%,#000 0%,rgba(0,0,0,.5) 48%,transparent 82%);mask:radial-gradient(72% 68% at 40% 40%,#000 0%,rgba(0,0,0,.5) 48%,transparent 82%)}
-.perfil2 .logo2{filter:drop-shadow(0 0 30px rgba(199,201,255,.36)) drop-shadow(0 22px 34px rgba(4,3,26,.55))}
+.perfil2 .logo2{filter:drop-shadow(0 0 30px rgba(129,132,255,.40)) drop-shadow(0 22px 34px rgba(4,3,26,.55))}
 .perfil2 .grain{opacity:.045}
 /* En chico el grano no suma y ensucia la compresión de Instagram: casi nada */
 .perfil .grain{opacity:.03}
@@ -39,15 +39,26 @@ img.mark{display:block;filter:drop-shadow(0 0 46px rgba(99,102,241,.45)) drop-sh
 </head>
 <body>
 
-<!-- Logo de perfil: los círculos con la misma forma, posición y tamaño que el logo de Guille, en blanco → lavanda como en las historias,
-     publicaciones y portadas de destacadas (Guille dio el OK para cambiar el color);
+<!-- Logo de perfil: los círculos con la misma forma, posición y tamaño que el logo de Guille, con el índigo de los íconos de las historias
+     (Guille dio el OK para cambiar el color, pero blanco no);
      su imagen es el logo dibujado en un cuadro de 1024,6 unidades). Lo premium está en el fondo. -->
 <section class="sq perfil2" data-file="aicia-logo-perfil.png">
   <div class="ao"></div>
   <div class="grid g2"></div>
   <svg class="mark logo2" viewBox="0 0 1024.6 1024.6" aria-label="Aicia">
-    <defs><linearGradient id="lgx" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".55" stop-color="#F1F1FF"/><stop offset="1" stop-color="#CDCFFF"/></linearGradient></defs>
+    <defs><linearGradient id="lgx" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8689FF"/><stop offset=".5" stop-color="#5B52F0"/><stop offset="1" stop-color="#4232CC"/></linearGradient></defs>
     <circle cx="430" cy="600" r="270" fill="url(#lgx)"/><circle cx="700" cy="320" r="92" fill="url(#lgx)"/>
+  </svg>
+  <div class="grain"></div>
+</section>
+
+<!-- Variante: lavanda, como las etiquetas de las historias -->
+<section class="sq perfil2" data-file="aicia-logo-perfil-lavanda.png">
+  <div class="ao"></div>
+  <div class="grid g2"></div>
+  <svg class="mark logo2" viewBox="0 0 1024.6 1024.6" aria-label="Aicia">
+    <defs><linearGradient id="lgl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D9DAFF"/><stop offset="1" stop-color="#9A9BFA"/></linearGradient></defs>
+    <circle cx="430" cy="600" r="270" fill="url(#lgl)"/><circle cx="700" cy="320" r="92" fill="url(#lgl)"/>
   </svg>
   <div class="grain"></div>
 </section>

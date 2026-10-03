@@ -21,7 +21,7 @@ Hay 3 destacadas, como máximo: **Aicia**, **Clientes** y **Proyectos**.
 | `historias/clientes-proyectos/` | Portada de Clientes + 5 tarjetas de clientes + Proyectos: portada, video de Bs.As. Top y "Próximamente" (`historias.html`, `video-bsas.html`) | Clientes **final**. Proyectos: portada y video **finales**, "Próximamente" esperando el OK de Guille |
 | `historias/portadas-destacadas/` | Íconos de portada de las 3 destacadas (`portadas.html`) | **Final, aprobada** |
 | `historias/que-es-aicia/` | 6 versiones viejas | No se usan, son solo referencia |
-| `historias/logo-perfil/` | Logo de Aicia para la foto de perfil, 1080×1080 (`logo.html`) | Círculos blanco → lavanda sobre el fondo de las historias, esperando el OK de Guille |
+| `historias/logo-perfil/` | Logo de Aicia para la foto de perfil, 1080×1080 (`logo.html`) | Círculos en el índigo de los íconos de las historias (y variante lavanda) sobre el fondo de las historias, esperando el OK de Guille |
 | `historias/publicaciones/` | 3 publicaciones del feed, 1080×1350 (`publicaciones.html`). Versión azul (la elegida) y clara | Azul en pulido final |
 
 ### Cómo renderizar (en tu compu)
@@ -114,7 +114,9 @@ node exportar-instagram.mjs            # TODO listo para subir → historias/ins
 
 ### Logo de perfil (`historias/logo-perfil/`)
 - **Versión actual (`aicia-logo-perfil.png`):** Guille pidió que el logo quedara **exactamente igual** a su foto de perfil, con los círculos sin tocar, y que lo premium estuviera en el fondo.
-  - **Círculos:** misma forma, posición y tamaño que el original. Su imagen es el logo dibujado en un cuadro de 1024,6 unidades, por eso `viewBox 0 0 1024.6 1024.6`. Guille después dio el OK para cambiar el color, así que van en **blanco → lavanda** (#FFFFFF → #F1F1FF → #CDCFFF), igual que el logo de las publicaciones y la portada de la destacada Aicia, con un resplandor lavanda suave.
+  - **Círculos:** misma forma, posición y tamaño que el original. Su imagen es el logo dibujado en un cuadro de 1024,6 unidades, por eso `viewBox 0 0 1024.6 1024.6`. Guille dio el OK para cambiar el color, pero **blanco no**.
+    - Principal: el **índigo de los íconos de las historias** (`ap-indigo`: #8689FF → #5B52F0 → #4232CC, vertical), con un resplandor índigo suave.
+    - Variante: `aicia-logo-perfil-lavanda.png`, en lavanda como las etiquetas de las historias (#D9DAFF → #9A9BFA).
   - **Fondo:** con **los colores de las historias y las publicaciones**, como pidió Guille. Es noche índigo (#05051A → #090924 → #100E36), con la luz índigo rgba(79,70,229,.62) arriba a la izquierda del logo (40 % / 40 %) y un toque índigo en la esquina superior izquierda.
   - **Lo que le suma:**
     - un rebote índigo suave detrás del logo;
