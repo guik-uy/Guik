@@ -34,7 +34,8 @@ node clientes-proyectos/render.mjs     # PNG con nombre según data-file + vista
 node portadas-destacadas/render.mjs    # portadas 2160×2160
 node publicaciones/render.mjs          # 3 publicaciones 1080×1350 + vista previa del feed
 node logo-perfil/render.mjs            # logo de perfil 1080×1080 (plano y 3D) + vista previa en círculo
-# atajos: npm run aicia | npm run clientes | npm run portadas | npm run publicaciones | npm run logo
+node exportar-instagram.mjs            # TODO listo para subir → historias/instagram/ + aicia-instagram.zip
+# atajos: npm run aicia | npm run clientes | npm run portadas | npm run publicaciones | npm run logo | npm run instagram
 ```
 - Las historias son HTML/CSS a 1080×1920. `render.mjs` las sirve con un servidor local, porque las máscaras CSS no funcionan con file://, y saca PNG.
 - El QA automático revisa márgenes de texto (64–1016 px), zonas seguras de IG (y 250–1620), texto cortado y solapamientos.
@@ -121,6 +122,16 @@ node logo-perfil/render.mjs            # logo de perfil 1080×1080 (plano y 3D) 
   - Grano casi nulo (`.perfil .grain`), porque en chico ensucia la compresión.
   - Se dibuja a 2160 y se achica a **1080×1080** con lanczos.
 - La vista previa lo muestra en círculo a 300, 150, 110, 77, 56 y 32 px.
+
+### Exportación para Instagram (`exportar-instagram.mjs`)
+- Junta todo lo final en `historias/instagram/` (no va al repo, se regenera) y arma `aicia-instagram.zip`.
+- Cada pieza se dibuja al **doble de resolución** y se achica con lanczos. Sale en PNG RGB sin transparencia, con el diseño idéntico al aprobado.
+- Carpetas, en orden:
+  1. `1-foto-de-perfil`: el logo, 1080×1080.
+  2. `2-destacada-aicia`: la portada de la destacada (1080×1080) y las 5 historias.
+  3. `3-destacada-clientes`: la portada y las 6 historias.
+  4. `4-destacada-proyectos`: la portada, la historia de portada y el MP4 de Bs.As. Top (se copia tal cual).
+  5. `5-publicaciones`: las 3 azules, 1080×1350.
 
 ### Pendiente
 - **Proyectos**: portada "Lo que *construimos.*" con una **foto real** de dos manos levantando una MacBook (`assets/macbook-manos.png`, que sale de `macbook-manos-original.png` con `preparar-macbook.mjs`; ese script borra la pantalla verde y mide sus 4 esquinas). Encima de la pantalla va un sitio de Aicia premium y claro, calzado en perspectiva con `fitScreens()` (homografía → `matrix3d`): nav, "Tu negocio, en *automático.*" y una onda índigo difuminada. La foto lleva capas de integración en `.lap`: los negros levantados al índigo (`.blacks`, lighten), la caída de luz (`.falloff`, multiply), la luz de la pantalla sobre el teclado (`.spill`, screen), un resplandor detrás de la tapa (`.bloom-out`) y el brillo de la pantalla (`.lap-scr.bloom`). Están en intensidades bajas, porque más fuerte se ve lavado. La bajada es "Webs, apps, agentes de IA y automatizaciones hechos a medida de cada negocio." Se descartaron el logo grande, la vista explotada, el flujo n8n y el mosaico de ventanas. 

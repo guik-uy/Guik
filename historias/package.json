@@ -8,7 +8,8 @@
     "clientes": "node clientes-proyectos/render.mjs",
     "portadas": "node portadas-destacadas/render.mjs",
     "publicaciones": "node publicaciones/render.mjs",
-    "logo": "node logo-perfil/render.mjs"
+    "logo": "node logo-perfil/render.mjs",
+    "instagram": "node exportar-instagram.mjs"
   },
   "devDependencies": {
     "playwright": "1.56.1"
