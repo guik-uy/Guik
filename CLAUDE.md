@@ -94,7 +94,7 @@ node publicaciones/render.mjs          # 3 publicaciones 1080×1350 + vista prev
 - Formato 1080×1350 (4:5). El texto va dentro de 80–1000 px porque la grilla del perfil recorta los costados a 3:4.
 - Publicaciones:
   1. **"El problema no es tu *equipo.*"**: "Es seguir haciendo todo a mano.", con el botón "Automatizá lo repetitivo". Usa `assets/robot-estres.png`.
-  2. **"Tu negocio, potenciado con *IA.*"**: "Agentes de IA, automatizaciones, webs y apps a medida.", con el botón "Pedí tu demo". Usa `assets/manos-ia.png` en blanco y negro, con una chispa índigo entre los dedos.
+  2. **"Tu negocio, potenciado con *IA.*"**: "Agentes de IA, automatizaciones, webs y apps a medida.", con el botón "Pedí tu demo". Usa `assets/manos-ia.png` en blanco y negro, con una luz índigo suave entre los dedos (sin punto: Guille pidió sacarlo).
   3. **"No seas uno *más.*"**: "Mientras todos hacen lo mismo, vos das el paso.", con el botón "Destacate con IA". Usa `assets/peon-indigo.png`.
 - `preparar-imagenes.mjs` agranda al doble los recortes de Guille (`*-original.png`) con un enfoque suave, y pasa el peón de azul rey al índigo de Aicia.
 
