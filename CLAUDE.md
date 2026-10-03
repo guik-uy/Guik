@@ -21,7 +21,7 @@ Hay 3 destacadas, como máximo: **Aicia**, **Clientes** y **Proyectos**.
 | `historias/clientes-proyectos/` | Portada de Clientes + 5 tarjetas de clientes + 2 de Proyectos (`historias.html`) | Clientes **final**. Portada de Proyectos **final**. Historias de proyecto pendientes |
 | `historias/portadas-destacadas/` | Íconos de portada de las 3 destacadas (`portadas.html`) | **Final, aprobada** |
 | `historias/que-es-aicia/` | 6 versiones viejas | No se usan, son solo referencia |
-| `historias/logo-perfil/` | Logo de Aicia para la foto de perfil, 2160×2160 (`logo.html`) | Primera versión, esperando el OK de Guille |
+| `historias/logo-perfil/` | Logo de Aicia para la foto de perfil, 2160×2160 (`logo.html`) | **Final: Guille eligió el plano** |
 | `historias/publicaciones/` | 3 publicaciones del feed, 1080×1350 (`publicaciones.html`). Versión azul (la elegida) y clara | Azul en pulido final |
 
 ### Cómo renderizar (en tu compu)
@@ -113,8 +113,8 @@ node logo-perfil/render.mjs            # logo de perfil 2160×2160 (plano y 3D) 
 
 ### Logo de perfil (`historias/logo-perfil/`)
 - Es el logo de Aicia (dos círculos índigo) sobre el fondo de las historias: noche índigo, luz índigo detrás, grilla de cuadrados que se desvanece, viñeta y grano. Guille pidió que fuera "casi igual pero mejor" que su foto de perfil.
-- `aicia-logo-perfil.png` (**principal**) es el logo plano con el mismo degradé #6366F1 → #4338CA. Lleva luz suave arriba a la izquierda, sombra abajo, un borde de luz lavanda y un resplandor índigo alrededor.
-- `aicia-logo-perfil-3d.png` es la variante con esferas índigo con luz real: el mismo shader WebGL de las portadas, en tema oscuro.
+- `aicia-logo-perfil.png` (**el elegido por Guille**) es el logo plano con el mismo degradé #6366F1 → #4338CA. Lleva luz suave arriba a la izquierda, sombra abajo, un borde de luz lavanda y un resplandor índigo alrededor.
+- `aicia-logo-perfil-3d.png` (descartada, queda de referencia) es la variante con esferas índigo con luz real: el mismo shader WebGL de las portadas, en tema oscuro.
 - El encuadre (`viewBox -78 15 1090 1090`) centra el logo ópticamente y lo deja dentro del recorte circular de Instagram. La vista previa lo muestra en círculo a 300, 150, 77 y 32 px.
 
 ### Pendiente
