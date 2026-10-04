@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Aicia · Proyectos · FC Barber Shop, tarjetas (video)</title>
+<!-- Historia en video de las tarjetas tipo billete de FC Barber Shop, armada como línea de tiempo (18 s).
+     Mismo sistema que video-bsas.html: renderAt(t) deja la escena en el segundo t y render-timeline.mjs la graba.
+     Las tarjetas son objetos 3D reales (CSS 3D): dos caras, canto de papel, luz que barre la superficie según el ángulo
+     y sombra suave que las sigue.
+     0–4 s       la tarjeta horizontal sube desde la oscuridad mostrando el billete · "¿Pensaste que era plata?"
+     4–7,5 s     gira y muestra el dorso negro · "Del otro lado, el turno."
+     7,5–10,4 s  la cámara va al QR · "Un QR para reservar."
+     10,4–14,3 s se aleja, la tarjeta vuelve al billete y entran las dos verticales · "Dos formatos, dos colores."
+     14,3–18,2 s las tres flotan · "Diseñadas por Aicia." -->
+<style>
+@font-face{font-family:"Geist";src:url(fonts/geist-latin-wght-normal.woff2) format("woff2");font-weight:100 900;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2212}
+@font-face{font-family:"Geist";src:url(fonts/geist-latin-ext-wght-normal.woff2) format("woff2");font-weight:100 900;unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Instrument Serif";src:url(fonts/instrument-serif-latin-400-italic.woff2) format("woff2");font-style:italic;font-weight:400}
+:root{--t2:#B9BBDA;--m:64px}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#15151d}
+body{font-family:"Geist",system-ui,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision}
+.story{width:1080px;height:1920px;position:relative;overflow:hidden;background:#06061A;color:#F4F4FA;isolation:isolate}
+.story > *{position:absolute}
+.serif{font-family:"Instrument Serif",serif;font-style:italic;font-weight:400}
+
+.stage{inset:0;background:
+  radial-gradient(1200px 980px at 50% 66%,rgba(79,70,229,.60),rgba(67,56,202,.20) 42%,transparent 70%),
+  radial-gradient(900px 600px at 0% 0%,rgba(67,56,202,.16),transparent 70%),
+  linear-gradient(180deg,#05051A 0%,#090924 38%,#100E36 100%)}
+.grid{inset:0;background-image:linear-gradient(rgba(199,201,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(199,201,255,.07) 1px,transparent 1px);background-size:119px 119px;background-position:64px 250px;
+  -webkit-mask:radial-gradient(1000px 1100px at 50% 66%,#000 0%,rgba(0,0,0,.5) 45%,transparent 75%);mask:radial-gradient(1000px 1100px at 50% 66%,#000 0%,rgba(0,0,0,.5) 45%,transparent 75%)}
+.vignette{inset:0;z-index:20;pointer-events:none;background:radial-gradient(130% 90% at 50% 45%,transparent 60%,rgba(3,3,14,.55) 100%)}
+.basefade{left:0;right:0;bottom:0;height:360px;z-index:20;pointer-events:none;background:linear-gradient(180deg,rgba(4,4,20,0) 0%,rgba(4,4,20,.55) 55%,rgba(4,4,20,.9) 100%)}
+.sig{left:0;right:0;top:1836px;z-index:22;text-align:center;font-size:26px;font-weight:600;letter-spacing:-0.035em;line-height:1;color:#fff;text-shadow:0 1px 14px rgba(3,3,16,.45)}
+
+/* Texto (igual que el video de Bs.As. Top) */
+.tx{z-index:21;left:var(--m);will-change:transform,opacity}
+.eyebrow{top:384px;font-size:31px;font-weight:600;letter-spacing:-0.015em;background:linear-gradient(90deg,#D9DAFF,#9A9BFA);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.title{top:440px;font-size:132px;font-weight:600;letter-spacing:-0.045em;line-height:.98;color:#fff;white-space:nowrap}
+.title .serif{font-size:150px;letter-spacing:-0.02em;line-height:.8;background:linear-gradient(100deg,#B9BBFF 0%,#ECEDFF 52%,#C3C5FF 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;padding:0 .1em .14em 0}
+.lede{top:734px;width:952px;font-size:34px;line-height:1.38;color:rgba(226,228,255,.80);letter-spacing:-0.012em}
+.lede b{color:#fff;font-weight:500}
+.cl-logo{top:262px;width:112px;filter:drop-shadow(0 8px 18px rgba(4,3,26,.5))}
+
+/* Luz detrás de las tarjetas y sombras que las siguen */
+#glow{z-index:3;left:0;top:0;width:1080px;height:1920px;pointer-events:none;background:radial-gradient(720px 560px at 540px 1200px,rgba(129,132,255,.42),rgba(99,102,241,.14) 50%,transparent 75%)}
+.shadow{z-index:4;left:0;top:0;width:100px;height:100px;border-radius:50%;background:rgba(2,1,16,.85);filter:blur(42px);transform-origin:0 0;opacity:0}
+
+/* Tarjetas 3D: dos caras + canto de papel. La luz (sombreado y brillo) se calcula según el ángulo de cada cara. */
+#scene{left:0;top:0;width:1080px;height:1920px;z-index:6;perspective:2600px;perspective-origin:540px 1150px;transform-style:preserve-3d}
+.card{position:absolute;left:0;top:0;transform-style:preserve-3d;will-change:transform}
+.card .ly{position:absolute;inset:0;border-radius:10px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.card .ly img{display:block;width:100%;height:100%}
+.card .fr{transform:translateZ(1.3px)}
+.card .bk{transform:rotateY(180deg) translateZ(1.3px)}
+.card .core{background:#D9D6CC;backface-visibility:visible;-webkit-backface-visibility:visible}
+.card .sh,.card .sp{position:absolute;inset:0;pointer-events:none}
+.card .sh{background:#05041A;opacity:0}
+.card .ly::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 1px rgba(255,255,255,.16),inset 0 1.5px 0 rgba(255,255,255,.30)}
+</style>
+</head>
+<body>
+<section class="story" id="story" data-file="aicia-proyectos-03-fc-barber-tarjetas.png" data-video="aicia-proyectos-03-fc-barber-tarjetas.mp4">
+  <div class="stage"></div><div class="grid"></div>
+  <div id="glow"></div>
+  <div class="shadow" id="shA"></div><div class="shadow" id="shC"></div><div class="shadow" id="shD"></div>
+  <div id="scene">
+    <div class="card" id="cA"></div>
+    <div class="card" id="cC"></div>
+    <div class="card" id="cD"></div>
+  </div>
+
+  <!-- Escena 1 -->
+  <img class="tx cl-logo g1" src="assets/logo-fc-barber.png" alt="FC Barber Shop">
+  <div class="tx eyebrow g1">Proyecto · Tarjetas</div>
+  <h1 class="tx title g1">¿Pensaste que<br>era <span class="serif">plata?</span></h1>
+  <p class="tx lede g1">Tarjetas para FC Barber Shop<br>con forma de billete de $2.000.</p>
+  <!-- Escenas 2–4 -->
+  <div class="tx eyebrow g2e">FC Barber Shop · Tarjetas</div>
+  <h2 class="tx title g2">Del otro lado,<br><span class="serif">el turno.</span></h2>
+  <p class="tx lede g2">Teléfono, Instagram y las dos direcciones.</p>
+  <h2 class="tx title g3">Un QR para<br><span class="serif">reservar.</span></h2>
+  <h2 class="tx title g4">Dos formatos,<br><span class="serif">dos colores.</span></h2>
+  <p class="tx lede g4">Horizontal y vertical, con dorso blanco o negro.</p>
+  <!-- Escena 5 -->
+  <div class="tx eyebrow g5">FC Barber Shop · Tarjetas</div>
+  <h2 class="tx title g5">Diseñadas por<br><span class="serif">Aicia.</span></h2>
+  <p class="tx lede g5">¿Querés tarjetas así para tu negocio? Escribinos.</p>
+
+  <div class="vignette"></div><div class="basefade"></div><div class="sig">aicia</div>
+</section>
+
+<script>
+const Q = new URLSearchParams(location.search);
+const T = 'assets/fc-barber-tarjetas/';
+// Tarjetas: tamaño en px de la historia, cara de frente (billete) y dorso
+const CARDS = {
+  A: { w: 820, h: 378, front: T + 'horizontal-frente.jpg', back: T + 'horizontal-dorso-negro-video.jpg' },
+  C: { w: 280, h: 502, front: T + 'vertical-frente.jpg', back: T + 'vertical-dorso-blanco.jpg' },
+  D: { w: 280, h: 502, front: T + 'vertical-frente.jpg', back: T + 'vertical-dorso-negro.jpg' },
+};
+// El QR en el dorso horizontal (fracción del ancho y alto de la tarjeta)
+const QR = [.8425, .404];
+const T_END = 18.2;
+window.DUR = T_END;
+// Ventanas con desenfoque de movimiento real (el grabador promedia varios instantes por cuadro)
+window.MBLUR = [[0, 2.0], [4.0, 5.6], [7.4, 9.1], [10.3, 13.0]];
+
+const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+const lerp = (a, b, u) => a + (b - a) * u;
+const io4 = u => (u = clamp(u)) < .5 ? 8 * u ** 4 : 1 - Math.pow(-2 * u + 2, 4) / 2;
+const io = u => (u = clamp(u)) < .5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2;
+const out = u => 1 - Math.pow(1 - clamp(u), 3);
+const EASE = { io, io4, out };
+const seg = (t, a, b) => clamp((t - a) / (b - a));
+
+// Recorrido de cada tarjeta: [t, {cx, cy, z, s, rx, ry, rz, flip}, curva hacia ese punto]
+// rx/ry/rz orientan la tarjeta; flip la gira sobre su propio eje (0 = billete, 180 = dorso).
+const P = (cx, cy, z, s, rx, ry, rz, flip) => ({ cx, cy, z, s, rx, ry, rz, flip });
+const qrS = 2.62, qrAt = [560, 1185];
+const qrC = [qrAt[0] - (QR[0] - .5) * CARDS.A.w * qrS, qrAt[1] - (QR[1] - .5) * CARDS.A.h * qrS];
+const KEYS = {
+  A: [
+    [0,    P(540, 1600, -700, 1,   62, -30, -26, 0)],
+    [2.0,  P(540, 1190, 0,    1,   18, -14, -8,  0), 'out'],
+    [4.0,  P(540, 1180, 0,    1,   15, -10, -6,  0), 'io'],
+    [5.6,  P(540, 1160, 60,   1.04, 12, -8, -4,  180), 'io4'],
+    [7.4,  P(540, 1150, 60,   1.06, 9,  -5, -3,  180), 'io'],
+    [9.0,  P(qrC[0], qrC[1], 0, qrS, 3, -2, -1.5, 180), 'io4'],
+    [10.3, P(qrC[0] - 20, qrC[1] + 6, 0, qrS * 1.04, 2, -1, -1.2, 180), 'io'],
+    [12.1, P(540, 1040, 0,    .82, 16, -12, -6,  360), 'io4'],
+    [T_END, P(540, 1030, 0,   .84, 13, -6, -4,   360), 'io'],
+  ],
+  C: [
+    [10.9, P(-260, 1840, -260, 1, 46, -40, -34, 180)],
+    [12.7, P(292, 1352, 90,  1,    10, 22, -10, 180), 'out'],
+    [T_END, P(300, 1338, 90, 1.02, 8,  16, -8,  180), 'io'],
+  ],
+  D: [
+    [11.15, P(1340, 1870, -260, 1, 46, 40, 34, 180)],
+    [12.95, P(790, 1378, 120, 1,   12, -22, 9, 180), 'out'],
+    [T_END, P(780, 1364, 120, 1.02, 9, -16, 7, 180), 'io'],
+  ],
+};
+const SHOW = { A: [0, 99], C: [10.9, 99], D: [11.15, 99] };
+function pose(id, t) {
+  const k = KEYS[id];
+  if (t <= k[0][0]) return { ...k[0][1] };
+  for (let i = 1; i < k.length; i++) if (t <= k[i][0]) {
+    const [t0, a] = k[i - 1], [t1, b, e] = k[i], u = EASE[e](seg(t, t0, t1)), r = {};
+    for (const p in a) r[p] = lerp(a[p], b[p], u);
+    return r;
+  }
+  return { ...k.at(-1)[1] };
+}
+
+// Luz: de arriba a la izquierda y un poco de frente (eje y hacia abajo, z hacia la cámara)
+const nrm = v => { const l = Math.hypot(...v); return v.map(x => x / l); };
+const L = nrm([-.45, -.78, .95]), H = nrm([L[0], L[1], L[2] + 1]);
+const dot = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+
+function build() {
+  for (const [id, c] of Object.entries(CARDS)) {
+    const el = document.getElementById('c' + id);
+    Object.assign(el.style, { width: c.w + 'px', height: c.h + 'px' });
+    // canto de papel: tres láminas entre las caras (se ve solo cuando la tarjeta queda de perfil)
+    const core = [-.8, 0, .8].map(z => `<div class="ly core" style="transform:translateZ(${z}px)"></div>`).join('');
+    el.innerHTML = core +
+      `<div class="ly fr"><img src="${c.front}" alt=""><i class="sh"></i><i class="sp"></i></div>` +
+      `<div class="ly bk"><img src="${c.back}" alt=""><i class="sh"></i><i class="sp"></i></div>`;
+  }
+}
+
+function light(face, n, glossy) {
+  if (n[2] <= 0) return;
+  const diff = clamp(dot(n, L)), spec = Math.pow(clamp(dot(n, H)), 22);
+  face.querySelector('.sh').style.opacity = ((1 - (.42 + .58 * diff)) * .62).toFixed(3);
+  // banda de brillo que recorre el papel cuando la tarjeta gira
+  const p = 50 + 170 * (n[0] * .85 - n[1] * .55), a = (glossy ? .07 : .04) + (glossy ? .34 : .2) * spec;
+  face.querySelector('.sp').style.background =
+    `linear-gradient(112deg,rgba(255,255,255,0) ${(p - 22).toFixed(1)}%,rgba(255,255,255,${a.toFixed(3)}) ${p.toFixed(1)}%,rgba(255,255,255,0) ${(p + 22).toFixed(1)}%),` +
+    `radial-gradient(120% 90% at 0% 0%,rgba(255,255,255,${(.05 + .08 * diff).toFixed(3)}),transparent 60%)`;
+}
+
+// Texto: entra y sale con opacidad, un poco de movimiento y desenfoque
+function txt(sel, f) { document.querySelectorAll(sel).forEach((e, i) => { const [o, y, b] = f(i); e.style.opacity = o; e.style.transform = `translateY(${y}px)`; e.style.filter = b > .05 ? `blur(${b.toFixed(2)}px)` : ''; }); }
+const inOut = (t, a, b, ia = .55, ob = .4) => { const i = out(seg(t, a, a + ia)), o = io(seg(t, b - ob, b)); return [i * (1 - o), 24 * (1 - i) - 16 * o, 7 * (1 - i) + 7 * o]; };
+
+window.renderAt = async function (t) {
+  // cámara final: un empuje lento sobre las tres tarjetas
+  const push = 1 + .045 * io(seg(t, 13.6, T_END)), O = [540, 1200];
+  for (const id of Object.keys(CARDS)) {
+    const c = CARDS[id], el = document.getElementById('c' + id), q = pose(id, t);
+    // flotación suave, distinta en cada tarjeta
+    const ph = { A: 0, C: 1.7, D: 3.1 }[id];
+    q.cy += 7 * Math.sin(2 * Math.PI * t / 4.4 + ph); q.rz += .7 * Math.sin(2 * Math.PI * t / 5.3 + ph); q.rx += .6 * Math.sin(2 * Math.PI * t / 6.1 + ph);
+    const cx = O[0] + (q.cx - O[0]) * push, cy = O[1] + (q.cy - O[1]) * push, s = q.s * push;
+    const rot = `rotateX(${q.rx}deg) rotateY(${q.ry}deg) rotateZ(${q.rz}deg) rotateY(${q.flip}deg)`;
+    el.style.transform = `translate3d(${cx - c.w / 2}px,${cy - c.h / 2}px,${q.z}px) ${rot} scale(${s})`;
+    // sin opacidad parcial: aplanaría el 3D de la tarjeta (entran desde fuera de cuadro)
+    const vis = t >= SHOW[id][0] ? 1 : 0;
+    el.style.visibility = vis ? 'visible' : 'hidden';
+    // luz de cada cara según hacia dónde mira
+    const m = new DOMMatrix(rot), n = m.transformPoint(new DOMPoint(0, 0, 1, 0)), nf = [n.x, n.y, n.z];
+    light(el.querySelector('.fr'), nf, true);
+    light(el.querySelector('.bk'), nf.map(v => -v), id !== 'A');
+    // sombra: debajo de la tarjeta, según lo que ocupa en pantalla
+    const r = el.querySelector('.fr').getBoundingClientRect(), sh = document.getElementById('sh' + id);
+    const st = document.getElementById('story').getBoundingClientRect();
+    const w = r.width * .82, h = r.height * .62, x = r.left - st.left + (r.width - w) / 2, y = r.top - st.top + (r.height - h) / 2 + 70 * s;
+    sh.style.transform = `translate(${x}px,${y}px) scale(${w / 100},${h / 100})`;
+    sh.style.opacity = (.6 * vis * clamp(1.6 - s * .45)).toFixed(3);
+  }
+
+  // --- Textos
+  txt('.g1', i => inOut(t, .25 + i * .12, 3.9, .6, .5));
+  txt('.g2e', () => inOut(t, 4.45, 14.25, .5, .45));
+  txt('.g2', i => inOut(t, 4.6 + i * .1, 7.45, .55, .4));
+  txt('.g3', () => inOut(t, 7.95, 10.35, .55, .4));
+  txt('.g4', i => inOut(t, 12.2 + i * .1, 14.25, .55, .45));
+  txt('.g5', i => inOut(t, 14.6 + i * .12, 99, .65));
+};
+
+(async () => {
+  build();
+  await Promise.all([...document.images].map(im => im.complete ? 0 : new Promise(r => { im.onload = im.onerror = r; })));
+  await Promise.all([...document.images].map(im => im.decode().catch(() => {})));
+  await document.fonts.ready;
+  await window.renderAt(+(Q.get('t') || 3));
+  window.__ready = true;
+})().catch(e => { window.__error = String(e && e.stack || e); });
+</script>
+</body>
+</html>

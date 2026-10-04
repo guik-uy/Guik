@@ -18,7 +18,8 @@ const F = { perfil: '1-foto-de-perfil', aicia: '2-destacada-aicia', clientes: '3
 const jobs = [
   { page: 'logo-perfil/logo.html', sel: 'section.sq.perfil', size: [1080, 1080], to: () => [F.perfil, 'aicia-logo-perfil.png'] },
   { page: 'destacada-aicia/destacada.html', sel: 'section.story', size: [1080, 1920], to: (i) => [F.aicia, `aicia-destacada-0${i + 1}.png`] },
-  { page: 'clientes-proyectos/historias.html', sel: 'section.story', size: [1080, 1920], to: (i, f) => [f.includes('proyectos') ? F.proyectos : F.clientes, f] },
+  // las versiones fijas de las tarjetas de FC Barber Shop ("estatica") quedan fuera: va el video
+  { page: 'clientes-proyectos/historias.html', sel: 'section.story:not([data-file*="estatica"])', size: [1080, 1920], to: (i, f) => [f.includes('proyectos') ? F.proyectos : F.clientes, f] },
   { page: 'portadas-destacadas/portadas.html', sel: 'section.sq', size: [1080, 1080], to: (i, f) => [F[f.replace('portada-', '').replace('.png', '')], '0-portada-de-la-destacada.png'] },
   { page: 'publicaciones/publicaciones.html', sel: 'section.post.dark', size: [1080, 1350], to: (i) => [F.posts, ['1-no-es-tu-equipo.png', '2-potenciado-con-ia.png', '3-diferenciate.png'][i]] },
 ];
@@ -56,9 +57,11 @@ fs.rmSync(tmp, { force: true });
 await browser.close();
 server.close();
 
-// El video ya está terminado: se copia tal cual (1080×1920, 30 fps, H.264, bt709)
-fs.copyFileSync(path.join(root, 'clientes-proyectos', 'aicia-proyectos-02-bsas-top-web.mp4'), path.join(out, F.proyectos, 'aicia-proyectos-02-bsas-top-web.mp4'));
-console.log('ok', path.join(F.proyectos, 'aicia-proyectos-02-bsas-top-web.mp4'));
+// Los videos ya están terminados: se copian tal cual (1080×1920, 30 fps, H.264, bt709)
+for (const v of ['aicia-proyectos-02-bsas-top-web.mp4', 'aicia-proyectos-03-fc-barber-tarjetas.mp4']) {
+  fs.copyFileSync(path.join(root, 'clientes-proyectos', v), path.join(out, F.proyectos, v));
+  console.log('ok', path.join(F.proyectos, v));
+}
 
 execFileSync('zip', ['-q', '-r', '-X', 'aicia-instagram.zip', ...Object.values(F)], { cwd: out });
 // Solo imágenes (sin el video): pesa menos de la mitad, para mandarlo por chat

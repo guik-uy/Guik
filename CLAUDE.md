@@ -19,7 +19,7 @@ Hay 3 destacadas, como máximo: **Aicia**, **Clientes** y **Proyectos**.
 | Carpeta | Qué es | Estado |
 |---|---|---|
 | `historias/destacada-aicia/` | 5 historias "¿Qué es Aicia?" (`destacada.html`) | **Final, aprobada** |
-| `historias/clientes-proyectos/` | Portada de Clientes + 5 tarjetas de clientes + testimonio de Bs.As. Top + Proyectos: portada, video de Bs.As. Top, tarjetas de FC Barber Shop (2) y "Próximamente" (`historias.html`, `video-bsas.html`) | Clientes **final**; testimonio esperando el OK de Guille. Proyectos: portada y video **finales**; tarjetas y "Próximamente" esperando el OK de Guille |
+| `historias/clientes-proyectos/` | Portada de Clientes + 5 tarjetas de clientes + testimonio de Bs.As. Top + Proyectos: portada, video de Bs.As. Top, video de las tarjetas de FC Barber Shop y "Próximamente" (`historias.html`, `video-bsas.html`, `video-barber.html`) | Clientes **final**; testimonio esperando el OK de Guille. Proyectos: portada y video de Bs.As. Top **finales**; video de las tarjetas y "Próximamente" esperando el OK de Guille |
 | `historias/portadas-destacadas/` | Íconos de portada de las 3 destacadas (`portadas.html`) | **Final, aprobada** |
 | `historias/que-es-aicia/` | 6 versiones viejas | No se usan, son solo referencia |
 | `historias/logo-perfil/` | Logo de Aicia para la foto de perfil, 1080×1080 (`logo.html`) | Círculos en el índigo de los íconos de las historias (y variante lavanda) sobre el fondo de las historias, esperando el OK de Guille |
@@ -151,7 +151,7 @@ node exportar-instagram.mjs            # TODO listo para subir → historias/ins
   1. `1-foto-de-perfil`: el logo, 1080×1080.
   2. `2-destacada-aicia`: la portada de la destacada (1080×1080) y las 5 historias.
   3. `3-destacada-clientes`: la portada y las 7 historias (con el testimonio de Bs.As. Top).
-  4. `4-destacada-proyectos`: la portada, la historia de portada, el MP4 de Bs.As. Top (se copia tal cual), las 2 de las tarjetas de FC Barber Shop y "Próximamente".
+  4. `4-destacada-proyectos`: la portada, la historia de portada, los MP4 de Bs.As. Top y de las tarjetas de FC Barber Shop (se copian tal cual) y "Próximamente". Las versiones fijas de las tarjetas (`estatica`) no se exportan.
   5. `5-publicaciones`: las 3 azules, 1080×1350.
 
 ### Pendiente
@@ -184,13 +184,23 @@ node exportar-instagram.mjs            # TODO listo para subir → historias/ins
     - Sin `--fresh`, si los cuadros ya están, solo re-codifica (~1 min). Se ajusta con `--crf` y `--sharp`.
   - `preparar-dispositivos.mjs` encuentra la pantalla de cada foto, mide las esquinas y la pinta de negro. La máscara del pulgar del iPad está medida a mano.
   - Fotos de mockups que pasó Guille y todavía no se usan: iPhone en la mano y ventana de vidrio flotante (están en el chat, no en el repo), y el iPad con manos (`assets/ipad-manos*.png`, listo y con la máscara del pulgar).
-- **Orden de Proyectos** (el número del archivo es el orden de subida): 01 portada → 02 video de Bs.As. Top → 03 y 04 tarjetas de FC Barber Shop → 05 Próximamente.
-- **Proyectos · FC Barber Shop · Tarjetas** (secciones `.p4` y `.p5`): Guille pidió sumarlas aunque no sean web ni agente ("puede sumar"). Son tarjetas que él diseñó en Canva con forma de billete de $2.000.
-  - `aicia-proyectos-03-fc-barber-tarjetas.png`: "FC Barber Shop · Tarjetas" / "¿Pensaste que era *plata?*" (el gancho de la propia tarjeta) / "De un lado, un billete de $2.000. Del otro, todo para **reservar el turno.**". La tarjeta horizontal de frente (el billete) flota inclinada sobre el dorso negro.
-  - `aicia-proyectos-04-fc-barber-tarjetas-dorso.png`: "Del otro lado, *el turno.*" / "Teléfono, Instagram, las dos direcciones y un QR **para reservar.**". Las dos verticales de dorso (blanca y negra), paradas y en perspectiva.
+- **Orden de Proyectos** (el número del archivo es el orden de subida): 01 portada → 02 video de Bs.As. Top → 03 video de las tarjetas de FC Barber Shop → 04 Próximamente.
+- **Proyectos · FC Barber Shop · Tarjetas (video)** (`video-barber.html` → `aicia-proyectos-03-fc-barber-tarjetas.mp4`, 18 s, y su PNG fijo del segundo 3): Guille pidió "un video tipo el de Bs.As. Top mostrando las tarjetas, bien premium", con referencias de tarjetas flotando en un espacio oscuro (luz suave, sombras largas, cámara lenta). Reemplaza a las 2 historias fijas.
+  - Las tarjetas son **objetos 3D reales** en CSS: dos caras (billete y dorso), canto de papel de tres láminas, y una luz que se calcula según el ángulo de cada cara (sombreado + banda de brillo que barre el papel al girar). Una sombra suave las sigue y hay una luz índigo detrás.
+  - Recorrido:
+    1. **0–4 s:** la tarjeta horizontal sube desde la oscuridad mostrando el billete. Logo de FC Barber, "Proyecto · Tarjetas", "¿Pensaste que era *plata?*" y "Tarjetas para FC Barber Shop con forma de billete de $2.000."
+    2. **4–7,5 s:** gira sobre su eje y muestra el dorso negro. "Del otro lado, *el turno.*" / "Teléfono, Instagram y las dos direcciones."
+    3. **7,5–10,4 s:** la cámara va al QR (×2,6, con el dorso en alta: `horizontal-dorso-negro-video.jpg`, 4800 px). "Un QR para *reservar.*"
+    4. **10,4–14,3 s:** se aleja, la tarjeta vuelve a mostrar el billete y entran las dos verticales (dorso blanco y negro). "Dos formatos, *dos colores.*" / "Horizontal y vertical, con dorso blanco o negro."
+    5. **14,3–18,2 s:** las tres flotan con un empuje lento de cámara. "Diseñadas por *Aicia.*" / "¿Querés tarjetas así para tu negocio? Escribinos."
+  - Se graba con el mismo `render-timeline.mjs`: `node render-timeline.mjs video-barber.html --fresh --sub 6 --poster 3` (desenfoque de movimiento con 6 instantes en los giros, para que no se vean copias).
+  - Las tarjetas no usan opacidad parcial a propósito: aplanaría el 3D. Entran desde fuera de cuadro.
+- **Versiones fijas de las tarjetas** (secciones `.p4` y `.p5`, archivos `aicia-proyectos-fc-barber-estatica-1/2.png`): quedan guardadas por si Guille las prefiere al video; no se exportan. Son tarjetas que él diseñó en Canva con forma de billete de $2.000.
+  - `aicia-proyectos-fc-barber-estatica-1.png`: "FC Barber Shop · Tarjetas" / "¿Pensaste que era *plata?*" (el gancho de la propia tarjeta) / "De un lado, un billete de $2.000. Del otro, todo para **reservar el turno.**". La tarjeta horizontal de frente (el billete) flota inclinada sobre el dorso negro.
+  - `aicia-proyectos-fc-barber-estatica-2.png`: "Del otro lado, *el turno.*" / "Teléfono, Instagram, las dos direcciones y un QR **para reservar.**". Las dos verticales de dorso (blanca y negra), paradas y en perspectiva.
   - Las tarjetas son objetos `.deck .cd` con perspectiva 3D, sombra larga, brillo satinado y filo de luz. Los colores del diseño de Guille no se tocan.
   - Los PDF originales están en `assets/fc-barber-tarjetas/` (horizontal y vertical, con dorso blanco y negro). `bash preparar-tarjetas-barber.sh` saca cada cara a JPG (necesita pdftoppm y ffmpeg).
-- **Proyectos · Próximamente** (`aicia-proyectos-05-proximamente.png`, sección `.p3`): va al final, así la destacada no muestra un solo proyecto, como pidió Guille.
+- **Proyectos · Próximamente** (`aicia-proyectos-04-proximamente.png`, sección `.p3`): va al final, así la destacada no muestra un solo proyecto, como pidió Guille.
   - "Próximamente" / "Lo que *se viene.*" / "Más proyectos, testimonios y novedades."
   - Debajo van 3 tarjetas de vidrio compactas con ícono y la marca "pronto": Nuestra página web, Testimonios y Más proyectos.
   - Abajo, como imagen protagonista, el **filósofo de mármol con la laptop** que pasó Guille. Va en blanco y negro (`.subj.mono`), con tinte índigo y luz de borde.
