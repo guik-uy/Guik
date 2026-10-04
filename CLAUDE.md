@@ -75,7 +75,7 @@ node exportar-instagram.mjs            # TODO listo para subir → historias/ins
 - **Testimonio de Bs.As. Top** (`aicia-clientes-03-bsas-top-testimonio.png`, sección `.testi`): va justo después de la tarjeta del club. Centrado como las tarjetas:
   - comillas grandes en Instrument Serif lavanda;
   - la frase textual que pasó Guille como titular: "Excelente la atención y el *servicio.*";
-  - línea, y abajo el logo del club en un cuadro de vidrio con "Bs.As. Top Padel" / "Club de pádel".
+  - línea, y abajo el logo del club **suelto, sin contorno** (Guille pidió sacar el cuadro de vidrio) con "Bs.As. Top Padel" / "Club de pádel".
   - Se atribuye al club: sin nombre de persona, sin estrellas ni puntajes (no los dio). Sin etiqueta arriba: las comillas ya dicen que es un testimonio.
   - Para sumar otro testimonio: duplicá la sección `.testi`, cambiá la frase (textual, la que pase Guille), el logo y el `data-file`, y ubicala después de la tarjeta de ese cliente.
 
