@@ -66,7 +66,7 @@ const MB = await page.evaluate(() => window.MBLUR || []);
 const shot = async (t, file, type = 'jpeg') => { await page.evaluate(t => window.renderAt(t), t); await story.screenshot(type === 'png' ? { path: file } : { path: file, type: 'jpeg', quality: 93 }); };
 // Desenfoque de movimiento real: en las ventanas MBLUR el cuadro es el promedio de SUB instantes dentro del obturador
 const frame = async (t, file, tmp) => {
-  if (DEMO || !MB.some(([a, b]) => t >= a && t <= b)) return shot(t, file);
+  if (DEMO || SUB < 2 || !MB.some(([a, b]) => t >= a && t <= b)) return shot(t, file);
   const subs = [];
   for (let j = 0; j < SUB; j++) { const f = path.join(tmp, `s${j}.jpg`); await shot(t + ((j + .5) / SUB - .5) * SHUTTER / FPS, f); subs.push('-i', f); }
   execFileSync('ffmpeg', ['-v', 'error', '-y', ...subs, '-filter_complex', `mix=inputs=${SUB}`, '-q:v', '2', file]);

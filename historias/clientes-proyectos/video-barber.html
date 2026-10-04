@@ -49,8 +49,9 @@ body{font-family:"Geist",system-ui,sans-serif;-webkit-font-smoothing:antialiased
 .shadow{z-index:4;left:0;top:0;width:100px;height:100px;border-radius:50%;background:rgba(2,1,16,.85);filter:blur(42px);transform-origin:0 0;opacity:0}
 
 /* Tarjetas 3D: dos caras + canto de papel. La luz (sombreado y brillo) se calcula según el ángulo de cada cara. */
-#scene{left:0;top:0;width:1080px;height:1920px;z-index:6;perspective:2600px;perspective-origin:540px 1150px;transform-style:preserve-3d}
-#rig{position:absolute;left:0;top:0;width:1080px;height:1920px;transform-style:preserve-3d;transform-origin:540px 1200px}
+.cam{left:0;top:0;width:1080px;height:1920px;perspective:2600px;perspective-origin:540px 1150px;pointer-events:none}
+/* sombra de contacto: una copia oscura y difusa de la tarjeta, un poco más abajo (cae sobre la tarjeta de atrás) */
+.ghost{position:absolute;left:0;top:0;border-radius:12px;background:#020110;opacity:.55;filter:blur(11px);will-change:transform}
 .card{position:absolute;left:0;top:0;transform-style:preserve-3d;will-change:transform}
 .card .ly{position:absolute;inset:0;border-radius:10px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden}
 .card .ly img{display:block;width:100%;height:100%}
@@ -59,6 +60,7 @@ body{font-family:"Geist",system-ui,sans-serif;-webkit-font-smoothing:antialiased
 .card .core{background:#D9D6CC;backface-visibility:visible;-webkit-backface-visibility:visible}
 .card .sh,.card .sp{position:absolute;inset:0;pointer-events:none}
 .card .sh{background:#05041A;opacity:0}
+.card .ly::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.07;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
 .card .ly::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 1px rgba(255,255,255,.16),inset 0 1.5px 0 rgba(255,255,255,.30)}
 </style>
 </head>
@@ -66,12 +68,11 @@ body{font-family:"Geist",system-ui,sans-serif;-webkit-font-smoothing:antialiased
 <section class="story" id="story" data-file="aicia-proyectos-03-fc-barber-tarjetas.png" data-video="aicia-proyectos-03-fc-barber-tarjetas.mp4">
   <div class="stage"></div><div class="grid"></div>
   <div id="glow"></div>
-  <div class="shadow" id="shA"></div><div class="shadow" id="shC"></div><div class="shadow" id="shD"></div>
-  <div id="scene"><div id="rig">
-    <div class="card" id="cA"></div>
-    <div class="card" id="cC"></div>
-    <div class="card" id="cD"></div>
-  </div></div>
+  <!-- Cada tarjeta tiene su propio espacio 3D con la misma cámara: se apilan como objetos reales (la de adelante tapa
+       a la de atrás y le proyecta su sombra) y nunca se atraviesan entre sí. Orden de atrás hacia adelante: A, C, D. -->
+  <div class="shadow" id="shA" style="z-index:4"></div><div class="cam" style="z-index:5"><div class="card" id="cA"></div></div>
+  <div class="shadow" id="shC" style="z-index:6"></div><div class="cam" style="z-index:7"><div class="card" id="cC"></div></div>
+  <div class="shadow" id="shD" style="z-index:8"></div><div class="cam" style="z-index:9"><div class="card" id="cD"></div></div>
 
   <!-- Escena 1 -->
   <img class="tx cl-logo g1" src="assets/logo-fc-barber.png" alt="FC Barber Shop">
@@ -176,6 +177,7 @@ const dot = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
 function build() {
   for (const [id, c] of Object.entries(CARDS)) {
     const el = document.getElementById('c' + id);
+    el.insertAdjacentHTML('beforebegin', `<div class="ghost" id="g${id}" style="width:${c.w}px;height:${c.h}px"></div>`);
     Object.assign(el.style, { width: c.w + 'px', height: c.h + 'px' });
     // canto de papel: tres láminas entre las caras (se ve solo cuando la tarjeta queda de perfil)
     const core = [-.8, 0, .8].map(z => `<div class="ly core" style="transform:translateZ(${z}px)"></div>`).join('');
@@ -203,7 +205,7 @@ const inOut = (t, a, b, ia = .55, ob = .4) => { const i = out(seg(t, a, a + ia))
 window.renderAt = async function (t) {
   // cámara: paneo lento todo el video y, al final, un empuje que sigue en movimiento hasta el último cuadro
   const push = 1 + .05 * io(seg(t, 13.6, T_END + 2)), O = [540, 1200], th = orbit(t);
-  document.getElementById('rig').style.transform = `rotateY(${th.toFixed(3)}deg)`;
+  const pan = `translate3d(${O[0]}px,${O[1]}px,0) rotateY(${th.toFixed(3)}deg) translate3d(${-O[0]}px,${-O[1]}px,0)`;
   for (const id of Object.keys(CARDS)) {
     const c = CARDS[id], el = document.getElementById('c' + id), q = pose(id, t);
     // flotación suave, distinta en cada tarjeta
@@ -211,10 +213,13 @@ window.renderAt = async function (t) {
     q.cy += 7 * Math.sin(2 * Math.PI * t / 4.4 + ph); q.rz += .7 * Math.sin(2 * Math.PI * t / 5.3 + ph); q.rx += .6 * Math.sin(2 * Math.PI * t / 6.1 + ph);
     const cx = O[0] + (q.cx - O[0]) * push, cy = O[1] + (q.cy - O[1]) * push, s = q.s * push;
     const rot = `rotateX(${q.rx}deg) rotateY(${q.ry}deg) rotateZ(${q.rz}deg) rotateY(${q.flip}deg)`;
-    el.style.transform = `translate3d(${cx - c.w / 2}px,${cy - c.h / 2}px,${q.z}px) ${rot} scale(${s})`;
+    const tf = `translate3d(${cx - c.w / 2}px,${cy - c.h / 2}px,${q.z}px) ${rot} scale(${s})`;
+    el.style.transform = `${pan} ${tf}`;
+    const gh = document.getElementById('g' + id);
+    gh.style.transform = `${pan} translate3d(0,${(24 * s).toFixed(1)}px,0) ${tf}`;
     // sin opacidad parcial: aplanaría el 3D de la tarjeta (entran desde fuera de cuadro)
     const vis = t >= SHOW[id] ? 1 : 0;
-    el.style.visibility = vis ? 'visible' : 'hidden';
+    el.style.visibility = gh.style.visibility = vis ? 'visible' : 'hidden';
     // luz de cada cara según hacia dónde mira
     const m = new DOMMatrix(`rotateY(${th}deg) ${rot}`), n = m.transformPoint(new DOMPoint(0, 0, 1, 0)), nf = [n.x, n.y, n.z];
     light(el.querySelector('.fr'), nf, true);
