@@ -239,6 +239,19 @@ svg.app .gl .f{fill:#fff;stroke:none}
 .card .pill .lg-i{width:34px;height:34px;margin-left:-6px;flex:none}
 .card .pill b{font-weight:600;background:linear-gradient(90deg,#E4E5FF,#B9BBFF);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 
+/* Testimonio: la frase es el titular, centrada como las tarjetas de clientes */
+.testi{--gx:50%;--gy:47%;--gw:1000px;--gh:1000px}
+.testi .q-mark{left:0;right:0;top:546px;z-index:5;text-align:center;font-family:"Instrument Serif",serif;font-style:italic;font-weight:400;font-size:400px;line-height:1;
+  background:linear-gradient(180deg,#ECEDFF 20%,#9A9BFA 70%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 40px rgba(129,132,255,.35))}
+.testi .q-text{left:0;right:0;top:700px;text-align:center;font-size:124px}
+.testi .q-text .serif{font-size:142px}
+.testi .rule{left:50%;top:1150px;width:72px;height:2px;margin-left:-36px;border-radius:2px;background:linear-gradient(90deg,transparent,rgba(199,201,255,.7),transparent);z-index:5}
+.testi .who{left:0;right:0;top:1196px;display:flex;justify-content:center;align-items:center;gap:26px}
+.testi .who .lg{width:112px;height:112px;border-radius:32px;display:grid;place-items:center}
+.testi .who .lg img{width:80px}
+.testi .who b{display:block;font-size:44px;font-weight:600;letter-spacing:-0.035em;line-height:1.05;color:#fff}
+.testi .who span{display:block;margin-top:8px;font-size:27px;color:var(--t2)}
+
 /* Proyectos · Próximamente: lo que se viene, en tarjetas de vidrio (sin fechas ni números inventados) */
 .p3{--gx:52%;--gy:80%;--gw:1150px;--gh:900px}
 .p3 .eyebrow{left:var(--m);top:384px}
@@ -358,22 +371,8 @@ svg.app .gl .f{fill:#fff;stroke:none}
   <div class="basefade"></div><div class="sig">aicia</div>
 </section>
 
-<!-- ======================= CLIENTES · FC BARBER SHOP ======================= -->
-<section class="story card" data-file="aicia-clientes-02-fc-barber-shop.png">
-  <div class="stage"></div><div class="grid"></div>
-  <img class="logo" src="assets/logo-fc-barber.png" alt="FC Barber Shop" style="top:657px;width:400px">
-  <div class="rule" style="top:1046px"></div>
-  <div class="center tx" style="top:1092px">
-    <div class="name">FC Barber Shop</div>
-    <div class="kind">Barbería</div>
-    <div class="pill glass"><svg class="lg-i" aria-label="Aicia"><use href="#logo"/></svg><span>Trabaja con <b>Aicia</b></span></div>
-  </div>
-  <div class="vignette"></div><div class="grain"></div>
-  <div class="basefade"></div><div class="sig">aicia</div>
-</section>
-
 <!-- ======================= CLIENTES · BS.AS. TOP PADEL ======================= -->
-<section class="story card" data-file="aicia-clientes-03-bsas-top-padel.png">
+<section class="story card" data-file="aicia-clientes-02-bsas-top-padel.png">
   <div class="stage"></div><div class="grid"></div>
   <img class="logo" src="assets/logo-bsas-top-blanco.png" alt="Bs.As. Top Padel" style="top:628px;width:380px">
   <div class="rule" style="top:1046px"></div>
@@ -386,8 +385,35 @@ svg.app .gl .f{fill:#fff;stroke:none}
   <div class="basefade"></div><div class="sig">aicia</div>
 </section>
 
+<!-- ======================= CLIENTES · BS.AS. TOP PADEL · TESTIMONIO ======================= -->
+<!-- Va justo después de la tarjeta del club. La frase es textual (la pasó Guille) y se atribuye al club:
+     sin nombre de persona, sin estrellas ni puntajes inventados. -->
+<section class="story testi" data-file="aicia-clientes-03-bsas-top-testimonio.png">
+  <div class="stage"></div><div class="grid"></div>
+  <div class="q-mark" aria-hidden="true">“</div>
+  <h1 class="title tx q-text">Excelente<br>la atención<br>y el <span class="serif">servicio.</span></h1>
+  <div class="rule"></div>
+  <div class="who tx"><div class="lg glass"><img src="assets/logo-bsas-top-blanco.png" alt=""></div><div><b>Bs.As. Top Padel</b><span>Club de pádel</span></div></div>
+  <div class="vignette"></div><div class="grain"></div>
+  <div class="basefade"></div><div class="sig">aicia</div>
+</section>
+
+<!-- ======================= CLIENTES · FC BARBER SHOP ======================= -->
+<section class="story card" data-file="aicia-clientes-04-fc-barber-shop.png">
+  <div class="stage"></div><div class="grid"></div>
+  <img class="logo" src="assets/logo-fc-barber.png" alt="FC Barber Shop" style="top:657px;width:400px">
+  <div class="rule" style="top:1046px"></div>
+  <div class="center tx" style="top:1092px">
+    <div class="name">FC Barber Shop</div>
+    <div class="kind">Barbería</div>
+    <div class="pill glass"><svg class="lg-i" aria-label="Aicia"><use href="#logo"/></svg><span>Trabaja con <b>Aicia</b></span></div>
+  </div>
+  <div class="vignette"></div><div class="grain"></div>
+  <div class="basefade"></div><div class="sig">aicia</div>
+</section>
+
 <!-- ======================= CLIENTES · FUSION ======================= -->
-<section class="story card" data-file="aicia-clientes-04-fusion.png">
+<section class="story card" data-file="aicia-clientes-05-fusion.png">
   <div class="stage"></div><div class="grid"></div>
   <img class="logo" src="assets/logo-fusion-blanco.png" alt="Fusion" style="top:627px;width:490px">
   <div class="rule" style="top:1046px"></div>
@@ -401,7 +427,7 @@ svg.app .gl .f{fill:#fff;stroke:none}
 </section>
 
 <!-- ======================= CLIENTES · ALAS FIT ======================= -->
-<section class="story card" data-file="aicia-clientes-05-alas-fit.png">
+<section class="story card" data-file="aicia-clientes-06-alas-fit.png">
   <div class="stage"></div><div class="grid"></div>
   <img class="logo" src="assets/logo-alas-fit-blanco.png" alt="Alas Fit" style="top:653px;width:490px">
   <div class="rule" style="top:1046px"></div>
@@ -415,7 +441,7 @@ svg.app .gl .f{fill:#fff;stroke:none}
 </section>
 
 <!-- ======================= CLIENTES · AEROSPORT ======================= -->
-<section class="story card" data-file="aicia-clientes-06-aerosport.png">
+<section class="story card" data-file="aicia-clientes-07-aerosport.png">
   <div class="stage"></div><div class="grid"></div>
   <img class="logo" src="assets/logo-aerosport.png" alt="AeroSport" style="top:725px;width:580px">
   <div class="rule" style="top:1046px"></div>

@@ -19,7 +19,7 @@ Hay 3 destacadas, como máximo: **Aicia**, **Clientes** y **Proyectos**.
 | Carpeta | Qué es | Estado |
 |---|---|---|
 | `historias/destacada-aicia/` | 5 historias "¿Qué es Aicia?" (`destacada.html`) | **Final, aprobada** |
-| `historias/clientes-proyectos/` | Portada de Clientes + 5 tarjetas de clientes + Proyectos: portada, video de Bs.As. Top y "Próximamente" (`historias.html`, `video-bsas.html`) | Clientes **final**. Proyectos: portada y video **finales**, "Próximamente" esperando el OK de Guille |
+| `historias/clientes-proyectos/` | Portada de Clientes + 5 tarjetas de clientes + testimonio de Bs.As. Top + Proyectos: portada, video de Bs.As. Top y "Próximamente" (`historias.html`, `video-bsas.html`) | Clientes **final**; testimonio esperando el OK de Guille. Proyectos: portada y video **finales**, "Próximamente" esperando el OK de Guille |
 | `historias/portadas-destacadas/` | Íconos de portada de las 3 destacadas (`portadas.html`) | **Final, aprobada** |
 | `historias/que-es-aicia/` | 6 versiones viejas | No se usan, son solo referencia |
 | `historias/logo-perfil/` | Logo de Aicia para la foto de perfil, 1080×1080 (`logo.html`) | Círculos en el índigo de los íconos de las historias (y variante lavanda) sobre el fondo de las historias, esperando el OK de Guille |
@@ -71,6 +71,13 @@ node exportar-instagram.mjs            # TODO listo para subir → historias/ins
 - Portada: "Ellos ya *dieron el paso.*" sobre el apretón robot-humano en blanco y negro (`assets/apreton-robot-humano.png`).
 - Los textos de clientes tienen que ser **genéricos**: a un cliente le pudo haber hecho un agente de IA, una automatización, una web o una app. No hay que afirmar qué servicio fue.
 - Tarjeta: logo → línea → nombre → rubro → cápsula "Trabaja con **Aicia**" con el logo real de Aicia.
+- **Orden** (pedido de Guille, el número del archivo es el orden de subida): 01 portada → 02 Bs.As. Top Padel → **03 testimonio de Bs.As. Top** → 04 FC Barber Shop → 05 Fusion → 06 Alas Fit → 07 AeroSport.
+- **Testimonio de Bs.As. Top** (`aicia-clientes-03-bsas-top-testimonio.png`, sección `.testi`): va justo después de la tarjeta del club. Centrado como las tarjetas:
+  - comillas grandes en Instrument Serif lavanda;
+  - la frase textual que pasó Guille como titular: "Excelente la atención y el *servicio.*";
+  - línea, y abajo el logo del club en un cuadro de vidrio con "Bs.As. Top Padel" / "Club de pádel".
+  - Se atribuye al club: sin nombre de persona, sin estrellas ni puntajes (no los dio). Sin etiqueta arriba: las comillas ya dicen que es un testimonio.
+  - Para sumar otro testimonio: duplicá la sección `.testi`, cambiá la frase (textual, la que pase Guille), el logo y el `data-file`, y ubicala después de la tarjeta de ese cliente.
 
 | Cliente | Rubro | Estilo del logo |
 |---|---|---|
@@ -143,7 +150,7 @@ node exportar-instagram.mjs            # TODO listo para subir → historias/ins
 - Carpetas, en orden:
   1. `1-foto-de-perfil`: el logo, 1080×1080.
   2. `2-destacada-aicia`: la portada de la destacada (1080×1080) y las 5 historias.
-  3. `3-destacada-clientes`: la portada y las 6 historias.
+  3. `3-destacada-clientes`: la portada y las 7 historias (con el testimonio de Bs.As. Top).
   4. `4-destacada-proyectos`: la portada, la historia de portada, el MP4 de Bs.As. Top (se copia tal cual) y "Próximamente".
   5. `5-publicaciones`: las 3 azules, 1080×1350.
 
