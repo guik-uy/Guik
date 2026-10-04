@@ -198,7 +198,8 @@ node exportar-instagram.mjs            # TODO listo para subir → historias/ins
     3. **7,9–11,2 s:** la cámara va al QR en 2 s (×2,6, con el dorso en alta: `horizontal-dorso-negro-video.jpg`, 4800 px). "Un QR para *reservar.*"
     4. **10,9–15,5 s:** se aleja y vuelve a mostrar el billete (2,4 s); las dos verticales (dorso blanco y negro) entran a los 12,3 y 12,6 s. "Dos formatos, *dos colores.*" / "Horizontal y vertical, con dorso blanco o negro."
     5. **15,8–19,4 s:** las tres flotan con un empuje lento de cámara. "Diseñadas por *Aicia.*" / "¿Querés tarjetas así para tu negocio? Escribinos."
-  - Se graba con el mismo `render-timeline.mjs`: `node render-timeline.mjs video-barber.html --fresh --sub 6 --poster 3.2` (desenfoque de movimiento con 6 instantes en los giros, para que no se vean copias).
+  - **Borradores:** Guille pidió ir viendo demos livianas hasta que el video quede perfecto, y recién ahí la calidad final. `node render-timeline.mjs video-barber.html --demo` → `.video-out/aicia-proyectos-03-fc-barber-tarjetas-demo.mp4` (540×960, sin desenfoque de movimiento, ~0,7 MB, ~2 min).
+  - Calidad final, solo con el OK: `node render-timeline.mjs video-barber.html --fresh --sub 6 --poster 3.2` (desenfoque de movimiento con 6 instantes en los giros, para que no se vean copias).
   - Las tarjetas no usan opacidad parcial a propósito: aplanaría el 3D. Entran desde fuera de cuadro.
 - **Versiones fijas de las tarjetas** (secciones `.p4` y `.p5`, archivos `aicia-proyectos-fc-barber-estatica-1/2.png`): quedan guardadas por si Guille las prefiere al video; no se exportan. Son tarjetas que él diseñó en Canva con forma de billete de $2.000.
   - `aicia-proyectos-fc-barber-estatica-1.png`: "FC Barber Shop · Tarjetas" / "¿Pensaste que era *plata?*" (el gancho de la propia tarjeta) / "De un lado, un billete de $2.000. Del otro, todo para **reservar el turno.**". La tarjeta horizontal de frente (el billete) flota inclinada sobre el dorso negro.
