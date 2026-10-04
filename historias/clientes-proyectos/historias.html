@@ -252,6 +252,22 @@ svg.app .gl .f{fill:#fff;stroke:none}
 .testi .who b{display:block;font-size:44px;font-weight:600;letter-spacing:-0.035em;line-height:1.05;color:#fff}
 .testi .who span{display:block;margin-top:8px;font-size:27px;color:var(--t2)}
 
+/* Proyectos · FC Barber Shop: tarjetas tipo billete de $2.000, como objetos reales flotando en la escena */
+.p4,.p5{--gx:50%;--gy:72%;--gw:1150px;--gh:950px}
+.p4 .eyebrow,.p5 .eyebrow{left:var(--m);top:384px}
+.p4 .title,.p5 .title{left:var(--m);top:440px;font-size:132px}
+.p4 .title .serif,.p5 .title .serif{font-size:150px}
+.p4 .lede,.p5 .lede{left:var(--m);top:734px;width:952px}
+.deck{left:0;top:0;width:1080px;height:1920px;z-index:3;perspective:2400px;pointer-events:none}
+.deck .cd{position:absolute;border-radius:12px;overflow:hidden;background:#111;
+  box-shadow:0 60px 90px -36px rgba(3,2,22,.9),0 22px 36px -16px rgba(3,2,22,.65),0 0 70px -10px rgba(99,102,241,.30)}
+.deck .cd img{display:block;width:100%;height:100%}
+/* brillo de papel satinado y filo de luz lavanda */
+.deck .cd::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:linear-gradient(118deg,rgba(255,255,255,.20) 0%,rgba(255,255,255,.05) 26%,transparent 46%,transparent 70%,rgba(18,14,70,.22) 100%);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.14),inset 0 1.5px 0 rgba(255,255,255,.35)}
+.deck .cd.dark::after{box-shadow:inset 0 0 0 1px rgba(199,201,255,.22),inset 0 1.5px 0 rgba(199,201,255,.40)}
+
 /* Proyectos · Próximamente: lo que se viene, en tarjetas de vidrio (sin fechas ni números inventados) */
 .p3{--gx:52%;--gy:80%;--gw:1150px;--gh:900px}
 .p3 .eyebrow{left:var(--m);top:384px}
@@ -498,9 +514,39 @@ svg.app .gl .f{fill:#fff;stroke:none}
   <div class="basefade"></div><div class="sig">aicia</div>
 </section>
 
+<!-- ======================= PROYECTOS · FC BARBER SHOP · TARJETAS ======================= -->
+<!-- Tarjetas que Guille diseñó para FC Barber Shop (PDF de Canva → preparar-tarjetas-barber.sh).
+     Frente: un billete de $2.000. Dorso: datos del local y QR para reservar. -->
+<section class="story p4" data-file="aicia-proyectos-03-fc-barber-tarjetas.png">
+  <div class="stage"></div><div class="grid"></div>
+  <div class="deck" aria-hidden="true">
+    <div class="cd dark" style="left:150px;top:1180px;width:860px;height:397px;transform:rotateX(14deg) rotateY(10deg) rotateZ(7deg)"><img src="assets/fc-barber-tarjetas/horizontal-dorso-negro.jpg" alt=""></div>
+    <div class="cd" style="left:60px;top:930px;width:900px;height:415px;transform:rotateX(12deg) rotateY(-12deg) rotateZ(-6deg)"><img src="assets/fc-barber-tarjetas/horizontal-frente.jpg" alt=""></div>
+  </div>
+  <div class="eyebrow tx">FC Barber Shop · Tarjetas</div>
+  <h1 class="title tx">¿Pensaste que<br>era <span class="serif">plata?</span></h1>
+  <p class="lede tx">De un lado, un billete de $2.000.<br>Del otro, todo para <b>reservar el turno.</b></p>
+  <div class="vignette"></div><div class="grain"></div>
+  <div class="basefade"></div><div class="sig">aicia</div>
+</section>
+
+<!-- ======================= PROYECTOS · FC BARBER SHOP · DORSO ======================= -->
+<section class="story p5" data-file="aicia-proyectos-04-fc-barber-tarjetas-dorso.png">
+  <div class="stage"></div><div class="grid"></div>
+  <div class="deck" aria-hidden="true">
+    <div class="cd" style="left:126px;top:886px;width:388px;height:695px;transform:rotateY(14deg) rotateZ(-5deg)"><img src="assets/fc-barber-tarjetas/vertical-dorso-blanco.jpg" alt=""></div>
+    <div class="cd dark" style="left:566px;top:908px;width:388px;height:695px;transform:rotateY(-14deg) rotateZ(5deg)"><img src="assets/fc-barber-tarjetas/vertical-dorso-negro.jpg" alt=""></div>
+  </div>
+  <div class="eyebrow tx">FC Barber Shop · Tarjetas</div>
+  <h1 class="title tx">Del otro lado,<br><span class="serif">el turno.</span></h1>
+  <p class="lede tx">Teléfono, Instagram, las dos direcciones<br>y un QR <b>para reservar.</b></p>
+  <div class="vignette"></div><div class="grain"></div>
+  <div class="basefade"></div><div class="sig">aicia</div>
+</section>
+
 <!-- ======================= PROYECTOS · PRÓXIMAMENTE ======================= -->
 <!-- Va después del video de Bs.As. Top, para que la destacada no muestre un solo proyecto. -->
-<section class="story p3" data-file="aicia-proyectos-03-proximamente.png">
+<section class="story p3" data-file="aicia-proyectos-05-proximamente.png">
   <div class="stage"></div><div class="grid"></div>
   <!-- Filósofo con la laptop (recorte de la foto que pasó Guille: preparar-filosofo.mjs) -->
   <div class="subj mono" data-src="assets/filosofo-laptop.png" data-rim="left" style="left:40px;top:1073px;width:1000px;--tint:.2;--rim:.42"></div>

@@ -19,7 +19,7 @@ Hay 3 destacadas, como máximo: **Aicia**, **Clientes** y **Proyectos**.
 | Carpeta | Qué es | Estado |
 |---|---|---|
 | `historias/destacada-aicia/` | 5 historias "¿Qué es Aicia?" (`destacada.html`) | **Final, aprobada** |
-| `historias/clientes-proyectos/` | Portada de Clientes + 5 tarjetas de clientes + testimonio de Bs.As. Top + Proyectos: portada, video de Bs.As. Top y "Próximamente" (`historias.html`, `video-bsas.html`) | Clientes **final**; testimonio esperando el OK de Guille. Proyectos: portada y video **finales**, "Próximamente" esperando el OK de Guille |
+| `historias/clientes-proyectos/` | Portada de Clientes + 5 tarjetas de clientes + testimonio de Bs.As. Top + Proyectos: portada, video de Bs.As. Top, tarjetas de FC Barber Shop (2) y "Próximamente" (`historias.html`, `video-bsas.html`) | Clientes **final**; testimonio esperando el OK de Guille. Proyectos: portada y video **finales**; tarjetas y "Próximamente" esperando el OK de Guille |
 | `historias/portadas-destacadas/` | Íconos de portada de las 3 destacadas (`portadas.html`) | **Final, aprobada** |
 | `historias/que-es-aicia/` | 6 versiones viejas | No se usan, son solo referencia |
 | `historias/logo-perfil/` | Logo de Aicia para la foto de perfil, 1080×1080 (`logo.html`) | Círculos en el índigo de los íconos de las historias (y variante lavanda) sobre el fondo de las historias, esperando el OK de Guille |
@@ -151,7 +151,7 @@ node exportar-instagram.mjs            # TODO listo para subir → historias/ins
   1. `1-foto-de-perfil`: el logo, 1080×1080.
   2. `2-destacada-aicia`: la portada de la destacada (1080×1080) y las 5 historias.
   3. `3-destacada-clientes`: la portada y las 7 historias (con el testimonio de Bs.As. Top).
-  4. `4-destacada-proyectos`: la portada, la historia de portada, el MP4 de Bs.As. Top (se copia tal cual) y "Próximamente".
+  4. `4-destacada-proyectos`: la portada, la historia de portada, el MP4 de Bs.As. Top (se copia tal cual), las 2 de las tarjetas de FC Barber Shop y "Próximamente".
   5. `5-publicaciones`: las 3 azules, 1080×1350.
 
 ### Pendiente
@@ -184,7 +184,13 @@ node exportar-instagram.mjs            # TODO listo para subir → historias/ins
     - Sin `--fresh`, si los cuadros ya están, solo re-codifica (~1 min). Se ajusta con `--crf` y `--sharp`.
   - `preparar-dispositivos.mjs` encuentra la pantalla de cada foto, mide las esquinas y la pinta de negro. La máscara del pulgar del iPad está medida a mano.
   - Fotos de mockups que pasó Guille y todavía no se usan: iPhone en la mano y ventana de vidrio flotante (están en el chat, no en el repo), y el iPad con manos (`assets/ipad-manos*.png`, listo y con la máscara del pulgar).
-- **Proyectos · Próximamente** (`aicia-proyectos-03-proximamente.png`, sección `.p3`): va después del video, así la destacada no muestra un solo proyecto, como pidió Guille.
+- **Orden de Proyectos** (el número del archivo es el orden de subida): 01 portada → 02 video de Bs.As. Top → 03 y 04 tarjetas de FC Barber Shop → 05 Próximamente.
+- **Proyectos · FC Barber Shop · Tarjetas** (secciones `.p4` y `.p5`): Guille pidió sumarlas aunque no sean web ni agente ("puede sumar"). Son tarjetas que él diseñó en Canva con forma de billete de $2.000.
+  - `aicia-proyectos-03-fc-barber-tarjetas.png`: "FC Barber Shop · Tarjetas" / "¿Pensaste que era *plata?*" (el gancho de la propia tarjeta) / "De un lado, un billete de $2.000. Del otro, todo para **reservar el turno.**". La tarjeta horizontal de frente (el billete) flota inclinada sobre el dorso negro.
+  - `aicia-proyectos-04-fc-barber-tarjetas-dorso.png`: "Del otro lado, *el turno.*" / "Teléfono, Instagram, las dos direcciones y un QR **para reservar.**". Las dos verticales de dorso (blanca y negra), paradas y en perspectiva.
+  - Las tarjetas son objetos `.deck .cd` con perspectiva 3D, sombra larga, brillo satinado y filo de luz. Los colores del diseño de Guille no se tocan.
+  - Los PDF originales están en `assets/fc-barber-tarjetas/` (horizontal y vertical, con dorso blanco y negro). `bash preparar-tarjetas-barber.sh` saca cada cara a JPG (necesita pdftoppm y ffmpeg).
+- **Proyectos · Próximamente** (`aicia-proyectos-05-proximamente.png`, sección `.p3`): va al final, así la destacada no muestra un solo proyecto, como pidió Guille.
   - "Próximamente" / "Lo que *se viene.*" / "Más proyectos, testimonios y novedades."
   - Debajo van 3 tarjetas de vidrio compactas con ícono y la marca "pronto": Nuestra página web, Testimonios y Más proyectos.
   - Abajo, como imagen protagonista, el **filósofo de mármol con la laptop** que pasó Guille. Va en blanco y negro (`.subj.mono`), con tinte índigo y luz de borde.
@@ -192,7 +198,7 @@ node exportar-instagram.mjs            # TODO listo para subir → historias/ins
     - Ese script hace un relleno desde el borde más los huecos blancos grandes, suaviza el borde quitándole el blanco (así no queda halo) y agranda al doble.
   - Sin fechas ni números, para no prometer nada que no esté.
   - Cuando haya testimonios o proyectos nuevos, se reemplaza.
-- Tarjetas de FC Barber Shop tipo billete de $2.000 ("¿Pensaste que era plata?"): Guille las mostró. La recomendación fue no sumarlas a Proyectos como diseño suelto. Solo entran si el QR lleva a algo que hizo Aicia (reservas o agente), contado como "del papel a la reserva". Ojo: imitan un billete real.
+- Tarjetas de FC Barber Shop tipo billete de $2.000: ya están en Proyectos (ver arriba). Ojo: el frente reproduce un billete real.
 - Pendiente opcional: una segunda historia de Bs.As. Top en imagen (por ejemplo, el paso de reservas en otro mockup). Máximo 2 historias por proyecto.
 - Opcional: video de demo de un proyecto si Guille pasa grabaciones de pantalla.
 
