@@ -185,15 +185,20 @@ node exportar-instagram.mjs            # TODO listo para subir → historias/ins
   - `preparar-dispositivos.mjs` encuentra la pantalla de cada foto, mide las esquinas y la pinta de negro. La máscara del pulgar del iPad está medida a mano.
   - Fotos de mockups que pasó Guille y todavía no se usan: iPhone en la mano y ventana de vidrio flotante (están en el chat, no en el repo), y el iPad con manos (`assets/ipad-manos*.png`, listo y con la máscara del pulgar).
 - **Orden de Proyectos** (el número del archivo es el orden de subida): 01 portada → 02 video de Bs.As. Top → 03 video de las tarjetas de FC Barber Shop → 04 Próximamente.
-- **Proyectos · FC Barber Shop · Tarjetas (video)** (`video-barber.html` → `aicia-proyectos-03-fc-barber-tarjetas.mp4`, 18 s, y su PNG fijo del segundo 3): Guille pidió "un video tipo el de Bs.As. Top mostrando las tarjetas, bien premium", con referencias de tarjetas flotando en un espacio oscuro (luz suave, sombras largas, cámara lenta). Reemplaza a las 2 historias fijas.
+- **Proyectos · FC Barber Shop · Tarjetas (video)** (`video-barber.html` → `aicia-proyectos-03-fc-barber-tarjetas.mp4`, 19,4 s, y su PNG fijo del segundo 3,2): Guille pidió "un video tipo el de Bs.As. Top mostrando las tarjetas, bien premium", con referencias de tarjetas flotando en un espacio oscuro (luz suave, sombras largas, cámara lenta). Reemplaza a las 2 historias fijas.
   - Las tarjetas son **objetos 3D reales** en CSS: dos caras (billete y dorso), canto de papel de tres láminas, y una luz que se calcula según el ángulo de cada cara (sombreado + banda de brillo que barre el papel al girar). Una sombra suave las sigue y hay una luz índigo detrás.
+  - **Movimiento** (segunda versión, Guille pidió mejorar transiciones y movimientos): se midió el movimiento cuadro a cuadro y había frenadas en seco entre tramos, tirones en el giro y el acercamiento, y un pico amontonado al alejarse (giro + entrada de las dos verticales a la vez). Ahora:
+    - cada parámetro de cada tarjeta sigue una **curva continua** (Fritsch–Butland, `smooth()`): nunca queda congelada, deriva un poco mientras se lee y los movimientos grandes arrancan y frenan suave;
+    - el giro, el acercamiento al QR y el alejamiento duran 2–2,4 s;
+    - las verticales entran **escalonadas**, cuando la horizontal ya está frenando;
+    - **paneo lento de cámara** todo el video (`#rig`, de -3° a +3°) que da profundidad entre las tarjetas, y un empuje final que sigue en movimiento hasta el último cuadro.
   - Recorrido:
-    1. **0–4 s:** la tarjeta horizontal sube desde la oscuridad mostrando el billete. Logo de FC Barber, "Proyecto · Tarjetas", "¿Pensaste que era *plata?*" y "Tarjetas para FC Barber Shop con forma de billete de $2.000."
-    2. **4–7,5 s:** gira sobre su eje y muestra el dorso negro. "Del otro lado, *el turno.*" / "Teléfono, Instagram y las dos direcciones."
-    3. **7,5–10,4 s:** la cámara va al QR (×2,6, con el dorso en alta: `horizontal-dorso-negro-video.jpg`, 4800 px). "Un QR para *reservar.*"
-    4. **10,4–14,3 s:** se aleja, la tarjeta vuelve a mostrar el billete y entran las dos verticales (dorso blanco y negro). "Dos formatos, *dos colores.*" / "Horizontal y vertical, con dorso blanco o negro."
-    5. **14,3–18,2 s:** las tres flotan con un empuje lento de cámara. "Diseñadas por *Aicia.*" / "¿Querés tarjetas así para tu negocio? Escribinos."
-  - Se graba con el mismo `render-timeline.mjs`: `node render-timeline.mjs video-barber.html --fresh --sub 6 --poster 3` (desenfoque de movimiento con 6 instantes en los giros, para que no se vean copias).
+    1. **0–4,5 s:** la tarjeta horizontal sube desde fuera de cuadro mostrando el billete. Logo de FC Barber, "Proyecto · Tarjetas", "¿Pensaste que era *plata?*" y "Tarjetas para FC Barber Shop con forma de billete de $2.000."
+    2. **4,3–8 s:** gira sobre su eje (2 s) y muestra el dorso negro. "Del otro lado, *el turno.*" / "Teléfono, Instagram y las dos direcciones."
+    3. **7,9–11,2 s:** la cámara va al QR en 2 s (×2,6, con el dorso en alta: `horizontal-dorso-negro-video.jpg`, 4800 px). "Un QR para *reservar.*"
+    4. **10,9–15,5 s:** se aleja y vuelve a mostrar el billete (2,4 s); las dos verticales (dorso blanco y negro) entran a los 12,3 y 12,6 s. "Dos formatos, *dos colores.*" / "Horizontal y vertical, con dorso blanco o negro."
+    5. **15,8–19,4 s:** las tres flotan con un empuje lento de cámara. "Diseñadas por *Aicia.*" / "¿Querés tarjetas así para tu negocio? Escribinos."
+  - Se graba con el mismo `render-timeline.mjs`: `node render-timeline.mjs video-barber.html --fresh --sub 6 --poster 3.2` (desenfoque de movimiento con 6 instantes en los giros, para que no se vean copias).
   - Las tarjetas no usan opacidad parcial a propósito: aplanaría el 3D. Entran desde fuera de cuadro.
 - **Versiones fijas de las tarjetas** (secciones `.p4` y `.p5`, archivos `aicia-proyectos-fc-barber-estatica-1/2.png`): quedan guardadas por si Guille las prefiere al video; no se exportan. Son tarjetas que él diseñó en Canva con forma de billete de $2.000.
   - `aicia-proyectos-fc-barber-estatica-1.png`: "FC Barber Shop · Tarjetas" / "¿Pensaste que era *plata?*" (el gancho de la propia tarjeta) / "De un lado, un billete de $2.000. Del otro, todo para **reservar el turno.**". La tarjeta horizontal de frente (el billete) flota inclinada sobre el dorso negro.
