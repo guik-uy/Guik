@@ -19,7 +19,7 @@ Hay 3 destacadas, como máximo: **Aicia**, **Clientes** y **Proyectos**.
 | Carpeta | Qué es | Estado |
 |---|---|---|
 | `historias/destacada-aicia/` | 5 historias "¿Qué es Aicia?" (`destacada.html`) | **Final, aprobada** |
-| `historias/clientes-proyectos/` | Portada de Clientes + 5 tarjetas de clientes + testimonio de Bs.As. Top + Proyectos: portada, video de Bs.As. Top, video de las tarjetas de FC Barber Shop y "Próximamente" (`historias.html`, `video-bsas.html`, `video-barber.html`) | Clientes **final**; testimonio esperando el OK de Guille. Proyectos: portada y video de Bs.As. Top **finales**; video de las tarjetas y "Próximamente" esperando el OK de Guille |
+| `historias/clientes-proyectos/` | Portada de Clientes + 5 tarjetas de clientes + testimonio de Bs.As. Top + Proyectos: portada, video de Bs.As. Top, video de las tarjetas de FC Barber Shop y "Próximamente" (`historias.html`, `video-bsas.html`, `video-barber.html`) | Clientes **final**; testimonio esperando el OK de Guille. Proyectos: portada, video de Bs.As. Top y video de las tarjetas **finales**; "Próximamente" esperando el OK de Guille |
 | `historias/portadas-destacadas/` | Íconos de portada de las 3 destacadas (`portadas.html`) | **Final, aprobada** |
 | `historias/que-es-aicia/` | 6 versiones viejas | No se usan, son solo referencia |
 | `historias/logo-perfil/` | Logo de Aicia para la foto de perfil, 1080×1080 (`logo.html`) | Círculos en el índigo de los íconos de las historias (y variante lavanda) sobre el fondo de las historias, esperando el OK de Guille |
