@@ -12,7 +12,8 @@
      4,3–6,3 s   gira al dorso negro (2 s) · "Del otro lado, el turno."
      7,9–9,9 s   la cámara va al QR (2 s) · "Un QR para reservar."
      10,9–13,3 s se aleja y vuelve al billete; 12,3–14,7 s entran las dos verticales, escalonadas · "Dos formatos, dos colores."
-     15,8–19,4 s las tres flotan con un empuje lento · "Diseñadas por Aicia." -->
+     15,8–18,7 s un extra: "También diseñamos." (no es a lo que se dedica Aicia, pero lo hace igual)
+     19–22,4 s   las tres flotan con un empuje lento · "Hechas por Aicia." -->
 <style>
 @font-face{font-family:"Geist";src:url(fonts/geist-latin-wght-normal.woff2) format("woff2");font-weight:100 900;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2212}
 @font-face{font-family:"Geist";src:url(fonts/geist-latin-ext-wght-normal.woff2) format("woff2");font-weight:100 900;unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
@@ -87,8 +88,10 @@ body{font-family:"Geist",system-ui,sans-serif;-webkit-font-smoothing:antialiased
   <h2 class="tx title g4">Dos formatos,<br><span class="serif">dos colores.</span></h2>
   <p class="tx lede g4">Horizontal y vertical, con dorso blanco o negro.</p>
   <!-- Escena 5 -->
-  <div class="tx eyebrow g5">FC Barber Shop · Tarjetas</div>
-  <h2 class="tx title g5">Diseñadas por<br><span class="serif">Aicia.</span></h2>
+  <!-- Un extra: no es a lo que se dedica Aicia, pero también lo hace (pedido de Guille) -->
+  <h2 class="tx title g6">También<br><span class="serif">diseñamos.</span></h2>
+  <p class="tx lede g6">No es a lo que nos dedicamos, pero si tu negocio<br>lo necesita, <b>lo hacemos igual.</b></p>
+  <h2 class="tx title g5">Hechas por<br><span class="serif">Aicia.</span></h2>
   <p class="tx lede g5">¿Querés tarjetas así para tu negocio? Escribinos.</p>
 
   <div class="vignette"></div><div class="basefade"></div><div class="sig">aicia</div>
@@ -105,7 +108,7 @@ const CARDS = {
 };
 // El QR en el dorso horizontal (fracción del ancho y alto de la tarjeta)
 const QR = [.8425, .404];
-const T_END = 19.4;
+const T_END = 22.4;
 window.DUR = T_END;
 // Ventanas con desenfoque de movimiento real (el grabador promedia varios instantes por cuadro)
 window.MBLUR = [[0, 2.6], [4.4, 6.4], [8.0, 10.0], [10.9, 14.9]];
@@ -149,17 +152,18 @@ const KEYS = {
     [9.9,   P(qrC[0], qrC[1], 0, qrS, 3,  -1,  -1.6, 180)],  // la cámara llega al QR en 2 s
     [10.9,  P(qrC[0] - 22, qrC[1] + 6, 0, qrS * 1.035, 2.2, 0, -1.3, 180)],
     [13.3,  P(540, 1042, 0,    .82,   16, -12, -6,  360)],   // se aleja y vuelve al billete (2,4 s)
-    [T_END, P(540, 1030, 0,    .85,   12.5, -5, -4, 360)],
+    [17.8,  P(540, 1036, 0,    .835,  11, -2, -4.5, 360)],  // gira apenas: la luz barre el billete
+    [T_END, P(540, 1028, 0,    .85,   13.5, -7, -3.5, 360)],
   ],
   C: [
     [12.3,  P(-60, 2080, -100, 1,     24, 30, -18, 180)],    // entra cuando la otra ya está frenando
     [14.4,  P(292, 1352, 90,   1,     10, 22, -10, 180)],
-    [T_END, P(304, 1334, 90,   1.025, 7.5, 14, -7, 180)],
+    [T_END, P(306, 1330, 90,   1.03,  7, 12, -6, 180)],
   ],
   D: [
     [12.6,  P(1140, 2100, -100, 1,    24, -30, 18, 180)],
     [14.7,  P(790, 1378, 120,  1,     12, -22, 9,  180)],
-    [T_END, P(776, 1360, 120,  1.025, 8.5, -14, 6, 180)],
+    [T_END, P(774, 1356, 120,  1.03,  8, -12, 5, 180)],
   ],
 };
 const SHOW = { A: 0, C: 12.3, D: 12.6 }, V0 = { A: 1.6, C: 1.3, D: 1.3 };
@@ -234,11 +238,12 @@ window.renderAt = async function (t) {
 
   // --- Textos
   txt('.g1', i => inOut(t, .35 + i * .12, 4.5, .6, .5));
-  txt('.g2e', () => inOut(t, 4.75, 15.45, .5, .45));
+  txt('.g2e', () => inOut(t, 4.75, 99, .5, .45));
   txt('.g2', i => inOut(t, 5.05 + i * .1, 8.1, .55, .4));
   txt('.g3', () => inOut(t, 8.75, 11.2, .55, .4));
   txt('.g4', i => inOut(t, 13.0 + i * .1, 15.5, .55, .45));
-  txt('.g5', i => inOut(t, 15.8 + i * .12, 99, .65));
+  txt('.g6', i => inOut(t, 15.8 + i * .12, 18.7, .6, .45));
+  txt('.g5', i => inOut(t, 19.0 + i * .12, 99, .65));
 };
 
 (async () => {
