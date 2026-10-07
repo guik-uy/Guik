@@ -77,7 +77,7 @@ node exportar-instagram.mjs            # TODO listo para subir → historias/ins
   - la frase textual que pasó Guille como titular: "Excelente la atención y el *servicio.*";
   - línea, y abajo el logo del club **suelto, sin contorno** (Guille pidió sacar el cuadro de vidrio) con "Bs.As. Top Padel" / "Club de pádel".
   - Se atribuye al club: sin nombre de persona, sin estrellas ni puntajes (no los dio). Sin etiqueta arriba: las comillas ya dicen que es un testimonio.
-  - **Cuadros del fondo más visibles** (pedido de Guille): en `.testi` la grilla tiene líneas al 13 % (en vez de 7 %) y cubre casi toda la pantalla. El PNG se sacó al doble de resolución y se achicó con lanczos, como en la exportación.
+  - **Mismo fondo que la tarjeta del club** (Guille pidió "los mismos cuadrados que esta historia"): `.testi` usa la misma luz y la misma grilla que `.card`, así las dos historias seguidas se ven como una. El PNG se sacó al doble de resolución y se achicó con lanczos, como en la exportación.
   - Para sumar otro testimonio: duplicá la sección `.testi`, cambiá la frase (textual, la que pase Guille), el logo y el `data-file`, y ubicala después de la tarjeta de ese cliente.
 
 | Cliente | Rubro | Estilo del logo |
