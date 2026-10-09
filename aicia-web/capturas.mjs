@@ -24,7 +24,8 @@ const base = `http://127.0.0.1:${server.address().port}/`;
 const browser = await chromium.launch();
 
 for (const [name, w, h, dpr] of [['escritorio', 1440, 900, 1], ['celular', 390, 844, 2]]) {
-  const page = await browser.newPage({ viewport: { width: w, height: h }, deviceScaleFactor: dpr });
+  // "Reducir movimiento": la página completa y quieta, sin intro ni animaciones (para las animaciones, ver la demo)
+  const page = await browser.newPage({ viewport: { width: w, height: h }, deviceScaleFactor: dpr, reducedMotion: 'reduce' });
   page.on('pageerror', e => console.log('[error]', e.message));
   page.on('console', m => m.type() === 'error' && console.log('[console]', m.text()));
   await page.goto(base);

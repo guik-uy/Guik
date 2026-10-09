@@ -97,8 +97,8 @@ svg.app .gl{fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-lin
 .nav .wrap{height:var(--nav);display:flex;align-items:center;gap:28px}
 .brand{display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:#fff;font-weight:600;font-size:24px;letter-spacing:-0.045em;line-height:1}
 .brand svg{width:28px;height:28px;filter:drop-shadow(0 0 12px rgba(129,132,255,.35))}
-.nav-links{display:flex;gap:30px;margin:0 0 0 auto;padding:0;list-style:none;font-size:15px}
-.nav-links a{color:var(--t2);text-decoration:none;transition:color .2s}
+.nav-links{position:relative;isolation:isolate;display:flex;gap:2px;margin:0 0 0 auto;padding:0;list-style:none;font-size:15px}
+.nav-links a{display:block;padding:8px 14px;border-radius:999px;color:var(--t2);text-decoration:none;transition:color .2s}
 .nav-links a:hover{color:#fff}
 .nav .btn{height:42px;padding:0 6px 0 18px;font-size:15px;gap:10px}
 .nav .btn .go{width:30px;height:30px;font-size:15px}
@@ -356,7 +356,150 @@ svg.app .gl{fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-lin
 @media (min-width:920px){
   .foot-top{grid-template-columns:minmax(0,1.4fr) minmax(0,1fr)}
 }
+
+/* =========================================================
+   Movimiento: solo con JS y sin "reducir movimiento" (clase .fx en <html>).
+   Sin .fx la página queda quieta y completa.
+   ========================================================= */
+:root{--ease:cubic-bezier(.16,1,.3,1);--spring:cubic-bezier(.34,1.5,.64,1)}
+
+/* Intro: el logo se arma y abre la página como un portal */
+.intro{display:none}
+.fx .intro{position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:radial-gradient(70vmax 60vmax at 50% 50%,rgba(79,70,229,.30),rgba(67,56,202,.08) 45%,transparent 70%),#06061A;animation:intro-bail .5s 4.5s forwards}
+@keyframes intro-bail{to{opacity:0;visibility:hidden}}
+.intro-mark{display:flex;align-items:center;gap:clamp(14px,2.2vw,22px);transition:transform 1s var(--ease),opacity .6s ease,filter .6s ease}
+.intro.out .intro-mark{transform:scale(1.2);opacity:0;filter:blur(8px)}
+.intro svg{width:clamp(64px,10vw,96px);height:clamp(64px,10vw,96px);overflow:visible;filter:drop-shadow(0 0 32px rgba(129,132,255,.5))}
+.intro circle{transform-box:fill-box;transform-origin:50% 50%}
+.intro .c1{animation:i-pop .9s var(--spring) .15s both}
+.intro .c2{animation:i-moon 1s cubic-bezier(.2,1.25,.3,1) .5s both}
+@keyframes i-pop{from{transform:scale(0)}}
+@keyframes i-moon{from{transform:translate(-147%,152%) scale(.25);opacity:0}}
+.intro-word{font-weight:600;font-size:clamp(56px,9vw,92px);letter-spacing:-0.045em;line-height:1;padding-bottom:.08em}
+.intro-word span{display:inline-block;background:linear-gradient(180deg,#FFFFFF 0%,#F3F3FF 45%,#C9CBFF 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:i-ch .9s var(--ease) both;animation-delay:calc(.62s + var(--i) * 60ms)}
+@keyframes i-ch{from{opacity:0;transform:translate3d(0,55%,0);filter:blur(10px)}}
+.intro-ring{position:fixed;z-index:101;pointer-events:none;border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 0 1.5px rgba(199,201,255,.8),0 0 50px 8px rgba(129,132,255,.45),inset 0 0 50px 8px rgba(129,132,255,.3)}
+.fx.lock,.fx.lock body{overflow:hidden}
+
+/* Aparición al entrar en pantalla (el JS pone data-r y después .in) */
+.fx [data-r]{opacity:0;transition:opacity .9s ease,transform 1.25s var(--ease),filter 1s var(--ease);transition-delay:calc(var(--d,0) * 1ms)}
+.fx [data-r=up]{transform:translate3d(0,44px,0);filter:blur(10px)}
+.fx [data-r=fade]{filter:blur(12px)}
+.fx [data-r=pop]{transform:translate3d(0,26px,0) scale(.86)}
+.fx [data-r=card]{transform:perspective(1100px) translate3d(0,80px,0) rotateX(26deg) scale(.95);transform-origin:50% 100%}
+.fx [data-r=flip]{transform:perspective(900px) translate3d(0,40px,0) rotateX(-70deg);transform-origin:50% 0}
+.fx [data-r=nL]{transform:translate3d(-70px,0,0) scale(.9)}
+.fx [data-r=nR]{transform:translate3d(70px,0,0) scale(.9)}
+.fx [data-r=drop]{transform:translate3d(0,-36px,0) scale(.9)}
+.fx [data-r=rig]{transform:perspective(1500px) translate3d(0,110px,0) rotateX(18deg) rotateY(-26deg) scale(.86);transition-duration:1.1s,1.9s,1s}
+.fx [data-r=pop],.fx [data-r=nL],.fx [data-r=nR],.fx [data-r=drop]{transition-duration:.7s,1s,.7s;transition-timing-function:ease,var(--spring),ease}
+.fx [data-r].in{opacity:1;filter:none}
+.fx [data-r]:not([data-r=fade]).in{transform:none}
+
+/* Titulares palabra por palabra: cada palabra sube desde atrás de una línea */
+.split .w{display:inline-block;clip-path:inset(-.4em -.5em -.3em -.3em)}
+.split .wi{display:inline-block}
+.fx .split .wi{transform:translate3d(0,135%,0) rotate(6deg);transform-origin:0 100%;opacity:0;transition:transform 1.15s var(--ease),opacity .7s ease;transition-delay:calc((var(--b,0) + var(--i) * 75) * 1ms)}
+.fx .split.in .wi{transform:none;opacity:1}
+.fx .split.done .w{clip-path:none}
+/* La frase en serif: un brillo la recorre cada tanto */
+.fx .serif{background-image:linear-gradient(100deg,transparent 40%,rgba(255,255,255,.95) 50%,transparent 60%),linear-gradient(100deg,#B9BBFF 0%,#ECEDFF 52%,#C3C5FF 100%);background-size:300% 100%,100% 100%;background-repeat:no-repeat;background-position:0 0,0 0}
+.fx .done .serif{animation:shine 7s .3s cubic-bezier(.45,0,.2,1) infinite}
+@keyframes shine{0%{background-position:100% 0,0 0}20%,100%{background-position:0 0,0 0}}
+
+/* Inicio: la escena flota y se inclina con el mouse */
+.tilt{position:absolute;inset:0;transform-origin:50% 46%}
+.fx .rig{animation:float 7s ease-in-out infinite}
+@keyframes float{50%{translate:0 -12px}}
+
+/* Fondo: la grilla se ilumina alrededor del cursor */
+.spot{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:0;transition:opacity .6s ease;
+  background-image:radial-gradient(380px circle at var(--sx,50%) var(--sy,50%),rgba(129,132,255,.14),transparent 70%),linear-gradient(rgba(199,201,255,.2) 1px,transparent 1px),linear-gradient(90deg,rgba(199,201,255,.2) 1px,transparent 1px);
+  background-size:auto,96px 96px,96px 96px;background-position:0 0,center 0,center 0;
+  -webkit-mask:radial-gradient(240px circle at var(--sx,50%) var(--sy,50%),#000,transparent 75%);mask:radial-gradient(240px circle at var(--sx,50%) var(--sy,50%),#000,transparent 75%)}
+.sec.hot .spot{opacity:1}
+.fx .stage{animation:breathe 9s ease-in-out infinite alternate}
+.fx .sec:nth-of-type(even) .stage{animation-delay:-4.5s}
+@keyframes breathe{from{opacity:.8}to{opacity:1}}
+
+/* Barra: progreso de lectura y cápsula en la sección activa */
+.nav-p{position:absolute;left:0;right:0;bottom:-1px;height:2px;transform:scaleX(0);transform-origin:0 50%;background:linear-gradient(90deg,rgba(110,113,244,0),#6E71F4 35%,#C7C9FF);opacity:0;transition:opacity .4s ease;pointer-events:none}
+.nav.on .nav-p{opacity:1}
+.nav-pill{position:absolute;top:0;bottom:0;left:0;width:0;z-index:-1;border-radius:999px;background:rgba(255,255,255,.07);box-shadow:inset 0 0 0 1px rgba(255,255,255,.1);opacity:0;pointer-events:none;transition:left .6s var(--ease),width .6s var(--ease),opacity .4s ease}
+.nav-links a.act{color:#fff}
+
+/* Tarjetas con luz que sigue al cursor e inclinación 3D */
+.fx .tl{position:relative}
+.fx .tl.live{transition:transform .7s var(--ease)}
+.fx .tl::before,.fx .tl::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .5s ease}
+.fx .tl::before{padding:1px;background:radial-gradient(240px circle at var(--mx,50%) var(--my,0%),rgba(199,201,255,.85),rgba(129,132,255,.25) 45%,transparent 70%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0)}
+.fx .tl::after{background:radial-gradient(420px circle at var(--mx,50%) var(--my,0%),rgba(255,255,255,.075),transparent 60%)}
+.fx .tl:hover::before,.fx .tl:hover::after{opacity:1}
+.fx .card svg.app,.fx .logos li img{transition:transform .6s var(--spring)}
+.fx .card:hover svg.app{transform:translate3d(0,-4px,0) scale(1.07) rotate(-5deg)}
+.fx .logos li:hover img{transform:scale(1.08)}
+/* Dentro de cada servicio, los ítems entran de a uno y el tilde se dibuja */
+.fx .card li{opacity:0;transform:translate3d(-10px,0,0);transition:opacity .6s ease,transform .8s var(--ease);transition-delay:calc(var(--d,0) * 1ms + 450ms + var(--j,0) * 110ms)}
+.fx .card.in li{opacity:1;transform:none}
+.fx .card li .ic{stroke-dasharray:24;stroke-dashoffset:24;transition:stroke-dashoffset .7s var(--ease);transition-delay:calc(var(--d,0) * 1ms + 650ms + var(--j,0) * 110ms)}
+.fx .card.in li .ic{stroke-dashoffset:0}
+
+/* El problema: las notificaciones llegan y quedan flotando */
+.fx .notif.in{animation:bob 6.5s ease-in-out infinite;animation-delay:calc(var(--n,0) * -1.6s)}
+@keyframes bob{50%{translate:0 -7px}}
+
+/* Herramientas: cinta infinita */
+.fx .tools .marq{width:100%;overflow:hidden;-webkit-mask:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent);mask:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent)}
+.fx .tools ul.track{display:flex;width:max-content;margin:0;padding:0;list-style:none;animation:marq 30s linear infinite}
+.fx .tools ul.track li{flex:none;margin-right:10px}
+.fx .tools .marq:hover ul.track{animation-play-state:paused}
+@keyframes marq{to{transform:translate3d(-50%,0,0)}}
+
+/* Cómo trabajamos: la línea se dibuja con el scroll y prende cada paso */
+.prog{position:absolute;z-index:1;pointer-events:none;border-radius:2px;transform:scale(0);transform-origin:0 0;background:linear-gradient(90deg,#8689FF,#D9DAFF);box-shadow:0 0 14px rgba(129,132,255,.85)}
+.prog[data-dir=y]{background:linear-gradient(180deg,#8689FF,#D9DAFF)}
+.fx .steps li > svg.app{position:relative;z-index:2;transition:transform .7s var(--spring),filter .7s ease}
+.fx .steps li.lit > svg.app{transform:scale(1.08);filter:drop-shadow(0 0 22px rgba(129,132,255,.75)) drop-shadow(0 10px 16px rgba(10,8,70,.45))}
+.fx .steps li > div{opacity:.38;transition:opacity .7s ease}
+.fx .steps li.lit > div{opacity:1}
+.fx .steps li::after{content:"";position:absolute;left:0;top:0;z-index:1;width:64px;height:64px;border-radius:24px;pointer-events:none;box-shadow:0 0 0 2px rgba(199,201,255,.7),0 0 24px rgba(129,132,255,.6);opacity:0}
+.fx .steps li.lit::after{animation:ring 1.3s var(--ease) both}
+@keyframes ring{0%{opacity:.9;transform:scale(.95)}100%{opacity:0;transform:scale(1.75)}}
+
+/* Proyectos: el video entra en 3D y la lista sigue al video */
+.fx .proj-vid{position:relative}
+.fx .proj-vid::before{content:"";position:absolute;left:50%;top:50%;width:min(640px,150%);aspect-ratio:1;border-radius:50%;pointer-events:none;transform:translate(-50%,-50%) scale(calc(.6 + var(--pv,0) * .4));opacity:var(--pv,0);background:radial-gradient(closest-side,rgba(99,102,241,.45),rgba(99,102,241,.12) 55%,transparent)}
+.fx .flow.sync li{cursor:pointer;color:rgba(230,231,250,.5);transition-property:opacity,transform,filter,color;transition-duration:.9s,1.25s,1s,.45s}
+.fx .flow.sync li:hover{color:rgba(240,241,255,.85)}
+.fx .flow.sync li.done{color:rgba(230,231,250,.78)}
+.fx .flow.sync li.act{color:#fff}
+.fx .flow.sync li::before,.fx .flow.sync li::after{transition:background .45s ease,box-shadow .45s ease,color .45s ease}
+.fx .flow.sync li.done::before{background:rgba(199,201,255,.16);color:#fff}
+.fx .flow.sync li.act::before{color:#fff;background:linear-gradient(150deg,#6E71F4,#4F46E5 55%,#4338CA);box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 0 0 5px rgba(129,132,255,.14),0 0 22px rgba(129,132,255,.65)}
+.fx .flow.sync li:is(.act,.done)::after{background:var(--lav)}
+.fx .flow.sync li:last-child:not(.act){font-weight:400}
+.fx .flow.sync li:last-child:not(.act)::before{background:rgba(199,201,255,.08);box-shadow:inset 0 0 0 1px rgba(199,201,255,.22)}
+.fx .flow.sync li:last-child:not(.act) .ic{color:var(--lav)}
+
+/* Botón principal: brillo que lo cruza e imán hacia el cursor */
+.fx .shine{position:relative;isolation:isolate;overflow:hidden}
+.fx .shine::before{content:"";position:absolute;top:-10%;bottom:-10%;left:0;width:34%;z-index:-1;pointer-events:none;background:linear-gradient(100deg,transparent,rgba(110,113,244,.28) 50%,transparent);transform:translateX(-130%) skewX(-18deg);animation:sweep 5.5s 2.6s cubic-bezier(.55,0,.25,1) infinite}
+@keyframes sweep{0%{transform:translateX(-130%) skewX(-18deg)}28%,100%{transform:translateX(420%) skewX(-18deg)}}
+.fx .btn.mag{transition-property:opacity,transform,filter,translate,box-shadow,background;transition-duration:.7s,1s,.7s,.7s,.25s,.25s;transition-timing-function:ease,var(--spring),ease,cubic-bezier(.25,1.5,.45,1),ease,ease}
+
+/* Contacto: la mano se acerca al botón y "toca" */
+.fx .point{animation:tap 3.6s ease-in-out infinite}
+@keyframes tap{0%,100%{transform:none}50%{transform:translate3d(-10px,-8px,0) rotate(-1.2deg)}}
+
+/* Pie: "aicia" sube letra por letra */
+.fx .mega{background:none}
+.mega .ch{display:inline-block;background:linear-gradient(180deg,#FFFFFF 0%,#E9E9FF 38%,rgba(199,201,255,.35) 72%,rgba(199,201,255,0) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
 </style>
+<script>
+/* Movimiento solo si el usuario no pidió "reducir movimiento". Si el script de abajo no arranca, la página queda quieta y visible */
+(function(){var d=document.documentElement;if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;d.classList.add('fx');setTimeout(function(){if(!window.__fx)d.classList.remove('fx')},4000)})();
+</script>
 </head>
 <body>
 
@@ -389,6 +532,13 @@ svg.app .gl{fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-lin
   <symbol id="g-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 11v5M12 8h.01"/></symbol>
 </svg>
 
+<div class="intro" id="intro" aria-hidden="true">
+  <div class="intro-mark">
+    <svg viewBox="150 220 660 660"><circle class="c1" cx="430" cy="600" r="270" fill="url(#lgx)"/><circle class="c2" cx="700" cy="320" r="92" fill="url(#lgx)"/></svg>
+    <span class="intro-word"><span style="--i:0">a</span><span style="--i:1">i</span><span style="--i:2">c</span><span style="--i:3">i</span><span style="--i:4">a</span></span>
+  </div>
+</div>
+
 <header class="nav" id="nav">
   <div class="wrap">
     <a class="brand" href="#inicio" aria-label="Aicia, ir al inicio"><svg aria-hidden="true"><use href="#logo"/></svg>aicia</a>
@@ -419,6 +569,7 @@ svg.app .gl{fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-lin
     </div>
     <div class="hero-vis">
       <div class="rig-box">
+       <div class="tilt">
         <div class="rig" id="rig" aria-hidden="true">
           <div class="halo"></div>
           <div class="phone">
@@ -452,6 +603,7 @@ svg.app .gl{fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-lin
           <div class="subj hand"><img src="assets/mano-celular.webp" alt="" width="886" height="1252"><div class="tint"></div><div class="rim"></div></div>
           <div class="toast glass"><svg class="app" viewBox="0 0 100 100" data-g="g-check" data-s="ap-indigo"></svg><div class="nt"><div class="nh"><b>Aicia</b><span class="mono">ahora</span></div><p>Turno agendado: jueves 10:30.</p></div></div>
         </div>
+       </div>
       </div>
       <p class="note"><svg class="ic"><use href="#g-info"/></svg>Vista de ejemplo: un asistente de IA respondiendo por WhatsApp.</p>
     </div>
@@ -666,17 +818,17 @@ addEventListener('scroll', onScroll, { passive: true }); onScroll();
 const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* ---------- Chat de ejemplo: los mensajes entran de a uno, una sola vez ---------- */
-(() => {
-  const rig = document.getElementById('rig');
-  if (calm || !rig) return;
-  const msgs = [...rig.querySelectorAll('.m')], toast = rig.querySelector('.toast'), status = document.getElementById('status');
-  rig.classList.add('play');
+const rigEl = document.getElementById('rig');
+if (!calm && rigEl) rigEl.classList.add('play');
+function startChat() {
+  if (calm || !rigEl) return;
+  const msgs = [...rigEl.querySelectorAll('.m')], toast = rigEl.querySelector('.toast'), status = document.getElementById('status');
   const typing = on => { status.textContent = on ? 'escribiendo…' : 'en línea'; status.classList.toggle('typing', on); };
-  const steps = [[500, () => typing(true)], [1300, () => { typing(false); msgs[0].classList.add('show'); }], [2100, () => msgs[1].classList.add('show')],
-    [2800, () => typing(true)], [3500, () => { typing(false); msgs[2].classList.add('show'); }], [4200, () => msgs[3].classList.add('show')],
-    [4800, () => msgs[4].classList.add('show')], [5500, () => toast.classList.add('show')]];
+  const steps = [[300, () => typing(true)], [1100, () => { typing(false); msgs[0].classList.add('show'); }], [1900, () => msgs[1].classList.add('show')],
+    [2600, () => typing(true)], [3300, () => { typing(false); msgs[2].classList.add('show'); }], [4000, () => msgs[3].classList.add('show')],
+    [4600, () => msgs[4].classList.add('show')], [5300, () => toast.classList.add('show')]];
   steps.forEach(([t, f]) => setTimeout(f, t));
-})();
+}
 
 /* ---------- Video del proyecto: solo corre cuando se ve ---------- */
 (() => {
@@ -685,6 +837,320 @@ const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (calm) { v.removeAttribute('autoplay'); v.pause(); v.controls = true; return; }
   if ('IntersectionObserver' in window) new IntersectionObserver(([e]) => { e.isIntersecting ? v.play().catch(() => {}) : v.pause(); }, { threshold: .2 }).observe(v);
 })();
+
+/* =========================================================
+   Movimiento: intro, titulares palabra por palabra, 3D, scroll y cursor.
+   Todo se apoya en transform/opacity; si algo falla, la página queda quieta y visible.
+   ========================================================= */
+(() => {
+  const root = document.documentElement;
+  if (!root.classList.contains('fx')) { startChat(); return; }
+  window.__fx = true;
+  try { motion(); } catch (err) { console.error(err); root.classList.remove('fx'); document.getElementById('intro')?.remove(); startChat(); }
+})();
+
+function motion() {
+  const root = document.documentElement;
+  const $ = (s, c = document) => c.querySelector(s), $$ = (s, c = document) => [...c.querySelectorAll(s)];
+  const clamp = (v, a = 0, b = 1) => v < a ? a : v > b ? b : v;
+  const out3 = t => 1 - (1 - t) ** 3;
+  const now = () => performance.now();
+  const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
+  let vw = innerWidth, vh = innerHeight;
+
+  /* ---- Aparición: cada bloque entra en orden cuando llega a la pantalla ---- */
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { io.unobserve(e.target); show(e.target); } }), { rootMargin: '0px 0px -8% 0px' });
+  function show(el) {
+    // Si el grupo ya arrancó hace rato (scroll lento), no lo hacemos esperar de más
+    let d = el._d || 0;
+    if (el._g) { const t = now(); el._g.t ??= t; d = Math.max(0, d - (t - el._g.t)); }
+    d = Math.round(d);
+    el.style.setProperty(el.classList.contains('split') ? '--b' : '--d', d);
+    el.classList.add('in');
+    if (el.classList.contains('eyebrow')) setTimeout(() => scramble(el), d);
+    if (el.classList.contains('split')) setTimeout(() => el.classList.add('done'), d + el._n * 75 + 1300);
+    if (el.classList.contains('tl')) setTimeout(() => el.classList.add('live'), d + 1300);
+    if (el.dataset.r) setTimeout(() => el.style.setProperty('--d', 0), d + 1400);
+  }
+  function reveal(el, kind, d = 0, g = null, manual = false) {
+    if (!el) return;
+    if (kind) el.dataset.r = kind;
+    el._d = d; el._g = g;
+    if (!manual) io.observe(el);
+  }
+  // Parte un titular en palabras (la frase en serif va entera) sin tocar los <br>
+  function split(el) {
+    let n = 0;
+    const box = node => { const w = document.createElement('span'), i = document.createElement('span'); w.className = 'w'; i.className = 'wi'; i.style.setProperty('--i', n++); i.append(node); w.append(i); return w; };
+    [...el.childNodes].forEach(nd => {
+      if (nd.nodeType === 3) {
+        const f = document.createDocumentFragment();
+        nd.textContent.split(/(\s+)/).forEach(p => p && f.append(/^\s+$/.test(p) ? document.createTextNode(p) : box(document.createTextNode(p))));
+        nd.replaceWith(f);
+      } else if (nd.nodeType === 1 && nd.tagName !== 'BR') {
+        const mark = document.createTextNode(''); nd.replaceWith(mark); mark.replaceWith(box(nd));
+      }
+    });
+    el.classList.add('split'); el._n = n;
+    return n;
+  }
+  // Etiquetas: las letras se "decodifican", un guiño a la IA
+  const GL = 'abcdefghijklmnopqrstuvwxyz';
+  function scramble(el) {
+    const txt = el.textContent, n = txt.length, t0 = now(), D = 650;
+    el.style.width = el.offsetWidth + 'px'; el.style.whiteSpace = 'nowrap';
+    let last = 0;
+    const f = t => {
+      const k = clamp((t - t0) / D), fixed = Math.floor(out3(k) * n);
+      if (k >= 1) { el.textContent = txt; el.style.width = el.style.whiteSpace = ''; return; }
+      if (t - last > 45) { last = t; el.textContent = txt.slice(0, fixed) + [...txt.slice(fixed)].map(c => c === ' ' ? ' ' : GL[Math.random() * GL.length | 0]).join(''); }
+      requestAnimationFrame(f);
+    };
+    requestAnimationFrame(f);
+  }
+  // Un bloque de texto: etiqueta → titular → el resto, escalonado
+  function seq(box, manual = false) {
+    const g = { t: null }, list = [];
+    let d = 0;
+    const add = (el, kind, dd) => { reveal(el, kind, dd, g, manual); list.push(el); };
+    [...box.children].forEach(el => {
+      if (el.matches('.h1, .h2')) { const n = split(el); add(el, null, d); d += n * 75 + 100; }
+      else if (el.matches('.eyebrow')) { add(el, 'fade', d); d += 140; }
+      else if (el.matches('.flow')) { [...el.children].forEach((li, i) => add(li, 'up', d + i * 80)); d += 260; }
+      else if (el.matches('.hero-cta, .cta-row')) { [...el.children].forEach((b, i) => add(b, 'pop', d + i * 90)); d += 160; }
+      else { add(el, el.matches('.tag') ? 'pop' : 'up', d); d += 110; }
+    });
+    return { g, list };
+  }
+  const group = (els, kind, d0, step) => { const g = { t: null }; els.forEach((el, i) => reveal(el, typeof kind === 'function' ? kind(i) : kind, d0 + i * step, g)); };
+
+  /* ---- Tarjetas con luz y 3D (solo con mouse) ---- */
+  if (fine) $$('.card, .logos > li').forEach(el => {
+    el.classList.add('tl');
+    el.addEventListener('pointermove', e => {
+      const r = el.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+      el.style.setProperty('--mx', (x * 100).toFixed(1) + '%'); el.style.setProperty('--my', (y * 100).toFixed(1) + '%');
+      if (el.classList.contains('live')) el.style.transform = `perspective(900px) rotateX(${((.5 - y) * 7).toFixed(2)}deg) rotateY(${((x - .5) * 9).toFixed(2)}deg)`;
+    });
+    el.addEventListener('pointerleave', () => { el.style.transform = ''; });
+  });
+
+  /* ---- Qué entra y cómo ---- */
+  const H = seq($('.hero-tx'), true);
+  reveal($('.rig-box'), 'rig', 200, H.g, true); H.list.push($('.rig-box'));
+  reveal($('.hero .note'), 'fade', 1500, H.g, true); H.list.push($('.hero .note'));
+  $$('.sec-hd, .proj-tx, .cta-tx').forEach(b => seq(b));
+  const wide = vw >= 920;
+  $$('.notif').forEach((el, i) => el.style.setProperty('--n', i));
+  group($$('.notif'), i => wide ? (i % 2 ? 'nR' : 'nL') : 'drop', 100, 170);
+  $$('.card').forEach(c => $$('li', c).forEach((li, j) => li.style.setProperty('--j', j)));
+  group($$('.card'), 'card', 0, 130);
+  group([$('.tools')], 'up', 150, 0);
+  group($$('.steps > li'), 'up', 0, 140);
+  group($$('.logos > li'), 'flip', 0, 90);
+  group($$('.foot-top > *'), 'up', 0, 120);
+  $$('.hero-cta .btn-main, .cta-row .btn-main').forEach(b => b.classList.add('shine'));
+
+  /* ---- Herramientas: cinta infinita ---- */
+  const tul = $('.tools ul');
+  if (tul) {
+    const items = [...tul.children], marq = document.createElement('div'), track = document.createElement('ul');
+    marq.className = 'marq'; track.className = 'track';
+    for (let k = 0; k < 4; k++) items.forEach(li => { const c = k ? li.cloneNode(true) : li; if (k) c.setAttribute('aria-hidden', 'true'); track.append(c); });
+    tul.replaceWith(marq); marq.append(track);
+  }
+
+  /* ---- Scroll: todo lo que se mueve con la página ---- */
+  const scrubs = [];
+  const scrub = (ref, p, apply, k = 1) => ref && scrubs.push({ ref, p, apply, k, top: 0, h: 0, cur: null, last: null });
+  const absTop = el => { let y = 0; for (; el; el = el.offsetParent) y += el.offsetTop; return y; };
+
+  // La luz de cada sección va un poco más lenta que el contenido (profundidad)
+  $$('.sec').forEach(s => { const st = $('.stage', s); scrub(s, (top, h) => (top + h / 2 - vh / 2) * -.1, v => { st.style.translate = `0 ${v.toFixed(1)}px`; }); });
+  // Inicio: el texto se despide y la escena del teléfono se queda un poco más
+  const hero = $('.hero'), htx = $('.hero-tx'), hvis = $('.hero-vis');
+  scrub(hero, (top, h) => clamp(-top / (h * .9)), v => { htx.style.translate = `0 ${(v * -50).toFixed(1)}px`; htx.style.opacity = (1 - v * .9).toFixed(3); hvis.style.translate = `0 ${(v * 60).toFixed(1)}px`; });
+  // El problema: la cabeza de documentos en otro plano
+  const pimg = $('.prob-img');
+  scrub($('.prob-vis'), (top, h) => (top + h / 2 - vh / 2) / vh, v => { pimg.style.translate = `0 ${(v * -60).toFixed(1)}px`; });
+  // Clientes: el apretón se abre desde el centro
+  const cimg = $('.cli-img');
+  scrub(cimg, top => clamp((vh * .95 - top) / (vh * .7)), v => { const e = out3(v), k = (1 - e) * 50; cimg.style.clipPath = `inset(-2% ${k.toFixed(2)}% -2% ${k.toFixed(2)}%)`; cimg.style.transform = `translateX(-50%) scale(${(1.14 - .14 * e).toFixed(4)})`; }, .14);
+  // Proyectos: el video llega girado y se endereza
+  const vf = $('.vframe'), pv = $('.proj-vid');
+  scrub(pv, (top, h) => clamp((vh - top) / (vh * .7 + h * .3)), v => { const e = out3(v), k = 1 - e; vf.style.transform = `perspective(1400px) translate3d(0,${(k * 90).toFixed(1)}px,0) rotateX(${(k * 18).toFixed(2)}deg) rotateY(${(k * -26).toFixed(2)}deg) rotateZ(${(k * -4).toFixed(2)}deg) scale(${(.84 + .16 * e).toFixed(4)})`; pv.style.setProperty('--pv', e.toFixed(3)); }, .12);
+  // Cómo trabajamos: la línea avanza y prende cada paso
+  const steps = $('.steps'), sl = [...steps.children], prog = document.createElement('div');
+  prog.className = 'prog'; prog.setAttribute('aria-hidden', 'true'); steps.parentElement.append(prog);
+  let th = [], dir = 'x';
+  function measureSteps() {
+    const pts = sl.map(li => [steps.offsetLeft + li.offsetLeft + 32, steps.offsetTop + li.offsetTop + 32]);
+    const a = pts[0], b = pts[pts.length - 1];
+    dir = Math.abs(b[1] - a[1]) < 8 ? 'x' : 'y';
+    const len = Math.max(1, dir === 'x' ? b[0] - a[0] : b[1] - a[1]);
+    prog.dataset.dir = dir;
+    prog.style.cssText = dir === 'x' ? `left:${a[0]}px;top:${a[1] - 1}px;width:${len}px;height:2px` : `left:${a[0] - 1}px;top:${a[1]}px;width:2px;height:${len}px`;
+    th = pts.map(p => (dir === 'x' ? p[0] - a[0] : p[1] - a[1]) / len);
+  }
+  scrub(steps, (top, h) => clamp((vh * .82 - top) / (h + vh * .3)), v => {
+    prog.style.transform = dir === 'x' ? `scaleX(${v.toFixed(4)})` : `scaleY(${v.toFixed(4)})`;
+    sl.forEach((li, i) => li.classList.toggle('lit', v >= Math.max(th[i], .02)));
+  }, .14);
+  // Contacto: la mano se acerca al botón
+  const pt = $('.point');
+  scrub($('.cta-vis'), top => clamp((vh - top) / (vh * .85)), v => { const k = 1 - out3(v); pt.style.translate = `${(k * 80).toFixed(1)}px ${(k * 110).toFixed(1)}px`; }, .1);
+  // Pie: "aicia" sube letra por letra
+  const mega = $('.mega');
+  mega.innerHTML = [...mega.textContent.trim()].map(c => `<span class="ch">${c}</span>`).join('');
+  const chs = $$('.ch', mega);
+  scrub(mega, (top, h) => clamp((vh - top) / (h * 1.05)), v => chs.forEach((c, i) => { const q = out3(clamp((v - i * .08) / .62)); c.style.transform = `translate3d(0,${((1 - q) * 75).toFixed(1)}%,0) rotate(${((1 - q) * 10).toFixed(2)}deg)`; c.style.opacity = q.toFixed(3); }), .12);
+
+  /* ---- Barra: progreso y sección activa ---- */
+  const nav = $('#nav'), navP = document.createElement('i');
+  navP.className = 'nav-p'; nav.append(navP);
+  const links = $$('.nav-links a'), pill = document.createElement('li');
+  pill.className = 'nav-pill'; pill.setAttribute('aria-hidden', 'true'); $('.nav-links').append(pill);
+  let curSec;
+  function movePill(id) {
+    const a = links.find(l => l.getAttribute('href') === '#' + id);
+    links.forEach(l => l.classList.toggle('act', l === a));
+    if (!a) { pill.style.opacity = 0; return; }
+    pill.style.left = a.offsetLeft + 'px'; pill.style.width = a.offsetWidth + 'px'; pill.style.opacity = 1;
+  }
+
+  /* ---- Cursor: la grilla se ilumina donde está el mouse ---- */
+  const secs = $$('.sec').map(s => ({ s, id: s.id, top: 0, h: 0 }));
+  if (fine) secs.forEach(o => { const d = document.createElement('div'); d.className = 'spot'; $('.grid', o.s).after(d); });
+  let ptr = null, lastMove = -1e9, hot = null;
+  addEventListener('pointermove', e => {
+    if (e.pointerType !== 'mouse') return;
+    ptr = { x: e.clientX / vw - .5, y: e.clientY / vh - .5, cx: e.clientX, cy: e.clientY }; lastMove = now();
+    magnet(e); kick();
+  }, { passive: true });
+  document.addEventListener('mouseleave', () => { ptr = null; hot?.s.classList.remove('hot'); hot = null; });
+
+  // Botón principal con imán
+  const mags = fine ? $$('.hero-cta .btn-main, .cta-row .btn-main') : [];
+  mags.forEach(b => { b.classList.add('mag'); b._t = '0 0'; });
+  function magnet(e) {
+    for (const b of mags) {
+      const r = b.getBoundingClientRect(), cs = getComputedStyle(b).translate, [tx = 0, ty = 0] = cs === 'none' ? [] : cs.split(' ').map(parseFloat);
+      const dx = e.clientX - (r.left + r.width / 2 - tx), dy = e.clientY - (r.top + r.height / 2 - ty);
+      const near = Math.abs(dx) < r.width / 2 + 70 && Math.abs(dy) < r.height / 2 + 60;
+      const t = near ? `${(dx * .22).toFixed(1)}px ${(dy * .32).toFixed(1)}px` : '0 0';
+      if (t !== b._t) { b._t = t; b.style.translate = t === '0 0' ? '' : t; }
+    }
+  }
+
+  /* ---- Inicio: inclinación con el mouse, o un vaivén suave si no hay mouse ---- */
+  const tilt = $('.tilt'), halo = $('.halo'), toastEl = $('.toast');
+  const tr = { x: 0, y: 0 };
+  let heroEnd = 0;
+  function heroTilt(t) {
+    let tx, ty;
+    if (ptr && t - lastMove < 2500) { ty = ptr.x * 12; tx = -ptr.y * 8; }
+    else { ty = Math.sin(t / 2800) * 4.5; tx = Math.sin(t / 3700) * 2.5; }
+    tr.x += (tx - tr.x) * .06; tr.y += (ty - tr.y) * .06;
+    tilt.style.transform = `perspective(1300px) rotateX(${tr.x.toFixed(2)}deg) rotateY(${tr.y.toFixed(2)}deg)`;
+    halo.style.translate = `${(-tr.y * 4).toFixed(1)}px ${(tr.x * 4).toFixed(1)}px`;
+    toastEl.style.translate = `${(tr.y * 3).toFixed(1)}px ${(-tr.x * 3).toFixed(1)}px`;
+  }
+
+  /* ---- Bucle: solo corre mientras algo se mueve ---- */
+  let raf = 0, docH = 0;
+  const kick = () => { raf ||= requestAnimationFrame(tick); };
+  function tick(t) {
+    raf = 0;
+    const y = scrollY;
+    let busy = false;
+    if (fine && ptr) {
+      const py = ptr.cy + y; let hit = null;
+      for (const o of secs) if (py >= o.top && py < o.top + o.h) hit = o;
+      if (hit !== hot) { hot?.s.classList.remove('hot'); hit?.s.classList.add('hot'); hot = hit; }
+      if (hit) { hit.s.style.setProperty('--sx', ptr.cx + 'px'); hit.s.style.setProperty('--sy', (py - hit.top).toFixed(0) + 'px'); }
+    }
+    for (const s of scrubs) {
+      const top = s.top - y;
+      if (top > vh * 1.6 || top + s.h < -vh * .6) continue;
+      const target = s.p(top, s.h);
+      if (s.cur == null || s.k >= 1) s.cur = target;
+      else { s.cur += (target - s.cur) * s.k; if (Math.abs(target - s.cur) > 5e-4) busy = true; else s.cur = target; }
+      if (s.cur !== s.last) { s.apply(s.cur); s.last = s.cur; }
+    }
+    navP.style.transform = `scaleX(${clamp(y / Math.max(1, docH - vh)).toFixed(4)})`;
+    let act = null;
+    for (const o of secs) if (o.top <= y + vh * .45) act = o.id;
+    if (act !== curSec) { curSec = act; movePill(act); }
+    if (y < heroEnd) { heroTilt(t); busy = true; }
+    if (busy) kick();
+  }
+  function measure() {
+    vw = innerWidth; vh = innerHeight;
+    scrubs.forEach(s => { s.top = absTop(s.ref); s.h = s.ref.offsetHeight; s.last = null; });
+    secs.forEach(o => { o.top = absTop(o.s); o.h = o.s.offsetHeight; });
+    heroEnd = secs[0].top + secs[0].h;
+    docH = root.scrollHeight;
+    measureSteps();
+    if (curSec !== undefined) movePill(curSec);
+    kick();
+  }
+  measure();
+  addEventListener('scroll', kick, { passive: true });
+  addEventListener('resize', measure);
+  addEventListener('load', measure);
+  document.fonts?.ready.then(measure);
+  if ('ResizeObserver' in window) new ResizeObserver(() => measure()).observe(document.body);
+
+  /* ---- Proyectos: la lista de pasos sigue al video (y cada paso salta a su parte) ---- */
+  const v = $('#vid'), flow = $('.flow'), fl = [...flow.children];
+  const CP = [5.4, 7.05, 8.95, 18.35, 20.6]; // inicio de cada paso en el video (mismos tiempos que historias/clientes-proyectos/video-bsas.html)
+  let stepNow = -2;
+  const sync = () => {
+    const t = v.currentTime; let a = -1;
+    if (t > 0) flow.classList.add('sync'); // la lista se atenúa solo si el video realmente corre
+    CP.forEach((s, i) => { if (t >= s - .15) a = i; });
+    if (a === stepNow) return;
+    stepNow = a; fl.forEach((li, i) => { li.classList.toggle('act', i === a); li.classList.toggle('done', i < a); });
+  };
+  v.addEventListener('timeupdate', sync); v.addEventListener('seeked', sync);
+  fl.forEach((li, i) => {
+    li.tabIndex = 0; li.setAttribute('role', 'button'); li.title = 'Ver este paso en el video';
+    const go = () => { v.currentTime = CP[i] + .05; v.play().catch(() => {}); };
+    li.addEventListener('click', go);
+    li.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
+  });
+
+  /* ---- Intro: el logo se arma y abre la página ---- */
+  const heroIn = () => { H.list.forEach(show); setTimeout(startChat, 800); };
+  const intro = $('#intro');
+  let seen = false;
+  try { seen = sessionStorage.getItem('aicia-intro') === '1'; sessionStorage.setItem('aicia-intro', '1'); } catch (e) {}
+  if (seen || scrollY > 40 || !intro) { intro?.remove(); setTimeout(heroIn, 120); return; }
+  root.classList.add('lock');
+  let gone = false;
+  const exit = () => {
+    if (gone) return; gone = true;
+    root.classList.remove('lock');
+    const c = $('.c1', intro).getBoundingClientRect(), cx = c.left + c.width / 2, cy = c.top + c.height / 2;
+    const R = Math.hypot(Math.max(cx, innerWidth - cx), Math.max(cy, innerHeight - cy)) + 160;
+    intro.classList.add('out');
+    const ring = document.createElement('div'); ring.className = 'intro-ring'; document.body.append(ring);
+    const t0 = now(), D = 1100;
+    const f = t => {
+      const k = clamp((t - t0) / D), e = k < .5 ? 4 * k ** 3 : 1 - (-2 * k + 2) ** 3 / 2, r = e * R;
+      intro.style.webkitMaskImage = intro.style.maskImage = `radial-gradient(circle at ${cx}px ${cy}px, transparent ${r.toFixed(1)}px, #000 ${(r + 90).toFixed(1)}px)`;
+      ring.style.cssText = `left:${cx}px;top:${cy}px;width:${(2 * r).toFixed(1)}px;height:${(2 * r).toFixed(1)}px;opacity:${((1 - k) * .9).toFixed(3)}`;
+      if (k < 1) requestAnimationFrame(f); else { intro.remove(); ring.remove(); }
+    };
+    requestAnimationFrame(f);
+    setTimeout(heroIn, 250);
+  };
+  setTimeout(exit, 1550);
+  intro.addEventListener('pointerdown', exit);
+  addEventListener('keydown', exit, { once: true });
+  addEventListener('wheel', exit, { once: true, passive: true });
+  addEventListener('touchstart', exit, { once: true, passive: true });
+}
 </script>
 </body>
 </html>

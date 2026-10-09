@@ -238,5 +238,18 @@ node exportar-instagram.mjs            # TODO listo para subir → historias/ins
 - Todos los "Pedí tu demo" abren WhatsApp con el mensaje "Hola Aicia! Quiero pedir una demo para mi negocio."
 - Celular primero: en el teléfono todo va en una columna, los clientes en lista y la escena del chat se achica con `--k`.
 - `bash preparar-assets.sh` genera `assets/` desde `historias/`: recortes a WebP (los chicos al doble con lanczos), logos de clientes, el video a 720×1280 (~1,7 MB) y su portada.
-- `node capturas.mjs` saca capturas de escritorio (1440) y celular (390) en `capturas/` (no va al repo) y controla desbordes e imágenes sin cargar.
+- **Movimiento** (Guille pidió "movimientos y animaciones épicas que marquen la diferencia"). Todo va con transform/opacity, sin librerías. Solo se activa con JS y sin "reducir movimiento" (clase `.fx` en `<html>`); si el script falla, la página queda quieta y completa.
+  - **Intro** (una vez por pestaña, ~1,5 s, se saltea con clic, tecla o scroll): el círculo grande del logo aparece con rebote, el chico sale de adentro, "aicia" sube letra por letra, y la página se abre como un portal desde el círculo, con un anillo de luz.
+  - **Titulares** palabra por palabra, subiendo desde atrás de una línea. La frase en serif lleva un brillo que la cruza cada 7 s. Las etiquetas se "decodifican" (letras al azar que se acomodan), un guiño a la IA.
+  - **Inicio**: la escena del teléfono entra girando en 3D, flota, se inclina con el mouse (con la luz y la notificación en otros planos) y, sin mouse, se mece sola. Al bajar, el texto se despide y la escena se queda un poco más.
+  - **Fondo**: la luz de cada sección respira y va más lenta que el contenido. Con mouse, la grilla se ilumina alrededor del cursor.
+  - **Barra**: línea de progreso de lectura y una cápsula de vidrio que se mueve a la sección activa.
+  - **El problema**: las notificaciones llegan con rebote (de los costados en compu, de arriba en celular) y quedan flotando.
+  - **Servicios**: las tarjetas entran en 3D, sus ítems de a uno y los tildes se dibujan. Con mouse, se inclinan y un borde de luz sigue al cursor (lo mismo en los logos de clientes). Las herramientas pasan en una cinta infinita.
+  - **Cómo trabajamos**: la línea se dibuja con el scroll y prende cada paso con un anillo de luz.
+  - **Clientes**: el apretón se abre desde el centro; los logos entran girando.
+  - **Proyectos**: el video llega girado en 3D y se endereza con el scroll. La lista de pasos **sigue al video**: se prende el paso que se está viendo (tiempos `CP`, los mismos de `video-bsas.html`) y cada paso salta a su parte del video.
+  - **Contacto**: el botón tiene un brillo que lo cruza y un imán hacia el cursor; la mano se acerca al botón y "toca".
+  - **Pie**: "aicia" gigante sube letra por letra con el scroll.
+- `node capturas.mjs` saca capturas de escritorio (1440) y celular (390) en `capturas/` (no va al repo), con "reducir movimiento" para ver la página completa, y controla desbordes e imágenes sin cargar. Las animaciones se revisan con una demo grabada con Playwright (su Chromium no trae H.264: para probar la lista sincronizada hay que servir el video en webm).
 - Pendiente: dominio, imagen para compartir (og:image) y, si Guille quiere, formulario o Google Analytics. Estado: **primera versión, esperando el OK de Guille**.
