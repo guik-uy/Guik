@@ -41,7 +41,7 @@ body{font-family:"Geist",system-ui,sans-serif;-webkit-font-smoothing:antialiased
 .eyebrow{align-self:flex-start;font-size:31px;font-weight:600;letter-spacing:-0.015em;line-height:1.2;background:linear-gradient(90deg,#D9DAFF,#9A9BFA);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .title{margin-top:20px;font-size:108px;font-weight:600;letter-spacing:-0.045em;line-height:.98;color:#fff;white-space:nowrap}
 .title .serif{font-size:124px;letter-spacing:-0.02em;line-height:.8;background:linear-gradient(100deg,#B9BBFF 0%,#ECEDFF 52%,#C3C5FF 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;padding:0 .1em .14em 0}
-.lede{margin-top:34px;max-width:700px;font-size:34px;line-height:1.38;color:rgba(226,228,255,.80);letter-spacing:-0.012em;text-wrap:pretty}
+.lede{margin-top:34px;max-width:700px;font-size:34px;line-height:1.38;color:rgba(226,228,255,.80);letter-spacing:-0.012em;text-wrap:balance}
 .contact{margin-top:22px;font-size:34px;line-height:1.38;letter-spacing:-0.012em;color:#8F91B8}
 .contact b{font-weight:500;color:#fff}
 .sig{left:0;right:0;bottom:86px;z-index:22;text-align:center;font-size:26px;font-weight:600;letter-spacing:-0.035em;line-height:1;color:#fff;text-shadow:0 1px 14px rgba(3,3,16,.45)}
@@ -65,7 +65,7 @@ const SLIDES = {
   'bsas-top-01-portada': { ...BSAS, video: 'video-bsas.html', t: 2.9, from: [534, 1181], at: [1380, 450], k: 1.06,
     logo: ['logo-bsas-top-blanco.png', 100], title: 'Reservas<br><span class="serif">online.</span>',
     lede: 'Web para Buenos Aires Top: los jugadores eligen día, horario y cancha, y reservan solos.' },
-  'bsas-top-02-dia-y-horario': { ...BSAS, video: 'video-bsas.html', t: 6.55, from: [540, 1095], at: [1372, 520], k: .87, title: 'Elegí día y<br><span class="serif">horario.</span>' },
+  'bsas-top-02-dia-y-horario': { ...BSAS, video: 'video-bsas.html', t: 6.9, from: [540, 1095], at: [1372, 520], k: .87, title: 'Elegí día y<br><span class="serif">horario.</span>' },
   'bsas-top-03-datos': { ...BSAS, video: 'video-bsas.html', t: 18.0, from: [540, 1095], at: [1372, 520], k: .87, title: 'Completá tus<br><span class="serif">datos.</span>' },
   'bsas-top-04-sena': { ...BSAS, video: 'video-bsas.html', t: 20.2, from: [540, 1095], at: [1372, 520], k: .87, title: 'Seña con<br><span class="serif">Mercado Pago.</span>' },
   'bsas-top-05-confirmada': { ...BSAS, video: 'video-bsas.html', t: 22.4, from: [540, 1095], at: [1372, 520], k: .87, title: 'Reserva<br><span class="serif">confirmada.</span>' },
@@ -77,9 +77,9 @@ const SLIDES = {
   'fc-barber-02-dorso': { ...FC, video: 'video-barber.html', t: 7.7, from: [541, 1152], at: [1372, 520], k: .95, title: 'Del otro lado,<br><span class="serif">el turno.</span>',
     lede: 'Teléfono, Instagram y las dos direcciones.' },
   'fc-barber-03-qr': { ...FC, video: 'video-barber.html', t: 10.6, from: [560, 1185], at: [1420, 540], k: 1.0, pad: 1300, window: true, title: 'Un QR para<br><span class="serif">reservar.</span>' },
-  'fc-barber-04-formatos': { ...FC, video: 'video-barber.html', t: 15.2, from: [540, 1240], at: [1372, 540], k: 1.0, title: 'Dos formatos,<br><span class="serif">dos colores.</span>',
+  'fc-barber-04-formatos': { ...FC, video: 'video-barber.html', t: 15.2, from: [540, 1240], at: [1395, 520], k: .97, title: 'Dos formatos,<br><span class="serif">dos colores.</span>',
     lede: 'Horizontal y vertical, con dorso blanco o negro.' },
-  'fc-barber-05-cierre': { ...FC, video: 'video-barber.html', t: 22.2, from: [540, 1230], at: [1372, 540], k: .98, title: 'Hechas por<br><span class="serif">Aicia.</span>',
+  'fc-barber-05-cierre': { ...FC, video: 'video-barber.html', t: 22.2, from: [540, 1230], at: [1405, 510], k: .95, title: 'Hechas por<br><span class="serif">Aicia.</span>',
     lede: '¿Querés tarjetas así para tu negocio? Escribime.', contact: true },
 };
 window.SLIDES = Object.keys(SLIDES);
