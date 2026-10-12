@@ -70,7 +70,12 @@ body{font-family:"Geist",system-ui,sans-serif;-webkit-font-smoothing:antialiased
 #scr .pcam{position:absolute;left:0;top:0;width:1512px;transform-origin:0 0}
 #scr .pcam img{position:absolute;left:0;top:0;width:1512px;display:block}
 #scr .dip{position:absolute;inset:0;background:#030406;opacity:0}
-#scr .gl{position:absolute;inset:0;pointer-events:none;background:linear-gradient(112deg,rgba(255,255,255,0) 18%,rgba(255,255,255,.08) 34%,rgba(255,255,255,0) 50%),radial-gradient(120% 90% at 0% 0%,rgba(255,255,255,.06),transparent 55%)}
+#scr .gl{position:absolute;inset:0;pointer-events:none;background:linear-gradient(112deg,rgba(255,255,255,0) 40%,rgba(255,255,255,.075) 47%,rgba(255,255,255,.02) 52%,rgba(255,255,255,0) 58%),radial-gradient(120% 90% at 0% 0%,rgba(255,255,255,.06),transparent 55%);background-size:260% 100%,100% 100%;background-repeat:no-repeat}
+/* Pantalla real: el vidrio se oscurece apenas en los bordes, debajo del marco */
+#scr .edge{position:absolute;inset:0;pointer-events:none;border-radius:inherit;box-shadow:inset 0 0 0 1.5px rgba(0,0,0,.6),inset 0 0 40px rgba(0,0,0,.38)}
+/* Luz de la pantalla sobre la laptop y sobre la mesa (se mueve con cada dispositivo) */
+.spill{z-index:6;pointer-events:none;mix-blend-mode:screen}
+.spill svg{display:block;width:100%;height:100%}
 /* En la MacBook, arriba de todo va la barra de menú negra de macOS (ahí cae el notch); el navegador empieza abajo */
 #scr .mbar{position:absolute;left:0;right:0;top:0;height:var(--mb,0px);background:#000}
 #scr .bar{top:var(--mb,0px)}
@@ -106,8 +111,12 @@ body{font-family:"Geist",system-ui,sans-serif;-webkit-font-smoothing:antialiased
     <div class="mbar"></div>
     <div class="bar"><i></i><i></i><i></i><span class="addr"><svg viewBox="0 0 24 24"><rect x="6" y="10.5" width="12" height="9" rx="2"/><path d="M8.8 10.5V8a3.2 3.2 0 0 1 6.4 0v2.5"/></svg>AeroSport</span></div>
     <div class="pg"><div class="pcam" id="pcam"><img id="pgA" alt=""><img id="pgB" alt=""></div><div class="dip" id="dip"></div></div>
-    <div class="gl"></div>
+    <div class="edge"></div><div class="gl"></div>
   </div>
+  <div class="spill" id="lapS"><svg viewBox="0 0 1200 1200" aria-hidden="true"><defs><radialGradient id="spL" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#C9D4FF" stop-opacity=".55"/><stop offset=".5" stop-color="#8F9BFF" stop-opacity=".18"/><stop offset="1" stop-color="#8F9BFF" stop-opacity="0"/></radialGradient></defs>
+    <ellipse cx="560" cy="808" rx="330" ry="16" fill="url(#spL)"/></svg></div>
+  <div class="spill" id="sdmS"><svg viewBox="0 0 736 920" aria-hidden="true"><defs><radialGradient id="spS" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#D6DEFF" stop-opacity=".42"/><stop offset=".55" stop-color="#9AA6FF" stop-opacity=".12"/><stop offset="1" stop-color="#9AA6FF" stop-opacity="0"/></radialGradient></defs>
+    <ellipse cx="368" cy="668" rx="300" ry="26" fill="url(#spS)"/></svg></div>
   <div class="notch" id="lapN"><svg viewBox="0 0 1200 1200" aria-hidden="true">
     <path d="M545.6 376.5L546.2 381L546.9 390.6Q547.6 394.4 552.9 396.6L603.6 411.9Q607.6 412.6 608.3 408.4L608.7 399.6L609.2 395.2Z" fill="#050506"/>
     <circle cx="578" cy="394.2" r="2.4" fill="#12131c"/><circle cx="577.4" cy="393.6" r=".7" fill="#3a3d5c"/>
@@ -145,9 +154,8 @@ const DEV = {
   sdm: { src: 'assets/studio-display-mesa.png', w: 736, h: 920, s: 1.5, left: -12, top: 560, aspect: 559 / 315,
          quad: [[86, 230], [645, 230], [645, 545], [86, 545]] },
 };
-// Panel como el de Bs.As. Top; la web de AeroSport es más ancha (grabación de 1920 px), así que llena el alto
-// y se recorta apenas a los costados (queda todo el contenido, del logo a "Mis reservas")
-const PANEL = { cx: 540, cy: 1110, w: 1032, aspect: 1.72 };
+// La página flota en un panel con su proporción exacta: se ve entera y natural, sin zoom ni recortes (pedido de Guille)
+const PANEL = { cx: 540, cy: 1110, w: 1032, aspect: 1512 / (52 + 699) };
 // Tramos de la grabación: [t inicio, t fin, segundo inicio, segundo fin]. CUTS = cortes con fundido corto.
 const CLIPS = [
   [0, 0.45, 6.55, 6.55],        // la página recién recargada (en negro)
@@ -160,24 +168,12 @@ const CLIPS = [
   [15.0, 16.5, 26.2, 27.25],    // baja y toca "Pagar $1.200"
   [16.5, 17.4, 44.0, 44.32],    // vuelve de Mercado Pago: "Esperando tu pago" → "Listo" (sin las páginas de Mercado Pago)
   [17.4, 20.8, 44.32, 48.2],    // turno confirmado
-  [20.8, 21.3, 48.2, 49.4],     // vuelve al inicio
-  [21.3, 25.6, 49.4, 50.5],     // inicio, ya en el Studio Display
+  [20.8, 21.3, 48.2, 48.75],    // vuelve al inicio
+  [21.3, 25.6, 48.75, 50.05],   // el inicio aparece de nuevo (texto, botones y fotos) mientras entra al Studio Display; antes de que baje
 ];
 const CUTS = [16.5], XF = .3;
 const T_UP = 20.8, T_EX = 21.3, T_END = 25.5; // vuelve al inicio · entra al monitor · fin
 window.DUR = T_END;
-// Cámara dentro de la página: [t, empuje, centro x, centro y] en px de la página (1512 de ancho).
-// La página siempre llena el alto de la pantalla; encima, un empuje mínimo como en Bs.As. Top (Guille: "no tanto zoom").
-const PCAM = [
-  [0, 1, 756, 0], [4.6, 1, 756, 0],
-  [5.3, 1.0, 750, 250], [7.5, 1.03, 750, 260],     // día y horario
-  [7.8, 1.0, 750, 330], [9.2, 1.025, 750, 330],     // canchas
-  [9.6, 1.0, 750, 340], [14.9, 1.03, 750, 350],     // formulario
-  [15.2, 1.0, 750, 420], [17.2, 1.025, 750, 430],   // pagar y "Listo"
-  [17.5, 1.0, 750, 330], [20.7, 1.035, 750, 330],   // turno confirmado
-  [21.2, 1, 756, 0], [25.6, 1, 756, 0],
-];
-
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 const lerp = (a, b, u) => a + (b - a) * u;
 const io4 = u => (u = clamp(u)) < .5 ? 8 * u ** 4 : 1 - Math.pow(-2 * u + 2, 4) / 2;
@@ -187,8 +183,8 @@ const seg = (t, a, b) => clamp((t - a) / (b - a));
 
 function build() {
   for (const [id, d] of Object.entries(DEV)) {
-    const el = document.getElementById(id), nt = document.getElementById(id + 'N');
-    for (const e of [el, nt].filter(Boolean)) Object.assign(e.style, { left: d.left + 'px', top: d.top + 'px', width: d.w * d.s + 'px', height: d.h * d.s + 'px' });
+    const el = document.getElementById(id), nt = document.getElementById(id + 'N'), sp = document.getElementById(id + 'S');
+    for (const e of [el, nt, sp].filter(Boolean)) Object.assign(e.style, { left: d.left + 'px', top: d.top + 'px', width: d.w * d.s + 'px', height: d.h * d.s + 'px' });
     if (BAKED) el.innerHTML = `<img src=".video-out/bake/${el.dataset.bake}.png" alt="">`;
     else {
       const sh = d.shadow ? `<div class="cshadow" style="left:${(d.shadow[0] - d.shadow[2] / 2) * d.s}px;top:${(d.shadow[1] - d.shadow[3] / 2) * d.s}px;width:${d.shadow[2] * d.s}px;height:${d.shadow[3] * d.s}px"></div>` : '';
@@ -198,14 +194,14 @@ function build() {
     const pts = d.quad.map(([x, y]) => [d.left + x * d.s, d.top + y * d.s]);
     d.base = pts; d.c0 = [pts.reduce((a, p) => a + p[0], 0) / 4, pts.reduce((a, p) => a + p[1], 0) / 4];
     d.sw = Math.max(...pts.map(p => p[0])) - Math.min(...pts.map(p => p[0]));
-    for (const e of [el, nt].filter(Boolean)) e.style.transformOrigin = `${d.c0[0] - d.left}px ${d.c0[1] - d.top}px`;
+    for (const e of [el, nt, sp].filter(Boolean)) e.style.transformOrigin = `${d.c0[0] - d.left}px ${d.c0[1] - d.top}px`;
   }
 }
 
 // Cámara de un dispositivo: escala k alrededor del centro de su pantalla, que se mueve a c
 function cam(id, k, c, op) {
   const d = DEV[id];
-  for (const el of [document.getElementById(id), document.getElementById(id + 'N')].filter(Boolean)) {
+  for (const el of [document.getElementById(id), document.getElementById(id + 'N'), document.getElementById(id + 'S')].filter(Boolean)) {
     el.style.transform = `translate(${c[0] - d.c0[0]}px,${c[1] - d.c0[1]}px) scale(${k})`;
     el.style.opacity = op;
   }
@@ -254,54 +250,79 @@ const RUNS = (() => {
 })();
 function absAt(t) { for (const r of RUNS) if (t < r.t1) return r.f(Math.max(t, r.t0)); return RUNS.at(-1).f(t); }
 const frameNo = abs => abs * 60;
-// En la MacBook se usa el inicio estirado hacia abajo (su pantalla es más alta que la grabación)
-const HOME_LAST = 563; // último cuadro del inicio antes de tocar "Reservar cancha"
-const frameSrc = n => `.frames/${n <= HOME_LAST ? 'aero-home' : 'aero'}/f${String(n).padStart(5, '0')}.jpg`;
-const pageH = n => n <= HOME_LAST ? 866 : 699; // alto de la página en cada juego de cuadros
-const PZ = monotone(PCAM.map(k => k[0]), PCAM.map(k => k[1])), PX = monotone(PCAM.map(k => k[0]), PCAM.map(k => k[2])), PY = monotone(PCAM.map(k => k[0]), PCAM.map(k => k[3]));
-const pageCam = t => [PZ(t), PX(t), PY(t)];
+// El inicio (al principio y al final) usa los cuadros estirados hacia abajo: las pantallas de la MacBook y del
+// Studio Display son más altas que la grabación, y así la página las llena sin zoom
+const isHome = n => n <= 563 || n >= 2892; // hasta tocar "Reservar cancha" · desde que vuelve al inicio
+const frameSrc = n => `.frames/${isHome(n) ? 'aero-home' : 'aero'}/f${String(n).padStart(5, '0')}.jpg`;
+const pageH = n => isHome(n) ? 945 : 699; // alto de la página en cada juego de cuadros
+
+// Curva suave (Fritsch–Butland, como en video-barber.html): velocidad continua, sin frenadas en seco
+function smooth(xs, ys, v0 = 0) {
+  const n = xs.length, h = [], d = [], m = new Array(n);
+  for (let k = 0; k < n - 1; k++) { h.push(xs[k + 1] - xs[k]); d.push((ys[k + 1] - ys[k]) / h[k]); }
+  m[0] = Math.min(v0, 3) * d[0]; m[n - 1] = d[n - 2];
+  for (let k = 1; k < n - 1; k++) m[k] = d[k - 1] * d[k] <= 0 ? 0 : 3 * (h[k - 1] + h[k]) / ((2 * h[k] + h[k - 1]) / d[k - 1] + (h[k] + 2 * h[k - 1]) / d[k]);
+  return x => {
+    if (x <= xs[0]) return ys[0];
+    if (x >= xs[n - 1]) return ys[n - 1] + m[n - 1] * (x - xs[n - 1]);
+    let k = 0; while (x > xs[k + 1]) k++;
+    const u = (x - xs[k]) / h[k], u2 = u * u, u3 = u2 * u;
+    return (2 * u3 - 3 * u2 + 1) * ys[k] + (u3 - 2 * u2 + u) * h[k] * m[k] + (-2 * u3 + 3 * u2) * ys[k + 1] + (u3 - u2) * h[k] * m[k + 1];
+  };
+}
 // Ventanas con desenfoque de movimiento real (el grabador promedia varios instantes por cuadro)
-window.MBLUR = [[2.9, 4.6], [4.4, 5.3], [20.7, 22.9]];
+window.MBLUR = [[2.7, 4.7], [21.1, 23.0]];
 
 // Texto: entra y sale con opacidad, un poco de movimiento y desenfoque
 function txt(sel, f) { document.querySelectorAll(sel).forEach((e, i) => { const [o, y, b] = f(i); e.style.opacity = o; e.style.transform = `translateY(${y}px)`; e.style.filter = b > .05 ? `blur(${b.toFixed(2)}px)` : ''; }); }
 const inOut = (t, a, b, ia = .55, ob = .4) => { const i = out(seg(t, a, a + ia)), o = io(seg(t, b - ob, b)); return [i * (1 - o), 24 * (1 - i) - 16 * o, 7 * (1 - i) + 7 * o]; };
 
+// Cámara: un solo movimiento continuo en cada punta (sin frenar entre el acercamiento y la entrada a la pantalla).
+// Se interpola el logaritmo del zoom (se siente parejo) y el centro acompaña al zoom, como un travelling real.
+let LK_IN, LK_OUT;
+function cameras() {
+  const kIn = PANEL.w / DEV.lap.sw * 1.2, kOut = PANEL.w * 1.02 / DEV.sdm.sw;
+  LK_IN = smooth([0, 3.0, 4.3], [0, Math.log(1.055), Math.log(kIn)], 1);
+  LK_OUT = smooth([T_EX, T_EX + 1.4, T_END], [Math.log(kOut), 0, Math.log(.972)], 0);
+}
+// Panel flotando: se asienta al llegar, crece apenas y flota muy suave (no es zoom de la página: la página no se mueve)
+const panelScale = t => (1 + .015 * io(seg(t, 4.4, T_UP))) * (1 + .012 * (1 - io(seg(t, 3.9, 5.3))));
+const panelFloat = t => 3.5 * Math.sin(2 * Math.PI * (t - 4.4) / 7.5) * seg(t, 4.0, 5.5) * (1 - seg(t, T_UP - .8, T_EX));
+
 window.renderAt = async function (t) {
+  if (!LK_IN) cameras();
   const scr = document.getElementById('scr');
-  let q, aspect, rad, mb = 0, blur = 0;
-  // --- MacBook: acercamiento lento; después la cámara entra en la pantalla.
+  let q, aspect, rad, mb = 0, blur = 0, dev = 0, glx = 0;
+  const P = (sc, dy = 0) => panel(sc).map(([x, y]) => [x, y + dy]);
+  // --- MacBook: empuje lento que, sin frenar, se convierte en la entrada a la pantalla.
   // La web queda pegada a la laptop hasta la mitad del viaje y recién ahí se endereza, mientras la laptop se desvanece.
-  const lp = DEV.lap, kEnd = PANEL.w / lp.sw;
+  const lp = DEV.lap;
   if (t < 4.4) {
-    const push = 1 + .045 * out(t / 3.0);
-    const u = seg(t, 3.0, 4.35), e = io4(u);
-    const k = push * Math.exp(e * Math.log(kEnd * 1.22 / push));
-    const c = [lerp(lp.c0[0], PANEL.cx, e), lerp(lp.c0[1], PANEL.cy, e)];
-    const qs = cam('lap', k, c, 1 - io(seg(t, 3.62, 4.08)));
-    const f = io(seg(t, 3.5, 4.35));
-    q = mix(qs, panel(1.012), f); aspect = lerp(lp.aspect, PANEL.aspect, f); rad = lerp(7, 26, f); mb = 36 * (1 - f);
+    const lk = LK_IN(t), e = clamp(lk / LK_IN(4.3)), k = Math.exp(lk);
+    const c = [lerp(lp.c0[0], PANEL.cx, e), lerp(lp.c0[1], PANEL.cy, e) - 10 * seg(t, 0, 3.2)];
+    const qs = cam('lap', k, c, 1 - io(seg(t, 3.55, 4.05)));
+    const f = io(seg(t, 3.45, 4.3));
+    q = mix(qs, P(panelScale(t), panelFloat(t)), f); aspect = lerp(lp.aspect, PANEL.aspect, f); rad = lerp(7, 26, f); mb = 36 * (1 - f);
+    dev = 1 - f; glx = 18 + 40 * e;
   } else cam('lap', 1, lp.c0, 0);
-  // --- Adentro: la web flota de frente; al llegar se asienta suave (1,2 % más grande → tamaño final)
-  const p2 = (1 + .035 * io(seg(t, 4.4, T_UP))) * (1 + .012 * (1 - out(seg(t, 4.35, 5.1))));
-  if (t >= 4.4 && t < T_EX) { q = panel(p2); aspect = PANEL.aspect; rad = 26; }
-  // --- Studio Display sobre la mesa: la web se achica y entra justo en la pantalla, la cámara se aleja
-  const sm = DEV.sdm, pEnd = 1.035, kStart = PANEL.w * pEnd / sm.sw;
-  const smEl = document.getElementById('sdm');
+  // --- Adentro: la web flota de frente, natural (sin zoom adentro de la página)
+  if (t >= 4.4 && t < T_EX) { q = P(panelScale(t), panelFloat(t)); aspect = PANEL.aspect; rad = 26; }
+  // --- Studio Display sobre la mesa: la web se achica y entra justo en la pantalla, y la cámara sigue alejándose suave
+  const sm = DEV.sdm, smEl = document.getElementById('sdm');
   if (t >= T_EX) {
-    const u = seg(t, T_EX, T_EX + 1.3), g = io(u);
-    const k = Math.exp(lerp(Math.log(kStart), 0, g)) * (1 + .025 * out(seg(t, T_EX + 1.3, T_END)));
+    const lk = LK_OUT(t), g = clamp((LK_OUT(T_EX) - lk) / LK_OUT(T_EX)), k = Math.exp(lk);
     const c = [lerp(PANEL.cx, sm.c0[0], g), lerp(PANEL.cy, sm.c0[1], g)];
     const qm = cam('sdm', k, c, io(seg(t, T_EX, T_EX + .55)));
-    const h = io(seg(t, T_EX, T_EX + .65));
-    q = mix(panel(pEnd), qm, h); aspect = lerp(PANEL.aspect, sm.aspect, h); rad = lerp(26, 3, h);
-    const dof = 2.4 * (1 - out(seg(t, T_EX, T_EX + .8)));   // el monitor aparece de desenfocado a nítido
+    const h = io(seg(t, T_EX, T_EX + .7));
+    q = mix(P(panelScale(t)), qm, h); aspect = lerp(PANEL.aspect, sm.aspect, h); rad = lerp(26, 3, h);
+    const dof = 2.4 * (1 - io(seg(t, T_EX, T_EX + .9)));   // el monitor aparece de desenfocado a nítido
     smEl.style.filter = dof > .05 ? `blur(${dof.toFixed(2)}px)` : '';
+    dev = h; glx = 70 - 30 * g;
   } else { cam('sdm', 1, sm.c0, 0); smEl.style.filter = ''; }
   document.getElementById('glow').style.opacity = .4 * Math.sin(Math.PI * seg(t, 3.4, 5.2)) + .22 * Math.sin(Math.PI * seg(t, T_EX - .3, T_EX + 1.5));
   // sombra suave bajo la web cuando flota sola
   const sh = document.getElementById('shadow'), inside = seg(t, 3.9, 4.4) * (1 - seg(t, T_EX, T_EX + .45));
-  const pr = panel(p2); sh.style.opacity = inside * .9;
+  const pr = P(panelScale(t), panelFloat(t)); sh.style.opacity = inside * .9;
   sh.style.transform = `translate(${pr[0][0] + 30}px,${pr[0][1] + 60}px) scale(${(pr[1][0] - pr[0][0] - 60) / 100},${(pr[3][1] - pr[0][1] - 20) / 100})`;
 
   const W = 1512, H = Math.round(W / aspect), Hp = H - 52 - mb;
@@ -309,6 +330,9 @@ window.renderAt = async function (t) {
   scr.style.borderRadius = (rad * W / Math.hypot(q[1][0] - q[0][0], q[1][1] - q[0][1])) + 'px';
   fitTo(scr, W, H, q);
   scr.style.filter = blur > .05 ? `blur(${blur.toFixed(2)}px)` : '';
+  // pantalla real en los dispositivos: borde interior y un reflejo del vidrio que se corre con la cámara
+  scr.querySelector('.edge').style.opacity = (.35 + .65 * dev).toFixed(3);
+  const gl = scr.querySelector('.gl'); gl.style.opacity = (.55 + .45 * dev).toFixed(3); gl.style.backgroundPosition = `${(t >= 4.4 && t < T_EX ? 40 + 6 * seg(t, 4.4, T_EX) : glx).toFixed(2)}% 0,0 0`;
   // cuadros de la grabación: se funden el anterior y el siguiente según la fracción (cámara lenta fluida);
   // en los cortes, pestañeo corto a oscuro (sin doble exposición)
   const A = document.getElementById('pgA'), B = document.getElementById('pgB'), cut = CUTS.find(c => Math.abs(t - c) < XF / 2);
@@ -320,14 +344,9 @@ window.renderAt = async function (t) {
   await Promise.all(loads);
   B.style.opacity = !STILL && s1 && B.naturalWidth ? fr.toFixed(3) : 0; // en imagen fija, un solo cuadro nítido
   document.getElementById('dip').style.opacity = cut != null ? .9 * Math.sin(Math.PI * seg(t, cut - XF / 2, cut + XF / 2)) : 0;
-  // cámara dentro de la página (zoom a la parte que importa, sin salirse de la página);
-  // en los dispositivos, el zoom justo para que la página llene la pantalla
-  const PH = pageH(f0);
-  let [z, cx, cy] = pageCam(t);
-  z *= Math.max(1, Hp / PH);
-  let tx = W / 2 - cx * z, ty = Hp / 2 - cy * z;
-  tx = clamp(tx, W - 1512 * z, 0); ty = PH * z > Hp ? clamp(ty, Hp - PH * z, 0) : 0;
-  document.getElementById('pcam').style.transform = `translate(${tx}px,${ty}px) scale(${z})`;
+  // la página va siempre entera, arriba y a tamaño natural (solo si una pantalla fuera más alta, la llena)
+  const PH = pageH(f0), z = Math.max(1, Hp / PH), tx = (W - 1512 * z) / 2;
+  document.getElementById('pcam').style.transform = `translate(${tx.toFixed(2)}px,0px) scale(${z.toFixed(4)})`;
 
   // --- Textos
   txt('.g1', i => { const a = .15 + i * .12, [o, y, b] = inOut(t, a, 3.2, .6, .55); return [o, y, b]; });
