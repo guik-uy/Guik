@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Aicia · Proyectos · AeroSport (video)</title>
+<!-- Historia en video de la web de AeroSport, armada como línea de tiempo (25,5 s). Mismo sistema que video-bsas.html.
+     renderAt(t) deja la escena en el segundo t; render-timeline.mjs la graba cuadro por cuadro.
+     0–3 s        MacBook flotante con la web (la cámara/notch queda arriba de la página) + texto
+     0–1,5 s      la página se recarga y aparece el inicio
+     3–4,4 s      la cámara entra en la pantalla y la web queda de frente
+     4,4–20,8 s   una reserva completa: día y horario → cancha → datos → pagar con Mercado Pago → "Listo" → confirmada
+                  (se saltea Mercado Pago; pestañeo corto a oscuro en el corte)
+     20,8–21,3 s  la página vuelve al inicio
+     21,3–22,6 s  la web entra en el Studio Display sobre la mesa y la cámara se aleja
+     22,6–25,5 s  cierre "Hecha por Aicia." -->
+<style>
+@font-face{font-family:"Geist";src:url(fonts/geist-latin-wght-normal.woff2) format("woff2");font-weight:100 900;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2212}
+@font-face{font-family:"Geist";src:url(fonts/geist-latin-ext-wght-normal.woff2) format("woff2");font-weight:100 900;unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Instrument Serif";src:url(fonts/instrument-serif-latin-400-italic.woff2) format("woff2");font-style:italic;font-weight:400}
+:root{--t2:#B9BBDA;--m:64px}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#15151d}
+body{font-family:"Geist",system-ui,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision}
+.story{width:1080px;height:1920px;position:relative;overflow:hidden;background:#06061A;color:#F4F4FA;isolation:isolate}
+.story > *{position:absolute}
+.serif{font-family:"Instrument Serif",serif;font-style:italic;font-weight:400}
+
+.stage{inset:0;background:
+  radial-gradient(1200px 980px at 50% 62%,rgba(79,70,229,.60),rgba(67,56,202,.20) 42%,transparent 70%),
+  radial-gradient(900px 600px at 0% 0%,rgba(67,56,202,.16),transparent 70%),
+  linear-gradient(180deg,#05051A 0%,#090924 38%,#100E36 100%)}
+.grid{inset:0;background-image:linear-gradient(rgba(199,201,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(199,201,255,.07) 1px,transparent 1px);background-size:119px 119px;background-position:64px 250px;
+  -webkit-mask:radial-gradient(1000px 1100px at 50% 62%,#000 0%,rgba(0,0,0,.5) 45%,transparent 75%);mask:radial-gradient(1000px 1100px at 50% 62%,#000 0%,rgba(0,0,0,.5) 45%,transparent 75%)}
+.vignette{inset:0;z-index:20;pointer-events:none;background:radial-gradient(130% 90% at 50% 45%,transparent 60%,rgba(3,3,14,.55) 100%)}
+.basefade{left:0;right:0;bottom:0;height:360px;z-index:20;pointer-events:none;background:linear-gradient(180deg,rgba(4,4,20,0) 0%,rgba(4,4,20,.55) 55%,rgba(4,4,20,.9) 100%)}
+.sig{left:0;right:0;top:1836px;z-index:22;text-align:center;font-size:26px;font-weight:600;letter-spacing:-0.035em;line-height:1;color:#fff;text-shadow:0 1px 14px rgba(3,3,16,.45)}
+
+/* Texto */
+.tx{z-index:21;left:var(--m);will-change:transform,opacity}
+.eyebrow{top:384px;font-size:31px;font-weight:600;letter-spacing:-0.015em;background:linear-gradient(90deg,#D9DAFF,#9A9BFA);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.title{top:440px;font-size:132px;font-weight:600;letter-spacing:-0.045em;line-height:.98;color:#fff;white-space:nowrap}
+.title .serif{font-size:150px;letter-spacing:-0.02em;line-height:.8;background:linear-gradient(100deg,#B9BBFF 0%,#ECEDFF 52%,#C3C5FF 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;padding:0 .1em .14em 0}
+.title.sm{font-size:112px}.title.sm .serif{font-size:128px}
+.lede{top:734px;width:952px;font-size:34px;line-height:1.38;color:rgba(226,228,255,.80);letter-spacing:-0.012em}
+.cl-logo{top:262px;width:92px;filter:drop-shadow(0 8px 18px rgba(4,3,26,.5))}
+
+/* Dispositivos */
+.dev{z-index:5;transform-origin:0 0;will-change:transform,opacity}
+.dev > *{position:absolute;left:0;top:0;width:100%;height:100%}
+.dev .subj{isolation:isolate}
+.dev .subj > *{position:absolute;inset:0;width:100%;height:100%}
+.dev .subj img{filter:url(#cut) contrast(1.08) brightness(.94) saturate(.9)}
+.dev .tint{background:linear-gradient(180deg,#6366F1,#3B32B8);mix-blend-mode:color;opacity:.12}
+.dev .rim{mix-blend-mode:screen;opacity:.38;background:linear-gradient(90deg,rgba(199,201,255,.85) 0%,rgba(129,132,255,.25) 22%,transparent 45%)}
+.dev .blacks{background:#0B0A24;mix-blend-mode:lighten;opacity:.5}
+.dev .falloff{mix-blend-mode:multiply;background:radial-gradient(70% 60% at 50% 40%,rgba(255,255,255,0) 45%,rgba(60,52,150,.32) 100%),linear-gradient(180deg,rgba(255,255,255,0) 55%,rgba(40,34,120,.34) 100%)}
+.dev .tint,.dev .rim,.dev .blacks,.dev .falloff{-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+.dev .cshadow{border-radius:50%;background:radial-gradient(closest-side,rgba(2,2,14,.8),rgba(2,2,14,.35) 55%,rgba(2,2,14,0))}
+#glow{z-index:3;left:0;top:0;width:1080px;height:1920px;pointer-events:none;background:radial-gradient(760px 520px at 540px 1120px,rgba(129,132,255,.55),rgba(99,102,241,.18) 50%,transparent 75%);opacity:0}
+
+/* Pantalla: barra de navegador + página + brillo del vidrio */
+#scr{left:0;top:0;width:1512px;z-index:6;transform-origin:0 0;overflow:hidden;background:#0A0A0A;will-change:transform}
+#scr .bar{position:absolute;left:0;top:0;right:0;height:52px;display:flex;align-items:center;gap:8px;padding:0 20px;background:linear-gradient(180deg,#26262A,#1E1E21);box-shadow:inset 0 -1px 0 rgba(0,0,0,.6)}
+#scr .bar i{width:12px;height:12px;border-radius:50%;background:#FF5F57}
+#scr .bar i:nth-child(2){background:#FEBC2E}#scr .bar i:nth-child(3){background:#28C840}
+#scr .addr{position:absolute;left:50%;top:10px;width:420px;height:32px;margin-left:-210px;border-radius:8px;background:#333337;display:flex;align-items:center;justify-content:center;gap:7px;font-size:15px;font-weight:500;color:#E5E5EA}
+#scr .addr svg{width:14px;height:14px;fill:none;stroke:#A1A1A6;stroke-width:2;stroke-linecap:round}
+#scr .pg{position:absolute;left:0;right:0;top:52px;bottom:0;overflow:hidden}
+#scr .pg{background:#030406}
+#scr .pcam{position:absolute;left:0;top:0;width:1512px;transform-origin:0 0}
+#scr .pcam img{position:absolute;left:0;top:0;width:1512px;display:block}
+#scr .dip{position:absolute;inset:0;background:#030406;opacity:0}
+#scr .gl{position:absolute;inset:0;pointer-events:none;background:linear-gradient(112deg,rgba(255,255,255,0) 18%,rgba(255,255,255,.08) 34%,rgba(255,255,255,0) 50%),radial-gradient(120% 90% at 0% 0%,rgba(255,255,255,.06),transparent 55%)}
+/* En la MacBook, arriba de todo va la barra de menú negra de macOS (ahí cae el notch); el navegador empieza abajo */
+#scr .mbar{position:absolute;left:0;right:0;top:0;height:var(--mb,0px);background:#000}
+#scr .bar{top:var(--mb,0px)}
+#scr .pg{top:calc(52px + var(--mb,0px))}
+/* Cámara (notch) de la MacBook: va encima de la página, como en una MacBook real */
+.notch{z-index:7;pointer-events:none}
+.notch svg{display:block;width:100%;height:100%}
+#shadow{z-index:4;left:0;top:0;width:100px;height:100px;border-radius:40px;background:rgba(3,2,20,.7);filter:blur(40px);transform-origin:0 0}
+/* Modo imagen fija (?still): solo la escena (dispositivos o tarjetas), sin fondo ni textos, para armar otros formatos
+   (las imágenes horizontales de LinkedIn). ?pad=N deja aire alrededor para que nada se corte en el borde de la historia. */
+.still,.still body{background:transparent}
+.still .story{background:transparent;overflow:visible}
+.still .stage,.still .grid,.still .vignette,.still .basefade,.still .sig,.still .tx{display:none}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <filter id="cut" color-interpolation-filters="sRGB" x="-2%" y="-2%" width="104%" height="104%">
+    <feConvolveMatrix in="SourceGraphic" order="3" kernelMatrix="0 -0.28 0 -0.28 2.12 -0.28 0 -0.28 0" preserveAlpha="true" result="s"/>
+    <feMorphology in="SourceAlpha" operator="erode" radius="0.8" result="e"/>
+    <feGaussianBlur in="e" stdDeviation="0.7" result="eb"/>
+    <feComposite in="s" in2="eb" operator="in"/>
+  </filter>
+</defs></svg>
+
+<section class="story" id="story" data-file="aicia-proyectos-aerosport-web.png" data-video="aicia-proyectos-aerosport-web.mp4">
+  <div class="stage"></div><div class="grid"></div>
+  <div id="shadow"></div>
+  <div class="dev" id="lap" data-bake="macbook-flotante"></div>
+  <div class="dev" id="sdm" data-bake="studio-display-mesa"></div>
+  <div id="glow"></div>
+  <div id="scr">
+    <div class="mbar"></div>
+    <div class="bar"><i></i><i></i><i></i><span class="addr"><svg viewBox="0 0 24 24"><rect x="6" y="10.5" width="12" height="9" rx="2"/><path d="M8.8 10.5V8a3.2 3.2 0 0 1 6.4 0v2.5"/></svg>AeroSport</span></div>
+    <div class="pg"><div class="pcam" id="pcam"><img id="pgA" alt=""><img id="pgB" alt=""></div><div class="dip" id="dip"></div></div>
+    <div class="gl"></div>
+  </div>
+  <div class="notch" id="lapN"><svg viewBox="0 0 1200 1200" aria-hidden="true">
+    <path d="M545.6 376.5L546.2 381L546.9 390.6Q547.6 394.4 552.9 396.6L603.6 411.9Q607.6 412.6 608.3 408.4L608.7 399.6L609.2 395.2Z" fill="#050506"/>
+    <circle cx="578" cy="394.2" r="2.4" fill="#12131c"/><circle cx="577.4" cy="393.6" r=".7" fill="#3a3d5c"/>
+  </svg></div>
+
+  <!-- Escena 1 -->
+  <img class="tx cl-logo g1" src="assets/logo-aerosport.png" alt="AeroSport">
+  <div class="tx eyebrow g1">Proyecto · Página web</div>
+  <h1 class="tx title g1">Reservá tu<br><span class="serif">cancha.</span></h1>
+  <p class="tx lede g1">Web para AeroSport: los jugadores eligen día,<br>horario y cancha, y pagan con Mercado Pago.</p>
+  <!-- Escena 2: un título por paso de la reserva -->
+  <div class="tx eyebrow g2e">AeroSport · Así se reserva</div>
+  <h2 class="tx title sm cp">Elegí día y<br><span class="serif">horario.</span></h2>
+  <h2 class="tx title sm cp">Elegí la<br><span class="serif">cancha.</span></h2>
+  <h2 class="tx title sm cp">Completá tus<br><span class="serif">datos.</span></h2>
+  <h2 class="tx title sm cp">Pagá con<br><span class="serif">Mercado Pago.</span></h2>
+  <h2 class="tx title sm cp">Reserva<br><span class="serif">confirmada.</span></h2>
+  <!-- Escena 3 -->
+  <div class="tx eyebrow g3">AeroSport · Página web</div>
+  <h2 class="tx title g3">Hecha por<br><span class="serif">Aicia.</span></h2>
+  <p class="tx lede g3">¿Querés una web así para tu negocio? Escribinos.</p>
+
+  <div class="vignette"></div><div class="basefade"></div><div class="sig">aicia</div>
+</section>
+
+<script>
+const Q = new URLSearchParams(location.search);
+const STILL = Q.has('still');
+if (STILL) { document.documentElement.classList.add('still'); const pad = +(Q.get('pad') || 0); Object.assign(document.getElementById('story').style, { marginLeft: pad + 'px', marginTop: pad + 'px' }); }
+const BAKED = Q.has('baked');
+// Dispositivos: foto (pantalla en negro), escala y posición base en la historia, esquinas de la pantalla en px de la foto
+const DEV = {
+  lap: { src: 'assets/macbook-flotante.png', w: 1200, h: 1200, s: 1.0, left: -57.5, top: 600, aspect: 1.54,
+         quad: [[276.2, 299.3], [797.4, 460.1], [821.5, 805.6], [244.6, 769.8]] },
+  sdm: { src: 'assets/studio-display-mesa.png', w: 736, h: 920, s: 1.5, left: -12, top: 560, aspect: 559 / 315,
+         quad: [[86, 230], [645, 230], [645, 545], [86, 545]] },
+};
+// Panel como el de Bs.As. Top; la web de AeroSport es más ancha (grabación de 1920 px), así que llena el alto
+// y se recorta apenas a los costados (queda todo el contenido, del logo a "Mis reservas")
+const PANEL = { cx: 540, cy: 1110, w: 1032, aspect: 1.72 };
+// Tramos de la grabación: [t inicio, t fin, segundo inicio, segundo fin]. CUTS = cortes con fundido corto.
+const CLIPS = [
+  [0, 0.45, 6.55, 6.55],        // la página recién recargada (en negro)
+  [0.45, 1.5, 6.55, 7.55],      // aparece el inicio (la animación de carga de la web)
+  [1.5, 4.4, 7.55, 9.0],        // inicio en la MacBook (cámara lenta suave)
+  [4.4, 5.3, 9.0, 10.25],       // toca "Reservar cancha" y aparece "Reservá tu cancha"
+  [5.3, 7.6, 10.25, 13.75],     // elige el miércoles 14 y las 08:00
+  [7.6, 9.3, 13.75, 15.35],     // elige la Cancha 3
+  [9.3, 15.0, 15.35, 26.2],     // nombre, celular y acepta (más rápido que en la grabación)
+  [15.0, 16.5, 26.2, 27.25],    // baja y toca "Pagar $1.200"
+  [16.5, 17.4, 44.0, 44.32],    // vuelve de Mercado Pago: "Esperando tu pago" → "Listo" (sin las páginas de Mercado Pago)
+  [17.4, 20.8, 44.32, 48.2],    // turno confirmado
+  [20.8, 21.3, 48.2, 49.4],     // vuelve al inicio
+  [21.3, 25.6, 49.4, 50.5],     // inicio, ya en el Studio Display
+];
+const CUTS = [16.5], XF = .3;
+const T_UP = 20.8, T_EX = 21.3, T_END = 25.5; // vuelve al inicio · entra al monitor · fin
+window.DUR = T_END;
+// Cámara dentro de la página: [t, empuje, centro x, centro y] en px de la página (1512 de ancho).
+// La página siempre llena el alto de la pantalla; encima, un empuje mínimo como en Bs.As. Top (Guille: "no tanto zoom").
+const PCAM = [
+  [0, 1, 756, 0], [4.6, 1, 756, 0],
+  [5.3, 1.0, 750, 250], [7.5, 1.03, 750, 260],     // día y horario
+  [7.8, 1.0, 750, 330], [9.2, 1.025, 750, 330],     // canchas
+  [9.6, 1.0, 750, 340], [14.9, 1.03, 750, 350],     // formulario
+  [15.2, 1.0, 750, 420], [17.2, 1.025, 750, 430],   // pagar y "Listo"
+  [17.5, 1.0, 750, 330], [20.7, 1.035, 750, 330],   // turno confirmado
+  [21.2, 1, 756, 0], [25.6, 1, 756, 0],
+];
+
+const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+const lerp = (a, b, u) => a + (b - a) * u;
+const io4 = u => (u = clamp(u)) < .5 ? 8 * u ** 4 : 1 - Math.pow(-2 * u + 2, 4) / 2;
+const io = u => (u = clamp(u)) < .5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2;
+const out = u => 1 - Math.pow(1 - clamp(u), 3);
+const seg = (t, a, b) => clamp((t - a) / (b - a));
+
+function build() {
+  for (const [id, d] of Object.entries(DEV)) {
+    const el = document.getElementById(id), nt = document.getElementById(id + 'N');
+    for (const e of [el, nt].filter(Boolean)) Object.assign(e.style, { left: d.left + 'px', top: d.top + 'px', width: d.w * d.s + 'px', height: d.h * d.s + 'px' });
+    if (BAKED) el.innerHTML = `<img src=".video-out/bake/${el.dataset.bake}.png" alt="">`;
+    else {
+      const sh = d.shadow ? `<div class="cshadow" style="left:${(d.shadow[0] - d.shadow[2] / 2) * d.s}px;top:${(d.shadow[1] - d.shadow[3] / 2) * d.s}px;width:${d.shadow[2] * d.s}px;height:${d.shadow[3] * d.s}px"></div>` : '';
+      el.innerHTML = `${sh}<div class="subj"><img src="${d.src}" alt=""><div class="tint"></div><div class="rim"></div></div><div class="blacks"></div><div class="falloff"></div>`;
+      el.querySelectorAll('.tint,.rim,.blacks,.falloff').forEach(m => { m.style.webkitMaskImage = m.style.maskImage = `url("${d.src}")`; });
+    }
+    const pts = d.quad.map(([x, y]) => [d.left + x * d.s, d.top + y * d.s]);
+    d.base = pts; d.c0 = [pts.reduce((a, p) => a + p[0], 0) / 4, pts.reduce((a, p) => a + p[1], 0) / 4];
+    d.sw = Math.max(...pts.map(p => p[0])) - Math.min(...pts.map(p => p[0]));
+    for (const e of [el, nt].filter(Boolean)) e.style.transformOrigin = `${d.c0[0] - d.left}px ${d.c0[1] - d.top}px`;
+  }
+}
+
+// Cámara de un dispositivo: escala k alrededor del centro de su pantalla, que se mueve a c
+function cam(id, k, c, op) {
+  const d = DEV[id];
+  for (const el of [document.getElementById(id), document.getElementById(id + 'N')].filter(Boolean)) {
+    el.style.transform = `translate(${c[0] - d.c0[0]}px,${c[1] - d.c0[1]}px) scale(${k})`;
+    el.style.opacity = op;
+  }
+  return d.base.map(([x, y]) => [c[0] + (x - d.c0[0]) * k, c[1] + (y - d.c0[1]) * k]);
+}
+function panel(sc = 1) {
+  const w = PANEL.w * sc, h = PANEL.w / PANEL.aspect * sc, x = PANEL.cx - w / 2, y = PANEL.cy - h / 2;
+  return [[x, y], [x + w, y], [x + w, y + h], [x, y + h]];
+}
+const mix = (A, B, u) => A.map((p, i) => [lerp(p[0], B[i][0], u), lerp(p[1], B[i][1], u)]);
+
+function fitTo(el, w, h, q) {
+  const [[x0, y0], [x1, y1], [x2, y2], [x3, y3]] = q;
+  const dx1 = x1 - x2, dx2 = x3 - x2, dx3 = x0 - x1 + x2 - x3, dy1 = y1 - y2, dy2 = y3 - y2, dy3 = y0 - y1 + y2 - y3;
+  const den = dx1 * dy2 - dx2 * dy1, g = (dx3 * dy2 - dx2 * dy3) / den, hh = (dx1 * dy3 - dx3 * dy1) / den;
+  const a = x1 - x0 + g * x1, b = x3 - x0 + hh * x3, d = y1 - y0 + g * y1, e = y3 - y0 + hh * y3;
+  el.style.transform = `matrix3d(${a / w},${d / w},0,${g / w},${b / h},${e / h},0,${hh / h},0,0,1,0,${x0},${y0},0,1)`;
+}
+
+// Curva monótona (Fritsch–Carlson) por puntos: velocidad continua, sin pasarse ni volver atrás.
+function monotone(xs, ys) {
+  const n = xs.length, d = [], m = new Array(n);
+  for (let k = 0; k < n - 1; k++) d.push((ys[k + 1] - ys[k]) / (xs[k + 1] - xs[k]));
+  m[0] = d[0]; m[n - 1] = d[n - 2];
+  for (let k = 1; k < n - 1; k++) m[k] = d[k - 1] * d[k] <= 0 ? 0 : (d[k - 1] + d[k]) / 2;
+  for (let k = 0; k < n - 1; k++) {
+    if (d[k] === 0) { m[k] = 0; m[k + 1] = 0; continue; }
+    const al = m[k] / d[k], be = m[k + 1] / d[k], r = al * al + be * be;
+    if (r > 9) { const tau = 3 / Math.sqrt(r); m[k] = tau * al * d[k]; m[k + 1] = tau * be * d[k]; }
+  }
+  return x => {
+    if (x <= xs[0]) return ys[0]; if (x >= xs[n - 1]) return ys[n - 1];
+    let k = 0; while (x > xs[k + 1]) k++;
+    const h = xs[k + 1] - xs[k], u = (x - xs[k]) / h, u2 = u * u, u3 = u2 * u;
+    return (2 * u3 - 3 * u2 + 1) * ys[k] + (u3 - 2 * u2 + u) * h * m[k] + (-2 * u3 + 3 * u2) * ys[k + 1] + (u3 - u2) * h * m[k + 1];
+  };
+}
+// Tramos continuos de la grabación (se cortan donde hay un salto) → una curva por tramo
+const RUNS = (() => {
+  const runs = []; let cur = null;
+  for (const [t0, t1, a0, a1] of CLIPS) {
+    if (!cur || Math.abs(cur.a.at(-1) - a0) > 1e-6 || Math.abs(cur.t.at(-1) - t0) > 1e-6) { cur = { t: [t0], a: [a0] }; runs.push(cur); }
+    cur.t.push(t1); cur.a.push(a1);
+  }
+  return runs.map(r => ({ t0: r.t[0], t1: r.t.at(-1), f: monotone(r.t, r.a) }));
+})();
+function absAt(t) { for (const r of RUNS) if (t < r.t1) return r.f(Math.max(t, r.t0)); return RUNS.at(-1).f(t); }
+const frameNo = abs => abs * 60;
+// En la MacBook se usa el inicio estirado hacia abajo (su pantalla es más alta que la grabación)
+const HOME_LAST = 563; // último cuadro del inicio antes de tocar "Reservar cancha"
+const frameSrc = n => `.frames/${n <= HOME_LAST ? 'aero-home' : 'aero'}/f${String(n).padStart(5, '0')}.jpg`;
+const pageH = n => n <= HOME_LAST ? 866 : 699; // alto de la página en cada juego de cuadros
+const PZ = monotone(PCAM.map(k => k[0]), PCAM.map(k => k[1])), PX = monotone(PCAM.map(k => k[0]), PCAM.map(k => k[2])), PY = monotone(PCAM.map(k => k[0]), PCAM.map(k => k[3]));
+const pageCam = t => [PZ(t), PX(t), PY(t)];
+// Ventanas con desenfoque de movimiento real (el grabador promedia varios instantes por cuadro)
+window.MBLUR = [[2.9, 4.6], [4.4, 5.3], [20.7, 22.9]];
+
+// Texto: entra y sale con opacidad, un poco de movimiento y desenfoque
+function txt(sel, f) { document.querySelectorAll(sel).forEach((e, i) => { const [o, y, b] = f(i); e.style.opacity = o; e.style.transform = `translateY(${y}px)`; e.style.filter = b > .05 ? `blur(${b.toFixed(2)}px)` : ''; }); }
+const inOut = (t, a, b, ia = .55, ob = .4) => { const i = out(seg(t, a, a + ia)), o = io(seg(t, b - ob, b)); return [i * (1 - o), 24 * (1 - i) - 16 * o, 7 * (1 - i) + 7 * o]; };
+
+window.renderAt = async function (t) {
+  const scr = document.getElementById('scr');
+  let q, aspect, rad, mb = 0, blur = 0;
+  // --- MacBook: acercamiento lento; después la cámara entra en la pantalla.
+  // La web queda pegada a la laptop hasta la mitad del viaje y recién ahí se endereza, mientras la laptop se desvanece.
+  const lp = DEV.lap, kEnd = PANEL.w / lp.sw;
+  if (t < 4.4) {
+    const push = 1 + .045 * out(t / 3.0);
+    const u = seg(t, 3.0, 4.35), e = io4(u);
+    const k = push * Math.exp(e * Math.log(kEnd * 1.22 / push));
+    const c = [lerp(lp.c0[0], PANEL.cx, e), lerp(lp.c0[1], PANEL.cy, e)];
+    const qs = cam('lap', k, c, 1 - io(seg(t, 3.62, 4.08)));
+    const f = io(seg(t, 3.5, 4.35));
+    q = mix(qs, panel(1.012), f); aspect = lerp(lp.aspect, PANEL.aspect, f); rad = lerp(7, 26, f); mb = 36 * (1 - f);
+  } else cam('lap', 1, lp.c0, 0);
+  // --- Adentro: la web flota de frente; al llegar se asienta suave (1,2 % más grande → tamaño final)
+  const p2 = (1 + .035 * io(seg(t, 4.4, T_UP))) * (1 + .012 * (1 - out(seg(t, 4.35, 5.1))));
+  if (t >= 4.4 && t < T_EX) { q = panel(p2); aspect = PANEL.aspect; rad = 26; }
+  // --- Studio Display sobre la mesa: la web se achica y entra justo en la pantalla, la cámara se aleja
+  const sm = DEV.sdm, pEnd = 1.035, kStart = PANEL.w * pEnd / sm.sw;
+  const smEl = document.getElementById('sdm');
+  if (t >= T_EX) {
+    const u = seg(t, T_EX, T_EX + 1.3), g = io(u);
+    const k = Math.exp(lerp(Math.log(kStart), 0, g)) * (1 + .025 * out(seg(t, T_EX + 1.3, T_END)));
+    const c = [lerp(PANEL.cx, sm.c0[0], g), lerp(PANEL.cy, sm.c0[1], g)];
+    const qm = cam('sdm', k, c, io(seg(t, T_EX, T_EX + .55)));
+    const h = io(seg(t, T_EX, T_EX + .65));
+    q = mix(panel(pEnd), qm, h); aspect = lerp(PANEL.aspect, sm.aspect, h); rad = lerp(26, 3, h);
+    const dof = 2.4 * (1 - out(seg(t, T_EX, T_EX + .8)));   // el monitor aparece de desenfocado a nítido
+    smEl.style.filter = dof > .05 ? `blur(${dof.toFixed(2)}px)` : '';
+  } else { cam('sdm', 1, sm.c0, 0); smEl.style.filter = ''; }
+  document.getElementById('glow').style.opacity = .4 * Math.sin(Math.PI * seg(t, 3.4, 5.2)) + .22 * Math.sin(Math.PI * seg(t, T_EX - .3, T_EX + 1.5));
+  // sombra suave bajo la web cuando flota sola
+  const sh = document.getElementById('shadow'), inside = seg(t, 3.9, 4.4) * (1 - seg(t, T_EX, T_EX + .45));
+  const pr = panel(p2); sh.style.opacity = inside * .9;
+  sh.style.transform = `translate(${pr[0][0] + 30}px,${pr[0][1] + 60}px) scale(${(pr[1][0] - pr[0][0] - 60) / 100},${(pr[3][1] - pr[0][1] - 20) / 100})`;
+
+  const W = 1512, H = Math.round(W / aspect), Hp = H - 52 - mb;
+  scr.style.height = H + 'px'; scr.style.setProperty('--mb', mb.toFixed(2) + 'px');
+  scr.style.borderRadius = (rad * W / Math.hypot(q[1][0] - q[0][0], q[1][1] - q[0][1])) + 'px';
+  fitTo(scr, W, H, q);
+  scr.style.filter = blur > .05 ? `blur(${blur.toFixed(2)}px)` : '';
+  // cuadros de la grabación: se funden el anterior y el siguiente según la fracción (cámara lenta fluida);
+  // en los cortes, pestañeo corto a oscuro (sin doble exposición)
+  const A = document.getElementById('pgA'), B = document.getElementById('pgB'), cut = CUTS.find(c => Math.abs(t - c) < XF / 2);
+  const fn = frameNo(absAt(cut != null && t < cut ? cut - 1e-3 : t)), f0 = Math.floor(fn + 1e-6);
+  const same = pageH(f0) === pageH(f0 + 1), fr = cut != null || !same ? 0 : fn - f0;
+  const s0 = frameSrc(f0), s1 = fr > .02 ? frameSrc(f0 + 1) : null, loads = [];
+  if (A.getAttribute('src') !== s0) { A.src = s0; loads.push(A.decode()); }
+  if (s1 && B.getAttribute('src') !== s1) { B.src = s1; loads.push(B.decode().catch(() => {})); }
+  await Promise.all(loads);
+  B.style.opacity = !STILL && s1 && B.naturalWidth ? fr.toFixed(3) : 0; // en imagen fija, un solo cuadro nítido
+  document.getElementById('dip').style.opacity = cut != null ? .9 * Math.sin(Math.PI * seg(t, cut - XF / 2, cut + XF / 2)) : 0;
+  // cámara dentro de la página (zoom a la parte que importa, sin salirse de la página);
+  // en los dispositivos, el zoom justo para que la página llene la pantalla
+  const PH = pageH(f0);
+  let [z, cx, cy] = pageCam(t);
+  z *= Math.max(1, Hp / PH);
+  let tx = W / 2 - cx * z, ty = Hp / 2 - cy * z;
+  tx = clamp(tx, W - 1512 * z, 0); ty = PH * z > Hp ? clamp(ty, Hp - PH * z, 0) : 0;
+  document.getElementById('pcam').style.transform = `translate(${tx}px,${ty}px) scale(${z})`;
+
+  // --- Textos
+  txt('.g1', i => { const a = .15 + i * .12, [o, y, b] = inOut(t, a, 3.2, .6, .55); return [o, y, b]; });
+  txt('.g2e', () => inOut(t, 4.45, T_UP - .05, .5, .4));
+  const CP = [[5.3, 7.55], [7.65, 9.25], [9.35, 14.9], [15.0, 17.2], [17.35, 20.75]];
+  txt('.cp', i => inOut(t, CP[i][0], CP[i][1], .5, .35));
+  txt('.g3', i => { const [o, y, b] = inOut(t, T_EX + 1.1 + i * .12, 99, .65); return [o, y, b]; });
+};
+
+(async () => {
+  build();
+  await Promise.all([...document.images].map(im => im.complete ? 0 : new Promise(r => { im.onload = im.onerror = r; })));
+  await document.fonts.ready;
+  await window.renderAt(+(Q.get('t') || 2));
+  window.__ready = true;
+})().catch(e => { window.__error = String(e && e.stack || e); });
+</script>
+</body>
+</html>

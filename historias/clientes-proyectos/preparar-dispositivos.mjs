@@ -9,9 +9,14 @@ const items = [
   { src: 'studio-display-original.png', out: 'studio-display.png', seed: [540, 480] },
   { src: 'ipad-manos-original.png', out: 'ipad-manos.png', seed: [593, 380], fix: { 2: [857.5, 579.5] }, // el pulgar tapa el borde derecho
     thumb: [[815,475],[827,477],[840,489],[852,506],[862,520],[862,592],[831,592],[829,573],[825,557],[820,540],[815,523],[811,507],[807,490],[809,480]] },
+  // Video de AeroSport: MacBook flotante (la cámara/notch se dibuja aparte, encima de la página) y Studio Display sobre la mesa
+  { src: 'macbook-flotante-original.png', out: 'macbook-flotante.png', seed: [700, 470] },
+  { src: 'studio-display-mesa-original.png', out: 'studio-display-mesa.png', seed: [230, 470] },
 ];
+const only = process.argv.slice(2); // opcional: solo los archivos de salida nombrados
 const b = await chromium.launch(); const p = await b.newPage();
 for (const it of items) {
+  if (only.length && !only.includes(it.out)) continue;
   if (it.quad) { // pantalla medida a mano: solo pintarla
     const r = await p.evaluate(async ({ data, Q }) => {
       const img = new Image(); img.src = data; await img.decode();
