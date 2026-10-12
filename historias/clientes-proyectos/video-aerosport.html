@@ -271,7 +271,7 @@ function smooth(xs, ys, v0 = 0) {
   };
 }
 // Ventanas con desenfoque de movimiento real (el grabador promedia varios instantes por cuadro)
-window.MBLUR = [[2.7, 4.7], [21.1, 23.0]];
+window.MBLUR = [[2.7, 4.7], [15.3, 15.9], [21.1, 23.0]]; // entrada a la MacBook · scroll antes de pagar · salida al Studio Display
 
 // Texto: entra y sale con opacidad, un poco de movimiento y desenfoque
 function txt(sel, f) { document.querySelectorAll(sel).forEach((e, i) => { const [o, y, b] = f(i); e.style.opacity = o; e.style.transform = `translateY(${y}px)`; e.style.filter = b > .05 ? `blur(${b.toFixed(2)}px)` : ''; }); }
