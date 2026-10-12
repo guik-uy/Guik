@@ -10,6 +10,9 @@
 - La raíz (`index.html`, `manifest.json`, `sw.js`) es **Guik**, una app de gimnasio aparte. No tocarla salvo que la pida.
 - `historias/` contiene las **historias destacadas de Instagram de Aicia**, que es el trabajo actual.
 - `aicia-web/` es la **página web de Aicia** (ver "Web de Aicia" más abajo).
+- `aicia-linkedin/` es el **banner del LinkedIn personal de Guille** (`banner.html` → `node aicia-linkedin/render.mjs` → `banner-linkedin.png` 1584×396 y `banner-linkedin@2x.png` 3168×792, más `vista-previa-guia.png` con la zona de la foto marcada y `vista-previa-50.png`).
+  - Usa el mismo sistema que las historias y la web: noche índigo, índigo, lavanda, Geist + "a cualquier hora." en Instrument Serif. Guille pidió "navy, crema y violeta con Fraunces y Poppins", pero esos colores y fuentes nunca se definieron, así que se usó el sistema real, sin inventar colores.
+  - El texto no entra en la zona de la foto (x 0–520) ni en la franja de abajo (últimos 90 px), y hay solo 3 tamaños de letra (46, 22 y 18 px): `render.mjs` lo controla. En el medio va la ventana de chat (cliente y negocio a las 23:40).
 - Rama de trabajo: `claude/eloquent-volta-h5jy6a`.
 
 ## Historias de Instagram (Aicia)
