@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Aicia · Proyectos para LinkedIn (imágenes 1920×1080)</title>
+<!-- Versiones en imagen fija de los dos videos de Proyectos, para la sección Proyectos de LinkedIn (no acepta video).
+     La escena de la derecha es la del video, congelada al final de cada escena: se carga el mismo video-*.html
+     en modo ?still (sin fondo ni textos) dentro de un iframe y se ubica a la derecha. El fondo y los textos son
+     los del video (mismas luces, grilla, Geist + Instrument Serif), acomodados en horizontal.
+     Uso: proyectos.html?s=bsas-top-01-portada  ·  render: node aicia-linkedin/render-proyectos.mjs -->
+<style>
+@font-face{font-family:"Geist";src:url(../historias/clientes-proyectos/fonts/geist-latin-wght-normal.woff2) format("woff2");font-weight:100 900;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2212}
+@font-face{font-family:"Geist";src:url(../historias/clientes-proyectos/fonts/geist-latin-ext-wght-normal.woff2) format("woff2");font-weight:100 900;unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Instrument Serif";src:url(../historias/clientes-proyectos/fonts/instrument-serif-latin-400-italic.woff2) format("woff2");font-style:italic;font-weight:400}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#06061A}
+body{font-family:"Geist",system-ui,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision}
+.slide{width:1920px;height:1080px;position:relative;overflow:hidden;background:#06061A;color:#F4F4FA;isolation:isolate}
+.slide > *{position:absolute}
+.serif{font-family:"Instrument Serif",serif;font-style:italic;font-weight:400}
+
+/* Fondo: el mismo de los videos (luz índigo detrás de la escena, grilla de 119 px que se desvanece, viñeta) */
+.stage{inset:0;background:
+  radial-gradient(1250px 980px at 71% 52%,rgba(79,70,229,.60),rgba(67,56,202,.20) 42%,transparent 70%),
+  radial-gradient(900px 600px at 0% 0%,rgba(67,56,202,.16),transparent 70%),
+  linear-gradient(180deg,#05051A 0%,#090924 38%,#100E36 100%)}
+.grid{inset:0;background-image:linear-gradient(rgba(199,201,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(199,201,255,.07) 1px,transparent 1px);background-size:119px 119px;background-position:120px 60px;
+  -webkit-mask:radial-gradient(1150px 900px at 71% 52%,#000 0%,rgba(0,0,0,.5) 45%,transparent 75%);mask:radial-gradient(1150px 900px at 71% 52%,#000 0%,rgba(0,0,0,.5) 45%,transparent 75%)}
+.vignette{inset:0;z-index:20;pointer-events:none;background:radial-gradient(120% 110% at 60% 50%,transparent 58%,rgba(3,3,14,.55) 100%)}
+.basefade{left:0;right:0;bottom:0;height:300px;z-index:20;pointer-events:none;background:linear-gradient(180deg,rgba(4,4,20,0) 0%,rgba(4,4,20,.55) 55%,rgba(4,4,20,.9) 100%)}
+
+/* Escena del video */
+.scene{inset:0;z-index:5;overflow:hidden}
+.scene iframe{position:absolute;left:0;top:0;border:0;transform-origin:0 0;background:transparent;color-scheme:normal}
+/* En los primeros planos la escena llena la derecha y se funde antes de llegar al texto */
+.scene.window{-webkit-mask:linear-gradient(90deg,transparent 0,transparent 900px,#000 1080px);mask:linear-gradient(90deg,transparent 0,transparent 900px,#000 1080px)}
+
+/* Texto: los mismos estilos que los videos, a la izquierda */
+.tx{z-index:21;left:120px;top:0;bottom:0;width:760px;display:flex;flex-direction:column;justify-content:center;padding-bottom:40px}
+.cl-logo{align-self:flex-start;margin-bottom:28px;filter:drop-shadow(0 8px 18px rgba(4,3,26,.5))}
+.eyebrow{align-self:flex-start;font-size:31px;font-weight:600;letter-spacing:-0.015em;line-height:1.2;background:linear-gradient(90deg,#D9DAFF,#9A9BFA);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.title{margin-top:20px;font-size:108px;font-weight:600;letter-spacing:-0.045em;line-height:.98;color:#fff;white-space:nowrap}
+.title .serif{font-size:124px;letter-spacing:-0.02em;line-height:.8;background:linear-gradient(100deg,#B9BBFF 0%,#ECEDFF 52%,#C3C5FF 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;padding:0 .1em .14em 0}
+.lede{margin-top:34px;max-width:700px;font-size:34px;line-height:1.38;color:rgba(226,228,255,.80);letter-spacing:-0.012em;text-wrap:pretty}
+.contact{margin-top:22px;font-size:34px;line-height:1.38;letter-spacing:-0.012em;color:#8F91B8}
+.contact b{font-weight:500;color:#fff}
+.sig{left:0;right:0;bottom:86px;z-index:22;text-align:center;font-size:26px;font-weight:600;letter-spacing:-0.035em;line-height:1;color:#fff;text-shadow:0 1px 14px rgba(3,3,16,.45)}
+</style>
+</head>
+<body>
+<div class="slide" id="slide">
+  <div class="stage"></div><div class="grid"></div>
+  <div class="scene" id="scene"><iframe id="fr" title="Escena del video" scrolling="no"></iframe></div>
+  <div class="vignette"></div><div class="basefade"></div>
+  <div class="tx" id="tx"></div>
+  <div class="sig">aicia</div>
+</div>
+<script>
+const V = '../historias/clientes-proyectos/';
+const WA = '<p class="contact">WhatsApp <b>+598 91 284 655</b></p>';
+const BSAS = { eyebrow: 'Buenos Aires Top · Página web' }, FC = { eyebrow: 'FC Barber Shop · Tarjetas' };
+// Cada imagen: video, segundo del video (estado final de la escena), punto de la escena (px de la historia) que va a
+// `at` en la imagen, escala k, y los textos. pad = aire alrededor de la historia para que nada se corte.
+const SLIDES = {
+  'bsas-top-01-portada': { ...BSAS, video: 'video-bsas.html', t: 2.9, from: [534, 1181], at: [1380, 450], k: 1.06,
+    logo: ['logo-bsas-top-blanco.png', 100], title: 'Reservas<br><span class="serif">online.</span>',
+    lede: 'Web para Buenos Aires Top: los jugadores eligen día, horario y cancha, y reservan solos.' },
+  'bsas-top-02-dia-y-horario': { ...BSAS, video: 'video-bsas.html', t: 6.55, from: [540, 1095], at: [1372, 520], k: .87, title: 'Elegí día y<br><span class="serif">horario.</span>' },
+  'bsas-top-03-datos': { ...BSAS, video: 'video-bsas.html', t: 18.0, from: [540, 1095], at: [1372, 520], k: .87, title: 'Completá tus<br><span class="serif">datos.</span>' },
+  'bsas-top-04-sena': { ...BSAS, video: 'video-bsas.html', t: 20.2, from: [540, 1095], at: [1372, 520], k: .87, title: 'Seña con<br><span class="serif">Mercado Pago.</span>' },
+  'bsas-top-05-confirmada': { ...BSAS, video: 'video-bsas.html', t: 22.4, from: [540, 1095], at: [1372, 520], k: .87, title: 'Reserva<br><span class="serif">confirmada.</span>' },
+  'bsas-top-06-cierre': { ...BSAS, video: 'video-bsas.html', t: 27.2, from: [540, 1170], at: [1372, 470], k: 1.0, title: 'Hecha por<br><span class="serif">Aicia.</span>',
+    lede: '¿Querés una web así para tu negocio? Escribime.', contact: true },
+  'fc-barber-01-portada': { ...FC, video: 'video-barber.html', t: 4.0, from: [540, 1183], at: [1372, 520], k: 1.0,
+    logo: ['logo-fc-barber.png', 112], title: '¿Pensaste que<br>era <span class="serif">plata?</span>',
+    lede: 'Tarjetas para FC Barber Shop con forma de billete de $2.000.' },
+  'fc-barber-02-dorso': { ...FC, video: 'video-barber.html', t: 7.7, from: [541, 1152], at: [1372, 520], k: .95, title: 'Del otro lado,<br><span class="serif">el turno.</span>',
+    lede: 'Teléfono, Instagram y las dos direcciones.' },
+  'fc-barber-03-qr': { ...FC, video: 'video-barber.html', t: 10.6, from: [560, 1185], at: [1420, 540], k: 1.0, pad: 1300, window: true, title: 'Un QR para<br><span class="serif">reservar.</span>' },
+  'fc-barber-04-formatos': { ...FC, video: 'video-barber.html', t: 15.2, from: [540, 1240], at: [1372, 540], k: 1.0, title: 'Dos formatos,<br><span class="serif">dos colores.</span>',
+    lede: 'Horizontal y vertical, con dorso blanco o negro.' },
+  'fc-barber-05-cierre': { ...FC, video: 'video-barber.html', t: 22.2, from: [540, 1230], at: [1372, 540], k: .98, title: 'Hechas por<br><span class="serif">Aicia.</span>',
+    lede: '¿Querés tarjetas así para tu negocio? Escribime.', contact: true },
+};
+window.SLIDES = Object.keys(SLIDES);
+
+const id = new URLSearchParams(location.search).get('s') || 'bsas-top-01-portada', S = SLIDES[id];
+document.title = id;
+document.getElementById('tx').innerHTML =
+  (S.logo ? `<img class="cl-logo" src="${V}assets/${S.logo[0]}" style="width:${S.logo[1]}px" alt="">` : '') +
+  `<div class="eyebrow">${S.eyebrow}</div><h1 class="title">${S.title}</h1>` +
+  (S.lede ? `<p class="lede">${S.lede}</p>` : '') + (S.contact ? WA : '');
+const scene = document.getElementById('scene'), fr = document.getElementById('fr'), pad = S.pad ?? 500;
+scene.classList.toggle('window', !!S.window);
+Object.assign(fr.style, { width: 1080 + 2 * pad + 'px', height: 1920 + 2 * pad + 'px',
+  transform: `translate(${S.at[0] - (pad + S.from[0]) * S.k}px,${S.at[1] - (pad + S.from[1]) * S.k}px) scale(${S.k})` });
+fr.src = `${V}${S.video}?still&pad=${pad}&t=${S.t}`;
+fr.onload = () => {
+  const w = fr.contentWindow;
+  const poll = () => w.__error ? (window.__error = w.__error) : w.__ready ? document.fonts.ready.then(() => requestAnimationFrame(() => requestAnimationFrame(() => (window.__ready = true)))) : setTimeout(poll, 50);
+  poll();
+};
+</script>
+</body>
+</html>

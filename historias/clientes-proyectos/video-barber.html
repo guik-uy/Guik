@@ -63,6 +63,11 @@ body{font-family:"Geist",system-ui,sans-serif;-webkit-font-smoothing:antialiased
 .card .sh{background:#05041A;opacity:0}
 .card .ly::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.07;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
 .card .ly::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 1px rgba(255,255,255,.16),inset 0 1.5px 0 rgba(255,255,255,.30)}
+/* Modo imagen fija (?still): solo la escena (dispositivos o tarjetas), sin fondo ni textos, para armar otros formatos
+   (las imágenes horizontales de LinkedIn). ?pad=N deja aire alrededor para que nada se corte en el borde de la historia. */
+.still,.still body{background:transparent}
+.still .story{background:transparent;overflow:visible}
+.still .stage,.still .grid,.still .vignette,.still .basefade,.still .sig,.still .tx{display:none}
 </style>
 </head>
 <body>
@@ -99,6 +104,8 @@ body{font-family:"Geist",system-ui,sans-serif;-webkit-font-smoothing:antialiased
 
 <script>
 const Q = new URLSearchParams(location.search);
+const STILL = Q.has('still');
+if (STILL) { document.documentElement.classList.add('still'); const pad = +(Q.get('pad') || 0); Object.assign(document.getElementById('story').style, { marginLeft: pad + 'px', marginTop: pad + 'px' }); }
 const T = 'assets/fc-barber-tarjetas/';
 // Tarjetas: tamaño en px de la historia, cara de frente (billete) y dorso
 const CARDS = {

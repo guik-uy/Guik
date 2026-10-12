@@ -72,6 +72,11 @@ body{font-family:"Geist",system-ui,sans-serif;-webkit-font-smoothing:antialiased
 #scr .dip{position:absolute;inset:0;background:#0A0A0A;opacity:0}
 #scr .gl{position:absolute;inset:0;pointer-events:none;background:linear-gradient(112deg,rgba(255,255,255,0) 18%,rgba(255,255,255,.08) 34%,rgba(255,255,255,0) 50%),radial-gradient(120% 90% at 0% 0%,rgba(255,255,255,.06),transparent 55%)}
 #shadow{z-index:4;left:0;top:0;width:100px;height:100px;border-radius:40px;background:rgba(3,2,20,.7);filter:blur(40px);transform-origin:0 0}
+/* Modo imagen fija (?still): solo la escena (dispositivos o tarjetas), sin fondo ni textos, para armar otros formatos
+   (las imágenes horizontales de LinkedIn). ?pad=N deja aire alrededor para que nada se corte en el borde de la historia. */
+.still,.still body{background:transparent}
+.still .story{background:transparent;overflow:visible}
+.still .stage,.still .grid,.still .vignette,.still .basefade,.still .sig,.still .tx{display:none}
 </style>
 </head>
 <body>
@@ -118,6 +123,8 @@ body{font-family:"Geist",system-ui,sans-serif;-webkit-font-smoothing:antialiased
 
 <script>
 const Q = new URLSearchParams(location.search);
+const STILL = Q.has('still');
+if (STILL) { document.documentElement.classList.add('still'); const pad = +(Q.get('pad') || 0); Object.assign(document.getElementById('story').style, { marginLeft: pad + 'px', marginTop: pad + 'px' }); }
 const BAKED = Q.has('baked');
 // Dispositivos: foto (pantalla en negro), escala y posición base en la historia, esquinas de la pantalla en px de la foto
 const DEV = {
@@ -301,7 +308,7 @@ window.renderAt = async function (t) {
   if (A.getAttribute('src') !== s0) { A.src = s0; loads.push(A.decode()); }
   if (s1 && B.getAttribute('src') !== s1) { B.src = s1; loads.push(B.decode().catch(() => {})); }
   await Promise.all(loads);
-  B.style.opacity = s1 && B.naturalWidth ? fr.toFixed(3) : 0;
+  B.style.opacity = !STILL && s1 && B.naturalWidth ? fr.toFixed(3) : 0; // en imagen fija, un solo cuadro nítido
   document.getElementById('dip').style.opacity = cut != null ? .9 * Math.sin(Math.PI * seg(t, cut - XF / 2, cut + XF / 2)) : 0;
 
   // --- Textos
