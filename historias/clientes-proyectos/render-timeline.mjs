@@ -101,15 +101,26 @@ if (TEST) {
     await frame(n / FPS, f, tmp);
     if (n % 60 === 0) console.log(`cuadro ${n + 1}/${N} (${((Date.now() - t0) / 1000).toFixed(0)} s)`);
   }
+  // Textura de dithering fija (ruido triangular de ±1,5 niveles, siempre el mismo dibujo, no se mueve entre cuadros).
+  // Sin ella, en los degradés oscuros cada nivel de 8 bits queda como una franja plana de hasta ~200 px y se ven
+  // "líneas" (Guille las marcó). El +128 compensa que el paso de 16 a 8 bits corta en vez de redondear.
+  const dither = path.join(dir, '.video-out', 'dither-1080x1920.yuv');
+  if (!fs.existsSync(dither)) {
+    let s = 0x9e3779b9; const rnd = () => { s = s + 0x6D2B79F5 | 0; let t = Math.imul(s ^ s >>> 15, 1 | s); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+    const plane = (w, h) => { const b = Buffer.alloc(w * h * 2); for (let i = 0; i < w * h; i++) b.writeUInt16LE(Math.round(32768 + 128 + (rnd() + rnd() - 1) * 1.5 * 256), i * 2); return b; };
+    fs.writeFileSync(dither, Buffer.concat([plane(1080, 1920), plane(540, 960), plane(540, 960)]));
+  }
   execFileSync('ffmpeg', ['-v', 'error', '-y', '-framerate', String(FPS), '-i', path.join(out, '%04d.jpg'),
+    '-f', 'rawvideo', '-pix_fmt', 'yuv420p16le', '-s', '1080x1920', '-i', dither,
     // Sin grano en movimiento (Instagram lo convierte en bloques); un enfoque suave para que el texto aguante la recompresión.
-    // Degradés limpios (Guille vio "líneas y cuadros" en los fondos oscuros): se trabaja en 16 bits, se suavizan los
-    // escalones de los degradés (deband: solo diferencias de ~1 nivel, no toca texto ni líneas de la grilla) y al pasar
-    // a 8 bits se reparte el error (dithering fijo, no se mueve entre cuadros).
-    '-vf', `format=gbrp16le,deband=1thr=0.006:2thr=0.006:3thr=0.006:range=96:blur=1,scale=1080:1920:flags=lanczos+accurate_rnd+full_chroma_int,unsharp=5:5:${arg('sharp', '0.35')}:5:5:0,scale=out_color_matrix=bt709:out_range=tv:flags=accurate_rnd+full_chroma_int:sws_dither=ed,format=yuv420p`,
+    // Degradés limpios: todo en 16 bits, deband suaviza los escalones de ~1 nivel (no toca texto ni la grilla) y antes de
+    // pasar a 8 bits se suma la textura de dithering, así cada nivel se reparte en vez de formar franjas.
+    '-filter_complex', `[0:v]format=gbrp16le,deband=1thr=0.006:2thr=0.006:3thr=0.006:range=96:blur=1,scale=1080:1920:flags=lanczos+accurate_rnd+full_chroma_int,unsharp=5:5:${arg('sharp', '0.35')}:5:5:0,scale=out_color_matrix=bt709:out_range=tv:flags=accurate_rnd+full_chroma_int,format=yuv420p16le[v];` +
+      `[1:v]loop=loop=-1:size=1:start=0,setpts=N/${FPS}/TB[d];[v][d]blend=all_mode=grainmerge:shortest=1,scale=flags=accurate_rnd:sws_dither=none,format=yuv420p`,
     '-colorspace', 'bt709', '-color_primaries', 'bt709', '-color_trc', 'bt709',
     '-c:v', 'libx264', '-preset', 'veryslow', '-tune', 'film', '-crf', arg('crf', '12'), '-x264-params', 'aq-mode=3:aq-strength=1.3:deadzone-inter=0:deadzone-intra=0:no-dct-decimate=1:psy-rd=1.0,0.25', // más bits en lo oscuro y sin borrar el suavizado
-    '-profile:v', 'high', '-level', '4.2', '-g', '30', '-movflags', '+faststart', path.join(dir, meta.mp4)], { stdio: 'inherit' });
+    // Un cuadro clave cada 10 s: con uno por segundo el dithering se volvía a guardar entero cada vez y el video pasaba los 30 MB.
+    '-profile:v', 'high', '-level', '4.2', '-g', '300', '-movflags', '+faststart', path.join(dir, meta.mp4)], { stdio: 'inherit' });
   console.log(`ok ${meta.mp4} (${N} cuadros, ${((Date.now() - t0) / 1000).toFixed(0)} s)`);
 }
 await browser.close();

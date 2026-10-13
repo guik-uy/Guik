@@ -189,6 +189,10 @@ node exportar-instagram.mjs            # TODO listo para subir → historias/ins
     - **Remapeo de tiempo** y **cámara de página** con curvas monótonas (Fritsch–Carlson), así la velocidad nunca cambia de golpe.
     - MP4 x264 con crf 12, preset veryslow, tune film y aq-mode 3 (cuida los fondos oscuros). Pesa unos 23 MB, porque el chat no acepta más de ~30 MB.
     - **Sin grano en movimiento.** Guille dijo que el video "se veía mal": ese grano Instagram lo convierte en bloques.
+    - **Degradés lisos** (Guille vio "cuadros y líneas" en los fondos):
+      - en el HTML, cada degradé tiene ~32 paradas sobre una curva suave (`softBackgrounds()` en `video-aerosport.html`), así no quedan quiebres;
+      - al codificar, todo va en 16 bits con `deband`, y antes de pasar a 8 bits se suma una **textura de dithering fija** (ruido triangular de ±1,5 niveles que no se mueve; `.video-out/dither-1080x1920.yuv`). Sin ella, cada nivel de 8 bits del fondo oscuro quedaba como una franja plana de hasta ~200 px. No se ve a simple vista.
+      - Va un cuadro clave cada 10 s (`-g 300`): con uno por segundo, el dithering pasaba el video de 30 MB.
     - Enfoque suave (`unsharp` 0,35) para que el texto aguante la recompresión de Instagram.
     - Sin `--fresh`, si los cuadros ya están, solo re-codifica (~1 min). Se ajusta con `--crf` y `--sharp`.
   - `preparar-dispositivos.mjs` encuentra la pantalla de cada foto, mide las esquinas y la pinta de negro. La máscara del pulgar del iPad está medida a mano.
