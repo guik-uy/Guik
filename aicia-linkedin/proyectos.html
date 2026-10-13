@@ -58,7 +58,7 @@ body{font-family:"Geist",system-ui,sans-serif;-webkit-font-smoothing:antialiased
 <script>
 const V = '../historias/clientes-proyectos/';
 const WA = '<p class="contact">WhatsApp <b>+598 91 284 655</b></p>';
-const BSAS = { eyebrow: 'Buenos Aires Top · Página web' }, FC = { eyebrow: 'FC Barber Shop · Tarjetas' };
+const BSAS = { eyebrow: 'Buenos Aires Top · Página web' }, FC = { eyebrow: 'FC Barber Shop · Tarjetas' }, AERO = { eyebrow: 'AeroSport · Página web', video: 'video-aerosport.html' };
 // Cada imagen: video, segundo del video (estado final de la escena), punto de la escena (px de la historia) que va a
 // `at` en la imagen, escala k, y los textos. pad = aire alrededor de la historia para que nada se corte.
 const SLIDES = {
@@ -81,6 +81,16 @@ const SLIDES = {
     lede: 'Horizontal y vertical, con dorso blanco o negro.' },
   'fc-barber-05-cierre': { ...FC, video: 'video-barber.html', t: 22.2, from: [540, 1230], at: [1405, 510], k: .95, title: 'Hechas por<br><span class="serif">Aicia.</span>',
     lede: '¿Querés tarjetas así para tu negocio? Escribime.', contact: true },
+  'aerosport-01-portada': { ...AERO, t: 2.2, from: [540, 1180], at: [1390, 540], k: .86,
+    logo: ['logo-aerosport.png', 210], title: 'Reservá tu<br><span class="serif">cancha.</span>',
+    lede: 'Web para AeroSport: los jugadores eligen día, horario y cancha, y pagan con Mercado Pago.' },
+  'aerosport-02-dia-y-horario': { ...AERO, t: 7.4, from: [540, 1110], at: [1400, 540], k: .9, title: 'Elegí día y<br><span class="serif">horario.</span>' },
+  'aerosport-03-cancha': { ...AERO, t: 9.1, from: [540, 1110], at: [1400, 540], k: .9, title: 'Elegí la<br><span class="serif">cancha.</span>' },
+  'aerosport-04-datos': { ...AERO, t: 14.8, from: [540, 1110], at: [1400, 540], k: .9, title: 'Completá tus<br><span class="serif">datos.</span>' },
+  'aerosport-05-pago': { ...AERO, t: 16.3, from: [540, 1110], at: [1400, 540], k: .9, title: 'Pagá con<br><span class="serif">Mercado Pago.</span>' },
+  'aerosport-06-confirmada': { ...AERO, t: 20.2, from: [540, 1110], at: [1400, 540], k: .9, title: 'Reserva<br><span class="serif">confirmada.</span>' },
+  'aerosport-07-cierre': { ...AERO, t: 25.4, from: [540, 1230], at: [1450, 510], k: .9, window: [968, 1062], title: 'Hecha por<br><span class="serif">Aicia.</span>',
+    lede: '¿Querés una web así para tu negocio? Escribime.', contact: true },
 };
 window.SLIDES = Object.keys(SLIDES);
 
@@ -92,6 +102,8 @@ document.getElementById('tx').innerHTML =
   (S.lede ? `<p class="lede">${S.lede}</p>` : '') + (S.contact ? WA : '');
 const scene = document.getElementById('scene'), fr = document.getElementById('fr'), pad = S.pad ?? 500;
 scene.classList.toggle('window', !!S.window);
+// window: [x0, x1] = fundido propio (la mesa del Studio Display de AeroSport se corta en los bordes de la foto)
+if (Array.isArray(S.window)) scene.style.webkitMask = scene.style.mask = `linear-gradient(90deg,transparent ${S.window[0]}px,#000 ${S.window[1]}px)`;
 Object.assign(fr.style, { width: 1080 + 2 * pad + 'px', height: 1920 + 2 * pad + 'px',
   transform: `translate(${S.at[0] - (pad + S.from[0]) * S.k}px,${S.at[1] - (pad + S.from[1]) * S.k}px) scale(${S.k})` });
 fr.src = `${V}${S.video}?still&pad=${pad}&t=${S.t}`;

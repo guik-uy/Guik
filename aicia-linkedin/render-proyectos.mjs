@@ -1,6 +1,6 @@
-// Imágenes 1920×1080 de los proyectos para LinkedIn (versiones fijas de los videos de Bs.As. Top y FC Barber Shop).
+// Imágenes 1920×1080 de los proyectos para LinkedIn (versiones fijas de los videos de Bs.As. Top, FC Barber Shop y AeroSport).
 // Uso (desde la raíz del repo): NODE_PATH=$(npm root -g) node aicia-linkedin/render-proyectos.mjs [id ...]
-// Sin ids, saca todas. Cada una se dibuja al doble y se achica con lanczos. Necesita historias/clientes-proyectos/.frames/bsas3
+// Sin ids, saca todas. Cada una se dibuja al doble y se achica con lanczos. Necesita historias/clientes-proyectos/.frames/bsas3, aero y aero-home
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
