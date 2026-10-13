@@ -63,7 +63,7 @@ const page = await open('?baked&t=0', SS);
 const story = await page.$('.story');
 const meta = await page.$eval('.story', s => ({ png: s.dataset.file, mp4: s.dataset.video }));
 const MB = await page.evaluate(() => window.MBLUR || []);
-const shot = async (t, file, type = 'jpeg') => { await page.evaluate(t => window.renderAt(t), t); await story.screenshot(type === 'png' ? { path: file } : { path: file, type: 'jpeg', quality: 93 }); };
+const shot = async (t, file, type = 'jpeg') => { await page.evaluate(t => window.renderAt(t), t); await story.screenshot(type === 'png' ? { path: file } : { path: file, type: 'jpeg', quality: 97 }); };
 // Desenfoque de movimiento real: en las ventanas MBLUR el cuadro es el promedio de SUB instantes dentro del obturador
 const frame = async (t, file, tmp) => {
   if (DEMO || SUB < 2 || !MB.some(([a, b]) => t >= a && t <= b)) return shot(t, file);
@@ -102,10 +102,13 @@ if (TEST) {
     if (n % 60 === 0) console.log(`cuadro ${n + 1}/${N} (${((Date.now() - t0) / 1000).toFixed(0)} s)`);
   }
   execFileSync('ffmpeg', ['-v', 'error', '-y', '-framerate', String(FPS), '-i', path.join(out, '%04d.jpg'),
-    // Sin grano en movimiento (Instagram lo convierte en bloques); un enfoque suave para que el texto aguante la recompresión
-    '-vf', `scale=1080:1920:flags=lanczos+accurate_rnd+full_chroma_int,unsharp=5:5:${arg('sharp', '0.35')}:5:5:0,scale=out_color_matrix=bt709:out_range=tv:flags=accurate_rnd+full_chroma_int,format=yuv420p`,
+    // Sin grano en movimiento (Instagram lo convierte en bloques); un enfoque suave para que el texto aguante la recompresión.
+    // Degradés limpios (Guille vio "líneas y cuadros" en los fondos oscuros): se trabaja en 16 bits, se suavizan los
+    // escalones de los degradés (deband: solo diferencias de ~1 nivel, no toca texto ni líneas de la grilla) y al pasar
+    // a 8 bits se reparte el error (dithering fijo, no se mueve entre cuadros).
+    '-vf', `format=gbrp16le,deband=1thr=0.006:2thr=0.006:3thr=0.006:range=96:blur=1,scale=1080:1920:flags=lanczos+accurate_rnd+full_chroma_int,unsharp=5:5:${arg('sharp', '0.35')}:5:5:0,scale=out_color_matrix=bt709:out_range=tv:flags=accurate_rnd+full_chroma_int:sws_dither=ed,format=yuv420p`,
     '-colorspace', 'bt709', '-color_primaries', 'bt709', '-color_trc', 'bt709',
-    '-c:v', 'libx264', '-preset', 'veryslow', '-tune', 'film', '-crf', arg('crf', '12'), '-x264-params', 'aq-mode=3:aq-strength=0.9',
+    '-c:v', 'libx264', '-preset', 'veryslow', '-tune', 'film', '-crf', arg('crf', '12'), '-x264-params', 'aq-mode=3:aq-strength=1.3:deadzone-inter=0:deadzone-intra=0:no-dct-decimate=1:psy-rd=1.0,0.25', // más bits en lo oscuro y sin borrar el suavizado
     '-profile:v', 'high', '-level', '4.2', '-g', '30', '-movflags', '+faststart', path.join(dir, meta.mp4)], { stdio: 'inherit' });
   console.log(`ok ${meta.mp4} (${N} cuadros, ${((Date.now() - t0) / 1000).toFixed(0)} s)`);
 }
