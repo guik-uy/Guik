@@ -86,11 +86,11 @@ if (TEST) {
   fs.rmSync(out, { recursive: true, force: true });
   console.log(`ok .video-out/${name}.mp4 (${N} cuadros, ${((Date.now() - t0) / 1000).toFixed(0)} s)`);
 } else {
-  const tmpPng = path.join(dir, '.video-out', 'poster.png');
+  const tmpPng = path.join(dir, '.video-out', `poster-${path.basename(meta.mp4, '.mp4')}.png`); // propio de cada video: se pueden grabar dos a la vez
   await shot(POSTER, tmpPng, 'png');
   execFileSync('ffmpeg', ['-v', 'error', '-y', '-i', tmpPng, '-vf', 'scale=1080:1920:flags=lanczos', path.join(dir, meta.png)]);
   console.log('ok', meta.png);
-  const out = path.join(dir, '.video-out', path.basename(meta.mp4, '.mp4')), tmp = path.join(dir, '.video-out', 'sub');
+  const out = path.join(dir, '.video-out', path.basename(meta.mp4, '.mp4')), tmp = path.join(dir, '.video-out', 'sub-' + path.basename(meta.mp4, '.mp4'));
   if (process.argv.includes('--fresh')) fs.rmSync(out, { recursive: true, force: true });
   fs.mkdirSync(out, { recursive: true }); fs.mkdirSync(tmp, { recursive: true });
   const dur = +arg('dur', 0) || await page.evaluate(() => window.DUR) || DUR;
