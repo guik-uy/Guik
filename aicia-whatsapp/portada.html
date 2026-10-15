@@ -4,9 +4,10 @@
 <meta charset="utf-8">
 <title>Portada de WhatsApp Business · Aicia</title>
 <!-- Portada (cover) del perfil de WhatsApp Business de Aicia, 1920×1080.
-     WhatsApp recorta los bordes y pone la foto de perfil (círculo) abajo al centro: el tercio inferior central queda libre,
-     el texto va en la mitad superior y nada importante toca los bordes. Mismo sistema que el banner de LinkedIn.
-     ?prueba = muestra el círculo de la foto de perfil, la zona libre y el margen de recorte. -->
+     Medido en la captura del perfil de Guille (iPhone): WhatsApp la muestra a ~2,2:1, o sea que corta ~104 px arriba y
+     abajo (se ve y 104–976), y la foto de perfil es un círculo de ~333 px de radio (con su borde) centrado en x 960, y 757.
+     Todo lo importante queda lejos de ese círculo y dentro de la parte visible. Mismo sistema que el banner de LinkedIn.
+     ?prueba = muestra el recorte real y la foto de perfil en su lugar. -->
 <style>
 @font-face{font-family:"Geist";src:url(../aicia-web/fonts/geist-latin-wght-normal.woff2) format("woff2");font-weight:100 900;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2212}
 @font-face{font-family:"Geist";src:url(../aicia-web/fonts/geist-latin-ext-wght-normal.woff2) format("woff2");font-weight:100 900;unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
@@ -26,28 +27,28 @@ body{width:1920px;height:1080px;overflow:hidden;font-family:"Geist",system-ui,sa
 .grain{opacity:.75;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .045 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
 
 /* Texto: mitad superior, a la izquierda */
-.tx{left:190px;top:156px;width:900px}
-h1{font-weight:600;font-size:82px;line-height:1.02;letter-spacing:-0.045em;color:#fff}
+.tx{left:170px;top:160px;width:920px}
+h1{font-weight:600;font-size:84px;line-height:1.02;letter-spacing:-0.045em;color:#fff}
 .serif{font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-weight:400;font-size:1.08em;letter-spacing:-0.01em;padding-right:.06em;
   background:linear-gradient(100deg,#B9BBFF 0%,#ECEDFF 52%,#C3C5FF 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
 /* Subtítulo: los tres servicios uno debajo del otro, con el punto lavanda como separador (se lee mejor en el celular) */
-.sub{margin-top:34px;list-style:none;font-size:40px;line-height:1.3;letter-spacing:-0.015em;color:rgba(226,228,255,.84)}
+.sub{margin-top:26px;list-style:none;font-size:40px;line-height:1.26;letter-spacing:-0.015em;color:rgba(226,228,255,.84)}
 .sub li{display:flex;align-items:center;gap:20px}
 .sub li::before{content:"";width:9px;height:9px;border-radius:50%;flex:none;background:#C7C9FF;box-shadow:0 0 12px 2px rgba(199,201,255,.45)}
 
 /* Detalle chico abajo a la izquierda (fuera del centro) */
-.small{left:190px;top:806px;font-size:30px;line-height:1;letter-spacing:-0.005em;color:var(--t3);white-space:nowrap}
-.small b{font-weight:500;color:#fff}
-.small .sep{margin:0 14px;color:rgba(199,201,255,.5)}
+/* (en dos líneas: en una sola quedaba pegado a la foto de perfil) */
+.small{left:170px;top:790px;font-size:36px;line-height:1.3;letter-spacing:-0.01em;color:var(--t3);white-space:nowrap}
+.small b{display:block;font-weight:500;color:#fff}
 
 /* Chat a la derecha: el mismo vidrio del banner de LinkedIn, más grande */
-.win{left:1190px;top:160px;width:560px;padding:0 24px 28px;border-radius:40px;
+.win{left:1240px;top:150px;width:530px;padding:0 20px 26px;border-radius:40px;
   background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.035)),rgba(14,13,40,.55);
   box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.12),inset 0 1.5px 0 rgba(255,255,255,.22),0 52px 90px -38px rgba(3,2,20,.9)}
-.win .bar{height:62px;display:flex;align-items:center;gap:10px;margin:0 -24px 26px;padding:0 28px;border-bottom:1.5px solid rgba(199,201,255,.10)}
+.win .bar{height:62px;display:flex;align-items:center;gap:10px;margin:0 -20px 24px;padding:0 28px;border-bottom:1.5px solid rgba(199,201,255,.10)}
 .win .bar i{width:11px;height:11px;border-radius:50%;background:rgba(199,201,255,.28)}
 .win .bar .live{margin-left:auto;width:12px;height:12px;background:#C7C9FF;box-shadow:0 0 0 6px rgba(199,201,255,.14),0 0 18px 3px rgba(199,201,255,.6)}
-.m{position:relative;display:flow-root;max-width:500px;padding:16px 20px 14px;border-radius:26px;font-size:30px;line-height:1.28;letter-spacing:-0.012em}
+.m{position:relative;display:flow-root;max-width:490px;padding:16px 20px 14px;border-radius:26px;font-size:30px;line-height:1.28;letter-spacing:-0.012em}
 .m .t{float:right;display:inline-flex;align-items:center;gap:7px;margin:10px 0 -4px 16px;font:500 24px/1 "Geist Mono",monospace;letter-spacing:-0.04em;opacity:.5}
 .m .t svg{width:26px;height:18px}
 .m.in{background:rgba(255,255,255,.09);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.10);color:var(--t1);border-bottom-left-radius:8px}
@@ -58,9 +59,9 @@ h1{font-weight:600;font-size:82px;line-height:1.02;letter-spacing:-0.045em;color
 /* Prueba: foto de perfil simulada, zona libre (tercio inferior central) y margen de recorte */
 .guide{display:none;inset:0;z-index:9;pointer-events:none}
 .prueba .guide{display:block}
-.guide .no{position:absolute;left:640px;top:720px;width:640px;height:360px;background:repeating-linear-gradient(135deg,rgba(255,80,110,.16) 0 14px,rgba(255,80,110,.05) 14px 28px);outline:2px dashed rgba(255,120,140,.75);outline-offset:-2px}
-.guide .crop{position:absolute;left:150px;top:90px;right:150px;bottom:90px;outline:2px dashed rgba(255,214,102,.75)}
-.guide .photo{position:absolute;left:760px;top:800px;width:400px;height:400px;border-radius:50%;background:#2a2c3e;box-shadow:0 0 0 10px #fff}
+.guide .cut{position:absolute;left:0;right:0;height:104px;background:repeating-linear-gradient(135deg,rgba(255,214,102,.22) 0 14px,rgba(255,214,102,.08) 14px 28px);outline:2px dashed rgba(255,214,102,.8);outline-offset:-2px}
+.guide .photo{position:absolute;left:627px;top:424px;width:666px;height:666px;border-radius:50%;background:radial-gradient(circle at 50% 50%,#3a3d8f 0 36%,#16172b 37%);box-shadow:0 0 0 8px #0b0b10,0 0 0 10px rgba(255,255,255,.18)}
+.guide .halo{position:absolute;left:587px;top:384px;width:746px;height:746px;border-radius:50%;outline:2px dashed rgba(255,120,140,.8)}
 .guide .lbl{position:absolute;font:500 22px/1 "Geist Mono",monospace;letter-spacing:-0.02em}
 </style>
 </head>
@@ -83,12 +84,13 @@ h1{font-weight:600;font-size:82px;line-height:1.02;letter-spacing:-0.045em;color
     <div class="m out">¡Sí! Te quedan 19:00 o 20:30.<br>¿Te lo reservo?<span class="t">23:40<svg viewBox="0 0 16 11" fill="none" stroke="#C7C9FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6l3 3 6-7"/><path d="M6.5 8.2 7.5 9l6-7"/></svg></span></div>
   </div>
 
-  <p class="small"><b>Demo gratis</b><span class="sep">·</span>Garantía 30 días</p>
+  <p class="small"><b>Demo gratis</b>Garantía 30 días</p>
 
   <div class="guide">
-    <div class="crop"></div><div class="no"></div><div class="photo"></div>
-    <span class="lbl" style="left:660px;top:736px;color:rgba(255,150,165,.95)">ZONA LIBRE · FOTO DE PERFIL</span>
-    <span class="lbl" style="left:166px;top:104px;color:rgba(255,214,102,.95)">POSIBLE RECORTE</span>
+    <div class="cut" style="top:0"></div><div class="cut" style="bottom:0"></div><div class="halo"></div><div class="photo"></div>
+    <span class="lbl" style="left:24px;top:40px;color:rgba(255,214,102,.95)">WHATSAPP CORTA ESTA FRANJA (MEDIDO EN TU CAPTURA)</span>
+    <span class="lbl" style="left:24px;top:1016px;color:rgba(255,214,102,.95)">WHATSAPP CORTA ESTA FRANJA</span>
+    <span class="lbl" style="left:1360px;top:930px;color:rgba(255,150,165,.95)">FOTO DE PERFIL + 40 PX DE AIRE</span>
   </div>
 </div>
 <script>
@@ -118,7 +120,7 @@ $('glow').style.background =
   `radial-gradient(520px 380px at 1470px 330px,${eased([[0, [99, 102, 241, .26]], [.55, [99, 102, 241, .08]], [1, [99, 102, 241, 0]]])}),` + // luz detrás del chat (antes era una sombra con escalones)
   `radial-gradient(1100px 760px at 1480px 430px,${eased([[0, [79, 70, 229, .36]], [.45, [67, 56, 202, .12]], [.75, [67, 56, 202, 0]]])}),` +
   `radial-gradient(1000px 640px at 560px 330px,${eased([[0, [79, 70, 229, .16]], [.75, [67, 56, 202, 0]]])}),` +
-  `radial-gradient(760px 420px at 960px 1080px,${eased([[0, [99, 102, 241, .20]], [.75, [99, 102, 241, 0]]])})`;
+  `radial-gradient(820px 640px at 960px 757px,${eased([[0, [99, 102, 241, .24]], [.5, [99, 102, 241, .08]], [.8, [99, 102, 241, 0]]])})`; // halo detrás de la foto de perfil
 $('grid').style.webkitMaskImage = $('grid').style.maskImage = `radial-gradient(1500px 860px at 55% 45%,${eased([[0, [0, 0, 0, 1]], [.5, [0, 0, 0, .4]], [.8, [0, 0, 0, 0]]])})`;
 $('vig').style.background = `radial-gradient(1800px 1020px at 52% 44%,${eased([[.55, [3, 3, 14, 0]], [1, [3, 3, 14, .55]]])})`;
 </script>

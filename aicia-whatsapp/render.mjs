@@ -1,4 +1,4 @@
-// Portada de WhatsApp Business de Aicia: PNG final 1920×1080, prueba con la foto de perfil simulada y vista en celular.
+// Portada de WhatsApp Business de Aicia: PNG final 1920×1080, prueba con el recorte y la foto de perfil, y vista como en el perfil.
 // Uso (desde la raíz del repo): NODE_PATH=$(npm root -g) node aicia-whatsapp/render.mjs
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
@@ -26,17 +26,22 @@ for (const prueba of [false, true]) {
   await page.goto(url + (prueba ? '?prueba' : ''));
   await page.evaluate(() => document.fonts.ready);
   if (!prueba) {
-    // Control: fuentes, nada en la zona libre (tercio inferior central), nada en el margen de recorte, texto arriba
+    // Control con lo medido en la captura de Guille: se ve y 104–976 y la foto de perfil es un círculo de r 333 en (960, 757).
+    // Nada importante puede tocar ese círculo más 40 px de aire, ni quedar a menos de 40 px del recorte o de los costados.
     const qa = await page.evaluate(() => {
-      const o = [], hit = (r, x0, y0, x1, y1) => r.right > x0 && r.left < x1 && r.bottom > y0 && r.top < y1;
-      for (const f of ['600 82px Geist', 'italic 82px "Instrument Serif"', '500 24px "Geist Mono"']) if (!document.fonts.check(f, 'ñá¿¡')) o.push('fuente sin cargar: ' + f);
-      for (const el of document.querySelectorAll('.tx, .win, .small')) {
-        const r = el.getBoundingClientRect(), n = el.className;
-        if (hit(r, 640, 720, 1280, 1080)) o.push(`${n} en la zona de la foto`);
-        if (r.left < 150 || r.right > 1770 || r.top < 90 || r.bottom > 990) o.push(`${n} en el margen de recorte`);
+      const o = [], AV = { x: 960, y: 757, r: 333 + 40 };
+      const near = r => { const dx = Math.max(r.left - AV.x, 0, AV.x - r.right), dy = Math.max(r.top - AV.y, 0, AV.y - r.bottom); return Math.hypot(dx, dy) < AV.r; };
+      for (const f of ['600 84px Geist', 'italic 84px "Instrument Serif"', '500 24px "Geist Mono"']) if (!document.fonts.check(f, 'ñá¿¡')) o.push('fuente sin cargar: ' + f);
+      const parts = [...document.querySelectorAll('.tx h1, .sub li, .win, .small b')];
+      // el texto de cada línea, medido por su tinta (no por la caja del bloque)
+      const box = el => { if (el.matches('.win')) return el.getBoundingClientRect(); const rg = document.createRange(); rg.selectNodeContents(el); return rg.getBoundingClientRect(); };
+      const sm = document.querySelector('.small'); const rg = document.createRange(); rg.selectNodeContents(sm);
+      for (const [n, r] of [...parts.map(el => [el.className || el.tagName + ' ' + el.textContent.slice(0, 18), box(el)]), ['small', rg.getBoundingClientRect()]]) {
+        if (near(r)) o.push(`${n} toca la foto de perfil`);
+        if (r.left < 150 || r.right > 1770 || r.top < 104 + 40 || r.bottom > 976 - 40) o.push(`${n} muy cerca del recorte (${r.left | 0},${r.top | 0}–${r.right | 0},${r.bottom | 0})`);
       }
       const tx = document.querySelector('.tx').getBoundingClientRect(), win = document.querySelector('.win').getBoundingClientRect();
-      if (tx.bottom > 540) o.push(`el texto baja de la mitad (${tx.bottom | 0})`);
+      if (tx.bottom > 560) o.push(`el texto baja de la mitad (${tx.bottom | 0})`);
       if (tx.right > win.left - 60) o.push('el texto se acerca al chat');
       const sizes = new Set(); const walk = n => { if (n.nodeType === 3 && n.textContent.trim()) sizes.add(getComputedStyle(n.parentElement).fontSize); n.childNodes.forEach(walk); };
       walk(document.getElementById('cover'));
@@ -49,8 +54,18 @@ for (const prueba of [false, true]) {
   await page.close();
   const name = prueba ? 'portada-whatsapp-prueba.png' : 'portada-whatsapp.png';
   ff('-i', raw, '-vf', `scale=${W}:${H}:flags=lanczos+accurate_rnd+full_chroma_int`, '-pix_fmt', 'rgb24', out(name));
-  // Vista en celular: la portada al ancho de un teléfono (390 px), para ver si se lee
-  if (!prueba) ff('-i', raw, '-vf', 'scale=780:-1:flags=lanczos+accurate_rnd+full_chroma_int', '-pix_fmt', 'rgb24', out('vista-celular@2x.png'));
+  // Vista como en el perfil (iPhone, 360 pt = 720 px): WhatsApp corta arriba y abajo (se ve y 104–976) y pone encima la foto
+  // de perfil (círculo de r 333 con borde oscuro, centro 960, 757). Se arma al doble y se achica, para que el círculo quede suave.
+  if (!prueba) {
+    const logo = path.join(root, 'historias', 'logo-perfil', 'aicia-logo-perfil.png'), k = 1440 / 1920;
+    const cx = Math.round(960 * k), cy = Math.round((757 - 104) * k), R = Math.round(333 * k), r = Math.round(316 * k);
+    const disc = rr => `format=rgba,geq=r='r(X,Y)':g='g(X,Y)':b='b(X,Y)':a='255*clip(${rr}+0.5-hypot(X-${rr},Y-${rr}),0,1)'`;
+    ff('-i', raw, '-i', logo, '-f', 'lavfi', '-i', `color=c=0x0B0B10:s=${2 * R}x${2 * R}`, '-filter_complex',
+      `[0]crop=3840:1744:0:208,scale=1440:-1:flags=lanczos,pad=1440:${cy + R + 60}:0:0:black[bg];` +
+      `[2]${disc(R)}[ring];[1]scale=${2 * r}:${2 * r}:flags=lanczos,${disc(r)}[lg];` +
+      `[bg][ring]overlay=${cx - R}:${cy - R}[a];[a][lg]overlay=${cx - r}:${cy - r},scale=720:-1:flags=lanczos`,
+      '-frames:v', '1', '-pix_fmt', 'rgb24', out('vista-perfil-whatsapp.png'));
+  }
   fs.rmSync(raw);
   console.log('ok', name, (fs.statSync(out(name)).size / 1e6).toFixed(2) + ' MB');
 }
