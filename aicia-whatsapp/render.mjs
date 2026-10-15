@@ -67,6 +67,8 @@ for (const prueba of [false, true]) {
       '-frames:v', '1', '-pix_fmt', 'rgb24', out('vista-perfil-whatsapp.png'));
   }
   fs.rmSync(raw);
+  // También en JPEG de alta calidad (sin submuestreo de color): pesa mucho menos que el PNG y WhatsApp la recomprime menos
+  if (!prueba) { ff('-i', out(name), '-q:v', '1', '-pix_fmt', 'yuvj444p', out('portada-whatsapp.jpg')); console.log('ok portada-whatsapp.jpg', (fs.statSync(out('portada-whatsapp.jpg')).size / 1e6).toFixed(2) + ' MB'); }
   console.log('ok', name, (fs.statSync(out(name)).size / 1e6).toFixed(2) + ' MB');
 }
 await browser.close(); server.close();

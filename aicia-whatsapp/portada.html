@@ -20,11 +20,11 @@ body{width:1920px;height:1080px;overflow:hidden;font-family:"Geist",system-ui,sa
 .c{position:relative;width:1920px;height:1080px;overflow:hidden;isolation:isolate;background:#06061A}
 .c > *{position:absolute}
 
-/* Fondo: azul noche con brillo violeta suave, grilla que se desvanece, viñeta y grano (los degradés se arman en JS con
-   caída suave, así no quedan anillos ni franjas) */
-.bg,.glow,.grid,.vig,.grain{inset:0}
-.grid{background-image:linear-gradient(rgba(199,201,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(199,201,255,.06) 1px,transparent 1px);background-size:96px 96px;background-position:center center}
-.grain{opacity:.75;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .045 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+/* Fondo: azul noche con brillo violeta suave, grilla que se desvanece y viñeta (los degradés se arman en JS con caída
+   suave, así no quedan anillos ni franjas). Sin grano y con la grilla de 2 px: WhatsApp achica la portada y la pasa a
+   JPEG, y el grano y las líneas de 1 px se le volvían cuadraditos (Guille la vio "pixeleada"). */
+.bg,.glow,.grid,.vig{inset:0}
+.grid{background-image:linear-gradient(rgba(199,201,255,.05) 2px,transparent 2px),linear-gradient(90deg,rgba(199,201,255,.05) 2px,transparent 2px);background-size:96px 96px;background-position:center center}
 
 /* Texto: mitad superior, a la izquierda */
 .tx{left:170px;top:160px;width:920px}
@@ -32,13 +32,13 @@ h1{font-weight:600;font-size:84px;line-height:1.02;letter-spacing:-0.045em;color
 .serif{font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-weight:400;font-size:1.08em;letter-spacing:-0.01em;padding-right:.06em;
   background:linear-gradient(100deg,#B9BBFF 0%,#ECEDFF 52%,#C3C5FF 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
 /* Subtítulo: los tres servicios uno debajo del otro, con el punto lavanda como separador (se lee mejor en el celular) */
-.sub{margin-top:26px;list-style:none;font-size:40px;line-height:1.26;letter-spacing:-0.015em;color:rgba(226,228,255,.84)}
+.sub{margin-top:26px;list-style:none;font-size:40px;font-weight:450;line-height:1.26;letter-spacing:-0.012em;color:rgba(232,233,255,.9)}
 .sub li{display:flex;align-items:center;gap:20px}
 .sub li::before{content:"";width:9px;height:9px;border-radius:50%;flex:none;background:#C7C9FF;box-shadow:0 0 12px 2px rgba(199,201,255,.45)}
 
 /* Detalle chico abajo a la izquierda (fuera del centro) */
 /* (en dos líneas: en una sola quedaba pegado a la foto de perfil) */
-.small{left:170px;top:790px;font-size:36px;line-height:1.3;letter-spacing:-0.01em;color:var(--t3);white-space:nowrap}
+.small{left:170px;top:790px;font-size:36px;font-weight:450;line-height:1.3;letter-spacing:-0.008em;color:#A6A8CF;white-space:nowrap}
 .small b{display:block;font-weight:500;color:#fff}
 
 /* Chat a la derecha: el mismo vidrio del banner de LinkedIn, más grande */
@@ -67,7 +67,7 @@ h1{font-weight:600;font-size:84px;line-height:1.02;letter-spacing:-0.045em;color
 </head>
 <body>
 <div class="c" id="cover">
-  <div class="bg" id="bg"></div><div class="glow" id="glow"></div><div class="grid" id="grid"></div><div class="vig" id="vig"></div><div class="grain"></div>
+  <div class="bg" id="bg"></div><div class="glow" id="glow"></div><div class="grid" id="grid"></div><div class="vig" id="vig"></div>
 
   <div class="tx">
     <h1>Dejá de perder reservas<br>por <span class="serif">responder tarde.</span></h1>

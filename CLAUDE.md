@@ -26,6 +26,7 @@
   - Texto arriba a la izquierda: "Dejá de perder reservas por *responder tarde.*" y los tres servicios uno debajo del otro (Asistente de IA en WhatsApp / Webs de reservas / Seguimiento automático), porque en una sola línea con "·" no se leía en el celular. Abajo a la izquierda, "Demo gratis" / "Garantía 30 días" en dos líneas (en una sola quedaba pegado a la foto). Sin teléfono.
   - Chat arriba a la derecha: "¿Tienen turno para **mañana**?" 23:40 → "¡Sí! Te quedan 19:00 o 20:30. ¿Te lo reservo?" 23:40. Guille había pedido "para hoy", pero a las 23:40 las 19:00 y 20:30 de hoy ya pasaron; con "mañana" cierra (igual que el banner de LinkedIn).
   - Degradés con caída suave y la luz del chat como degradé (no sombra), para que no haga escalones.
+  - **Sin grano y con la grilla de 2 px** (Guille la vio "pixeleada" en el celular): WhatsApp la achica y la pasa a JPEG, y el grano y las líneas de 1 px se le volvían cuadraditos. La lista y el detalle van un poco más gruesos y claros. Sale también en `portada-whatsapp.jpg` (calidad alta, sin submuestreo de color, ~170 KB), que es la recomendada para subir.
 - Rama de trabajo: `claude/eloquent-volta-h5jy6a`.
 
 ## Historias de Instagram (Aicia)
