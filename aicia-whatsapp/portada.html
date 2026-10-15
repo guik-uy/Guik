@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Portada de WhatsApp Business · Aicia</title>
+<!-- Portada (cover) del perfil de WhatsApp Business de Aicia, 1920×1080.
+     WhatsApp recorta los bordes y pone la foto de perfil (círculo) abajo al centro: el tercio inferior central queda libre,
+     el texto va en la mitad superior y nada importante toca los bordes. Mismo sistema que el banner de LinkedIn.
+     ?prueba = muestra el círculo de la foto de perfil, la zona libre y el margen de recorte. -->
+<style>
+@font-face{font-family:"Geist";src:url(../aicia-web/fonts/geist-latin-wght-normal.woff2) format("woff2");font-weight:100 900;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2212}
+@font-face{font-family:"Geist";src:url(../aicia-web/fonts/geist-latin-ext-wght-normal.woff2) format("woff2");font-weight:100 900;unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Geist Mono";src:url(../aicia-web/fonts/geist-mono-latin-500-normal.woff2) format("woff2");font-weight:500}
+@font-face{font-family:"Instrument Serif";src:url(../aicia-web/fonts/instrument-serif-latin-400-italic.woff2) format("woff2");font-style:italic;font-weight:400}
+:root{--night:#06061A; --t1:#F4F4FA; --t3:#8F91B8}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--night)}
+body{width:1920px;height:1080px;overflow:hidden;font-family:"Geist",system-ui,sans-serif;color:var(--t1);-webkit-font-smoothing:antialiased}
+.c{position:relative;width:1920px;height:1080px;overflow:hidden;isolation:isolate;background:#06061A}
+.c > *{position:absolute}
+
+/* Fondo: azul noche con brillo violeta suave, grilla que se desvanece, viñeta y grano (los degradés se arman en JS con
+   caída suave, así no quedan anillos ni franjas) */
+.bg,.glow,.grid,.vig,.grain{inset:0}
+.grid{background-image:linear-gradient(rgba(199,201,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(199,201,255,.06) 1px,transparent 1px);background-size:96px 96px;background-position:center center}
+.grain{opacity:.75;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .045 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+
+/* Texto: mitad superior, a la izquierda */
+.tx{left:190px;top:156px;width:900px}
+h1{font-weight:600;font-size:82px;line-height:1.02;letter-spacing:-0.045em;color:#fff}
+.serif{font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-weight:400;font-size:1.08em;letter-spacing:-0.01em;padding-right:.06em;
+  background:linear-gradient(100deg,#B9BBFF 0%,#ECEDFF 52%,#C3C5FF 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+/* Subtítulo: los tres servicios uno debajo del otro, con el punto lavanda como separador (se lee mejor en el celular) */
+.sub{margin-top:34px;list-style:none;font-size:40px;line-height:1.3;letter-spacing:-0.015em;color:rgba(226,228,255,.84)}
+.sub li{display:flex;align-items:center;gap:20px}
+.sub li::before{content:"";width:9px;height:9px;border-radius:50%;flex:none;background:#C7C9FF;box-shadow:0 0 12px 2px rgba(199,201,255,.45)}
+
+/* Detalle chico abajo a la izquierda (fuera del centro) */
+.small{left:190px;top:806px;font-size:30px;line-height:1;letter-spacing:-0.005em;color:var(--t3);white-space:nowrap}
+.small b{font-weight:500;color:#fff}
+.small .sep{margin:0 14px;color:rgba(199,201,255,.5)}
+
+/* Chat a la derecha: el mismo vidrio del banner de LinkedIn, más grande */
+.win{left:1190px;top:160px;width:560px;padding:0 24px 28px;border-radius:40px;
+  background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.035)),rgba(14,13,40,.55);
+  box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.12),inset 0 1.5px 0 rgba(255,255,255,.22),0 52px 90px -38px rgba(3,2,20,.9)}
+.win .bar{height:62px;display:flex;align-items:center;gap:10px;margin:0 -24px 26px;padding:0 28px;border-bottom:1.5px solid rgba(199,201,255,.10)}
+.win .bar i{width:11px;height:11px;border-radius:50%;background:rgba(199,201,255,.28)}
+.win .bar .live{margin-left:auto;width:12px;height:12px;background:#C7C9FF;box-shadow:0 0 0 6px rgba(199,201,255,.14),0 0 18px 3px rgba(199,201,255,.6)}
+.m{position:relative;display:flow-root;max-width:500px;padding:16px 20px 14px;border-radius:26px;font-size:30px;line-height:1.28;letter-spacing:-0.012em}
+.m .t{float:right;display:inline-flex;align-items:center;gap:7px;margin:10px 0 -4px 16px;font:500 24px/1 "Geist Mono",monospace;letter-spacing:-0.04em;opacity:.5}
+.m .t svg{width:26px;height:18px}
+.m.in{background:rgba(255,255,255,.09);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.10);color:var(--t1);border-bottom-left-radius:8px}
+.m.out{margin:18px 0 0 auto;color:#fff;border-bottom-right-radius:8px;
+  background:linear-gradient(150deg,#6E71F4,#4F46E5 55%,#4338CA);box-shadow:inset 0 1.5px 0 rgba(255,255,255,.30),0 16px 36px -14px rgba(79,70,229,.7)}
+.m.out .t{opacity:.72}
+
+/* Prueba: foto de perfil simulada, zona libre (tercio inferior central) y margen de recorte */
+.guide{display:none;inset:0;z-index:9;pointer-events:none}
+.prueba .guide{display:block}
+.guide .no{position:absolute;left:640px;top:720px;width:640px;height:360px;background:repeating-linear-gradient(135deg,rgba(255,80,110,.16) 0 14px,rgba(255,80,110,.05) 14px 28px);outline:2px dashed rgba(255,120,140,.75);outline-offset:-2px}
+.guide .crop{position:absolute;left:150px;top:90px;right:150px;bottom:90px;outline:2px dashed rgba(255,214,102,.75)}
+.guide .photo{position:absolute;left:760px;top:800px;width:400px;height:400px;border-radius:50%;background:#2a2c3e;box-shadow:0 0 0 10px #fff}
+.guide .lbl{position:absolute;font:500 22px/1 "Geist Mono",monospace;letter-spacing:-0.02em}
+</style>
+</head>
+<body>
+<div class="c" id="cover">
+  <div class="bg" id="bg"></div><div class="glow" id="glow"></div><div class="grid" id="grid"></div><div class="vig" id="vig"></div><div class="grain"></div>
+
+  <div class="tx">
+    <h1>Dejá de perder reservas<br>por <span class="serif">responder tarde.</span></h1>
+    <ul class="sub">
+      <li>Asistente de IA en WhatsApp</li>
+      <li>Webs de reservas</li>
+      <li>Seguimiento automático</li>
+    </ul>
+  </div>
+
+  <div class="win" aria-hidden="true">
+    <div class="bar"><i></i><i></i><i></i><i class="live"></i></div>
+    <div class="m in">¿Tienen turno para mañana?<span class="t">23:40</span></div>
+    <div class="m out">¡Sí! Te quedan 19:00 o 20:30.<br>¿Te lo reservo?<span class="t">23:40<svg viewBox="0 0 16 11" fill="none" stroke="#C7C9FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6l3 3 6-7"/><path d="M6.5 8.2 7.5 9l6-7"/></svg></span></div>
+  </div>
+
+  <p class="small"><b>Demo gratis</b><span class="sep">·</span>Garantía 30 días</p>
+
+  <div class="guide">
+    <div class="crop"></div><div class="no"></div><div class="photo"></div>
+    <span class="lbl" style="left:660px;top:736px;color:rgba(255,150,165,.95)">ZONA LIBRE · FOTO DE PERFIL</span>
+    <span class="lbl" style="left:166px;top:104px;color:rgba(255,214,102,.95)">POSIBLE RECORTE</span>
+  </div>
+</div>
+<script>
+if (location.search.includes('prueba')) document.body.classList.add('prueba');
+// Degradés con caída suave (como en los videos): ~32 paradas sobre una curva que arranca y termina plana
+function curve(xs, ys) {
+  const n = xs.length, h = [], d = [], m = new Array(n).fill(0);
+  for (let k = 0; k < n - 1; k++) { h.push(xs[k + 1] - xs[k]); d.push((ys[k + 1] - ys[k]) / h[k]); }
+  for (let k = 1; k < n - 1; k++) m[k] = d[k - 1] * d[k] <= 0 ? 0 : 3 * (h[k - 1] + h[k]) / ((2 * h[k] + h[k - 1]) / d[k - 1] + (h[k] + 2 * h[k - 1]) / d[k]);
+  return x => {
+    if (x <= xs[0]) return ys[0]; if (x >= xs[n - 1]) return ys[n - 1];
+    let k = 0; while (x > xs[k + 1]) k++;
+    const u = (x - xs[k]) / h[k], u2 = u * u, u3 = u2 * u;
+    return (2 * u3 - 3 * u2 + 1) * ys[k] + (u3 - 2 * u2 + u) * h[k] * m[k] + (-2 * u3 + 3 * u2) * ys[k + 1] + (u3 - u2) * h[k] * m[k + 1];
+  };
+}
+function eased(keys, n = 32) {
+  const xs = keys.map(k => k[0]), fs = [0, 1, 2, 3].map(c => curve(xs, keys.map(k => k[1][c])));
+  return Array.from({ length: n + 1 }, (_, i) => {
+    const x = xs[0] + (xs[xs.length - 1] - xs[0]) * i / n, [r, g, b, a] = fs.map(f => f(x));
+    return `rgba(${r.toFixed(2)},${g.toFixed(2)},${b.toFixed(2)},${Math.min(1, Math.max(0, a)).toFixed(4)}) ${(x * 100).toFixed(2)}%`;
+  }).join(',');
+}
+const $ = id => document.getElementById(id);
+$('bg').style.background = `linear-gradient(180deg,${eased([[0, [5, 5, 26, 1]], [.32, [9, 9, 36, 1]], [.68, [7, 7, 29, 1]], [1, [5, 5, 26, 1]]])})`;
+$('glow').style.background =
+  `radial-gradient(520px 380px at 1470px 330px,${eased([[0, [99, 102, 241, .26]], [.55, [99, 102, 241, .08]], [1, [99, 102, 241, 0]]])}),` + // luz detrás del chat (antes era una sombra con escalones)
+  `radial-gradient(1100px 760px at 1480px 430px,${eased([[0, [79, 70, 229, .36]], [.45, [67, 56, 202, .12]], [.75, [67, 56, 202, 0]]])}),` +
+  `radial-gradient(1000px 640px at 560px 330px,${eased([[0, [79, 70, 229, .16]], [.75, [67, 56, 202, 0]]])}),` +
+  `radial-gradient(760px 420px at 960px 1080px,${eased([[0, [99, 102, 241, .20]], [.75, [99, 102, 241, 0]]])})`;
+$('grid').style.webkitMaskImage = $('grid').style.maskImage = `radial-gradient(1500px 860px at 55% 45%,${eased([[0, [0, 0, 0, 1]], [.5, [0, 0, 0, .4]], [.8, [0, 0, 0, 0]]])})`;
+$('vig').style.background = `radial-gradient(1800px 1020px at 52% 44%,${eased([[.55, [3, 3, 14, 0]], [1, [3, 3, 14, .55]]])})`;
+</script>
+</body>
+</html>
