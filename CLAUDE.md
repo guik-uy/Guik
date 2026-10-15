@@ -161,6 +161,7 @@ node exportar-instagram.mjs            # TODO listo para subir → historias/ins
   - `render.mjs` acepta `data-size` y `data-transparent` por sección. La fuente Geist está en `logo-perfil/fonts/`.
 - Versiones anteriores, descartadas: el logo plano con luz y borde lavanda sobre el fondo de las historias, y la de esferas 3D (`aicia-logo-perfil-3d.png`, que queda de referencia).
 - La vista previa lo muestra en círculo a 300, 150, 110, 77, 56 y 32 px.
+- **Máxima calidad** (`node exportar-hd.mjs` → `hd/`): `aicia-logo-perfil-4096.png` (el de perfil con su fondo, 4096×4096, dibujado a 4320 y achicado con lanczos), `aicia-logo-simbolo-4096.png` (solo los dos círculos, sin fondo, PNG transparente) y `aicia-logo-simbolo.svg` (vectorial: se puede agrandar a cualquier tamaño sin perder calidad).
 
 ### Exportación para Instagram (`exportar-instagram.mjs`)
 - Junta todo lo final en `historias/instagram/` (no va al repo, se regenera). Arma `aicia-instagram.zip` (35 MB, con el video) y `aicia-instagram-imagenes.zip` (19 MB, sin el video: el chat no acepta archivos de más de ~30 MB).

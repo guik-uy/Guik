@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="126 199 700 700" width="1024" height="1024">
+  <!-- Logo de Aicia (símbolo): los dos círculos del logo de perfil, en el índigo de los íconos de las historias. Vectorial, sin fondo. -->
+  <defs>
+    <linearGradient id="aicia-indigo" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8689FF"/><stop offset=".5" stop-color="#5B52F0"/><stop offset="1" stop-color="#4232CC"/>
+    </linearGradient>
+  </defs>
+  <circle cx="430" cy="600" r="270" fill="url(#aicia-indigo)"/>
+  <circle cx="700" cy="320" r="92" fill="url(#aicia-indigo)"/>
+</svg>
