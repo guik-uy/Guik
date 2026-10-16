@@ -37,7 +37,8 @@ for (const prueba of [false, true]) {
       for (const [n, r] of parts) {
         if (r.left < 226 && r.bottom > 95) o.push(`${n} en la zona del logo`);
         if (r.left < 113 + 8 || r.right > 1128 - 113 - 8) o.push(`${n} en el margen de los costados (${r.left | 0}–${r.right | 0})`);
-        if (r.top < 22 || r.bottom > 191 - 22) o.push(`${n} pegado arriba o abajo (${r.top | 0}–${r.bottom | 0})`);
+        // La vista previa de LinkedIn (Editar página) muestra solo la franja del medio: y 43–148 (medido en la captura de Guille)
+        if (n !== 'web' && (r.top < 40 || r.bottom > 148)) o.push(`${n} fuera de la franja que muestra LinkedIn (${r.top | 0}–${r.bottom | 0})`);
       }
       const t = Math.max(parts[0][1].right, parts[1][1].right), c = Math.min(parts[2][1].left, parts[3][1].left);
       if (c - t < 18) o.push('el texto se pega al chat');

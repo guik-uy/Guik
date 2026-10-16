@@ -34,7 +34,7 @@ h1{font-weight:600;font-size:var(--fs-title);line-height:1.04;letter-spacing:-0.
 .sub .sep{margin:0 7px;color:rgba(199,201,255,.5)}
 
 /* Chat chiquito a la derecha: el mismo vidrio del banner del perfil */
-.win{left:757px;top:68px;width:250px;padding:9px;border-radius:17px;z-index:2;
+.win{left:757px;top:50px;width:250px;padding:9px;border-radius:17px;z-index:2;
   background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.035)),rgba(14,13,40,.55);
   box-shadow:inset 0 0 0 1px rgba(255,255,255,.12),inset 0 1px 0 rgba(255,255,255,.22),0 22px 36px -18px rgba(3,2,20,.9)}
 .win .bar{height:22px;display:flex;align-items:center;gap:4px;margin:0 -9px 8px;padding:0 11px;border-bottom:1px solid rgba(199,201,255,.10)}
@@ -49,7 +49,7 @@ h1{font-weight:600;font-size:var(--fs-title);line-height:1.04;letter-spacing:-0.
 .m.out .t{opacity:.72}
 
 /* Web de reservas chiquita, detrás del chat: los mismos horarios que ofrece el asistente (19:00 elegido, 20:30 libre) */
-.web{left:590px;top:22px;width:190px;padding:0 10px 10px;border-radius:14px;z-index:1;
+.web{left:590px;top:34px;width:190px;padding:0 10px 10px;border-radius:14px;z-index:1;
   background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.03)),rgba(14,13,40,.6);
   box-shadow:inset 0 0 0 1px rgba(255,255,255,.11),inset 0 1px 0 rgba(255,255,255,.2),0 18px 30px -16px rgba(3,2,20,.9)}
 .web .bar{height:16px;display:flex;align-items:center;gap:3px;margin:0 -10px 8px;padding:0 9px;border-bottom:1px solid rgba(199,201,255,.10)}
@@ -67,6 +67,7 @@ h1{font-weight:600;font-size:var(--fs-title);line-height:1.04;letter-spacing:-0.
 .prueba .guide{display:block}
 .guide .no{position:absolute;left:0;top:95px;width:226px;height:96px;background:repeating-linear-gradient(135deg,rgba(255,80,110,.16) 0 7px,rgba(255,80,110,.05) 7px 14px);outline:1px dashed rgba(255,120,140,.75);outline-offset:-1px}
 .guide .side{position:absolute;top:0;bottom:0;width:113px;background:repeating-linear-gradient(135deg,rgba(255,214,102,.14) 0 7px,rgba(255,214,102,.04) 7px 14px);outline:1px dashed rgba(255,214,102,.7);outline-offset:-1px}
+.guide .crop{position:absolute;left:0;right:0;height:43px;background:repeating-linear-gradient(135deg,rgba(120,200,255,.16) 0 7px,rgba(120,200,255,.05) 7px 14px);outline:1px dashed rgba(120,200,255,.7);outline-offset:-1px}
 .guide .logo{position:absolute;left:28px;top:112px;width:136px;height:136px;border-radius:6px;background:#2a2c3e;box-shadow:0 0 0 4px #fff}
 .guide .lbl{position:absolute;font:500 9px/1 "Geist Mono",monospace;letter-spacing:-0.02em}
 </style>
@@ -93,9 +94,10 @@ h1{font-weight:600;font-size:var(--fs-title);line-height:1.04;letter-spacing:-0.
   </div>
 
   <div class="guide">
-    <div class="side" style="left:0"></div><div class="side" style="right:0"></div><div class="no"></div><div class="logo"></div>
+    <div class="crop" style="top:0"></div><div class="crop" style="bottom:0"></div><div class="side" style="left:0"></div><div class="side" style="right:0"></div><div class="no"></div><div class="logo"></div>
     <span class="lbl" style="left:6px;top:6px;color:rgba(255,214,102,.95)">CELULAR: POSIBLE RECORTE</span>
     <span class="lbl" style="left:172px;top:100px;color:rgba(255,150,165,.95)">LOGO</span>
+    <span class="lbl" style="left:420px;top:6px;color:rgba(140,210,255,.95)">VISTA PREVIA DE LINKEDIN: CORTA ARRIBA Y ABAJO</span>
   </div>
 </div>
 <script>
