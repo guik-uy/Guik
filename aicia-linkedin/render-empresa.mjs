@@ -31,18 +31,18 @@ for (const prueba of [false, true]) {
     // costados: se deja ~10 % de cada lado), aire arriba y abajo, y que el texto no se pegue al chat
     const qa = await page.evaluate(() => {
       const o = [];
-      for (const f of ['600 32px Geist', 'italic 32px "Instrument Serif"', '500 13px "Geist Mono"']) if (!document.fonts.check(f, 'ñá¿¡')) o.push('fuente sin cargar: ' + f);
+      for (const f of ['600 30px Geist', 'italic 30px "Instrument Serif"', '500 13px "Geist Mono"']) if (!document.fonts.check(f, 'ñá¿¡')) o.push('fuente sin cargar: ' + f);
       const ink = el => { const rg = document.createRange(); rg.selectNodeContents(el); return rg.getBoundingClientRect(); };
-      const parts = [['título', ink(document.querySelector('h1'))], ['línea', ink(document.querySelector('.sub'))], ['chat', document.querySelector('.win').getBoundingClientRect()]];
+      const parts = [['título', ink(document.querySelector('h1'))], ['línea', ink(document.querySelector('.sub'))], ['chat', document.querySelector('.win').getBoundingClientRect()], ['web', document.querySelector('.web').getBoundingClientRect()]];
       for (const [n, r] of parts) {
         if (r.left < 226 && r.bottom > 95) o.push(`${n} en la zona del logo`);
         if (r.left < 113 + 8 || r.right > 1128 - 113 - 8) o.push(`${n} en el margen de los costados (${r.left | 0}–${r.right | 0})`);
         if (r.top < 22 || r.bottom > 191 - 22) o.push(`${n} pegado arriba o abajo (${r.top | 0}–${r.bottom | 0})`);
       }
-      const t = Math.max(parts[0][1].right, parts[1][1].right), c = parts[2][1].left;
+      const t = Math.max(parts[0][1].right, parts[1][1].right), c = Math.min(parts[2][1].left, parts[3][1].left);
       if (c - t < 18) o.push('el texto se pega al chat');
       const sizes = new Set(); const walk = n => { if (n.nodeType === 3 && n.textContent.trim()) sizes.add(getComputedStyle(n.parentElement).fontSize); n.childNodes.forEach(walk); };
-      walk(document.querySelector('.tx')); walk(document.querySelector('.win'));
+      walk(document.querySelector('.tx')); walk(document.querySelector('.win')); walk(document.querySelector('.web'));
       return { o, boxes: parts.map(([n, r]) => `${n} ${r.left | 0}–${r.right | 0} × ${r.top | 0}–${r.bottom | 0}`), sizes: [...sizes] };
     });
     console.log(qa.o.length ? 'QA:\n  ' + qa.o.join('\n  ') : 'QA: ok', '·', qa.boxes.join(' · '), '· tamaños', qa.sizes.join(' / '));

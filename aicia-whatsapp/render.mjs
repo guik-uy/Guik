@@ -32,9 +32,9 @@ for (const prueba of [false, true]) {
       const o = [], AV = { x: 960, y: 757, r: 333 + 40 };
       const near = r => { const dx = Math.max(r.left - AV.x, 0, AV.x - r.right), dy = Math.max(r.top - AV.y, 0, AV.y - r.bottom); return Math.hypot(dx, dy) < AV.r; };
       for (const f of ['600 84px Geist', 'italic 84px "Instrument Serif"', '500 24px "Geist Mono"']) if (!document.fonts.check(f, 'ñá¿¡')) o.push('fuente sin cargar: ' + f);
-      const parts = [...document.querySelectorAll('.tx h1, .sub li, .win, .small b')];
+      const parts = [...document.querySelectorAll('.tx h1, .sub li, .win, .web, .small b')];
       // el texto de cada línea, medido por su tinta (no por la caja del bloque)
-      const box = el => { if (el.matches('.win')) return el.getBoundingClientRect(); const rg = document.createRange(); rg.selectNodeContents(el); return rg.getBoundingClientRect(); };
+      const box = el => { if (el.matches('.win, .web')) return el.getBoundingClientRect(); const rg = document.createRange(); rg.selectNodeContents(el); return rg.getBoundingClientRect(); };
       const sm = document.querySelector('.small'); const rg = document.createRange(); rg.selectNodeContents(sm);
       for (const [n, r] of [...parts.map(el => [el.className || el.tagName + ' ' + el.textContent.slice(0, 18), box(el)]), ['small', rg.getBoundingClientRect()]]) {
         if (near(r)) o.push(`${n} toca la foto de perfil`);

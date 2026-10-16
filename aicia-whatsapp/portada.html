@@ -56,6 +56,23 @@ h1{font-weight:600;font-size:84px;line-height:1.02;letter-spacing:-0.045em;color
   background:linear-gradient(150deg,#6E71F4,#4F46E5 55%,#4338CA);box-shadow:inset 0 1.5px 0 rgba(255,255,255,.30),0 16px 36px -14px rgba(79,70,229,.7)}
 .m.out .t{opacity:.72}
 
+/* Web de reservas, debajo del chat: los mismos horarios que ofrece el asistente (19:00 elegido, 20:30 libre).
+   Así la portada muestra los dos servicios de Aicia, no solo el asistente. */
+.web{left:1356px;top:512px;width:414px;padding:0 24px 26px;border-radius:34px;
+  background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.03)),rgba(14,13,40,.6);
+  box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.11),inset 0 1.5px 0 rgba(255,255,255,.2),0 44px 80px -36px rgba(3,2,20,.9)}
+.web .bar{height:50px;display:flex;align-items:center;gap:9px;margin:0 -24px 24px;padding:0 24px;border-bottom:1.5px solid rgba(199,201,255,.10)}
+.web .bar i{width:10px;height:10px;border-radius:50%;background:rgba(199,201,255,.28)}
+.web .bar b{margin-left:18px;width:150px;height:16px;border-radius:8px;background:rgba(199,201,255,.12)}
+.web h3{font-size:30px;font-weight:600;line-height:1.2;letter-spacing:-0.012em;color:#fff}
+.web .day{margin-top:4px;font-size:24px;line-height:1.2;color:rgba(199,201,255,.62)}
+.web .slots{display:flex;gap:12px;margin-top:18px}
+.web .slots span{padding:10px 14px;border-radius:16px;font:500 24px/1 "Geist Mono",monospace;letter-spacing:-0.04em;box-shadow:inset 0 0 0 1.5px rgba(199,201,255,.22);color:rgba(232,233,255,.88)}
+.web .slots .off{color:rgba(199,201,255,.3);box-shadow:inset 0 0 0 1.5px rgba(199,201,255,.08);text-decoration:line-through}
+.web .go{margin-top:22px;height:58px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:600;letter-spacing:-0.01em;color:#0E0C33;
+  background:linear-gradient(180deg,#E4E5FF,#C7C9FF);box-shadow:inset 0 1.5px 0 rgba(255,255,255,.7),0 14px 30px -14px rgba(199,201,255,.55)}
+.web .slots .on{color:#fff;background:linear-gradient(150deg,#6E71F4,#4F46E5 55%,#4338CA);box-shadow:inset 0 1.5px 0 rgba(255,255,255,.3),0 12px 26px -10px rgba(79,70,229,.8)}
+
 /* Prueba: foto de perfil simulada, zona libre (tercio inferior central) y margen de recorte */
 .guide{display:none;inset:0;z-index:9;pointer-events:none}
 .prueba .guide{display:block}
@@ -82,6 +99,14 @@ h1{font-weight:600;font-size:84px;line-height:1.02;letter-spacing:-0.045em;color
     <div class="bar"><i></i><i></i><i></i><i class="live"></i></div>
     <div class="m in">¿Tienen turno para mañana?<span class="t">23:40</span></div>
     <div class="m out">¡Sí! Te quedan 19:00 o 20:30.<br>¿Te lo reservo?<span class="t">23:40<svg viewBox="0 0 16 11" fill="none" stroke="#C7C9FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6l3 3 6-7"/><path d="M6.5 8.2 7.5 9l6-7"/></svg></span></div>
+  </div>
+
+  <div class="web" aria-hidden="true">
+    <div class="bar"><i></i><i></i><i></i><b></b></div>
+    <h3>Reservá tu turno</h3>
+    <p class="day">Mañana</p>
+    <div class="slots"><span class="off">18:00</span><span class="on">19:00</span><span>20:30</span></div>
+    <div class="go">Reservar 19:00</div>
   </div>
 
   <p class="small"><b>Demo gratis</b>Garantía 30 días</p>
