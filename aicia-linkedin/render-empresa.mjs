@@ -58,5 +58,15 @@ for (const prueba of [false, true]) {
   }
   fs.rmSync(raw);
 }
-for (const f of ['banner-empresa.png', 'banner-empresa@2x.png', 'banner-empresa-prueba.png']) console.log('ok', f, (fs.statSync(out(f)).size / 1e3).toFixed(0) + ' KB');
+// Solo el fondo (sin texto ni chat), por si en la vista pública algo queda tapado o cortado
+{
+  const page = await browser.newPage({ viewport: { width: 1128, height: 191 }, deviceScaleFactor: 4 });
+  await page.goto(url + '?fondo');
+  const raw = out('.raw@4x.png');
+  await page.screenshot({ path: raw }); await page.close();
+  ff('-i', raw, '-vf', sc('2256:382'), '-pix_fmt', 'rgb24', out('banner-empresa-fondo@2x.png'));
+  ff('-i', raw, '-vf', sc('1128:191'), '-pix_fmt', 'rgb24', out('banner-empresa-fondo.png'));
+  fs.rmSync(raw);
+}
+for (const f of ['banner-empresa.png', 'banner-empresa@2x.png', 'banner-empresa-prueba.png', 'banner-empresa-fondo.png', 'banner-empresa-fondo@2x.png']) console.log('ok', f, (fs.statSync(out(f)).size / 1e3).toFixed(0) + ' KB');
 await browser.close(); server.close();
