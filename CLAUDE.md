@@ -2,6 +2,7 @@
 
 ## Sobre Guille
 - Guillermo (Guille), 19 años, Uruguay. Dueño de **Aicia** (@aicia_ia, Montevideo), agencia de IA: agentes de IA, automatizaciones, webs y apps.
+- **Foco de Aicia** (Guille, octubre 2026): hace **webs de reservas y asistentes de IA** para que los negocios con reservas **no pierdan reservas por responder tarde ni tiempo gestionando todo a mano**. Las piezas nuevas se escriben desde ahí.
 - Respondé siempre en **español rioplatense**: claro, directo, corto, práctico y sin teoría larga.
 - **No inventes datos.** No inventes clientes, métricas ni rubros. Si algo es de ejemplo, marcalo como "Vista de ejemplo". Si falta contexto, preguntá.
 - Después de cada cambio: renderizá, revisá el resultado, hacé commit y push, y pasale las imágenes.
@@ -21,7 +22,7 @@
     - AeroSport ("AeroSport · Página web", mismos textos que el video): 01 portada (MacBook con el inicio, logo y bajada), 02 día y horario (miércoles 14, 08:00), 03 cancha (Cancha 3), 04 datos, 05 pago ("Pagar $1.200"), 06 confirmada, 07 cierre (Studio Display; la mesa de la foto se corta a los costados, así que la escena se funde con `window: [x0, x1]` antes del borde de la mesa). Las 04, 05 y 06 muestran el nombre y el celular de la grabación ("Martin Rodriguez"): falta que Guille confirme que son datos de prueba antes de publicarlas.
     - Plan de 6 posts en 2 semanas con los textos listos: `aicia-linkedin/plan-posts-2-semanas.md`. Carrusel de FC Barber en PDF: `aicia-linkedin/carrusel-fc-barber.pdf`.
   - **Banner de la página de empresa** (`banner-empresa.html` → `node aicia-linkedin/render-empresa.mjs` → `empresa/banner-empresa.png` 1128×191, `empresa/banner-empresa@2x.png` 2256×382 y `empresa/banner-empresa-prueba.png` con el logo simulado). Se dibuja al cuádruple y se achica con lanczos. Mismo sistema que el banner del perfil, sin grano.
-    - "Ninguna reserva perdida / por *tardar en responder.*" + "Asistentes de IA · Webs de reservas · Automatizaciones", y el chat chiquito a la derecha: "¿Tienen turno para **mañana**?" 23:40 → "¡Sí! Te quedan 19:00 o 20:30" 23:40 (Guille pidió "hoy", pero a las 23:40 esos horarios ya pasaron). Sin teléfono.
+    - "Ninguna reserva perdida / por *tardar en responder.*" + "Webs de reservas · Asistentes de IA" (Guille aclaró que Aicia se encarga de esas dos cosas; se sacó "Automatizaciones"), y el chat chiquito a la derecha: "¿Tienen turno para **mañana**?" 23:40 → "¡Sí! Te quedan 19:00 o 20:30" 23:40 (Guille pidió "hoy", pero a las 23:40 esos horarios ya pasaron). Sin teléfono.
     - Libre: x 0–226 en la mitad de abajo (logo de la empresa) y ~113 px de cada costado (el celular los corta); `render-empresa.mjs` lo controla. Solo 3 tamaños de letra (32, 16 y 13 px). En el chat, sin espacio negativo entre letras: a 13 px "turno" se leía "tumo".
 - `aicia-whatsapp/` es la **portada (cover) del perfil de WhatsApp Business** de Aicia (`portada.html` → `node aicia-whatsapp/render.mjs` → `portada-whatsapp.png` 1920×1080, `portada-whatsapp-prueba.png` con el recorte y la foto de perfil marcados, y `vista-perfil-whatsapp.png`, que la muestra como en el perfil, con el logo encima).
   - Mismo sistema que el banner de LinkedIn: azul noche con brillo violeta, grilla, grano, Geist + "responder tarde." en Instrument Serif, y la ventana de chat de vidrio.
