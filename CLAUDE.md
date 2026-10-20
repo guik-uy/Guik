@@ -35,6 +35,7 @@
   - **Web de reservas debajo del chat** (mismo pedido de Guille: que no se vea solo el asistente): "Reservá tu turno" / "Mañana" / 18:00 tachado, 19:00 elegido, 20:30 libre y el botón lavanda "Reservar 19:00", a la derecha y lejos de la foto de perfil.
   - Degradés con caída suave y la luz del chat como degradé (no sombra), para que no haga escalones.
   - **Sin grano y con la grilla de 2 px** (Guille la vio "pixeleada" en el celular): WhatsApp la achica y la pasa a JPEG, y el grano y las líneas de 1 px se le volvían cuadraditos. La lista y el detalle van un poco más gruesos y claros. Sale también en `portada-whatsapp.jpg` (calidad alta, sin submuestreo de color, ~170 KB), que es la recomendada para subir.
+- `clientes/padel-club-logo/` son las **propuestas de logo para un club de pádel** (`logo.html` → `node clientes/padel-club-logo/render.mjs` → `propuestas.png`). Guille pasó referencias (paleta con agujeros y pelota, tres pelotas con la costura en negativo, paletas dibujadas, círculo con la paleta en negativo) y la tipografía de una imagen de texto: "Pádel Club" en grotesca semibold blanca sobre azul noche (#050A14). Tres opciones: 1 la pelota lima con la paleta en negativo, 2 paleta y pelota, 3 pelotas en fila. Nombre del club y página: falta que Guille los confirme (se usó "Pádel Club", el texto de su imagen).
 - Rama de trabajo: `claude/eloquent-volta-h5jy6a`.
 
 ## Historias de Instagram (Aicia)

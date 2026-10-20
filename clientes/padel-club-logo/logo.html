@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Pádel Club · Propuestas de logo</title>
+<!-- Tres propuestas de logo para el club de pádel, a partir de las referencias de Guille:
+     1) la pelota con la paleta en negativo (como el círculo con la paleta adentro),
+     2) paleta y pelota (como la silueta con los agujeros y la pelota al costado),
+     3) pelotas en fila (como las tres pelotas con la costura en negativo).
+     Tipografía: "Pádel Club" en una grotesca semibold, blanca y apretada, como la imagen de texto (acá Geist 600).
+     Colores: el fondo azul noche de la imagen de texto (#050A14), blanco y el verde lima de la pelota de pádel. -->
+<style>
+@font-face{font-family:"Geist";src:url(../../aicia-web/fonts/geist-latin-wght-normal.woff2) format("woff2");font-weight:100 900;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2212}
+@font-face{font-family:"Geist";src:url(../../aicia-web/fonts/geist-latin-ext-wght-normal.woff2) format("woff2");font-weight:100 900;unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Geist Mono";src:url(../../aicia-web/fonts/geist-mono-latin-500-normal.woff2) format("woff2");font-weight:500}
+:root{--navy:#050A14;--lime:#D8F84A;--white:#FFFFFF}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0E1018;font-family:"Geist",system-ui,sans-serif;-webkit-font-smoothing:antialiased;color:#fff;width:1680px;padding:56px}
+h1{font-size:30px;font-weight:600;letter-spacing:-0.02em;margin-bottom:6px}
+.note{font:500 15px/1.4 "Geist Mono",monospace;color:#8C93A8;margin-bottom:36px}
+.row{display:grid;grid-template-columns:120px 760px 380px 1fr;gap:20px;align-items:center;margin-bottom:28px}
+.num{font:500 15px/1.35 "Geist Mono",monospace;color:#8C93A8}
+.num b{display:block;color:#fff;font:600 22px/1.2 "Geist",sans-serif;letter-spacing:-0.02em;margin-bottom:6px}
+.tile{height:380px;border-radius:22px;display:flex;align-items:center;justify-content:center;gap:34px;position:relative;overflow:hidden}
+.dark{background:var(--navy)}
+.dark::before{content:"";position:absolute;inset:0;background:radial-gradient(520px 300px at 50% 55%,rgba(60,90,160,.16),transparent 70%)}
+.light{background:#F4F5F7}
+.lock{display:flex;align-items:center;gap:30px;position:relative}
+.lock.stack{flex-direction:column;gap:22px}
+.lock svg{display:block}
+.word{font-weight:600;letter-spacing:-0.035em;line-height:1;white-space:nowrap}
+.dark .word{color:#fff}
+.light .word{color:var(--navy)}
+.avatars{display:flex;gap:18px;align-items:center}
+.av{border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--navy);overflow:hidden}
+</style>
+</head>
+<body>
+<h1>Pádel Club · 3 propuestas de logo</h1>
+<p class="note">Fondo azul noche de tu imagen de texto · blanco · verde lima de la pelota · "Pádel Club" en grotesca semibold</p>
+
+<!-- Definiciones de cada símbolo (viewBox 0 0 100 100) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- 1 · La pelota con la paleta en negativo -->
+    <mask id="m1" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100">
+      <rect width="100" height="100" fill="#fff"/>
+      <g transform="rotate(-38 50 50)">
+        <path d="M50 14 C67 14 73 27 72 39 C71 50 62 58 54 61 L54.5 66 L45.5 66 L46 61 C38 58 29 50 28 39 C27 27 33 14 50 14 Z" fill="#000"/>
+        <rect x="45.5" y="64" width="9" height="40" rx="2" fill="#000"/>
+      </g>
+    </mask>
+    <g id="s1">
+      <circle cx="50" cy="50" r="46" fill="var(--lime)" mask="url(#m1)"/>
+      <g transform="rotate(-38 50 50)" fill="var(--lime)">
+        <g id="holes1"></g>
+        <path d="M50 66 L47.4 59.8 L52.6 59.8 Z" fill="var(--lime)"/>
+      </g>
+    </g>
+
+    <!-- 2 · Paleta y pelota -->
+    <mask id="m2" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100">
+      <rect width="100" height="100" fill="#fff"/>
+      <g transform="rotate(-32 44 52)" fill="#000">
+        <g id="holes2"></g>
+        <path d="M44 71.5 L39.6 64.5 L48.4 64.5 Z"/>
+        <rect x="40.2" y="80" width="7.6" height="1.6" rx=".8"/><rect x="40.2" y="85" width="7.6" height="1.6" rx=".8"/><rect x="40.2" y="90" width="7.6" height="1.6" rx=".8"/>
+      </g>
+    </mask>
+    <g id="s2">
+      <g transform="rotate(-32 44 52)" fill="#fff" mask="url(#m2)">
+        <path d="M44 6 C64 6 71 20 70 33 C69 47 59 57 50 61.5 L48.6 74 L39.4 74 L38 61.5 C29 57 19 47 18 33 C17 20 24 6 44 6 Z"/>
+        <rect x="39.4" y="72" width="9.2" height="24" rx="2.6"/>
+      </g>
+      <g transform="translate(79 79)">
+        <circle r="12" fill="var(--lime)"/>
+        <path d="M-8.6 -8.2 C-3.2 -3.6 -3.2 3.6 -8.6 8.2 M8.6 -8.2 C3.2 -3.6 3.2 3.6 8.6 8.2" stroke="var(--navy)" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+      </g>
+    </g>
+
+    <!-- 3 · Pelotas en fila (la costura en negativo, la del medio en lima) -->
+    <mask id="seam" maskUnits="objectBoundingBox" x="0" y="0" width="1" height="1" maskContentUnits="objectBoundingBox">
+      <rect width="1" height="1" fill="#fff"/>
+      <path d="M0.15 0.06 C0.36 0.30 0.36 0.70 0.15 0.94 M0.85 0.06 C0.64 0.30 0.64 0.70 0.85 0.94" stroke="#000" stroke-width="0.075" fill="none" stroke-linecap="round"/>
+    </mask>
+    <g id="s3">
+      <circle cx="19" cy="50" r="16.5" fill="#fff" mask="url(#seam)"/>
+      <circle cx="50" cy="50" r="16.5" fill="var(--lime)" mask="url(#seam)"/>
+      <circle cx="81" cy="50" r="16.5" fill="#fff" mask="url(#seam)"/>
+    </g>
+  </defs>
+</svg>
+
+<div id="rows"></div>
+
+<script>
+// Agujeros de las paletas: una grilla de puntos recortada por la forma de la cabeza
+function holes(id, cx, cy, step, r, test) {
+  const g = document.getElementById(id); let s = '';
+  for (let y = cy - 40; y <= cy + 40; y += step) for (let x = cx - 40; x <= cx + 40; x += step) if (test(x, y)) s += `<circle cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r="${r}"/>`;
+  g.innerHTML = s;
+}
+// 1: dentro de la cabeza (elipse 22×23 alrededor de 50,36)
+holes('holes1', 50, 36, 6.2, 1.55, (x, y) => ((x - 50) / 17) ** 2 + ((y - 36) / 18) ** 2 <= 1);
+// 2: dentro de la cabeza (elipse alrededor de 44,32)
+holes('holes2', 44, 31, 6, 1.7, (x, y) => ((x - 44) / 19) ** 2 + ((y - 31) / 20) ** 2 <= 1);
+
+const OPTS = [
+  ['1', 'La pelota y la paleta', 'La pelota lima con la paleta en negativo, como el círculo con la paleta adentro. Funciona sola como foto de perfil.', 's1'],
+  ['2', 'Paleta y pelota', 'La silueta clásica, con los agujeros y la pelota al costado. La más directa: se entiende de un vistazo.', 's2'],
+  ['3', 'Pelotas en fila', 'Tres pelotas con la costura en negativo, la del medio en lima. La más moderna y abstracta.', 's3'],
+];
+const icon = (id, size, extra = '') => `<svg viewBox="0 0 100 100" width="${size}" height="${size}" ${extra}><use href="#${id}"/></svg>`;
+const wide = id => id === 's3';
+document.getElementById('rows').innerHTML = OPTS.map(([n, name, desc, id]) => `
+  <div class="row">
+    <div class="num"><b>${n} · ${name}</b>${desc}</div>
+    <div class="tile dark"><div class="lock">${icon(id, wide(id) ? 190 : 150)}<div class="word" style="font-size:${wide(id) ? 72 : 80}px">Pádel Club</div></div></div>
+    <div class="tile light"><div class="lock stack">${id === 's1' ? icon(id, 150) : `<div style="background:var(--navy);border-radius:28px;padding:22px">${icon(id, 112)}</div>`}<div class="word" style="font-size:48px">Pádel Club</div></div></div>
+    <div class="avatars">
+      <div class="av" style="width:150px;height:150px">${icon(id, wide(id) ? 128 : 104)}</div>
+      <div class="av" style="width:72px;height:72px">${icon(id, wide(id) ? 62 : 50)}</div>
+      <div class="av" style="width:40px;height:40px">${icon(id, wide(id) ? 34 : 28)}</div>
+    </div>
+  </div>`).join('');
+document.fonts.ready.then(() => (window.__ready = true));
+</script>
+</body>
+</html>
