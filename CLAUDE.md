@@ -36,6 +36,10 @@
   - Degradés con caída suave y la luz del chat como degradé (no sombra), para que no haga escalones.
   - **Sin grano y con la grilla de 2 px** (Guille la vio "pixeleada" en el celular): WhatsApp la achica y la pasa a JPEG, y el grano y las líneas de 1 px se le volvían cuadraditos. La lista y el detalle van un poco más gruesos y claros. Sale también en `portada-whatsapp.jpg` (calidad alta, sin submuestreo de color, ~170 KB), que es la recomendada para subir.
 - `clientes/padel-club-logo/` son las **propuestas de logo para un club de pádel** (`logo.html` → `node clientes/padel-club-logo/render.mjs` → `propuestas.png`). Guille pasó referencias (paleta con agujeros y pelota, tres pelotas con la costura en negativo, paletas dibujadas, círculo con la paleta en negativo) y la tipografía de una imagen de texto: "Pádel Club" en grotesca semibold blanca sobre azul noche (#050A14). Tres opciones: 1 la pelota lima con la paleta en negativo, 2 paleta y pelota, 3 pelotas en fila. Nombre del club y página: falta que Guille los confirme (se usó "Pádel Club", el texto de su imagen).
+  - **Eligió la 3 (pelotas en fila)** y pidió los logos "perfectos": `node clientes/padel-club-logo/build.mjs` → `final/` (SVG y PNG 4000 px sin fondo) + `presentacion.png` + `padel-club-logos.zip`.
+    - Símbolo en vectores: tres pelotas de radio 20 que se encastran como en la referencia (la costura de cada una es el borde de la de al lado, separación 26,6) con un corte de 3,2; la del medio va adelante y en lima (#D8F84A). Las de los costados en blanco (fondo oscuro) o azul noche #050A14 (fondo claro).
+    - "Pádel Club" son los contornos reales de Geist 600 (`glyphs-geist-600.json`, sacado con `glyphs.py` y fonttools), con interletrado -0,035em y kerning medidos en el navegador; los SVG no dependen de la fuente. Mayúsculas al 62 % de la altura del símbolo.
+    - Versiones: horizontal y vertical (oscuro y claro), símbolo solo (oscuro y claro), un color blanco y un color azul noche, foto de perfil 1080×1080 y favicon 512.
 - Rama de trabajo: `claude/eloquent-volta-h5jy6a`.
 
 ## Historias de Instagram (Aicia)
