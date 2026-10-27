@@ -5,7 +5,7 @@
 #   .frames/pw/   web de Pádel Club (1512×718): el inicio baja por la página y hace una reserva completa (4,3–56,6 s)
 #   .frames/pwh/  el inicio de Pádel Club estirado hacia abajo (1512×945) para la pantalla más alta de la MacBook (1,6–4,5 s)
 #   .frames/pp/   panel del club (1512×718, 1,1–9,5 s)
-#   .frames/ch/   el chat con el asistente (grabación del iPhone, 750×1288, entera)
+#   .frames/ch/   el chat con el asistente (grabación del iPhone, 750×1288, estirada arriba y abajo a 750×1623: la pantalla del iPhone)
 # Uso: bash preparar-cuadros-prospecto.sh web.mp4 panel.mp4 chat.mov [escala]   (escala 0.5 = borrador liviano)
 set -euo pipefail
 cd "$(dirname "$0")"
@@ -21,5 +21,7 @@ HOME="split[a][b];[a]crop=1920:900:0:108[t];[b]crop=1920:2:0:1006,scale=1920:300
 tramo pw "$PAGE" 4.3 52.3 "$1"
 tramo pwh "$HOME" 1.6 2.9 "$1"
 tramo pp "$PAGE" 1.1 8.4 "$2"
-tramo ch "scale=$WC:-2:flags=lanczos" 0 60.9 "$3"
+# chat: arriba y abajo se estiran las filas del borde (barra de estado y fondo del teclado) para llenar la pantalla del iPhone
+CHAT="split=3[a][b][c];[a]crop=750:2:0:0,scale=750:103,gblur=sigma=4:sigmaV=0[t];[c]crop=750:2:0:1286,scale=750:232,gblur=sigma=4:sigmaV=0[s];[t][b][s]vstack=3,scale=$WC:-2:flags=lanczos"
+tramo ch "$CHAT" 0 60.9 "$3"
 echo "listo: $(ls .frames/pw | wc -l) web · $(ls .frames/pwh | wc -l) inicio · $(ls .frames/pp | wc -l) panel · $(ls .frames/ch | wc -l) chat"

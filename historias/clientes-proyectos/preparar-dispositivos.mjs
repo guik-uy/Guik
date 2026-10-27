@@ -12,6 +12,8 @@ const items = [
   // Video de AeroSport: MacBook flotante (la cámara/notch se dibuja aparte, encima de la página) y Studio Display sobre la mesa
   { src: 'macbook-flotante-original.png', out: 'macbook-flotante.png', seed: [700, 470] },
   { src: 'studio-display-mesa-original.png', out: 'studio-display-mesa.png', seed: [230, 470] },
+  // Video de prospección: monitor sobre el mueble de listones (portada con la web de Pádel Club)
+  { src: 'monitor-mueble-original.png', out: 'monitor-mueble.png', seed: [160, 300] },
 ];
 const only = process.argv.slice(2); // opcional: solo los archivos de salida nombrados
 const b = await chromium.launch(); const p = await b.newPage();

@@ -5,7 +5,7 @@
 <title>Aicia · Video de prospección (clubes de pádel)</title>
 <!-- Video para prospectos de clubes de pádel (2 min, 60 fps). Mismo sistema que video-aerosport.html y video-bsas.html:
      renderAt(t) deja la escena en el segundo t; render-timeline.mjs la graba cuadro por cuadro.
-     0–7,4 s      portada: MacBook flotante con la web de Pádel Club (demo) + "Ninguna reserva perdida."
+     0–7,4 s      portada: el monitor sobre el mueble de listones con la web de Pádel Club (demo) + "Ninguna reserva perdida."
      7,4–40,6 s   opción 1, la web de reservas: la cámara entra en la pantalla, la página baja y se hace una reserva completa
      40,6–51 s    el panel del club (lo que ve el equipo)
      51–85 s      opción 2, el asistente de IA: la web se va y entra un iPhone con el chat
@@ -81,18 +81,14 @@ body{font-family:"Geist",system-ui,sans-serif;-webkit-font-smoothing:antialiased
 .notch svg{display:block;width:100%;height:100%}
 .shadow{z-index:4;left:0;top:0;width:100px;height:100px;border-radius:40px;background:rgba(3,2,20,.7);filter:blur(40px);transform-origin:0 0;opacity:0}
 
-/* iPhone con el chat (dibujado: marco de titanio oscuro, isla y barra de estado arriba de la grabación) */
-#ph{z-index:9;left:280px;top:830px;width:520px;height:922px;transform-origin:50% 50%;will-change:transform,opacity;opacity:0}
-#ph .body{position:absolute;inset:0;border-radius:78px;background:linear-gradient(145deg,#3a3b46 0%,#17171d 22%,#0c0c10 60%,#2b2c36 100%);
-  box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.16),inset 0 0 0 4px #0a0a0d,0 60px 120px rgba(2,2,18,.6)}
-#ph .scr{position:absolute;left:12px;top:12px;right:12px;bottom:12px;border-radius:66px;overflow:hidden;background:#0d1a10}
-#ph .sb{position:absolute;left:0;right:0;top:0;height:46px;background:#cfe0b6;display:flex;align-items:center;justify-content:space-between;padding:6px 44px 0 52px;font-size:19px;font-weight:600;color:#0b0b0b;letter-spacing:-0.01em}
-#ph .sb svg{height:15px;display:block}
-#ph .isl{position:absolute;left:50%;top:11px;width:132px;height:36px;margin-left:-66px;border-radius:20px;background:#000;z-index:3}
-#ph .pg{position:absolute;left:0;right:0;top:46px;bottom:0;overflow:hidden}
-#ph .pg img{position:absolute;left:0;top:0;width:100%;display:block}
-#ph .gl{position:absolute;inset:0;pointer-events:none;background:linear-gradient(118deg,rgba(255,255,255,0) 30%,rgba(255,255,255,.09) 42%,rgba(255,255,255,.02) 50%,rgba(255,255,255,0) 60%);background-size:300% 100%;background-repeat:no-repeat}
-#ph .btn{position:absolute;width:5px;border-radius:3px;background:#2a2b33}
+/* iPhone real (foto del marco con la pantalla transparente) y el chat detrás; barra de estado dibujada encima */
+#ph{z-index:9;left:300px;top:812px;width:480px;height:946px;transform-origin:50% 50%;will-change:transform,opacity;opacity:0}
+#ph .scr{position:absolute;left:8.374%;top:4.3%;width:83.25%;height:91.4%;border-radius:56px;overflow:hidden;background:#8fc47a}
+#ph .scr img{position:absolute;left:0;top:0;width:100%;height:100%;display:block}
+#ph .sb{position:absolute;left:0;right:0;top:0;height:55px;display:flex;align-items:center;justify-content:space-between;padding:4px 34px 0 46px;font-size:19px;font-weight:600;color:#0b0b0b;letter-spacing:-0.01em;z-index:2}
+#ph .sb svg{height:14px;display:block}
+#ph .gl{position:absolute;inset:0;pointer-events:none;z-index:3;background:linear-gradient(118deg,rgba(255,255,255,0) 30%,rgba(255,255,255,.10) 42%,rgba(255,255,255,.02) 50%,rgba(255,255,255,0) 60%);background-size:300% 100%;background-repeat:no-repeat}
+#ph .frame{position:absolute;left:0;top:0;width:100%;height:100%;z-index:4;filter:drop-shadow(0 50px 80px rgba(2,2,18,.55))}
 #phS{z-index:8;left:0;top:0;width:100px;height:100px;border-radius:50%;background:rgba(2,2,16,.75);filter:blur(36px);transform-origin:0 0;opacity:0}
 </style>
 </head>
@@ -109,6 +105,7 @@ body{font-family:"Geist",system-ui,sans-serif;-webkit-font-smoothing:antialiased
 <section class="story" id="story" data-file="aicia-prospecto-padel.png" data-video="aicia-prospecto-padel.mp4">
   <div class="stage"></div><div class="grid"></div>
   <div class="shadow" id="shadow"></div>
+  <div class="dev" id="mon" data-bake="monitor-mueble"></div>
   <div class="dev" id="lap" data-bake="macbook-flotante"></div>
   <div class="dev" id="sd" data-bake="studio-display"></div>
   <div id="glow"></div>
@@ -124,16 +121,14 @@ body{font-family:"Geist",system-ui,sans-serif;-webkit-font-smoothing:antialiased
   </svg></div>
   <div id="phS"></div>
   <div id="ph">
-    <div class="body"></div>
-    <i class="btn" style="left:-3px;top:190px;height:58px"></i><i class="btn" style="left:-3px;top:270px;height:92px"></i><i class="btn" style="left:-3px;top:378px;height:92px"></i><i class="btn" style="right:-3px;top:300px;height:140px"></i>
     <div class="scr">
+      <img id="chA" alt=""><img id="chB" alt="">
       <div class="sb"><span>11:55</span><span style="display:flex;gap:7px;align-items:center">
         <svg viewBox="0 0 20 12"><rect x="0" y="8" width="3.4" height="4" rx="1" fill="#0b0b0b"/><rect x="5.4" y="5.5" width="3.4" height="6.5" rx="1" fill="#0b0b0b"/><rect x="10.8" y="3" width="3.4" height="9" rx="1" fill="#0b0b0b"/><rect x="16.2" y="0" width="3.4" height="12" rx="1" fill="#0b0b0b"/></svg>
         <svg viewBox="0 0 28 13"><rect x=".6" y=".6" width="23" height="11.8" rx="3.6" fill="none" stroke="#0b0b0b" stroke-opacity=".45" stroke-width="1.2"/><rect x="2.4" y="2.4" width="17" height="8.2" rx="2" fill="#0b0b0b"/><rect x="25" y="4.2" width="1.8" height="4.6" rx=".9" fill="#0b0b0b" fill-opacity=".45"/></svg></span></div>
-      <div class="isl"></div>
-      <div class="pg"><img id="chA" alt=""><img id="chB" alt=""></div>
       <div class="gl" id="phG"></div>
     </div>
+    <img class="frame" src="assets/iphone-original.png" alt="">
   </div>
 
   <div class="lg" id="lg1"><img src="assets/logo-bsas-top-blanco.png" alt=""><b>Buenos Aires Top</b><span>Club de pádel</span></div>
@@ -195,6 +190,8 @@ const BAKED = Q.has('baked');
 const T_END = 120; window.DUR = T_END;
 // Dispositivos: foto (pantalla en negro), escala y posición base, esquinas de la pantalla en px de la foto
 const DEV = {
+  mon: { src: 'assets/monitor-mueble.png', w: 736, h: 870, s: 1.7, left: -72, top: 520, aspect: 502 / 327,
+         quad: [[109, 213.1], [611, 184.4], [611, 517.2], [109, 535.8]] },
   lap: { src: 'assets/macbook-flotante.png', w: 1200, h: 1200, s: 1.0, left: -57.5, top: 600, aspect: 1.54,
          quad: [[276.2, 299.3], [797.4, 460.1], [821.5, 805.6], [244.6, 769.8]] },
   sd: { src: 'assets/studio-display.png', w: 1080, h: 1080, s: 1.3, left: -162, top: 560, aspect: 1.78,
@@ -206,7 +203,7 @@ const PANEL = { cx: 540, cy: 1112, w: 1032, aspect: 1512 / (52 + 718) };
 // [t inicio, t fin, segundo inicio, segundo fin]. CUTS = cortes con pestañeo a oscuro.
 const SRC = [
   { t0: 0, t1: 40.6, addr: 'Pádel Club', dir: a => a < 4.3 ? ['pwh', 945] : ['pw', 718], cuts: [37.0], clips: [
-    [0, 7.4, 1.7, 4.3],         // portada: el inicio quieto en la MacBook (cámara lenta suave)
+    [0, 7.4, 1.7, 4.3],         // portada: el inicio quieto en el monitor (cámara lenta suave)
     [7.4, 14.0, 4.3, 21.9],     // baja por la página (canchas, precios, preguntas) y vuelve arriba
     [14.0, 15.6, 21.9, 23.8],   // toca "Reservar cancha"
     [15.6, 19.6, 23.8, 27.9],   // día y horario
@@ -392,20 +389,20 @@ async function setFrames(A, B, dirOf, fn, fade, still = false) {
 }
 
 window.renderAt = async function (t) {
-  if (!LK_IN) { const kIn = PANEL.w / DEV.lap.sw * 1.2; LK_IN = smooth([0, 6.0, T_IN], [0, Math.log(1.055), Math.log(kIn)], 1); }
-  const scr = document.getElementById('scr'), lp = DEV.lap, sd = DEV.sd;
-  let q, aspect = PANEL.aspect, rad = 26, mb = 0, dev = 0, op = 1, blur = 0, glx = 40, shadowOn = 0, onLap = false, sdOn = false;
+  if (!LK_IN) { const kIn = PANEL.w / DEV.mon.sw * 1.2; LK_IN = smooth([0, 6.0, T_IN], [0, Math.log(1.055), Math.log(kIn)], 1); }
+  const scr = document.getElementById('scr'), lp = DEV.lap, sd = DEV.sd, mn = DEV.mon;
+  let q, aspect = PANEL.aspect, rad = 26, mb = 0, dev = 0, op = 1, blur = 0, glx = 40, shadowOn = 0, onLap = false, sdOn = false, monOn = false;
   const P = o => pane({ sc: panelScale(t), dy: panelFloat(t), ...o });
 
-  // --- 1 · Portada: MacBook flotante con un empuje lento que, sin frenar, entra en la pantalla
+  // --- 1 · Portada: el monitor sobre el mueble, con un empuje lento que, sin frenar, entra en la pantalla
   if (t < 7.4) {
     const lk = LK_IN(t), e = clamp(lk / LK_IN(T_IN)), k = Math.exp(lk);
-    const c = [lerp(lp.c0[0], PANEL.cx, e), lerp(lp.c0[1], PANEL.cy, e) - 10 * seg(t, 0, 5.8)];
-    const ent = out4(seg(t, 0, 1.6));   // la MacBook sube y se enfoca al arrancar
-    const qs = cam('lap', k * (.96 + .04 * ent), [c[0], c[1] + 120 * (1 - ent)], ent * (1 - io(seg(t, 6.55, 7.05))), 6 * (1 - ent));
+    const c = [lerp(mn.c0[0], PANEL.cx, e), lerp(mn.c0[1], PANEL.cy, e) - 10 * seg(t, 0, 5.8)];
+    const ent = out4(seg(t, 0, 1.6));   // el monitor sube y se enfoca al arrancar
+    const qs = cam('mon', k * (.96 + .04 * ent), [c[0], c[1] + 120 * (1 - ent)], ent * (1 - io(seg(t, 6.55, 7.05))), 6 * (1 - ent));
     const f = io(seg(t, 6.45, T_IN));
-    q = mix(qs, P(), f); aspect = lerp(lp.aspect, PANEL.aspect, f); rad = lerp(7, 26, f); mb = 36 * (1 - f);
-    dev = 1 - f; glx = 18 + 40 * e; onLap = true; op = ent; blur = 6 * (1 - ent);
+    q = mix(qs, P(), f); aspect = lerp(mn.aspect, PANEL.aspect, f); rad = lerp(3, 26, f);
+    dev = 1 - f; glx = 18 + 40 * e; monOn = true; op = ent; blur = 6 * (1 - ent);
     shadowOn = seg(t, 6.9, 7.4);
   }
   // --- 2 · La web y el panel flotan de frente (51–53,6: se van hacia atrás y arriba)
@@ -435,6 +432,7 @@ window.renderAt = async function (t) {
     op = e; blur = 8 * (1 - e); shadowOn = e;
   } else { op = 0; q = P(); }
   if (!onLap) cam('lap', 1, lp.c0, 0);
+  if (!monOn) cam('mon', 1, mn.c0, 0);
   if (!sdOn) cam('sd', 1, sd.c0, 0);
   document.getElementById('lapN').style.opacity = onLap ? document.getElementById('lap').style.opacity : 0;
 
@@ -479,14 +477,14 @@ window.renderAt = async function (t) {
     pv = Math.min(1, e * 1.4); ps = .66; px = 270 + 220 * (1 - e); py = 110 + 300 * (1 - e) + 5 * Math.sin(2 * Math.PI * (t - 112) / 6.8);
     pry = -13 + 10 * (1 - e) + 2.5 * Math.sin((t - 112) / 5); prx = 4 + 8 * (1 - e); pb = 7 * (1 - e);
   }
-  ph.style.opacity = pv.toFixed(3); phS.style.opacity = (pv * .85).toFixed(3);
+  ph.style.opacity = pv.toFixed(3); phS.style.opacity = (pv * .6).toFixed(3);
   if (pv > .001) {
     ph.style.transform = `perspective(2600px) translate3d(${px.toFixed(2)}px,${py.toFixed(2)}px,0) rotateX(${prx.toFixed(3)}deg) rotateY(${pry.toFixed(3)}deg) scale(${ps.toFixed(4)})`;
     ph.style.filter = pb > .05 ? `blur(${pb.toFixed(2)}px)` : '';
-    phS.style.transform = `translate(${(280 + 60 + px + (1 - ps) * 260).toFixed(2)}px,${(830 + 922 * (.5 + .47 * ps) + py).toFixed(2)}px) scale(${(4 * ps).toFixed(3)},.7)`;
+    phS.style.transform = `translate(${(300 + 40 + px + (1 - ps) * 240).toFixed(2)}px,${(812 + 946 * (.5 + .47 * ps) + py).toFixed(2)}px) scale(${(4 * ps).toFixed(3)},.7)`;
     document.getElementById('phG').style.backgroundPosition = `${(30 + 3 * pry).toFixed(2)}% 0`;
     const fn = Math.min(CH_LAST - 1, chatAt(Math.min(t, 200)) * 60);
-    await setFrames(document.getElementById('chA'), document.getElementById('chB'), () => ['ch', 1288], fn, true);
+    await setFrames(document.getElementById('chA'), document.getElementById('chB'), () => ['ch', 1623], fn, true);
   }
 
   // --- Logos de clientes
