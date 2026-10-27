@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Aicia · Video de prospección (clubes de pádel)</title>
+<!-- Video para prospectos de clubes de pádel (2 min, 60 fps). Mismo sistema que video-aerosport.html y video-bsas.html:
+     renderAt(t) deja la escena en el segundo t; render-timeline.mjs la graba cuadro por cuadro.
+     0–7,4 s      portada: MacBook flotante con la web de Pádel Club (demo) + "Ninguna reserva perdida."
+     7,4–40,6 s   opción 1, la web de reservas: la cámara entra en la pantalla, la página baja y se hace una reserva completa
+     40,6–51 s    el panel del club (lo que ve el equipo)
+     51–85 s      opción 2, el asistente de IA: la web se va y entra un iPhone con el chat
+     85–91,5 s    "Ya confiaron en nosotros." con los logos de Buenos Aires Top y AeroSport
+     91,5–101 s   Buenos Aires Top en el Studio Display
+     101–110 s    AeroSport en la MacBook (en desarrollo: no se dice que está online)
+     110–120 s    cierre: la web y el chat juntos + "¿Lo vemos para tu club?"
+     Cuadros: bash preparar-cuadros-prospecto.sh (web, panel y chat) + los de AeroSport y Bs.As. Top que ya estaban. -->
+<style>
+@font-face{font-family:"Geist";src:url(fonts/geist-latin-wght-normal.woff2) format("woff2");font-weight:100 900;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2212}
+@font-face{font-family:"Geist";src:url(fonts/geist-latin-ext-wght-normal.woff2) format("woff2");font-weight:100 900;unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Instrument Serif";src:url(fonts/instrument-serif-latin-400-italic.woff2) format("woff2");font-style:italic;font-weight:400}
+:root{--m:64px}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#15151d}
+body{font-family:"Geist",system-ui,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision}
+.story{width:1080px;height:1920px;position:relative;overflow:hidden;background:#06061A;color:#F4F4FA;isolation:isolate}
+.story > *{position:absolute}
+.serif{font-family:"Instrument Serif",serif;font-style:italic;font-weight:400}
+
+.stage{inset:0}
+.grid{inset:0;background-image:linear-gradient(rgba(199,201,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(199,201,255,.07) 1px,transparent 1px);background-size:119px 119px;background-position:64px 250px}
+.vignette{inset:0;z-index:20;pointer-events:none}
+.basefade{left:0;right:0;bottom:0;height:360px;z-index:20;pointer-events:none}
+.sig{left:0;right:0;top:1836px;z-index:22;text-align:center;font-size:26px;font-weight:600;letter-spacing:-0.035em;line-height:1;color:#fff;text-shadow:0 1px 14px rgba(3,3,16,.45)}
+
+/* Texto */
+.tx{z-index:21;left:var(--m);will-change:transform,opacity;opacity:0}
+.eyebrow{top:384px;font-size:31px;font-weight:600;letter-spacing:-0.015em;background:linear-gradient(90deg,#D9DAFF,#9A9BFA);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.title{top:440px;font-size:112px;font-weight:600;letter-spacing:-0.045em;line-height:.98;color:#fff;white-space:nowrap}
+.title .serif{font-size:128px;letter-spacing:-0.02em;line-height:.8;background:linear-gradient(100deg,#B9BBFF 0%,#ECEDFF 52%,#C3C5FF 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;padding:0 .1em .14em 0}
+.lede{top:712px;width:952px;font-size:34px;line-height:1.38;color:rgba(226,228,255,.80);letter-spacing:-0.012em}
+.cl-logo{top:262px;width:92px;filter:drop-shadow(0 8px 18px rgba(4,3,26,.5))}
+.cl-logo.wide{width:200px;top:282px}
+
+/* Logos de clientes */
+.lg{z-index:12;top:900px;width:452px;height:400px;border-radius:40px;opacity:0;will-change:transform,opacity;
+  background:linear-gradient(160deg,rgba(255,255,255,.075),rgba(255,255,255,.02));box-shadow:inset 0 0 0 1.5px rgba(199,201,255,.16),0 40px 90px rgba(2,2,16,.55);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:30px}
+.lg img{height:150px;max-width:330px;object-fit:contain;filter:drop-shadow(0 10px 22px rgba(4,3,26,.5))}
+.lg b{font-size:34px;font-weight:600;letter-spacing:-0.025em;color:#fff;line-height:1}
+.lg span{font-size:25px;color:rgba(214,216,255,.7);margin-top:-18px}
+#lg1{left:64px}#lg2{left:564px}
+
+/* Dispositivos */
+.dev{z-index:5;transform-origin:0 0;will-change:transform,opacity;opacity:0}
+.dev > *{position:absolute;left:0;top:0;width:100%;height:100%}
+.dev .subj{isolation:isolate}
+.dev .subj > *{position:absolute;inset:0;width:100%;height:100%}
+.dev .subj img{filter:url(#cut) contrast(1.08) brightness(.94) saturate(.9)}
+.dev .tint{background:linear-gradient(180deg,#6366F1,#3B32B8);mix-blend-mode:color;opacity:.12}
+.dev .rim{mix-blend-mode:screen;opacity:.38;background:linear-gradient(90deg,rgba(199,201,255,.85) 0%,rgba(129,132,255,.25) 22%,transparent 45%)}
+.dev .blacks{background:#0B0A24;mix-blend-mode:lighten;opacity:.5}
+.dev .falloff{mix-blend-mode:multiply;background:radial-gradient(70% 60% at 50% 40%,rgba(255,255,255,0) 45%,rgba(60,52,150,.32) 100%),linear-gradient(180deg,rgba(255,255,255,0) 55%,rgba(40,34,120,.34) 100%)}
+.dev .tint,.dev .rim,.dev .blacks,.dev .falloff{-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+#glow{z-index:3;left:0;top:0;width:1080px;height:1920px;pointer-events:none;opacity:0}
+
+/* Pantalla: barra de navegador + página + brillo del vidrio */
+#scr{left:0;top:0;width:1512px;z-index:6;transform-origin:0 0;overflow:hidden;background:#0A0A0A;will-change:transform,opacity}
+#scr .bar{position:absolute;left:0;top:var(--mb,0px);right:0;height:52px;display:flex;align-items:center;gap:8px;padding:0 20px;background:linear-gradient(180deg,#26262A,#1E1E21);box-shadow:inset 0 -1px 0 rgba(0,0,0,.6)}
+#scr .bar i{width:12px;height:12px;border-radius:50%;background:#FF5F57}
+#scr .bar i:nth-child(2){background:#FEBC2E}#scr .bar i:nth-child(3){background:#28C840}
+#scr .addr{position:absolute;left:50%;top:10px;width:420px;height:32px;margin-left:-210px;border-radius:8px;background:#333337;display:flex;align-items:center;justify-content:center;gap:7px;font-size:15px;font-weight:500;color:#E5E5EA}
+#scr .addr svg{width:14px;height:14px;fill:none;stroke:#A1A1A6;stroke-width:2;stroke-linecap:round}
+#scr .mbar{position:absolute;left:0;right:0;top:0;height:var(--mb,0px);background:#000}
+#scr .pg{position:absolute;left:0;right:0;top:calc(52px + var(--mb,0px));bottom:0;overflow:hidden;background:#030406}
+#scr .pcam{position:absolute;left:0;top:0;width:1512px;transform-origin:0 0}
+#scr .pcam img{position:absolute;left:0;top:0;width:1512px;display:block}
+#scr .dip{position:absolute;inset:0;background:#030406;opacity:0}
+#scr .gl{position:absolute;inset:0;pointer-events:none;background:linear-gradient(112deg,rgba(255,255,255,0) 40%,rgba(255,255,255,.075) 47%,rgba(255,255,255,.02) 52%,rgba(255,255,255,0) 58%),radial-gradient(120% 90% at 0% 0%,rgba(255,255,255,.06),transparent 55%);background-size:260% 100%,100% 100%;background-repeat:no-repeat}
+#scr .edge{position:absolute;inset:0;pointer-events:none;border-radius:inherit;box-shadow:inset 0 0 0 1.5px rgba(0,0,0,.6),inset 0 0 40px rgba(0,0,0,.38)}
+.notch{z-index:7;pointer-events:none;opacity:0}
+.notch svg{display:block;width:100%;height:100%}
+.shadow{z-index:4;left:0;top:0;width:100px;height:100px;border-radius:40px;background:rgba(3,2,20,.7);filter:blur(40px);transform-origin:0 0;opacity:0}
+
+/* iPhone con el chat (dibujado: marco de titanio oscuro, isla y barra de estado arriba de la grabación) */
+#ph{z-index:9;left:280px;top:830px;width:520px;height:922px;transform-origin:50% 50%;will-change:transform,opacity;opacity:0}
+#ph .body{position:absolute;inset:0;border-radius:78px;background:linear-gradient(145deg,#3a3b46 0%,#17171d 22%,#0c0c10 60%,#2b2c36 100%);
+  box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.16),inset 0 0 0 4px #0a0a0d,0 60px 120px rgba(2,2,18,.6)}
+#ph .scr{position:absolute;left:12px;top:12px;right:12px;bottom:12px;border-radius:66px;overflow:hidden;background:#0d1a10}
+#ph .sb{position:absolute;left:0;right:0;top:0;height:46px;background:#cfe0b6;display:flex;align-items:center;justify-content:space-between;padding:6px 44px 0 52px;font-size:19px;font-weight:600;color:#0b0b0b;letter-spacing:-0.01em}
+#ph .sb svg{height:15px;display:block}
+#ph .isl{position:absolute;left:50%;top:11px;width:132px;height:36px;margin-left:-66px;border-radius:20px;background:#000;z-index:3}
+#ph .pg{position:absolute;left:0;right:0;top:46px;bottom:0;overflow:hidden}
+#ph .pg img{position:absolute;left:0;top:0;width:100%;display:block}
+#ph .gl{position:absolute;inset:0;pointer-events:none;background:linear-gradient(118deg,rgba(255,255,255,0) 30%,rgba(255,255,255,.09) 42%,rgba(255,255,255,.02) 50%,rgba(255,255,255,0) 60%);background-size:300% 100%;background-repeat:no-repeat}
+#ph .btn{position:absolute;width:5px;border-radius:3px;background:#2a2b33}
+#phS{z-index:8;left:0;top:0;width:100px;height:100px;border-radius:50%;background:rgba(2,2,16,.75);filter:blur(36px);transform-origin:0 0;opacity:0}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <filter id="cut" color-interpolation-filters="sRGB" x="-2%" y="-2%" width="104%" height="104%">
+    <feConvolveMatrix in="SourceGraphic" order="3" kernelMatrix="0 -0.28 0 -0.28 2.12 -0.28 0 -0.28 0" preserveAlpha="true" result="s"/>
+    <feMorphology in="SourceAlpha" operator="erode" radius="0.8" result="e"/>
+    <feGaussianBlur in="e" stdDeviation="0.7" result="eb"/>
+    <feComposite in="s" in2="eb" operator="in"/>
+  </filter>
+</defs></svg>
+
+<section class="story" id="story" data-file="aicia-prospecto-padel.png" data-video="aicia-prospecto-padel.mp4">
+  <div class="stage"></div><div class="grid"></div>
+  <div class="shadow" id="shadow"></div>
+  <div class="dev" id="lap" data-bake="macbook-flotante"></div>
+  <div class="dev" id="sd" data-bake="studio-display"></div>
+  <div id="glow"></div>
+  <div id="scr">
+    <div class="mbar"></div>
+    <div class="bar"><i></i><i></i><i></i><span class="addr"><svg viewBox="0 0 24 24"><rect x="6" y="10.5" width="12" height="9" rx="2"/><path d="M8.8 10.5V8a3.2 3.2 0 0 1 6.4 0v2.5"/></svg><span id="addr">Pádel Club</span></span></div>
+    <div class="pg"><div class="pcam" id="pcam"><img id="pgA" alt=""><img id="pgB" alt=""></div><div class="dip" id="dip"></div></div>
+    <div class="edge"></div><div class="gl"></div>
+  </div>
+  <div class="notch" id="lapN"><svg viewBox="0 0 1200 1200" aria-hidden="true">
+    <path d="M545.6 376.5L546.2 381L546.9 390.6Q547.6 394.4 552.9 396.6L603.6 411.9Q607.6 412.6 608.3 408.4L608.7 399.6L609.2 395.2Z" fill="#050506"/>
+    <circle cx="578" cy="394.2" r="2.4" fill="#12131c"/><circle cx="577.4" cy="393.6" r=".7" fill="#3a3d5c"/>
+  </svg></div>
+  <div id="phS"></div>
+  <div id="ph">
+    <div class="body"></div>
+    <i class="btn" style="left:-3px;top:190px;height:58px"></i><i class="btn" style="left:-3px;top:270px;height:92px"></i><i class="btn" style="left:-3px;top:378px;height:92px"></i><i class="btn" style="right:-3px;top:300px;height:140px"></i>
+    <div class="scr">
+      <div class="sb"><span>11:55</span><span style="display:flex;gap:7px;align-items:center">
+        <svg viewBox="0 0 20 12"><rect x="0" y="8" width="3.4" height="4" rx="1" fill="#0b0b0b"/><rect x="5.4" y="5.5" width="3.4" height="6.5" rx="1" fill="#0b0b0b"/><rect x="10.8" y="3" width="3.4" height="9" rx="1" fill="#0b0b0b"/><rect x="16.2" y="0" width="3.4" height="12" rx="1" fill="#0b0b0b"/></svg>
+        <svg viewBox="0 0 28 13"><rect x=".6" y=".6" width="23" height="11.8" rx="3.6" fill="none" stroke="#0b0b0b" stroke-opacity=".45" stroke-width="1.2"/><rect x="2.4" y="2.4" width="17" height="8.2" rx="2" fill="#0b0b0b"/><rect x="25" y="4.2" width="1.8" height="4.6" rx=".9" fill="#0b0b0b" fill-opacity=".45"/></svg></span></div>
+      <div class="isl"></div>
+      <div class="pg"><img id="chA" alt=""><img id="chB" alt=""></div>
+      <div class="gl" id="phG"></div>
+    </div>
+  </div>
+
+  <div class="lg" id="lg1"><img src="assets/logo-bsas-top-blanco.png" alt=""><b>Buenos Aires Top</b><span>Club de pádel</span></div>
+  <div class="lg" id="lg2"><img src="assets/logo-aerosport.png" alt=""><b>AeroSport</b><span>Club de pádel</span></div>
+
+  <!-- Textos: data-a / data-b = entra / sale (segundos) -->
+  <div class="tx eyebrow" data-a="0.2" data-b="6.3">Aicia · Para clubes de pádel</div>
+  <h1 class="tx title" data-a="0.32" data-b="6.3">Ninguna reserva<br><span class="serif">perdida.</span></h1>
+  <p class="tx lede" data-a="0.5" data-b="6.3">Si nadie contesta a tiempo, el jugador reserva<br>en otro club. Hay dos formas de resolverlo.</p>
+
+  <div class="tx eyebrow" data-a="7.5" data-b="40.4">Opción 1 · Web de reservas</div>
+  <h2 class="tx title" data-a="7.65" data-b="13.9">Reservan solos,<br><span class="serif">a cualquier hora.</span></h2>
+  <h2 class="tx title" data-a="14.15" data-b="19.5">Eligen día y<br><span class="serif">horario.</span></h2>
+  <h2 class="tx title" data-a="19.7" data-b="22.1">Eligen la<br><span class="serif">cancha.</span></h2>
+  <h2 class="tx title" data-a="22.3" data-b="28.9">Completan sus<br><span class="serif">datos.</span></h2>
+  <h2 class="tx title" data-a="29.1" data-b="32.8">Pagan la<br><span class="serif">seña.</span></h2>
+  <h2 class="tx title" data-a="33.0" data-b="36.9">Reserva<br><span class="serif">confirmada.</span></h2>
+  <h2 class="tx title" data-a="37.1" data-b="40.4">Y la ven en<br><span class="serif">Mis reservas.</span></h2>
+
+  <div class="tx eyebrow" data-a="40.8" data-b="51.3">Opción 1 · Panel del club</div>
+  <h2 class="tx title" data-a="40.95" data-b="51.3">Tu equipo lo ve<br><span class="serif">todo.</span></h2>
+  <p class="tx lede" data-a="41.15" data-b="51.3">Cada reserva entra sola en la agenda.<br>Sin cuaderno ni planillas.</p>
+
+  <div class="tx eyebrow" data-a="53.2" data-b="85.0">Opción 2 · Asistente de IA</div>
+  <h2 class="tx title" data-a="53.35" data-b="58.8">Contesta<br><span class="serif">al instante.</span></h2>
+  <p class="tx lede" data-a="53.55" data-b="58.8">A cualquier hora, como una persona.</p>
+  <h2 class="tx title" data-a="59.0" data-b="63.3">Ofrece otro<br><span class="serif">horario.</span></h2>
+  <p class="tx lede" data-a="59.2" data-b="63.3">No hay 19:30: le propone 18:30 o 20:00.</p>
+  <h2 class="tx title" data-a="63.5" data-b="67.8">Muestra las<br><span class="serif">canchas libres.</span></h2>
+  <p class="tx lede" data-a="63.7" data-b="67.8">A las 20:00 quedan la Cancha 2 y la 4.</p>
+  <h2 class="tx title" data-a="68.0" data-b="74.8">Pide los<br><span class="serif">datos.</span></h2>
+  <p class="tx lede" data-a="68.2" data-b="74.8">Nombre y teléfono para dejarla reservada.</p>
+  <h2 class="tx title" data-a="75.0" data-b="85.0">Reserva<br><span class="serif">confirmada.</span></h2>
+  <p class="tx lede" data-a="75.2" data-b="85.0">Sin que nadie de tu equipo toque el celular.</p>
+
+  <div class="tx eyebrow" data-a="86.3" data-b="91.5">Clientes</div>
+  <h2 class="tx title" data-a="86.45" data-b="91.5">Ya confiaron<br><span class="serif">en nosotros.</span></h2>
+
+  <img class="tx cl-logo" src="assets/logo-bsas-top-blanco.png" alt="" data-a="92.1" data-b="100.5">
+  <div class="tx eyebrow" data-a="92.25" data-b="100.5">Buenos Aires Top · Página web</div>
+  <h2 class="tx title" data-a="92.4" data-b="100.5">Reservas<br><span class="serif">online.</span></h2>
+  <p class="tx lede" data-a="92.6" data-b="100.5">Sus jugadores reservan y pagan la seña<br>con Mercado Pago.</p>
+
+  <img class="tx cl-logo wide" src="assets/logo-aerosport.png" alt="" data-a="101.9" data-b="109.7">
+  <div class="tx eyebrow" data-a="102.05" data-b="109.7">AeroSport · Página web</div>
+  <h2 class="tx title" data-a="102.2" data-b="109.7">Reservá tu<br><span class="serif">cancha.</span></h2>
+  <p class="tx lede" data-a="102.4" data-b="109.7">La web de reservas del club,<br>a punto de salir.</p>
+
+  <div class="tx eyebrow" data-a="111.0" data-b="999">Web de reservas · Asistente de IA</div>
+  <h2 class="tx title" data-a="111.15" data-b="999">¿Lo vemos para<br><span class="serif">tu club?</span></h2>
+  <p class="tx lede" data-a="111.35" data-b="999">Agendemos una llamada de 15 minutos<br>y te muestro cómo quedaría.</p>
+
+  <div class="vignette"></div><div class="basefade"></div><div class="sig">aicia</div>
+</section>
+
+<script>
+const Q = new URLSearchParams(location.search);
+const BAKED = Q.has('baked');
+const T_END = 120; window.DUR = T_END;
+// Dispositivos: foto (pantalla en negro), escala y posición base, esquinas de la pantalla en px de la foto
+const DEV = {
+  lap: { src: 'assets/macbook-flotante.png', w: 1200, h: 1200, s: 1.0, left: -57.5, top: 600, aspect: 1.54,
+         quad: [[276.2, 299.3], [797.4, 460.1], [821.5, 805.6], [244.6, 769.8]] },
+  sd: { src: 'assets/studio-display.png', w: 1080, h: 1080, s: 1.3, left: -162, top: 560, aspect: 1.78,
+        quad: [[294.4, 381.7], [776.6, 286.3], [783.4, 611.7], [288, 679.4]] },
+};
+const PANEL = { cx: 540, cy: 1112, w: 1032, aspect: 1512 / (52 + 718) };
+
+// Qué muestra la pantalla en cada tramo: carpeta de cuadros, alto de la página, texto de la barra y la grabación
+// [t inicio, t fin, segundo inicio, segundo fin]. CUTS = cortes con pestañeo a oscuro.
+const SRC = [
+  { t0: 0, t1: 40.6, addr: 'Pádel Club', dir: a => a < 4.3 ? ['pwh', 945] : ['pw', 718], cuts: [37.0], clips: [
+    [0, 7.4, 1.7, 4.3],         // portada: el inicio quieto en la MacBook (cámara lenta suave)
+    [7.4, 14.0, 4.3, 21.9],     // baja por la página (canchas, precios, preguntas) y vuelve arriba
+    [14.0, 15.6, 21.9, 23.8],   // toca "Reservar cancha"
+    [15.6, 19.6, 23.8, 27.9],   // día y horario
+    [19.6, 22.2, 27.9, 30.5],   // cancha
+    [22.2, 29.0, 30.5, 42.5],   // datos (más rápido que en la grabación)
+    [29.0, 32.6, 42.5, 46.6],   // seña con tarjeta de prueba
+    [32.6, 33.0, 46.6, 47.6],
+    [33.0, 37.0, 47.6, 51.6],   // cancha reservada
+    [37.0, 40.6, 52.4, 56.5],   // mis reservas
+  ] },
+  { t0: 40.6, t1: 60, addr: 'Pádel Club · Panel', dir: () => ['pp', 718], cuts: [], clips: [[40.6, 53.6, 1.25, 9.4]] },
+  { t0: 85, t1: 101.35, addr: 'Bs.As. Top', dir: () => ['bsas3', 918], cuts: [], clips: [
+    [91, 92.3, 2.5, 2.5], [92.3, 93.3, 2.5, 2.95], [93.3, 97.5, 2.95, 3.92], [97.5, 102, 3.92, 5.2]] },
+  { t0: 101.35, t1: 110.45, addr: 'AeroSport', dir: () => ['aero-home', 945], cuts: [], clips: [
+    [101, 102.2, 6.55, 6.55], [102.2, 103.3, 6.55, 7.6], [103.3, 111, 7.6, 9.6]] },
+  { t0: 110.45, t1: 999, addr: 'Pádel Club', dir: () => ['pwh', 945], cuts: [], clips: [[110.4, 121, 1.7, 4.4]] },
+];
+// El chat: se acortan las esperas (el bot tarda unos segundos en contestar) y la escritura; lo que llega se ve a velocidad real
+const CHAT = [
+  [50, 54.6, 1.5, 9.0], [54.6, 57.6, 9.0, 13.1], [57.6, 58.3, 13.1, 22.7], [58.3, 61.6, 22.7, 25.4],
+  [61.6, 63.2, 25.4, 28.4], [63.2, 63.7, 28.4, 32.6], [63.7, 66.2, 32.6, 35.2], [66.2, 67.7, 35.2, 36.8],
+  [67.7, 68.3, 36.8, 38.6], [68.3, 71.2, 38.6, 41.2], [71.2, 74.6, 41.2, 52.4], [74.6, 75.2, 52.4, 57.6],
+  [75.2, 80.5, 57.6, 60.85], [80.5, 200, 60.85, 60.85]];
+const CH_LAST = 3653;
+// Desenfoque de movimiento real (lo promedia el grabador en la versión final)
+window.MBLUR = [[5.8, 7.6], [7.4, 9.0], [50.8, 54.6], [84.6, 87], [91.2, 93.6], [100.2, 103.6], [109.4, 113.8]];
+
+const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+const lerp = (a, b, u) => a + (b - a) * u;
+const io = u => (u = clamp(u)) < .5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2;
+const out = u => 1 - Math.pow(1 - clamp(u), 3);
+const out4 = u => 1 - Math.pow(1 - clamp(u), 4);
+const in3 = u => Math.pow(clamp(u), 3);
+const seg = (t, a, b) => clamp((t - a) / (b - a));
+
+// Degradés con ~32 paradas sobre una curva suave (sin escalones ni anillos), como en video-aerosport.html
+function curve(xs, ys) {
+  const n = xs.length, h = [], d = [], m = new Array(n).fill(0);
+  for (let k = 0; k < n - 1; k++) { h.push(xs[k + 1] - xs[k]); d.push((ys[k + 1] - ys[k]) / h[k]); }
+  for (let k = 1; k < n - 1; k++) m[k] = d[k - 1] * d[k] <= 0 ? 0 : 3 * (h[k - 1] + h[k]) / ((2 * h[k] + h[k - 1]) / d[k - 1] + (h[k] + 2 * h[k - 1]) / d[k]);
+  return x => {
+    if (x <= xs[0]) return ys[0]; if (x >= xs[n - 1]) return ys[n - 1];
+    let k = 0; while (x > xs[k + 1]) k++;
+    const u = (x - xs[k]) / h[k], u2 = u * u, u3 = u2 * u;
+    return (2 * u3 - 3 * u2 + 1) * ys[k] + (u3 - 2 * u2 + u) * h[k] * m[k] + (-2 * u3 + 3 * u2) * ys[k + 1] + (u3 - u2) * h[k] * m[k + 1];
+  };
+}
+function eased(keys, n = 32) {
+  const xs = keys.map(k => k[0]), fs = [0, 1, 2, 3].map(c => curve(xs, keys.map(k => k[1][c])));
+  return Array.from({ length: n + 1 }, (_, i) => {
+    const x = xs[0] + (xs[xs.length - 1] - xs[0]) * i / n, [r, g, b, a] = fs.map(f => f(x));
+    return `rgba(${r.toFixed(2)},${g.toFixed(2)},${b.toFixed(2)},${Math.min(1, Math.max(0, a)).toFixed(4)}) ${(x * 100).toFixed(2)}%`;
+  }).join(',');
+}
+function softBackgrounds() {
+  document.querySelector('.stage').style.background =
+    `radial-gradient(1200px 980px at 50% 62%,${eased([[0, [79, 70, 229, .60]], [.42, [67, 56, 202, .20]], [.72, [67, 56, 202, 0]]])}),` +
+    `radial-gradient(900px 600px at 0% 0%,${eased([[0, [67, 56, 202, .16]], [.72, [67, 56, 202, 0]]])}),` +
+    `linear-gradient(180deg,${eased([[0, [5, 5, 26, 1]], [.38, [9, 9, 36, 1]], [1, [16, 14, 54, 1]]])})`;
+  const gm = `radial-gradient(1000px 1100px at 50% 62%,${eased([[0, [0, 0, 0, 1]], [.45, [0, 0, 0, .5]], [.77, [0, 0, 0, 0]]])})`;
+  const gr = document.querySelector('.grid'); gr.style.webkitMaskImage = gr.style.maskImage = gm;
+  document.querySelector('.vignette').style.background = `radial-gradient(130% 90% at 50% 45%,${eased([[.58, [3, 3, 14, 0]], [1, [3, 3, 14, .55]]])})`;
+  document.querySelector('.basefade').style.background = `linear-gradient(180deg,${eased([[0, [4, 4, 20, 0]], [.55, [4, 4, 20, .55]], [1, [4, 4, 20, .9]]])})`;
+  document.getElementById('glow').style.background = `radial-gradient(760px 520px at 540px 1120px,${eased([[0, [129, 132, 255, .55]], [.5, [99, 102, 241, .18]], [.77, [99, 102, 241, 0]]])})`;
+}
+
+function build() {
+  softBackgrounds();
+  for (const [id, d] of Object.entries(DEV)) {
+    const el = document.getElementById(id), nt = document.getElementById(id + 'N');
+    for (const e of [el, nt].filter(Boolean)) Object.assign(e.style, { left: d.left + 'px', top: d.top + 'px', width: d.w * d.s + 'px', height: d.h * d.s + 'px' });
+    if (BAKED) el.innerHTML = `<img src=".video-out/bake/${el.dataset.bake}.png" alt="">`;
+    else {
+      el.innerHTML = `<div class="subj"><img src="${d.src}" alt=""><div class="tint"></div><div class="rim"></div></div><div class="blacks"></div><div class="falloff"></div>`;
+      el.querySelectorAll('.tint,.rim,.blacks,.falloff').forEach(m => { m.style.webkitMaskImage = m.style.maskImage = `url("${d.src}")`; });
+    }
+    const pts = d.quad.map(([x, y]) => [d.left + x * d.s, d.top + y * d.s]);
+    d.base = pts; d.c0 = [pts.reduce((a, p) => a + p[0], 0) / 4, pts.reduce((a, p) => a + p[1], 0) / 4];
+    d.sw = Math.max(...pts.map(p => p[0])) - Math.min(...pts.map(p => p[0]));
+    for (const e of [el, nt].filter(Boolean)) e.style.transformOrigin = `${d.c0[0] - d.left}px ${d.c0[1] - d.top}px`;
+  }
+}
+// Cámara de un dispositivo: escala k alrededor del centro de su pantalla, que se mueve a c
+function cam(id, k, c, op, blur = 0) {
+  const d = DEV[id];
+  for (const el of [document.getElementById(id), document.getElementById(id + 'N')].filter(Boolean)) {
+    el.style.transform = `translate(${c[0] - d.c0[0]}px,${c[1] - d.c0[1]}px) scale(${k})`;
+    el.style.opacity = op;
+    el.style.filter = el.id === id && blur > .05 ? `blur(${blur.toFixed(2)}px)` : '';
+  }
+  return d.base.map(([x, y]) => [c[0] + (x - d.c0[0]) * k, c[1] + (y - d.c0[1]) * k]);
+}
+// Panel flotando en 3D: rectángulo del ancho del panel, girado (grados) y en perspectiva
+function pane(o = {}) {
+  const { sc = 1, dx = 0, dy = 0, rx = 0, ry = 0, aspect = PANEL.aspect } = o;
+  const w = PANEL.w * sc, h = PANEL.w / aspect * sc, D = 2600, ax = rx * Math.PI / 180, ay = ry * Math.PI / 180;
+  return [[-w / 2, -h / 2], [w / 2, -h / 2], [w / 2, h / 2], [-w / 2, h / 2]].map(([x, y]) => {
+    let y1 = y * Math.cos(ax), z1 = y * Math.sin(ax);
+    const x2 = x * Math.cos(ay) + z1 * Math.sin(ay), z2 = -x * Math.sin(ay) + z1 * Math.cos(ay);
+    const p = D / (D + z2);
+    return [PANEL.cx + dx + x2 * p, PANEL.cy + dy + y1 * p];
+  });
+}
+const mix = (A, B, u) => A.map((p, i) => [lerp(p[0], B[i][0], u), lerp(p[1], B[i][1], u)]);
+function fitTo(el, w, h, q) {
+  const [[x0, y0], [x1, y1], [x2, y2], [x3, y3]] = q;
+  const dx1 = x1 - x2, dx2 = x3 - x2, dx3 = x0 - x1 + x2 - x3, dy1 = y1 - y2, dy2 = y3 - y2, dy3 = y0 - y1 + y2 - y3;
+  const den = dx1 * dy2 - dx2 * dy1, g = (dx3 * dy2 - dx2 * dy3) / den, hh = (dx1 * dy3 - dx3 * dy1) / den;
+  const a = x1 - x0 + g * x1, b = x3 - x0 + hh * x3, d = y1 - y0 + g * y1, e = y3 - y0 + hh * y3;
+  el.style.transform = `matrix3d(${a / w},${d / w},0,${g / w},${b / h},${e / h},0,${hh / h},0,0,1,0,${x0},${y0},0,1)`;
+}
+// Curva monótona (Fritsch–Carlson): la grabación nunca frena de golpe ni vuelve atrás
+function monotone(xs, ys) {
+  const n = xs.length, d = [], m = new Array(n);
+  for (let k = 0; k < n - 1; k++) d.push((ys[k + 1] - ys[k]) / (xs[k + 1] - xs[k]));
+  m[0] = d[0]; m[n - 1] = d[n - 2];
+  for (let k = 1; k < n - 1; k++) m[k] = d[k - 1] * d[k] <= 0 ? 0 : (d[k - 1] + d[k]) / 2;
+  for (let k = 0; k < n - 1; k++) {
+    if (d[k] === 0) { m[k] = 0; m[k + 1] = 0; continue; }
+    const al = m[k] / d[k], be = m[k + 1] / d[k], r = al * al + be * be;
+    if (r > 9) { const tau = 3 / Math.sqrt(r); m[k] = tau * al * d[k]; m[k + 1] = tau * be * d[k]; }
+  }
+  return x => {
+    if (x <= xs[0]) return ys[0]; if (x >= xs[n - 1]) return ys[n - 1];
+    let k = 0; while (x > xs[k + 1]) k++;
+    const h = xs[k + 1] - xs[k], u = (x - xs[k]) / h, u2 = u * u, u3 = u2 * u;
+    return (2 * u3 - 3 * u2 + 1) * ys[k] + (u3 - 2 * u2 + u) * h * m[k] + (-2 * u3 + 3 * u2) * ys[k + 1] + (u3 - u2) * h * m[k + 1];
+  };
+}
+function runs(clips) {
+  const rs = []; let cur = null;
+  for (const [t0, t1, a0, a1] of clips) {
+    if (!cur || Math.abs(cur.a.at(-1) - a0) > 1e-6 || Math.abs(cur.t.at(-1) - t0) > 1e-6) { cur = { t: [t0], a: [a0] }; rs.push(cur); }
+    cur.t.push(t1); cur.a.push(a1);
+  }
+  const R = rs.map(r => ({ t0: r.t[0], t1: r.t.at(-1), f: monotone(r.t, r.a) }));
+  return t => { for (const r of R) if (t < r.t1) return r.f(Math.max(t, r.t0)); return R.at(-1).f(t); };
+}
+for (const s of SRC) s.at = runs(s.clips);
+const chatAt = runs(CHAT);
+const fname = (dir, n) => `.frames/${dir}/f${String(n).padStart(5, '0')}.jpg`;
+
+// Curva suave (Fritsch–Butland): velocidad continua para las cámaras
+function smooth(xs, ys, v0 = 0) {
+  const n = xs.length, h = [], d = [], m = new Array(n);
+  for (let k = 0; k < n - 1; k++) { h.push(xs[k + 1] - xs[k]); d.push((ys[k + 1] - ys[k]) / h[k]); }
+  m[0] = Math.min(v0, 3) * d[0]; m[n - 1] = d[n - 2];
+  for (let k = 1; k < n - 1; k++) m[k] = d[k - 1] * d[k] <= 0 ? 0 : 3 * (h[k - 1] + h[k]) / ((2 * h[k] + h[k - 1]) / d[k - 1] + (h[k] + 2 * h[k - 1]) / d[k]);
+  return x => {
+    if (x <= xs[0]) return ys[0];
+    if (x >= xs[n - 1]) return ys[n - 1] + m[n - 1] * (x - xs[n - 1]);
+    let k = 0; while (x > xs[k + 1]) k++;
+    const u = (x - xs[k]) / h[k], u2 = u * u, u3 = u2 * u;
+    return (2 * u3 - 3 * u2 + 1) * ys[k] + (u3 - 2 * u2 + u) * h[k] * m[k] + (-2 * u3 + 3 * u2) * ys[k + 1] + (u3 - u2) * h[k] * m[k + 1];
+  };
+}
+let LK_IN;
+const T_IN = 7.3;
+// El panel se asienta al llegar, crece apenas y flota muy suave
+const panelScale = t => (1 + .015 * io(seg(t, 7.4, 50))) * (1 + .012 * (1 - io(seg(t, 6.9, 8.3))));
+const panelFloat = t => 3.5 * Math.sin(2 * Math.PI * (t - 7.4) / 7.5) * seg(t, 7.0, 8.5);
+
+const TXS = [...document.querySelectorAll('.tx')].map(e => ({ e, a: +e.dataset.a, b: +e.dataset.b }));
+function txt(t) {
+  for (const { e, a, b } of TXS) {
+    const i = out(seg(t, a, a + .55)), o = io(seg(t, b - .4, b)), v = i * (1 - o);
+    if (v <= .001) { if (e.style.opacity !== '0') e.style.opacity = 0; continue; }
+    const bl = 7 * (1 - i) + 7 * o;
+    e.style.opacity = v.toFixed(3); e.style.transform = `translateY(${(24 * (1 - i) - 16 * o).toFixed(2)}px)`;
+    e.style.filter = bl > .05 ? `blur(${bl.toFixed(2)}px)` : '';
+  }
+}
+
+async function setFrames(A, B, dirOf, fn, fade, still = false) {
+  const f0 = Math.floor(fn + 1e-6), [d0, H0] = dirOf(f0 / 60), [d1, H1] = dirOf((f0 + 1) / 60);
+  const fr = !fade || H0 !== H1 ? 0 : fn - f0;
+  const s0 = fname(d0, f0), s1 = fr > .02 ? fname(d1, f0 + 1) : null, loads = [];
+  if (A.getAttribute('src') !== s0) { A.src = s0; loads.push(A.decode().catch(() => {})); }
+  if (s1 && B.getAttribute('src') !== s1) { B.src = s1; loads.push(B.decode().catch(() => {})); }
+  await Promise.all(loads);
+  B.style.opacity = s1 && B.naturalWidth ? fr.toFixed(3) : 0;
+  return H0;
+}
+
+window.renderAt = async function (t) {
+  if (!LK_IN) { const kIn = PANEL.w / DEV.lap.sw * 1.2; LK_IN = smooth([0, 6.0, T_IN], [0, Math.log(1.055), Math.log(kIn)], 1); }
+  const scr = document.getElementById('scr'), lp = DEV.lap, sd = DEV.sd;
+  let q, aspect = PANEL.aspect, rad = 26, mb = 0, dev = 0, op = 1, blur = 0, glx = 40, shadowOn = 0, onLap = false, sdOn = false;
+  const P = o => pane({ sc: panelScale(t), dy: panelFloat(t), ...o });
+
+  // --- 1 · Portada: MacBook flotante con un empuje lento que, sin frenar, entra en la pantalla
+  if (t < 7.4) {
+    const lk = LK_IN(t), e = clamp(lk / LK_IN(T_IN)), k = Math.exp(lk);
+    const c = [lerp(lp.c0[0], PANEL.cx, e), lerp(lp.c0[1], PANEL.cy, e) - 10 * seg(t, 0, 5.8)];
+    const ent = out4(seg(t, 0, 1.6));   // la MacBook sube y se enfoca al arrancar
+    const qs = cam('lap', k * (.96 + .04 * ent), [c[0], c[1] + 120 * (1 - ent)], ent * (1 - io(seg(t, 6.55, 7.05))), 6 * (1 - ent));
+    const f = io(seg(t, 6.45, T_IN));
+    q = mix(qs, P(), f); aspect = lerp(lp.aspect, PANEL.aspect, f); rad = lerp(7, 26, f); mb = 36 * (1 - f);
+    dev = 1 - f; glx = 18 + 40 * e; onLap = true; op = ent; blur = 6 * (1 - ent);
+    shadowOn = seg(t, 6.9, 7.4);
+  }
+  // --- 2 · La web y el panel flotan de frente (51–53,6: se van hacia atrás y arriba)
+  else if (t < 53.6) {
+    const u = io(seg(t, 51.0, 53.3));
+    q = P({ rx: 22 * u, dy: panelFloat(t) - 460 * u, sc: panelScale(t) * (1 - .22 * u) });
+    op = 1 - io(seg(t, 51.7, 53.2)); blur = 7 * in3(seg(t, 51.4, 53.3)); shadowOn = 1 - u;
+  }
+  // --- 5 · Bs.As. Top en el Studio Display: entra desde abajo desenfocado, empuje lento, sale hacia arriba
+  else if (t >= 91.2 && t < 101.35) {
+    const e = out4(seg(t, 91.2, 93.6)), x = io(seg(t, 100.2, 101.3));
+    const k = (.93 + .07 * e) * (1 + .05 * io(seg(t, 92, 101.3)));
+    q = cam('sd', k, [sd.c0[0], sd.c0[1] + 560 * (1 - e) - 420 * x], e * (1 - x), 8 * (1 - e) + 8 * x);
+    aspect = sd.aspect; rad = 3; dev = 1; op = e * (1 - x); blur = 8 * (1 - e) + 8 * x; sdOn = true; glx = 30 + 30 * seg(t, 91.2, 101.3);
+  }
+  // --- 6 · AeroSport en la MacBook (con la cámara arriba de la página)
+  else if (t >= 101.35 && t < 110.45) {
+    const e = out4(seg(t, 101.35, 103.8)), x = io(seg(t, 109.4, 110.45));
+    const k = (.93 + .07 * e) * (1 + .055 * io(seg(t, 102, 110.45)));
+    q = cam('lap', k, [lp.c0[0], lp.c0[1] + 560 * (1 - e) - 420 * x - 10 * seg(t, 102, 110)], e * (1 - x), 8 * (1 - e) + 8 * x);
+    aspect = lp.aspect; rad = 7; mb = 36; dev = 1; op = e * (1 - x); blur = 8 * (1 - e) + 8 * x; onLap = true; glx = 20 + 35 * seg(t, 101.35, 110.4);
+  }
+  // --- 7 · Cierre: la web vuelve a flotar, girada apenas, y el iPhone se le pone adelante
+  else if (t >= 110.45) {
+    const e = out4(seg(t, 110.45, 113.2)), dr = seg(t, 111, 120);
+    q = pane({ sc: .86 + .04 * e + .02 * dr, dx: -70, dy: 0 + 520 * (1 - e) + 4 * Math.sin(2 * Math.PI * (t - 111) / 7), rx: -14 * (1 - e) + 3, ry: 9 - 3 * dr });
+    op = e; blur = 8 * (1 - e); shadowOn = e;
+  } else { op = 0; q = P(); }
+  if (!onLap) cam('lap', 1, lp.c0, 0);
+  if (!sdOn) cam('sd', 1, sd.c0, 0);
+  document.getElementById('lapN').style.opacity = onLap ? document.getElementById('lap').style.opacity : 0;
+
+  // sombra bajo la web cuando flota sola
+  const sh = document.getElementById('shadow');
+  sh.style.opacity = (shadowOn * op * .9).toFixed(3);
+  if (shadowOn > 0) { sh.style.transform = `translate(${q[3][0] + 30}px,${Math.min(q[0][1], q[1][1]) + 60}px) scale(${(q[2][0] - q[3][0] - 60) / 100},${(Math.max(q[2][1], q[3][1]) - Math.min(q[0][1], q[1][1]) - 20) / 100})`; }
+  document.getElementById('glow').style.opacity = .4 * Math.sin(Math.PI * seg(t, 6.4, 8.2)) + .3 * Math.sin(Math.PI * seg(t, 52, 56)) + .25 * Math.sin(Math.PI * seg(t, 86, 92)) + .3 * seg(t, 111, 114);
+
+  // --- Pantalla
+  const src = SRC.find(s => t >= s.t0 && t < s.t1) || SRC.at(-1);
+  scr.style.opacity = op.toFixed(3);
+  if (op > .001) {
+    const W = 1512, H = Math.round(W / aspect), Hp = H - 52 - mb;
+    scr.style.height = H + 'px'; scr.style.setProperty('--mb', mb.toFixed(2) + 'px');
+    scr.style.borderRadius = (rad * W / Math.hypot(q[1][0] - q[0][0], q[1][1] - q[0][1])) + 'px';
+    fitTo(scr, W, H, q);
+    scr.style.filter = blur > .05 ? `blur(${blur.toFixed(2)}px)` : '';
+    scr.querySelector('.edge').style.opacity = (.35 + .65 * dev).toFixed(3);
+    const gl = scr.querySelector('.gl'); gl.style.opacity = (.55 + .45 * dev).toFixed(3); gl.style.backgroundPosition = `${(dev > .5 ? glx : 40 + 8 * Math.sin(t / 9)).toFixed(2)}% 0,0 0`;
+    const ad = document.getElementById('addr'); if (ad.textContent !== src.addr) ad.textContent = src.addr;
+    const cut = src.cuts.find(c => Math.abs(t - c) < .15);
+    const fn = src.at(cut != null && t < cut ? cut - 1e-3 : t) * 60;
+    const PH = await setFrames(document.getElementById('pgA'), document.getElementById('pgB'), src.dir, fn, cut == null);
+    document.getElementById('dip').style.opacity = cut != null ? .9 * Math.sin(Math.PI * seg(t, cut - .15, cut + .15)) : (src.t0 === 40.6 ? .9 * (1 - seg(t, 40.6, 40.75)) : 0);
+    const z = Math.max(1, Hp / PH);
+    document.getElementById('pcam').style.transform = `translate(${((W - 1512 * z) / 2).toFixed(2)}px,0px) scale(${z.toFixed(4)})`;
+  }
+  // corte de la web al panel: pestañeo corto a oscuro
+  if (t >= 40.45 && t < 40.6) document.getElementById('dip').style.opacity = .9 * seg(t, 40.45, 40.6);
+
+  // --- iPhone con el chat
+  const ph = document.getElementById('ph'), phS = document.getElementById('phS');
+  let pv = 0, py = 0, prx = 0, pry = 0, ps = 1, pb = 0, px = 0;
+  if (t >= 51.3 && t < 87) {
+    const e = out4(seg(t, 51.3, 54.4)), x = in3(seg(t, 84.6, 86.7));
+    pv = Math.min(1, e * 1.4) * (1 - x); py = 1200 * (1 - e) + 1300 * x; prx = 16 * (1 - e) + 2 * Math.sin(t / 4.1) - 10 * x;
+    pry = -9 * (1 - e) + 4.5 * Math.sin((t - 52) / 6.2) + 1.2; ps = .97 + .03 * e + .018 * seg(t, 54, 84); pb = 6 * (1 - e) + 10 * x;
+    py += 5 * Math.sin(2 * Math.PI * (t - 52) / 6.8);
+  } else if (t >= 111.2) {
+    const e = out4(seg(t, 111.2, 114.2));
+    pv = Math.min(1, e * 1.4); ps = .66; px = 270 + 220 * (1 - e); py = 110 + 300 * (1 - e) + 5 * Math.sin(2 * Math.PI * (t - 112) / 6.8);
+    pry = -13 + 10 * (1 - e) + 2.5 * Math.sin((t - 112) / 5); prx = 4 + 8 * (1 - e); pb = 7 * (1 - e);
+  }
+  ph.style.opacity = pv.toFixed(3); phS.style.opacity = (pv * .85).toFixed(3);
+  if (pv > .001) {
+    ph.style.transform = `perspective(2600px) translate3d(${px.toFixed(2)}px,${py.toFixed(2)}px,0) rotateX(${prx.toFixed(3)}deg) rotateY(${pry.toFixed(3)}deg) scale(${ps.toFixed(4)})`;
+    ph.style.filter = pb > .05 ? `blur(${pb.toFixed(2)}px)` : '';
+    phS.style.transform = `translate(${(280 + 60 + px + (1 - ps) * 260).toFixed(2)}px,${(830 + 922 * (.5 + .47 * ps) + py).toFixed(2)}px) scale(${(4 * ps).toFixed(3)},.7)`;
+    document.getElementById('phG').style.backgroundPosition = `${(30 + 3 * pry).toFixed(2)}% 0`;
+    const fn = Math.min(CH_LAST - 1, chatAt(Math.min(t, 200)) * 60);
+    await setFrames(document.getElementById('chA'), document.getElementById('chB'), () => ['ch', 1288], fn, true);
+  }
+
+  // --- Logos de clientes
+  ['lg1', 'lg2'].forEach((id, i) => {
+    const el = document.getElementById(id), a = 87.0 + i * .22, e = out4(seg(t, a, a + 1.4)), x = io(seg(t, 90.7 + i * .1, 91.6 + i * .1));
+    const v = e * (1 - x);
+    el.style.opacity = v.toFixed(3);
+    if (v > .001) {
+      el.style.transform = `perspective(2000px) translateY(${(140 * (1 - e) - 120 * x + 6 * Math.sin(2 * Math.PI * (t - 87) / 5 + i * 2)).toFixed(2)}px) rotateX(${(18 * (1 - e)).toFixed(2)}deg) rotateY(${((i ? -1 : 1) * (4 + 2 * Math.sin(t / 3))).toFixed(2)}deg)`;
+      const b = 8 * (1 - e) + 8 * x; el.style.filter = b > .05 ? `blur(${b.toFixed(2)}px)` : '';
+    }
+  });
+
+  // fondo: la grilla se desliza muy lento (paralaje)
+  document.querySelector('.grid').style.backgroundPosition = `64px ${(250 - t * 2.2).toFixed(2)}px`;
+  txt(t);
+};
+
+(async () => {
+  build();
+  await Promise.all([...document.images].map(im => im.complete ? 0 : new Promise(r => { im.onload = im.onerror = r; })));
+  await document.fonts.ready;
+  await window.renderAt(+(Q.get('t') || 2));
+  window.__ready = true;
+})().catch(e => { window.__error = String(e && e.stack || e); });
+</script>
+</body>
+</html>
