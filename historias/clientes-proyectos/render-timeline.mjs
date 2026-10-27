@@ -69,7 +69,7 @@ const frame = async (t, file, tmp) => {
   if (DEMO || SUB < 2 || !MB.some(([a, b]) => t >= a && t <= b)) return shot(t, file);
   const subs = [];
   for (let j = 0; j < SUB; j++) { const f = path.join(tmp, `s${j}.jpg`); await shot(t + ((j + .5) / SUB - .5) * SHUTTER / FPS, f); subs.push('-i', f); }
-  execFileSync('ffmpeg', ['-v', 'error', '-y', ...subs, '-filter_complex', `mix=inputs=${SUB}`, '-q:v', '2', file]);
+  execFileSync('ffmpeg', ['-v', 'error', '-y', ...subs, '-filter_complex', `mix=inputs=${SUB}`, '-q:v', '2', '-f', 'image2', '-c:v', 'mjpeg', file]);
 };
 
 if (TEST) {
@@ -86,21 +86,27 @@ if (TEST) {
   fs.rmSync(out, { recursive: true, force: true });
   console.log(`ok .video-out/${name}.mp4 (${N} cuadros, ${((Date.now() - t0) / 1000).toFixed(0)} s)`);
 } else {
-  const tmpPng = path.join(dir, '.video-out', `poster-${path.basename(meta.mp4, '.mp4')}.png`); // propio de cada video: se pueden grabar dos a la vez
-  await shot(POSTER, tmpPng, 'png');
-  execFileSync('ffmpeg', ['-v', 'error', '-y', '-i', tmpPng, '-vf', 'scale=1080:1920:flags=lanczos', path.join(dir, meta.png)]);
-  console.log('ok', meta.png);
-  const out = path.join(dir, '.video-out', path.basename(meta.mp4, '.mp4')), tmp = path.join(dir, '.video-out', 'sub-' + path.basename(meta.mp4, '.mp4'));
+  // --part i/n: graba solo esa parte de los cuadros (para repartir el trabajo entre varios procesos a la vez) y no codifica.
+  // Cuando están todas, se corre sin --part y solo arma el MP4.
+  const PART = arg('part', ''), [pi, pn] = PART ? PART.split('/').map(Number) : [0, 1];
+  if (!PART || pi === 0) {
+    const tmpPng = path.join(dir, '.video-out', `poster-${path.basename(meta.mp4, '.mp4')}.png`); // propio de cada video: se pueden grabar dos a la vez
+    await shot(POSTER, tmpPng, 'png');
+    execFileSync('ffmpeg', ['-v', 'error', '-y', '-i', tmpPng, '-vf', 'scale=1080:1920:flags=lanczos', path.join(dir, meta.png)]);
+    console.log('ok', meta.png);
+  }
+  const out = path.join(dir, '.video-out', path.basename(meta.mp4, '.mp4')), tmp = path.join(dir, '.video-out', 'sub-' + path.basename(meta.mp4, '.mp4') + (PART ? '-' + pi : ''));
   if (process.argv.includes('--fresh')) fs.rmSync(out, { recursive: true, force: true });
   fs.mkdirSync(out, { recursive: true }); fs.mkdirSync(tmp, { recursive: true });
   const dur = +arg('dur', 0) || await page.evaluate(() => window.DUR) || DUR;
   const N = Math.round(dur * FPS), t0 = Date.now();
-  for (let n = 0; n < N; n++) {
+  for (let n = Math.floor(pi * N / pn); n < Math.floor((pi + 1) * N / pn); n++) {
     const f = path.join(out, String(n + 1).padStart(4, '0') + '.jpg');
     if (fs.existsSync(f) && fs.statSync(f).size > 0) continue; // se puede retomar si se corta
-    await frame(n / FPS, f, tmp);
+    await frame(n / FPS, f + '.tmp', tmp); fs.renameSync(f + '.tmp', f); // nombre final recién cuando está completo
     if (n % 60 === 0) console.log(`cuadro ${n + 1}/${N} (${((Date.now() - t0) / 1000).toFixed(0)} s)`);
   }
+  if (PART) { console.log(`parte ${PART} lista`); await browser.close(); server.close(); process.exit(0); }
   // Textura de dithering fija (ruido triangular de ±1,5 niveles, siempre el mismo dibujo, no se mueve entre cuadros).
   // Sin ella, en los degradés oscuros cada nivel de 8 bits queda como una franja plana de hasta ~200 px y se ven
   // "líneas" (Guille las marcó). El +128 compensa que el paso de 16 a 8 bits corta en vez de redondear.
