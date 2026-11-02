@@ -14,6 +14,10 @@ const items = [
   { src: 'studio-display-mesa-original.png', out: 'studio-display-mesa.png', seed: [230, 470] },
   // Video de prospección: monitor sobre el mueble de listones (portada con la web de Pádel Club)
   { src: 'monitor-mueble-original.png', out: 'monitor-mueble.png', seed: [160, 300] },
+  // Video de la demo de Pádel Club: laptop en los brazos (portada) y laptop sobre las manos (cierre), agrandadas al doble con
+  // lanczos antes (las fotos que pasó Guille son chicas). Pantallas medidas a mano: el contenido es oscuro o tiene texto que toca el borde.
+  { src: 'laptop-brazos-2x.png', out: 'laptop-brazos.png', quad: [[450, 245], [1088, 195], [1085, 690], [450, 668]] },
+  { src: 'laptop-manos-2x.png', out: 'laptop-manos.png', quad: [[425, 172], [1048, 172], [1048, 577], [425, 577]] },
 ];
 const only = process.argv.slice(2); // opcional: solo los archivos de salida nombrados
 const b = await chromium.launch(); const p = await b.newPage();
