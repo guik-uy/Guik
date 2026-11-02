@@ -20,7 +20,7 @@ await new Promise(r => server.listen(0, '127.0.0.1', r));
 const base = `http://127.0.0.1:${server.address().port}/aicia-linkedin/proyectos.html`;
 const browser = await chromium.launch({ args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
 const page = await browser.newPage({ viewport: { width: 1920, height: 1080 }, deviceScaleFactor: 2 });
-page.on('pageerror', e => console.log('[error]', e.message));
+page.on('pageerror', e => console.log('[error]', e.message)); page.setDefaultTimeout(300000);
 await page.goto(base);
 const all = await page.evaluate(() => window.SLIDES);
 const ids = process.argv.slice(2).length ? process.argv.slice(2) : all;

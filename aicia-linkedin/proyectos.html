@@ -58,7 +58,8 @@ body{font-family:"Geist",system-ui,sans-serif;-webkit-font-smoothing:antialiased
 <script>
 const V = '../historias/clientes-proyectos/';
 const WA = '<p class="contact">WhatsApp <b>+598 91 284 655</b></p>';
-const BSAS = { eyebrow: 'Buenos Aires Top · Página web' }, FC = { eyebrow: 'FC Barber Shop · Tarjetas' }, AERO = { eyebrow: 'AeroSport · Página web', video: 'video-aerosport.html' };
+const BSAS = { eyebrow: 'Buenos Aires Top · Página web' }, FC = { eyebrow: 'FC Barber Shop · Tarjetas' }, AERO = { eyebrow: 'AeroSport · Página web', video: 'video-aerosport.html' },
+  DEMO = { eyebrow: 'Demo · Web de reservas', video: 'video-demo-padel.html' };
 // Cada imagen: video, segundo del video (estado final de la escena), punto de la escena (px de la historia) que va a
 // `at` en la imagen, escala k, y los textos. pad = aire alrededor de la historia para que nada se corte.
 const SLIDES = {
@@ -91,6 +92,17 @@ const SLIDES = {
   'aerosport-06-confirmada': { ...AERO, t: 20.2, from: [540, 1110], at: [1400, 540], k: .9, title: 'Reserva<br><span class="serif">confirmada.</span>' },
   'aerosport-07-cierre': { ...AERO, t: 25.4, from: [540, 1230], at: [1450, 510], k: .9, window: [968, 1062], title: 'Hecha por<br><span class="serif">Aicia.</span>',
     lede: '¿Querés una web así para tu negocio? Escribime.', contact: true },
+  // Demo de Pádel Club (no es un cliente: dice "Demo" en todas)
+  'demo-padel-01-portada': { ...DEMO, t: 2.2, from: [540, 1184], at: [1370, 540], k: .8, window: [850, 990, 1760, 1880],
+    logo: ['logo-padel-club.png', 300], title: 'Reservá tu<br><span class="serif">cancha.</span>',
+    lede: 'Web de reservas para clubes de pádel: los jugadores eligen día, horario y cancha, y pagan la seña online.' },
+  'demo-padel-02-dia-y-horario': { ...DEMO, t: 7.4, from: [540, 1110], at: [1400, 540], k: .9, title: 'Elegí día y<br><span class="serif">horario.</span>' },
+  'demo-padel-03-cancha': { ...DEMO, t: 9.1, from: [540, 1110], at: [1400, 540], k: .9, title: 'Elegí la<br><span class="serif">cancha.</span>' },
+  'demo-padel-04-datos': { ...DEMO, t: 14.8, from: [540, 1110], at: [1400, 540], k: .9, title: 'Completá tus<br><span class="serif">datos.</span>' },
+  'demo-padel-05-sena': { ...DEMO, t: 16.3, from: [540, 1110], at: [1400, 540], k: .9, title: 'Pagá la<br><span class="serif">seña.</span>' },
+  'demo-padel-06-confirmada': { ...DEMO, t: 20.2, from: [540, 1110], at: [1400, 540], k: .9, title: 'Reserva<br><span class="serif">confirmada.</span>' },
+  'demo-padel-07-cierre': { ...DEMO, t: 25.4, from: [540, 1190], at: [1430, 520], k: .9, window: [800, 940], title: 'Hecha por<br><span class="serif">Aicia.</span>',
+    lede: '¿Querés una web así para tu club? Escribime.', contact: true },
 };
 window.SLIDES = Object.keys(SLIDES);
 
@@ -103,7 +115,9 @@ document.getElementById('tx').innerHTML =
 const scene = document.getElementById('scene'), fr = document.getElementById('fr'), pad = S.pad ?? 500;
 scene.classList.toggle('window', !!S.window);
 // window: [x0, x1] = fundido propio (la mesa del Studio Display de AeroSport se corta en los bordes de la foto)
-if (Array.isArray(S.window)) scene.style.webkitMask = scene.style.mask = `linear-gradient(90deg,transparent ${S.window[0]}px,#000 ${S.window[1]}px)`;
+if (Array.isArray(S.window)) scene.style.webkitMask = scene.style.mask = S.window.length > 2
+  ? `linear-gradient(90deg,transparent ${S.window[0]}px,#000 ${S.window[1]}px,#000 ${S.window[2]}px,transparent ${S.window[3]}px)` // fundido a los dos lados
+  : `linear-gradient(90deg,transparent ${S.window[0]}px,#000 ${S.window[1]}px)`;
 Object.assign(fr.style, { width: 1080 + 2 * pad + 'px', height: 1920 + 2 * pad + 'px',
   transform: `translate(${S.at[0] - (pad + S.from[0]) * S.k}px,${S.at[1] - (pad + S.from[1]) * S.k}px) scale(${S.k})` });
 fr.src = `${V}${S.video}?still&pad=${pad}&t=${S.t}`;
