@@ -1,6 +1,6 @@
 # Mensaje para Fernando (chat de Workana)
 
-Para copiar y pegar en el chat de Workana, con el zip adjunto (`entrega/kit-catoira.zip`, trae el reel adentro).
+Para copiar y pegar en el chat de Workana, con el zip adjunto (`entrega/Kit de presencia digital - A. Servicios Integrales Catoira.zip`, trae el reel adentro).
 
 ---
 

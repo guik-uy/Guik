@@ -5,7 +5,8 @@ from pathlib import Path
 
 c = Path(__file__).resolve().parent
 P = c / 'piezas'
-R = 'Kit A. Servicios Integrales Catoira/'
+NOMBRE = 'Kit de presencia digital - A. Servicios Integrales Catoira'
+R = NOMBRE + '/'
 # Windows muestra siempre las carpetas antes que los archivos: la guía y los textos van en la carpeta "0. Empezá acá", que queda primera.
 # Nombres legibles para Fernando (con mayúscula, tildes y espacios), los mismos que cita el PDF
 files = {
@@ -52,12 +53,12 @@ for i, (f, n) in enumerate(zip(cat, CAT), 1): files[f'3. WhatsApp/Catálogo/{i:0
 assert all(k.endswith(('.png', '.pdf', '.txt', '.mp4')) for k in files), 'todas las imágenes en PNG'
 faltan = [str(v) for v in files.values() if not v.exists()]
 if faltan: raise SystemExit('Faltan:\n  ' + '\n  '.join(faltan))
-out = c / 'entrega' / 'kit-catoira.zip'; out.parent.mkdir(exist_ok=True)
+out = c / 'entrega' / f'{NOMBRE}.zip'; out.parent.mkdir(exist_ok=True)
 with zipfile.ZipFile(out, 'w', zipfile.ZIP_DEFLATED) as z:
     for k, v in sorted(files.items()): z.write(v, R + k)
 print('ok', out, f'{out.stat().st_size / 1e6:.1f} MB', len(files), 'archivos')
 # Versión sin el video (el chat no acepta archivos de más de ~30 MB): el reel va aparte
-out2 = c / 'entrega' / 'kit-catoira-sin-video.zip'
+out2 = c / 'entrega' / f'{NOMBRE} (sin video).zip'
 with zipfile.ZipFile(out2, 'w', zipfile.ZIP_DEFLATED) as z:
     for k, v in sorted(files.items()):
         if not k.startswith('5. Reel'): z.write(v, R + k)
