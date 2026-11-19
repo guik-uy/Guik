@@ -7,20 +7,22 @@
 :root{--noche:#04141C;--pet:#0A2C4E;--verde:#13857F;--agua:#5FD0C1;--hueso:#EEF3F1;--tinta:#13242C;--gris:#5C7078;--linea:#D9E3E1;--crema:#F6F8F7}
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-body{font-family:Inter,sans-serif;color:var(--tinta);background:#999;font-size:10.4pt;line-height:1.45}
+body{font-family:Inter,sans-serif;font-kerning:normal;text-rendering:optimizeLegibility;color:var(--tinta);background:#999;font-size:10.4pt;line-height:1.45}
 .page{width:210mm;height:297mm;padding:17mm 16mm 18mm;background:#fff;position:relative;overflow:hidden;page-break-after:always;margin:0 auto}
 @media screen{.page{margin:10mm auto;box-shadow:0 4px 30px rgba(0,0,0,.3)}}
 .page::after{content:attr(data-n);position:absolute;right:16mm;bottom:9mm;font:600 8pt Inter;color:var(--gris);letter-spacing:.08em}
 .page .run{position:absolute;left:16mm;bottom:9mm;font:600 7.5pt Inter;letter-spacing:.12em;text-transform:uppercase;color:#9AACB1}
-h1{font:800 27pt/1.05 Montserrat;letter-spacing:-.03em;color:var(--pet)}
+h1{font:800 27pt/1.08 Montserrat;letter-spacing:-.01em;color:var(--pet)}
 h1 em,h2 em{font-style:normal;color:var(--verde)}
-h2{font:800 15pt/1.15 Montserrat;letter-spacing:-.02em;color:var(--pet);margin:6mm 0 2.5mm}
+h2{font:800 15pt/1.18 Montserrat;letter-spacing:0;color:var(--pet);margin:6mm 0 2.5mm}
 h3{font:700 11pt/1.25 Inter;color:var(--pet);margin:4mm 0 1.5mm}
 .kick{font:700 8pt Inter;letter-spacing:.16em;text-transform:uppercase;color:var(--verde);margin-bottom:3mm}
 .lead{font-size:11.5pt;color:#33464E;margin-top:3mm;max-width:160mm}
 p{margin:1.6mm 0}
 ol,ul{margin:1.5mm 0 1.5mm 5mm}li{margin:1.1mm 0}
 b{font-weight:650}
+.f{font-weight:650;white-space:nowrap}
+.pt{margin-left:-.9mm}
 .k{font-weight:650;color:var(--pet);background:#E7F4F1;border-radius:3px;padding:0 1.2mm;white-space:nowrap}
 .copy{background:var(--crema);border:1px solid var(--linea);border-left:3px solid var(--agua);border-radius:6px;padding:3mm 4mm;margin:2mm 0 3mm;white-space:pre-wrap;font-size:9.6pt;line-height:1.45;break-inside:avoid}
 .copy .t{display:block;font:700 7.5pt Inter;letter-spacing:.12em;text-transform:uppercase;color:var(--verde);margin-bottom:1.2mm;white-space:normal}
@@ -59,7 +61,7 @@ tr:nth-child(even) td{background:#FAFCFB}
 .compact td{padding:1.5mm 2.5mm}.compact h2{margin-top:5mm}.compact .note{margin:2mm 0;padding:2.5mm 4mm}
 .thumbs{display:flex;gap:2.5mm;flex-wrap:wrap}
 .thumbs img{border-radius:2mm;border:1px solid var(--linea);display:block}
-.tag{display:inline-block;font:700 7.2pt Inter;letter-spacing:.1em;text-transform:uppercase;padding:.8mm 2mm;border-radius:99px;background:#E7F4F1;color:var(--verde)}
+.tag{display:inline-block;white-space:nowrap;font:700 7.2pt Inter;letter-spacing:.1em;text-transform:uppercase;padding:.8mm 2mm;border-radius:99px;background:#E7F4F1;color:var(--verde)}
 /* vista previa del perfil de Instagram */
 .igm{width:82mm;border:2.4px solid #2B3B42;border-radius:9mm;padding:5mm 4mm 4mm;background:#fff;font-size:7.6pt;box-shadow:0 3mm 10mm rgba(10,44,78,.15)}
 .igm .u{font:700 9pt Inter;text-align:center;margin-bottom:3mm}
@@ -128,11 +130,11 @@ tr:nth-child(even) td{background:#FAFCFB}
     <div>
       <h3 style="margin-top:0">Qué cambia</h3>
       <ul>
-        <li><b>Foto de perfil que se lee:</b> solo el símbolo, redibujado en vector. El logo con texto no se leía en el círculo.</li>
+        <li><b>Foto de perfil que se lee:</b> solo el símbolo. El logo con texto no se leía en el círculo.</li>
         <li><b>Bio que dice qué hacés, dónde y cómo pedirlo</b>, con el enlace directo a WhatsApp.</li>
         <li><b>4 destacadas</b> que responden lo que pregunta todo cliente: qué hacen, qué hicieron, cómo trabajan y cómo los contacto.</li>
         <li><b>3 publicaciones de arranque</b>: quiénes son (el manifiesto), qué hacen y por qué conviene un diagnóstico.</li>
-        <li><b>Identidad propia:</b> los colores de tu logo, un "plano técnico" de fondo y dibujos de línea propios. Nada de fotos de banco que no son tuyas.</li>
+        <li><b>Identidad propia:</b> los colores de tu logo, un "plano técnico" de fondo y dibujos de línea propios.</li>
       </ul>
       <h3>Las piezas de Instagram</h3>
       <div class="thumbs" id="thumbs"></div>
@@ -145,18 +147,17 @@ tr:nth-child(even) td{background:#FAFCFB}
   <div class="kick">Paso 1 · WhatsApp Business</div>
   <h1>Pasá a Business <em>sin perder chats.</em></h1>
   <p class="lead">WhatsApp Business es gratis y usa tu mismo número (098 965 054). Tus conversaciones y archivos se pasan solos.</p>
-  <div class="cols" style="margin-top:5mm">
+  <div style="margin-top:5mm">
     <div>
       <h3>Antes</h3>
       <div class="step"><i>1</i><div><b>Guardá en la agenda del teléfono</b> los contactos que tengas guardados solo dentro de WhatsApp: según WhatsApp, esos se pueden perder al pasarte.</div></div>
-      <div class="step"><i>2</i><div><b>Hacé una copia de seguridad:</b> en WhatsApp, <span class="k">Ajustes</span> → <span class="k">Chats</span> → <span class="k">Copia de seguridad</span> → <span class="k">Guardar</span>.</div></div>
+      <div class="step"><i>2</i><div><b>Hacé una copia de seguridad:</b> en WhatsApp, <span class="k">Ajustes</span> → <span class="k">Chats</span> → <span class="k">Copia de seguridad</span> → <span class="k">Guardar</span><span class="pt">.</span></div></div>
       <div class="step"><i>3</i><div><b>Actualizá WhatsApp</b> y bajá <b>WhatsApp Business</b> desde Play Store o App Store (el ícono tiene una "B").</div></div>
       <h3>El cambio</h3>
-      <div class="step"><i>4</i><div>Abrí WhatsApp Business y aceptá los términos. Te va a ofrecer <b>usar el número de tu WhatsApp</b>: tocá <span class="k">Continuar</span>.</div></div>
+      <div class="step"><i>4</i><div>Abrí WhatsApp Business y aceptá los términos. Te va a ofrecer <b>usar el número de tu WhatsApp</b>: tocá <span class="k">Continuar</span><span class="pt">.</span></div></div>
       <div class="step"><i>5</i><div><b>Dale permiso para pasar el historial</b> (chats y archivos) y verificá el número con el código que llega por SMS.</div></div>
       <div class="step"><i>6</i><div>Poné el nombre <b>Fernando Catoira · A. Servicios Integrales</b> (es tu número personal y el del negocio) y la categoría. Listo: tus chats siguen ahí, ahora en Business.</div></div>
     </div>
-    <div class="phs" id="ph-wa1"></div>
   </div>
 </section>
 
@@ -164,13 +165,13 @@ tr:nth-child(even) td{background:#FAFCFB}
 <section class="page"><span class="run">1 · WhatsApp Business</span>
   <div class="kick">Paso 2 · WhatsApp Business</div>
   <h1>Tu perfil de <em>empresa.</em></h1>
-  <div class="cols" style="margin-top:5mm">
+  <div style="margin-top:5mm">
     <div>
       <p>Entrá a <span class="k">Ajustes</span> (en Android, <span class="k">⋮</span>) → <span class="k">Herramientas para la empresa</span> → <span class="k">Perfil de empresa</span> y completá:</p>
       <table>
         <tr><th style="width:26mm">Campo</th><th>Qué poner</th></tr>
-        <tr><td><b>Foto</b></td><td><b>1. Perfil › Foto de perfil</b></td></tr>
-        <tr><td><b>Portada</b> <span class="tag">puede variar</span></td><td><b>3. WhatsApp › Portada de WhatsApp Business</b>. La foto de perfil queda encima, en el centro: el diseño ya deja ese lugar libre.</td></tr>
+        <tr><td><b>Foto</b></td><td><span class="f">1. Perfil › Foto de perfil</span></td></tr>
+        <tr><td><b>Portada</b> <span class="tag">puede variar</span></td><td><span class="f">3. WhatsApp › Portada de WhatsApp Business</span>. La foto de perfil queda encima, en el centro: el diseño ya deja ese lugar libre.</td></tr>
         <tr><td><b>Categoría</b></td><td id="wa-cat"></td></tr>
         <tr><td><b>Descripción</b></td><td>La de abajo.</td></tr>
         <tr><td><b>Dirección</b></td><td id="wa-dir"></td></tr>
@@ -180,7 +181,6 @@ tr:nth-child(even) td{background:#FAFCFB}
       </table>
       <div class="copy" id="wa-desc"><span class="t">Descripción · copiar y pegar</span></div>
     </div>
-    <div class="phs" id="ph-wa2"></div>
   </div>
 </section>
 
@@ -189,14 +189,13 @@ tr:nth-child(even) td{background:#FAFCFB}
   <div class="kick">Paso 3 · WhatsApp Business</div>
   <h1>Que responda <em>aunque estés trabajando.</em></h1>
   <p class="lead">El mensaje de bienvenida le contesta al instante a quien te escribe. Así nadie se queda esperando, aunque estés en medio de un trabajo.</p>
-  <div class="cols" style="margin-top:4mm">
+  <div style="margin-top:4mm">
     <div>
       <h3>Mensaje de bienvenida</h3>
       <p><span class="k">Herramientas para la empresa</span> → <span class="k">Mensaje de bienvenida</span> → activalo → pegá el texto → destinatarios: <b>Todos</b>.</p>
       <div class="copy" id="wa-bienv"><span class="t">Bienvenida · copiar y pegar</span></div>
       <div class="note info"><b>¿Cuándo se manda?</b> Según WhatsApp, cuando alguien te escribe por primera vez o después de 14 días sin escribirte. Así no le llega a cada rato a quien ya está hablando con vos.</div>
     </div>
-    <div class="phs" id="ph-wa3"></div>
   </div>
 </section>
 
@@ -204,7 +203,7 @@ tr:nth-child(even) td{background:#FAFCFB}
 <section class="page"><span class="run">1 · WhatsApp Business</span>
   <div class="kick">Paso 4 · WhatsApp Business</div>
   <h1>Tus servicios <em>a un toque.</em></h1>
-  <p class="lead">El catálogo muestra lo que hacés sin que tengas que explicarlo en cada chat. <span class="k">Herramientas para la empresa</span> → <span class="k">Catálogo</span> → <span class="k">Agregar artículo</span>: para cada servicio, su imagen (carpeta <b>3. WhatsApp › Catálogo</b>, en este orden), el nombre y la descripción. <b>El precio, vacío</b> (presupuesto a medida).</p>
+  <p class="lead">El catálogo muestra lo que hacés sin que tengas que explicarlo en cada chat. <span class="k">Herramientas para la empresa</span> → <span class="k">Catálogo</span> → <span class="k">Agregar artículo</span><span class="pt">:</span> para cada servicio, su imagen (carpeta <span class="f">3. WhatsApp › Catálogo</span>, en este orden), el nombre y la descripción. <b>El precio, vacío</b> (presupuesto a medida).</p>
   <div class="note warn"><span class="tag">puede variar</span> Si tu versión no te deja guardar sin precio, no cargues un número inventado: avisame y lo resolvemos.</div>
   <div class="note ok"><b>¿Algún servicio no lo hacés, o falta uno?</b> Salteálo o sumalo. Avisame y ajusto la imagen y las piezas.</div>
   <div class="thumbs" id="cat-thumbs" style="margin-top:5mm"></div>
@@ -215,15 +214,15 @@ tr:nth-child(even) td{background:#FAFCFB}
 <section class="page"><span class="run">2 · Instagram</span>
   <div class="kick">Paso 1 · Instagram</div>
   <h1>Cuenta profesional <em>y perfil.</em></h1>
-  <div class="cols" style="margin-top:4mm">
+  <div style="margin-top:4mm">
     <div>
       <h3>Pasala a cuenta profesional</h3>
-      <div class="step"><i>1</i><div>En tu perfil, tocá <span class="k">☰</span> → <span class="k">Configuración y actividad</span> → <span class="k">Tipo de cuenta y herramientas</span> → <span class="k">Cambiar a cuenta profesional</span>.</div></div>
+      <div class="step"><i>1</i><div>En tu perfil, tocá <span class="k">☰</span> → <span class="k">Configuración y actividad</span> → <span class="k">Tipo de cuenta y herramientas</span> → <span class="k">Cambiar a cuenta profesional</span><span class="pt">.</span></div></div>
       <div class="step"><i>2</i><div>Elegí la categoría y después <b>Empresa</b>. Si algún día querés, se puede volver atrás.</div></div>
       <h3>Editá el perfil</h3>
-      <p>En tu perfil → <span class="k">Editar perfil</span>:</p>
+      <p>En tu perfil → <span class="k">Editar perfil</span><span class="pt">:</span></p>
       <table>
-        <tr><td style="width:24mm"><b>Foto</b></td><td><b>1. Perfil › Foto de perfil</b></td></tr>
+        <tr><td style="width:24mm"><b>Foto</b></td><td><span class="f">1. Perfil › Foto de perfil</span></td></tr>
         <tr><td><b>Nombre</b></td><td id="ig-nom"></td></tr>
         <tr><td><b>Usuario</b></td><td id="ig-us"></td></tr>
         <tr><td><b>Categoría</b></td><td id="ig-cat"></td></tr>
@@ -232,7 +231,6 @@ tr:nth-child(even) td{background:#FAFCFB}
       </table>
       <div class="copy" id="ig-bio"><span class="t">Biografía · copiar y pegar (138 de 150 caracteres)</span></div>
     </div>
-    <div class="phs" id="ph-ig1"></div>
   </div>
 </section>
 
@@ -243,13 +241,13 @@ tr:nth-child(even) td{background:#FAFCFB}
   <div class="grid2" style="margin-top:4mm">
     <div>
       <h3 style="margin-top:0">1. Archivá (no borres) el flyer de hoy</h3>
-      <p>Abrí la publicación → <span class="k">⋯</span> → <span class="k">Archivar</span>. Se esconde con sus likes y comentarios, y si algún día la querés de vuelta: Archivo → <span class="k">Mostrar en el perfil</span>.</p>
+      <p>Abrí la publicación → <span class="k">⋯</span> → <span class="k">Archivar</span><span class="pt">.</span> Se esconde con sus likes y comentarios, y si algún día la querés de vuelta: Archivo → <span class="k">Mostrar en el perfil</span><span class="pt">.</span></p>
       <h3>2. Subí las 3 publicaciones en este orden</h3>
       <p>Instagram muestra primero la última que subís, así que van al revés:</p>
       <ol><li><b>Primero</b> la 3 (humedad), <b>después</b> la 2 (servicios) y <b>al final</b> la 1 (No ponemos parches).</li>
       <li>Al subir cada una, revisá que se vea entera (formato vertical 4:5) y pegá su descripción (está en <b>Textos para copiar</b>).</li>
       <li>Activá <span class="k">Compartir en Facebook</span> si ya tenés la página (paso 3).</li>
-      <li>Fijá la 1: <span class="k">⋯</span> → <span class="k">Fijar en tu perfil</span>.</li></ol>
+      <li>Fijá la 1: <span class="k">⋯</span> → <span class="k">Fijar en tu perfil</span><span class="pt">.</span></li></ol>
       <div class="thumbs" id="post-thumbs" style="margin-top:3mm"></div>
     </div>
     <div>
@@ -261,10 +259,10 @@ tr:nth-child(even) td{background:#FAFCFB}
       </ol>
       <table>
         <tr><th>Destacada</th><th>Historias</th></tr>
-        <tr><td><b>Servicios</b></td><td><b>Historias › 1. Servicios (5)</b></td></tr>
-        <tr><td><b>Trabajos</b></td><td><b>Historias › 2. Trabajos (1)</b></td></tr>
-        <tr><td><b>Cómo trabajamos</b></td><td><b>Historias › 3. Cómo trabajamos (4)</b></td></tr>
-        <tr><td><b>Contacto</b></td><td><b>Historias › 4. Contacto (1)</b>, con el sticker <b>Enlace</b> a wa.me/59898965054</td></tr>
+        <tr><td><b>Servicios</b></td><td><span class="f">Historias › 1. Servicios (5)</span></td></tr>
+        <tr><td><b>Trabajos</b></td><td><span class="f">Historias › 2. Trabajos (1)</span></td></tr>
+        <tr><td><b>Cómo trabajamos</b></td><td><span class="f">Historias › 3. Cómo trabajamos (4)</span></td></tr>
+        <tr><td><b>Contacto</b></td><td><span class="f">Historias › 4. Contacto (1)</span>, con el sticker <b>Enlace</b> a wa.me/59898965054</td></tr>
       </table>
       <div class="note info"><b>Orden:</b> la última destacada que creás o actualizás queda primera. Creá en este orden: Contacto, Cómo trabajamos, Trabajos y Servicios, así Servicios queda adelante.</div>
       <div class="note ok"><b>Trabajos crece con vos:</b> después de cada trabajo, mandame 2 fotos (antes y después) y 3 líneas (qué pasaba, qué hiciste y por qué dura), y lo armo con la plantilla.</div>
@@ -277,19 +275,19 @@ tr:nth-child(even) td{background:#FAFCFB}
   <div class="kick">Paso 3 · Facebook</div>
   <h1>Página de <em>empresa.</em></h1>
   <p class="lead">La página es aparte de tu Facebook personal: vos la administrás, pero nadie ve tu perfil desde ahí. También la vas a necesitar si algún día hacés anuncios.</p>
-  <div class="cols" style="margin-top:4mm">
+  <div style="margin-top:4mm">
     <div>
-      <div class="step"><i>1</i><div>Desde tu Facebook: <span class="k">Menú</span> → <span class="k">Páginas</span> → <span class="k">Crear nueva página</span>. <span class="tag">puede variar</span></div></div>
+      <div class="step"><i>1</i><div>Desde tu Facebook: <span class="k">Menú</span> → <span class="k">Páginas</span> → <span class="k">Crear nueva página</span><span class="pt">.</span> <span class="tag">puede variar</span></div></div>
       <div class="step"><i>2</i><div><b>Nombre:</b> <span id="fb-nom"></span>. <b>Categorías:</b> <span id="fb-cat"></span></div></div>
       <div class="step"><i>3</i><div><b>Presentación:</b><div class="copy" id="fb-bio" style="margin-top:1.5mm"><span class="t">Copiar y pegar</span></div></div></div>
-      <div class="step"><i>4</i><div><b>Foto de perfil:</b> <b>1. Perfil › Foto de perfil</b>. <b>Portada:</b> en la página, <span class="k">Editar foto de portada</span> → subí <b>4. Facebook › Portada de Facebook</b> → acomodala → <span class="k">Guardar cambios</span>.</div></div>
+      <div class="step"><i>4</i><div><b>Foto de perfil:</b> <span class="f">1. Perfil › Foto de perfil</span>. <b>Portada:</b> en la página, <span class="k">Editar foto de portada</span> → subí <span class="f">4. Facebook › Portada de Facebook</span> → acomodala → <span class="k">Guardar cambios</span><span class="pt">.</span></div></div>
       <div class="step"><i>5</i><div><b>Conectá WhatsApp:</b> <span class="k">Configuración</span> de la página → <span class="k">WhatsApp</span> → poné el número → confirmá con el código.</div></div>
       <div class="step"><i>6</i><div><b>Botón:</b> en la página → <span class="k">Opciones</span> (⋯) → <span class="k">Agregar botón de acción</span> → WhatsApp (si no aparece, "Enviar mensaje"). <span class="tag">puede variar</span></div></div>
-      <div class="step"><i>7</i><div><b>Vinculá Instagram:</b> <span class="k">Configuración</span> → <span class="k">Cuentas vinculadas</span> → <span class="k">Instagram</span>. Completá correo, teléfono y zona; el horario, cuando esté confirmado.</div></div>
+      <div class="step"><i>7</i><div><b>Vinculá Instagram:</b> <span class="k">Configuración</span> → <span class="k">Cuentas vinculadas</span> → <span class="k">Instagram</span><span class="pt">.</span> Completá correo, teléfono y zona; el horario, cuando esté confirmado.</div></div>
     </div>
     <div>
-      <img src="../piezas/portadas/portada-facebook-prueba.png" style="width:100%;border-radius:2mm;border:1px solid var(--linea)">
-      <p style="font-size:8.6pt;color:var(--gris)">Medida recomendada por Facebook: 851×315 (la portada va al doble para que se vea nítida). Rojo: lo que tapa la foto de perfil. Amarillo: lo que se ve en cualquier pantalla.</p>
+      <img src="../piezas/portadas/portada-facebook.png" style="width:100%;border-radius:2mm;border:1px solid var(--linea)">
+      <p style="font-size:8.6pt;color:var(--gris)">Así queda la portada. Abajo a la izquierda va tu foto de perfil: el diseño ya deja ese lugar libre.</p>
     </div>
   </div>
 </section>
@@ -301,10 +299,10 @@ tr:nth-child(even) td{background:#FAFCFB}
   <p class="lead">Cuando alguien busca "sanitaria en Solymar" o "limpieza de grasera Montevideo", Google muestra primero los Perfiles de Empresa. Es gratis, y ahí van a quedar tus reseñas.</p>
   <div class="grid2" style="margin-top:4mm">
     <div>
-      <div class="step"><i>1</i><div>Entrá a <b>google.com/business</b> con el Gmail del negocio y tocá <span class="k">Administrar ahora</span>.</div></div>
+      <div class="step"><i>1</i><div>Entrá a <b>google.com/business</b> con el Gmail del negocio y tocá <span class="k">Administrar ahora</span><span class="pt">.</span></div></div>
       <div class="step"><i>2</i><div><b>Nombre:</b> <span id="g-nom"></span></div></div>
       <div class="step"><i>3</i><div><b>Categoría:</b> <span id="g-cat"></span></div></div>
-      <div class="step"><i>4</i><div>Si pregunta si los clientes pueden ir a un local: <b>No</b> (vas a domicilio). Si te pide una dirección para verificar, cargala y después ocultala: <span class="k">Editar perfil</span> → <span class="k">Ubicación</span> → desactivá <span class="k">Mostrar la dirección de la empresa a los clientes</span>.</div></div>
+      <div class="step"><i>4</i><div>Si pregunta si los clientes pueden ir a un local: <b>No</b> (vas a domicilio). Si te pide una dirección para verificar, cargala y después ocultala: <span class="k">Editar perfil</span> → <span class="k">Ubicación</span> → desactivá <span class="k">Mostrar la dirección de la empresa a los clientes</span><span class="pt">.</span></div></div>
       <div class="step"><i>5</i><div><b>Zonas de servicio:</b> <span id="g-zon"></span> Google pide que no pasen de unas 2 horas de manejo desde tu base.</div></div>
       <div class="step"><i>6</i><div><b>Verificación:</b> Google elige el método. Lo más común hoy es un <b>video</b>: una sola toma, sin cortes, de al menos 30 segundos, grabada desde el celular en la app. Mostrá las calles o carteles de tu zona y algo con el nombre del negocio (herramientas, tarjeta, vehículo).</div></div>
     </div>
@@ -383,14 +381,6 @@ const put=(id,html)=>{$(id).insertAdjacentHTML('beforeend',html)};
 const copy=(t,txt)=>`<div class="copy"><span class="t">${t}</span>${esc(txt)}</div>`;
 // esquemas de celular
 const phone=(title,rows,hl,cap)=>`<div><div class="ph"><div class="bar">${title}</div>${rows.map((r,i)=>`<div class="row${hl.includes(i)?' hl':''}">${r}${hl.includes(i)?`<span class="n">${hl.indexOf(i)+1}</span>`:''}</div>`).join('')}</div><div class="ph cap" style="border:0;box-shadow:none;width:58mm;padding:0">${cap}</div></div>`;
-put('ph-wa1',phone('Copia de seguridad',['Cuenta de Google','Frecuencia','Incluir videos','Guardar'],[3],'WhatsApp común · Ajustes → Chats'));
-put('ph-wa1',phone('WhatsApp Business',['Usar 098 965 054','Usar otro número'],[0],'Al abrir Business por primera vez'));
-put('ph-wa2',phone('Ajustes',['Perfil','Herramientas para la empresa','Cuenta','Chats','Notificaciones'],[1],'Esquema · los nombres pueden variar'));
-put('ph-wa2',phone('Herramientas para la empresa',['Perfil de empresa','Catálogo','Mensaje de bienvenida','Mensaje de ausencia','Respuestas rápidas','Etiquetas'],[0],'Perfil: foto, portada, datos'));
-put('ph-wa3',phone('Herramientas para la empresa',['Perfil de empresa','Catálogo','Mensaje de bienvenida','Respuestas rápidas'],[2],'Esquema · los nombres pueden variar'));
-put('ph-wa3',phone('Mensaje de bienvenida',['Enviar mensaje de bienvenida','Mensaje','Destinatarios: todos'],[0,1],'Activalo y pegá el texto'));
-put('ph-ig1',phone('Configuración y actividad',['Centro de cuentas','Tipo de cuenta y herramientas','Privacidad de la cuenta','Notificaciones'],[1],'Esquema · los nombres pueden variar'));
-put('ph-ig1',phone('Tipo de cuenta y herramientas',['Cambiar a cuenta profesional','Herramientas de contenido'],[0],'Después: categoría → Empresa'));
 // textos
 $('wa-cat').textContent=T.wa.categorias; $('wa-dir').textContent=T.wa.direccion; $('wa-hor').textContent=T.wa.horario; $('wa-mail').textContent=T.wa.email; $('wa-web').textContent=T.wa.web;
 put('wa-desc',esc(T.wa.descripcion)); put('wa-bienv',esc(T.wa.bienvenida));
