@@ -1,0 +1,569 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Kit de presencia digital · A. Servicios Integrales Catoira</title>
+<script src="textos.js"></script>
+<style>
+@font-face{font-family:Montserrat;src:url(../fonts/montserrat-latin-wght-normal.woff2) format('woff2');font-weight:100 900}
+@font-face{font-family:Inter;src:url(../fonts/inter-latin-wght-normal.woff2) format('woff2');font-weight:100 900}
+@page{size:A4;margin:0}
+:root{--noche:#04141C;--pet:#0A2C4E;--verde:#13857F;--agua:#5FD0C1;--hueso:#EEF3F1;--tinta:#13242C;--gris:#5C7078;--linea:#D9E3E1;--crema:#F6F8F7}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{font-family:Inter,sans-serif;color:var(--tinta);background:#999;font-size:10.4pt;line-height:1.45}
+.page{width:210mm;height:297mm;padding:17mm 16mm 18mm;background:#fff;position:relative;overflow:hidden;page-break-after:always;margin:0 auto}
+@media screen{.page{margin:10mm auto;box-shadow:0 4px 30px rgba(0,0,0,.3)}}
+.page::after{content:attr(data-n);position:absolute;right:16mm;bottom:9mm;font:600 8pt Inter;color:var(--gris);letter-spacing:.08em}
+.page .run{position:absolute;left:16mm;bottom:9mm;font:600 7.5pt Inter;letter-spacing:.12em;text-transform:uppercase;color:#9AACB1}
+h1{font:800 27pt/1.05 Montserrat;letter-spacing:-.03em;color:var(--pet)}
+h1 em,h2 em{font-style:normal;color:var(--verde)}
+h2{font:800 15pt/1.15 Montserrat;letter-spacing:-.02em;color:var(--pet);margin:6mm 0 2.5mm}
+h3{font:700 11pt/1.25 Inter;color:var(--pet);margin:4mm 0 1.5mm}
+.kick{font:700 8pt Inter;letter-spacing:.16em;text-transform:uppercase;color:var(--verde);margin-bottom:3mm}
+.lead{font-size:11.5pt;color:#33464E;margin-top:3mm;max-width:160mm}
+p{margin:1.6mm 0}
+ol,ul{margin:1.5mm 0 1.5mm 5mm}li{margin:1.1mm 0}
+b{font-weight:650}
+.k{font-weight:650;color:var(--pet);background:#E7F4F1;border-radius:3px;padding:0 1.2mm;white-space:nowrap}
+.copy{background:var(--crema);border:1px solid var(--linea);border-left:3px solid var(--agua);border-radius:6px;padding:3mm 4mm;margin:2mm 0 3mm;white-space:pre-wrap;font-size:9.6pt;line-height:1.45;break-inside:avoid}
+.copy .t{display:block;font:700 7.5pt Inter;letter-spacing:.12em;text-transform:uppercase;color:var(--verde);margin-bottom:1.2mm;white-space:normal}
+.note{border-radius:6px;padding:3mm 4mm;margin:2.5mm 0;font-size:9.4pt;break-inside:avoid}
+.note.ok{background:#E9F6F3;border:1px solid #BFE6DE}
+.note.warn{background:#FFF6E2;border:1px solid #F3D99A}
+.note.info{background:#EEF2F8;border:1px solid #CAD6EA}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:6mm}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:4mm}
+.cols{display:grid;grid-template-columns:1fr 58mm;gap:7mm;align-items:start}
+table{width:100%;border-collapse:collapse;font-size:9.2pt;margin:2mm 0}
+th{background:var(--pet);color:#fff;text-align:left;font-weight:600;padding:2mm 2.5mm}
+td{border-bottom:1px solid var(--linea);padding:2mm 2.5mm;vertical-align:top}
+tr:nth-child(even) td{background:#FAFCFB}
+.step{display:grid;grid-template-columns:8mm 1fr;gap:2.5mm;margin:2.4mm 0;break-inside:avoid}
+.step i{font:800 10pt/8mm Montserrat;font-style:normal;width:8mm;height:8mm;border-radius:50%;background:var(--pet);color:#fff;text-align:center}
+.step div{padding-top:1mm}
+/* esquema de celular */
+.ph{width:58mm;border:2.2px solid #2B3B42;border-radius:7mm;padding:3mm 2.2mm 4mm;background:#fff;box-shadow:0 2mm 6mm rgba(10,44,78,.12);font-size:8pt;break-inside:avoid}
+.ph .bar{display:flex;align-items:center;gap:2mm;font:700 8.4pt Inter;padding:1.5mm 2mm 2.2mm;border-bottom:1px solid var(--linea);color:#1E2E35}
+.ph .bar::before{content:"←";color:var(--gris);font-weight:400}
+.ph .row{display:flex;align-items:center;gap:2mm;padding:2.1mm 2mm;border-bottom:1px solid #EEF2F1;color:#33464E;position:relative}
+.ph .row::before{content:"";width:4mm;height:4mm;border-radius:1.2mm;background:#E5ECEA;flex:none}
+.ph .row.hl{outline:2px solid var(--verde);outline-offset:-1px;border-radius:2mm;background:#E9F6F3;color:var(--pet);font-weight:650}
+.ph .row.hl::before{background:var(--agua)}
+.ph .row .n{position:absolute;right:-4.6mm;top:50%;transform:translateY(-50%);width:6mm;height:6mm;border-radius:50%;background:var(--verde);color:#fff;font:800 8pt/6mm Montserrat;text-align:center}
+.ph .cap{font:600 7pt Inter;letter-spacing:.1em;text-transform:uppercase;color:#9AACB1;text-align:center;margin-top:2.5mm}
+.phs{display:flex;flex-direction:column;gap:5mm;align-items:center}
+/* portada oscura */
+.dark{background:var(--noche);color:var(--hueso)}
+.dark::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 40% at 70% 28%,rgba(19,133,127,.5),transparent 72%),radial-gradient(70% 50% at 10% 100%,rgba(13,52,92,.95),transparent 75%),linear-gradient(180deg,#05202B,#04141C 60%,#030F15)}
+.dark::after{color:#6E8A90}
+.dark .blue{position:absolute;inset:0;background-image:linear-gradient(rgba(150,220,210,.1) 1px,transparent 1px),linear-gradient(90deg,rgba(150,220,210,.1) 1px,transparent 1px),linear-gradient(rgba(150,220,210,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(150,220,210,.04) 1px,transparent 1px);background-size:15mm 15mm,15mm 15mm,3mm 3mm,3mm 3mm;-webkit-mask:radial-gradient(70% 55% at 70% 28%,#000,transparent 90%)}
+.dark>*{position:relative}
+.dark h1{color:#fff;font-size:40pt}.dark h1 em{color:var(--agua)}
+.thumbs{display:flex;gap:2.5mm;flex-wrap:wrap}
+.thumbs img{border-radius:2mm;border:1px solid var(--linea);display:block}
+.tag{display:inline-block;font:700 7.2pt Inter;letter-spacing:.1em;text-transform:uppercase;padding:.8mm 2mm;border-radius:99px;background:#E7F4F1;color:var(--verde)}
+/* vista previa del perfil de Instagram */
+.igm{width:82mm;border:2.4px solid #2B3B42;border-radius:9mm;padding:5mm 4mm 4mm;background:#fff;font-size:7.6pt;box-shadow:0 3mm 10mm rgba(10,44,78,.15)}
+.igm .u{font:700 9pt Inter;text-align:center;margin-bottom:3mm}
+.igm .hd{display:flex;gap:4mm;align-items:center}
+.igm .hd img{width:19mm;height:19mm;border-radius:50%}
+.igm .st{display:flex;gap:4mm;font-size:7.4pt;text-align:center}.igm .st b{display:block;font-size:9pt}
+.igm .nm{font-weight:700;margin-top:2.5mm}.igm .ct{color:#8A979B}
+.igm .bio{white-space:pre-line;margin-top:.6mm;line-height:1.35}
+.igm .lk{color:#2D4F86;font-weight:600}
+.igm .bt{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5mm;margin-top:2.5mm}.igm .bt span{background:#EFF2F2;border-radius:1.6mm;padding:1.6mm 0;text-align:center;font-weight:650}
+.igm .hl{display:flex;gap:3mm;margin-top:3.5mm}.igm .hl div{text-align:center;font-size:6.6pt;width:14mm}
+.igm .hl img{width:13mm;height:13mm;border-radius:50%;border:1px solid #D0D8D8;padding:.5mm;background:#fff}
+.igm .gr{display:grid;grid-template-columns:repeat(3,1fr);gap:.6mm;margin-top:3.5mm}
+.igm .gr div{aspect-ratio:3/4;background-size:cover;background-position:center}
+</style></head><body>
+
+<!-- 1 · PORTADA -->
+<section class="page dark">
+  <div class="blue"></div>
+  <img src="../logo/simbolo-blanco.svg" style="width:34mm;margin-top:18mm;opacity:.95">
+  <div style="margin-top:58mm">
+    <div class="kick" style="color:var(--agua)">Kit de presencia digital</div>
+    <h1>Más consultas,<br><em>menos vueltas.</em></h1>
+    <p style="font-size:13pt;color:#C9D6D6;margin-top:7mm;max-width:140mm">Instagram, WhatsApp Business, Facebook y Google listos para que te encuentren, y una campaña de mensajes para conseguir consultas reales.</p>
+  </div>
+  <div style="position:absolute;left:16mm;right:16mm;bottom:20mm;display:flex;justify-content:space-between;align-items:flex-end;font-size:9.5pt;color:#9DB3B8">
+    <div><b style="color:#fff;font:800 12pt Montserrat;display:block">A. Servicios Integrales Catoira</b>Fernando Catoira · Gestor técnico comercial</div>
+    <div style="text-align:right">Preparado por <b style="color:#fff">Aicia</b><br>Noviembre de 2026</div>
+  </div>
+</section>
+
+<!-- 2 · CÓMO USAR EL KIT -->
+<section class="page"><span class="run">Kit de presencia digital</span>
+  <div class="kick">Antes de empezar</div>
+  <h1>Cómo usar <em>este kit.</em></h1>
+  <p class="lead">Todo está pensado para que lo cargues vos, a tu ritmo, sin pasarle contraseñas a nadie. Seguí el orden: cada paso deja listo el siguiente.</p>
+  <table style="margin-top:6mm">
+    <tr><th style="width:9mm">#</th><th>Qué hacés</th><th style="width:30mm">Tiempo aprox.</th><th style="width:24mm">Página</th></tr>
+    <tr><td>1</td><td><b>WhatsApp Business</b>: pasar tu WhatsApp sin perder chats y dejarlo atendiendo solo.</td><td>40 min</td><td>4</td></tr>
+    <tr><td>2</td><td><b>Instagram</b>: cuenta profesional, perfil, destacadas y las 3 primeras publicaciones.</td><td>45 min</td><td>10</td></tr>
+    <tr><td>3</td><td><b>Facebook</b>: página de empresa con botón de WhatsApp.</td><td>20 min</td><td>12</td></tr>
+    <tr><td>4</td><td><b>Google</b>: Perfil de Empresa para aparecer en Maps y juntar reseñas.</td><td>20 min + verificación</td><td>13</td></tr>
+    <tr><td>5</td><td><b>Campaña de mensajes</b>: lista de 50 contactos, guiones y seguimiento en la planilla.</td><td>20–30 min por día</td><td>14</td></tr>
+    <tr><td>6</td><td><b>Contenido</b>: plan de 30 días y cómo crecer con reels.</td><td>Semanal</td><td>18</td></tr>
+  </table>
+  <h2>Qué hay en la carpeta</h2>
+  <table>
+    <tr><th style="width:52mm">Carpeta</th><th>Contenido</th></tr>
+    <tr><td><b>1-perfil</b></td><td>Foto de perfil (el símbolo de tu logo redibujado en vector, nítido en el círculo chico), en fondo oscuro y claro. Logo en SVG.</td></tr>
+    <tr><td><b>2-instagram/destacadas</b></td><td>4 portadas: Servicios, Trabajos, Cómo trabajamos y Contacto.</td></tr>
+    <tr><td><b>2-instagram/historias</b></td><td>12 historias para las destacadas (la plantilla de Trabajos no se publica: es para tus fotos reales).</td></tr>
+    <tr><td><b>2-instagram/publicaciones</b></td><td>3 publicaciones 1080×1350, con sus textos en <b>textos-para-copiar.md</b>.</td></tr>
+    <tr><td><b>3-whatsapp</b></td><td>Portada del perfil de empresa y 10 imágenes para el catálogo.</td></tr>
+    <tr><td><b>4-facebook</b></td><td>Portada de la página (y una versión "prueba" con las zonas que tapa Facebook).</td></tr>
+    <tr><td><b>5-campana</b></td><td>Planilla de prospección (Excel) y textos para copiar.</td></tr>
+  </table>
+  <div class="note warn"><b>Seguridad:</b> nunca le pases tus contraseñas ni códigos de verificación a nadie (tampoco a nosotros). Si un paso te pide algo raro, frená y escribime por Workana.</div>
+  <div class="note info"><b>Sobre los menús:</b> los pasos se revisaron contra los centros de ayuda oficiales de WhatsApp, Instagram, Facebook y Google en noviembre de 2026. Las apps cambian seguido: si un botón tiene otro nombre en tu celular, buscá el más parecido. Lo que no pudimos confirmar está marcado como <span class="tag">puede variar</span>.</div>
+</section>
+
+<!-- 3 · VISTA PREVIA -->
+<section class="page"><span class="run">Kit de presencia digital</span>
+  <div class="kick">Así va a quedar</div>
+  <h1>Tu Instagram, <em>listo para vender.</em></h1>
+  <div class="cols" style="grid-template-columns:86mm 1fr;margin-top:8mm">
+    <div class="igm" id="igm"></div>
+    <div>
+      <h3 style="margin-top:0">Qué cambia</h3>
+      <ul>
+        <li><b>Foto de perfil que se lee:</b> solo el símbolo, redibujado en vector. El logo con texto no se leía en el círculo.</li>
+        <li><b>Bio que dice qué hacés, dónde y cómo pedirlo</b>, con el enlace directo a WhatsApp.</li>
+        <li><b>4 destacadas</b> que responden lo que pregunta todo cliente: qué hacen, qué hicieron, cómo trabajan y cómo los contacto.</li>
+        <li><b>3 publicaciones de arranque</b>: quiénes son (el manifiesto), qué hacen y por qué conviene un diagnóstico.</li>
+        <li><b>Identidad propia:</b> los colores de tu logo, un "plano técnico" de fondo y dibujos de línea propios. Nada de fotos de banco que no son tuyas.</li>
+      </ul>
+      <h3>Las piezas</h3>
+      <div class="thumbs" id="thumbs"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 · WHATSAPP: PASAR A BUSINESS -->
+<section class="page"><span class="run">1 · WhatsApp Business</span>
+  <div class="kick">Paso 1 · WhatsApp Business</div>
+  <h1>Pasá a Business <em>sin perder chats.</em></h1>
+  <p class="lead">WhatsApp Business es gratis y usa tu mismo número (098 965 054). Tus conversaciones y archivos se pasan solos.</p>
+  <div class="cols" style="margin-top:5mm">
+    <div>
+      <h3>Antes</h3>
+      <div class="step"><i>1</i><div><b>Guardá en la agenda del teléfono</b> los contactos que tengas guardados solo dentro de WhatsApp: según WhatsApp, esos se pueden perder al pasarte.</div></div>
+      <div class="step"><i>2</i><div><b>Hacé una copia de seguridad:</b> en WhatsApp, <span class="k">Ajustes</span> → <span class="k">Chats</span> → <span class="k">Copia de seguridad</span> → <span class="k">Guardar</span>.</div></div>
+      <div class="step"><i>3</i><div><b>Actualizá WhatsApp</b> y bajá <b>WhatsApp Business</b> desde Play Store o App Store (el ícono tiene una "B").</div></div>
+      <h3>El cambio</h3>
+      <div class="step"><i>4</i><div>Abrí WhatsApp Business y aceptá los términos. Te va a ofrecer <b>usar el número de tu WhatsApp</b>: tocá <span class="k">Continuar</span>.</div></div>
+      <div class="step"><i>5</i><div><b>Dale permiso para pasar el historial</b> (chats y archivos) y verificá el número con el código que llega por SMS.</div></div>
+      <div class="step"><i>6</i><div>Poné el nombre <b>A. Servicios Integrales Catoira</b> y la categoría. Listo: tus chats siguen ahí, ahora en Business.</div></div>
+      <div class="note warn"><b>Ojo, es de una sola vía:</b> si después volvés a WhatsApp común, los chats no vuelven. Y un número no puede estar en las dos apps a la vez.</div>
+      <div class="note ok"><b>¿Cambiás de celular?</b> Según WhatsApp, por ahora no se pueden transferir chats de Business entre teléfonos. Por eso, hacé el cambio en el celular que vas a seguir usando.</div>
+    </div>
+    <div class="phs" id="ph-wa1"></div>
+  </div>
+</section>
+
+<!-- 5 · WHATSAPP: PERFIL -->
+<section class="page"><span class="run">1 · WhatsApp Business</span>
+  <div class="kick">Paso 2 · WhatsApp Business</div>
+  <h1>Tu perfil de <em>empresa.</em></h1>
+  <div class="cols" style="margin-top:5mm">
+    <div>
+      <p>Entrá a <span class="k">Ajustes</span> (en Android, <span class="k">⋮</span>) → <span class="k">Herramientas para la empresa</span> → <span class="k">Perfil de empresa</span> y completá:</p>
+      <table>
+        <tr><th style="width:26mm">Campo</th><th>Qué poner</th></tr>
+        <tr><td><b>Foto</b></td><td>1-perfil/catoira-foto-perfil.png</td></tr>
+        <tr><td><b>Portada</b> <span class="tag">puede variar</span></td><td>3-whatsapp/portada-whatsapp-business.jpg. La foto de perfil queda encima, en el centro: el diseño ya deja ese lugar libre.</td></tr>
+        <tr><td><b>Categoría</b></td><td id="wa-cat"></td></tr>
+        <tr><td><b>Descripción</b></td><td>La de abajo.</td></tr>
+        <tr><td><b>Dirección</b></td><td id="wa-dir"></td></tr>
+        <tr><td><b>Horario</b></td><td id="wa-hor"></td></tr>
+        <tr><td><b>Correo</b></td><td id="wa-mail"></td></tr>
+        <tr><td><b>Sitio web</b></td><td id="wa-web"></td></tr>
+      </table>
+      <div class="copy" id="wa-desc"><span class="t">Descripción · copiar y pegar</span></div>
+    </div>
+    <div class="phs" id="ph-wa2"></div>
+  </div>
+</section>
+
+<!-- 6 · WHATSAPP: MENSAJES AUTOMÁTICOS -->
+<section class="page"><span class="run">1 · WhatsApp Business</span>
+  <div class="kick">Paso 3 · WhatsApp Business</div>
+  <h1>Que responda <em>aunque estés trabajando.</em></h1>
+  <p class="lead">El mensaje de bienvenida le contesta al instante a quien te escribe por primera vez y ya te pide lo que necesitás saber. Así, cuando agarrás el celular, tenés el caso entero.</p>
+  <div class="cols" style="margin-top:4mm">
+    <div>
+      <h3>Mensaje de bienvenida</h3>
+      <p><span class="k">Herramientas para la empresa</span> → <span class="k">Mensaje de bienvenida</span> → activalo → pegá el texto → destinatarios: <b>Todos</b>.</p>
+      <div class="copy" id="wa-bienv"><span class="t">Bienvenida · copiar y pegar</span></div>
+      <h3>Mensaje de ausencia</h3>
+      <p><span class="k">Herramientas para la empresa</span> → <span class="k">Mensaje de ausencia</span> → activalo → en <b>Programar</b> elegí <span class="k">Fuera del horario comercial</span> (para eso tenés que haber cargado el horario) → destinatarios: <b>Todos</b>.</p>
+      <div class="copy" id="wa-aus"><span class="t">Ausencia · copiar y pegar</span></div>
+    </div>
+    <div class="phs" id="ph-wa3"></div>
+  </div>
+</section>
+
+<!-- 7 · WHATSAPP: RESPUESTAS RÁPIDAS -->
+<section class="page"><span class="run">1 · WhatsApp Business</span>
+  <div class="kick">Paso 4 · WhatsApp Business</div>
+  <h1>Respuestas <em>rápidas.</em></h1>
+  <p class="lead">Escribís "/" en cualquier chat y elegís la respuesta. Se crean en <span class="k">Herramientas para la empresa</span> → <span class="k">Respuestas rápidas</span> → <span class="k">+</span>: pegás el mensaje y le ponés el atajo (sin la barra). Entran hasta 50.</p>
+  <div id="wa-rap" class="grid2" style="margin-top:2mm;gap:0 6mm;font-size:9.4pt"></div>
+</section>
+
+<!-- 8 · WHATSAPP: ETIQUETAS Y CATÁLOGO -->
+<section class="page"><span class="run">1 · WhatsApp Business</span>
+  <div class="kick">Paso 5 · WhatsApp Business</div>
+  <h1>Etiquetas y <em>catálogo.</em></h1>
+  <div class="grid2" style="margin-top:5mm">
+    <div>
+      <h3 style="margin-top:0">Etiquetas: saber en qué está cada consulta</h3>
+      <p>En un chat, mantenelo apretado → <span class="k">Etiquetar</span> → creá estas (entran hasta 20):</p>
+      <table id="wa-etq"></table>
+      <div class="note info"><span class="tag">puede variar</span> WhatsApp está cambiando las etiquetas por <b>"Listas"</b> de a poco. Si en tu app ves Listas, creá las mismas con estos nombres.</div>
+    </div>
+    <div>
+      <h3 style="margin-top:0">Catálogo: tus servicios a un toque</h3>
+      <p><span class="k">Herramientas para la empresa</span> → <span class="k">Catálogo</span> → <span class="k">Agregar artículo</span>. Para cada servicio: la imagen de la carpeta <b>3-whatsapp/catalogo</b>, el nombre y la descripción. <b>El precio, vacío</b> (presupuesto a medida).</p>
+      <div class="note warn"><span class="tag">puede variar</span> Si tu versión no te deja guardar sin precio, no cargues un número inventado: avisame y lo resolvemos.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 9 · WHATSAPP: CATÁLOGO -->
+<section class="page"><span class="run">1 · WhatsApp Business</span>
+  <div class="kick">Paso 6 · WhatsApp Business</div>
+  <h1>Los 10 servicios <em>del catálogo.</em></h1>
+  <p class="lead">Cada uno con su imagen (carpeta 3-whatsapp/catalogo, en este orden), su nombre y su descripción. Sin precio: presupuesto a medida.</p>
+  <div class="thumbs" id="cat-thumbs" style="margin-top:5mm"></div>
+  <table id="wa-cat-t" style="margin-top:5mm"></table>
+</section>
+
+<!-- 9 · INSTAGRAM: CUENTA Y PERFIL -->
+<section class="page"><span class="run">2 · Instagram</span>
+  <div class="kick">Paso 1 · Instagram</div>
+  <h1>Cuenta profesional <em>y perfil.</em></h1>
+  <div class="cols" style="margin-top:4mm">
+    <div>
+      <h3>Pasala a cuenta profesional</h3>
+      <div class="step"><i>1</i><div>En tu perfil, tocá <span class="k">☰</span> → <span class="k">Configuración y actividad</span> → <span class="k">Tipo de cuenta y herramientas</span> → <span class="k">Cambiar a cuenta profesional</span>.</div></div>
+      <div class="step"><i>2</i><div>Elegí la categoría y después <b>Empresa</b>. Si algún día querés, se puede volver atrás.</div></div>
+      <h3>Editá el perfil</h3>
+      <p>En tu perfil → <span class="k">Editar perfil</span>:</p>
+      <table>
+        <tr><td style="width:24mm"><b>Foto</b></td><td>1-perfil/catoira-foto-perfil.png</td></tr>
+        <tr><td><b>Nombre</b></td><td id="ig-nom"></td></tr>
+        <tr><td><b>Usuario</b></td><td id="ig-us"></td></tr>
+        <tr><td><b>Categoría</b></td><td id="ig-cat"></td></tr>
+        <tr><td><b>Enlace</b></td><td id="ig-lk"></td></tr>
+        <tr><td><b>Contacto</b> <span class="tag">puede variar</span></td><td>En <b>Opciones de contacto</b> o <b>Botones de acción</b>: correo, teléfono y WhatsApp. Instagram permite conectar un número de WhatsApp Business a una cuenta profesional: si te ofrece "WhatsApp", elegí el 098 965 054.</td></tr>
+      </table>
+      <div class="copy" id="ig-bio"><span class="t">Biografía · copiar y pegar (138 de 150 caracteres)</span></div>
+    </div>
+    <div class="phs" id="ph-ig1"></div>
+  </div>
+</section>
+
+<!-- 10 · INSTAGRAM: PUBLICACIONES Y DESTACADAS -->
+<section class="page"><span class="run">2 · Instagram</span>
+  <div class="kick">Paso 2 · Instagram</div>
+  <h1>Publicaciones <em>y destacadas.</em></h1>
+  <div class="grid2" style="margin-top:4mm">
+    <div>
+      <h3 style="margin-top:0">1. Archivá (no borres) el flyer de hoy</h3>
+      <p>Abrí la publicación → <span class="k">⋯</span> → <span class="k">Archivar</span>. Se esconde con sus likes y comentarios, y si algún día la querés de vuelta: Archivo → <span class="k">Mostrar en el perfil</span>.</p>
+      <h3>2. Subí las 3 publicaciones en este orden</h3>
+      <p>Instagram muestra primero la última que subís, así que van al revés:</p>
+      <ol><li><b>Primero</b> la 3 (humedad), <b>después</b> la 2 (servicios) y <b>al final</b> la 1 (No ponemos parches).</li>
+      <li>Al subir cada una, revisá que se vea entera (formato vertical 4:5) y pegá su texto de <b>textos-para-copiar.md</b>.</li>
+      <li>Activá <span class="k">Compartir en Facebook</span> si ya tenés la página (paso 3).</li>
+      <li>Fijá la 1: <span class="k">⋯</span> → <span class="k">Fijar en tu perfil</span>.</li></ol>
+      <div class="thumbs" id="post-thumbs" style="margin-top:3mm"></div>
+    </div>
+    <div>
+      <h3 style="margin-top:0">3. Armá las 4 destacadas</h3>
+      <ol>
+        <li>Subí las historias de una destacada (podés elegir varias juntas desde la galería).</li>
+        <li>En tu perfil, tocá <span class="k">+</span> <b>Nuevo</b> debajo de la bio, elegí esas historias y ponele el nombre.</li>
+        <li>Portada: abrí la destacada → <span class="k">Más</span> → <span class="k">Editar</span> → <span class="k">Editar portada</span> → elegí la portada de la carpeta <b>destacadas</b>.</li>
+      </ol>
+      <table>
+        <tr><th>Destacada</th><th>Historias</th></tr>
+        <tr><td><b>Servicios</b></td><td>servicios-1 a servicios-5</td></tr>
+        <tr><td><b>Trabajos</b></td><td>trabajos-1-portada (la plantilla no se publica: se completa con tus fotos reales)</td></tr>
+        <tr><td><b>Cómo trabajamos</b></td><td>como-trabajamos-1 a 4</td></tr>
+        <tr><td><b>Contacto</b></td><td>contacto-1, con el sticker <b>Enlace</b> a wa.me/59898965054</td></tr>
+      </table>
+      <div class="note info"><b>Orden:</b> la última destacada que creás o actualizás queda primera. Creá en este orden: Contacto, Cómo trabajamos, Trabajos y Servicios, así Servicios queda adelante.</div>
+      <div class="note ok"><b>Trabajos crece con vos:</b> después de cada trabajo, mandame 2 fotos (antes y después) y 3 líneas (qué pasaba, qué hiciste y por qué dura), y lo armo con la plantilla.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 11 · FACEBOOK -->
+<section class="page"><span class="run">3 · Facebook</span>
+  <div class="kick">Paso 3 · Facebook</div>
+  <h1>Página de <em>empresa.</em></h1>
+  <p class="lead">La página es aparte de tu Facebook personal: vos la administrás, pero nadie ve tu perfil desde ahí. También la vas a necesitar si algún día hacés anuncios.</p>
+  <div class="cols" style="margin-top:4mm">
+    <div>
+      <div class="step"><i>1</i><div>Desde tu Facebook: <span class="k">Menú</span> → <span class="k">Páginas</span> → <span class="k">Crear nueva página</span>. <span class="tag">puede variar</span></div></div>
+      <div class="step"><i>2</i><div><b>Nombre:</b> <span id="fb-nom"></span>. <b>Categorías:</b> <span id="fb-cat"></span></div></div>
+      <div class="step"><i>3</i><div><b>Presentación:</b><div class="copy" id="fb-bio" style="margin-top:1.5mm"><span class="t">Copiar y pegar</span></div></div></div>
+      <div class="step"><i>4</i><div><b>Foto de perfil:</b> 1-perfil/catoira-foto-perfil.png. <b>Portada:</b> en la página, <span class="k">Editar foto de portada</span> → subí 4-facebook/portada-facebook.jpg → acomodala → <span class="k">Guardar cambios</span>.</div></div>
+      <div class="step"><i>5</i><div><b>Conectá WhatsApp:</b> <span class="k">Configuración</span> de la página → <span class="k">WhatsApp</span> → poné el número → confirmá con el código.</div></div>
+      <div class="step"><i>6</i><div><b>Botón:</b> en la página → <span class="k">Opciones</span> (⋯) → <span class="k">Agregar botón de acción</span> → WhatsApp (si no aparece, "Enviar mensaje"). <span class="tag">puede variar</span></div></div>
+      <div class="step"><i>7</i><div><b>Vinculá Instagram:</b> <span class="k">Configuración</span> → <span class="k">Cuentas vinculadas</span> → <span class="k">Instagram</span>. Completá correo, teléfono y zona; el horario, cuando esté confirmado.</div></div>
+    </div>
+    <div>
+      <img src="../piezas/portadas/portada-facebook-prueba.png" style="width:100%;border-radius:2mm;border:1px solid var(--linea)">
+      <p style="font-size:8.6pt;color:var(--gris)">Medida recomendada por Facebook: 851×315 (la portada va al doble para que se vea nítida). Rojo: lo que tapa la foto de perfil. Amarillo: lo que se ve en cualquier pantalla.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 12 · GOOGLE -->
+<section class="page"><span class="run">4 · Google</span>
+  <div class="kick">Paso 4 · Google</div>
+  <h1>Aparecé en <em>Google Maps.</em></h1>
+  <p class="lead">Cuando alguien busca "sanitaria en Solymar" o "limpieza de grasera Montevideo", Google muestra primero los Perfiles de Empresa. Es gratis, y ahí van a quedar tus reseñas.</p>
+  <div class="grid2" style="margin-top:4mm">
+    <div>
+      <div class="step"><i>1</i><div>Entrá a <b>google.com/business</b> con el Gmail del negocio y tocá <span class="k">Administrar ahora</span>.</div></div>
+      <div class="step"><i>2</i><div><b>Nombre:</b> <span id="g-nom"></span></div></div>
+      <div class="step"><i>3</i><div><b>Categoría:</b> <span id="g-cat"></span></div></div>
+      <div class="step"><i>4</i><div>Si pregunta si los clientes pueden ir a un local: <b>No</b> (vas a domicilio). Si te pide una dirección para verificar, cargala y después ocultala: <span class="k">Editar perfil</span> → <span class="k">Ubicación</span> → desactivá <span class="k">Mostrar la dirección de la empresa a los clientes</span>.</div></div>
+      <div class="step"><i>5</i><div><b>Zonas de servicio:</b> <span id="g-zon"></span> Google pide que no pasen de unas 2 horas de manejo desde tu base.</div></div>
+      <div class="step"><i>6</i><div><b>Verificación:</b> Google elige el método. Lo más común hoy es un <b>video</b>: una sola toma, sin cortes, de al menos 30 segundos, grabada desde el celular en la app. Mostrá las calles o carteles de tu zona y algo con el nombre del negocio (herramientas, tarjeta, vehículo).</div></div>
+    </div>
+    <div>
+      <div class="copy" id="g-desc"><span class="t">Descripción · copiar y pegar</span></div>
+      <h3>Reseñas: tu mejor vendedor</h3>
+      <p>En tu perfil → <span class="k">Leer reseñas</span> → <span class="k">Obtener más reseñas</span> → copiá el enlace y pegalo en la respuesta rápida <b>/resena</b>. El QR solo se genera desde la compu.</p>
+      <div class="note warn"><b>Regla de Google:</b> no se puede ofrecer descuentos ni regalos a cambio de reseñas. Pedila siempre, y al momento: cuando el cliente ve el trabajo terminado.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 13 · CAMPAÑA: ESTRATEGIA -->
+<section class="page"><span class="run">5 · Campaña de mensajes directos</span>
+  <div class="kick">Paso 5 · Campaña</div>
+  <h1>Consultas reales, <em>sin esperar.</em></h1>
+  <p class="lead">El perfil hace que confíen en vos cuando te encuentran. La campaña hace que te encuentren hoy: le escribís, de a uno y con un mensaje pensado, a quien más trabajo te puede dar.</p>
+  <h2>A quién le escribís (lista de 50)</h2>
+  <table id="seg"></table>
+  <h2>Dónde los encontrás</h2>
+  <div class="grid2">
+    <div>
+      <h3 style="margin-top:0">Google Maps</h3>
+      <p>Buscá el rubro + el barrio. Cada resultado trae teléfono y, muchas veces, WhatsApp e Instagram. Por ejemplo:</p>
+      <ul id="busq" style="columns:2;column-gap:5mm;font-size:9pt"></ul>
+      <p style="font-size:9pt"><b>Montevideo:</b> <span id="zmvd"></span>.<br><b>Ciudad de la Costa:</b> <span id="zcos"></span>.</p>
+    </div>
+    <div>
+      <h3 style="margin-top:0">Instagram</h3>
+      <ul><li>Buscador: "administración edificios montevideo", "inmobiliaria ciudad de la costa", "rotisería solymar".</li>
+      <li>Ubicaciones: en el buscador, pestaña <b>Lugares</b>, mirá los comercios de cada barrio.</li>
+      <li>Seguí la cuenta antes de escribir y dale like a 1 o 2 publicaciones: tu mensaje llega a la bandeja principal, y no a solicitudes, más seguido.</li></ul>
+      <h3>Cómo armás la lista</h3>
+      <p>Cargala en la <b>planilla-prospeccion-catoira.xlsx</b> (hoja Contactos): nombre, tipo, zona y cómo contactarlo. Con 15 por semana, la completás en menos de un mes.</p>
+    </div>
+  </div>
+  <div class="note warn"><b>Para que no parezca spam (y WhatsApp no te bloquee):</b> mensajes de a uno, con el nombre del negocio, nada de difusiones masivas. Máximo 10 a 15 primeros mensajes por día. Si alguien te pide que no le escribas, se respeta y se anota.</div>
+</section>
+
+<!-- 14–15 · CAMPAÑA: GUIONES -->
+<section class="page"><span class="run">5 · Campaña de mensajes directos</span>
+  <div class="kick">Guiones · primer mensaje</div>
+  <h1>Qué <em>escribir.</em></h1>
+  <p class="lead">Cortos, con tu nombre y una sola pregunta fácil de responder. No venden en el primer mensaje: abren la conversación.</p>
+  <div id="g1" style="margin-top:3mm"></div>
+</section>
+<section class="page"><span class="run">5 · Campaña de mensajes directos</span>
+  <div class="kick">Guiones · seguimientos y respuestas</div>
+  <h1>Seguimiento: <em>donde se gana.</em></h1>
+  <p class="lead">La mayoría no responde el primer mensaje por falta de tiempo, no porque no le interese. Dos seguimientos, sin presionar, y listo.</p>
+  <div id="g2" class="grid2" style="margin-top:3mm;gap:0 6mm"></div>
+</section>
+<section class="page"><span class="run">5 · Campaña de mensajes directos</span>
+  <div class="kick">Recomendaciones, reseñas y medición</div>
+  <h1>Que te <em>recomienden.</em></h1>
+  <div id="g3" class="grid2" style="margin-top:4mm;gap:0 6mm"></div>
+  <h2>Cómo medir (planilla)</h2>
+  <div class="grid2">
+    <div>
+      <ol><li>Cada contacto en una fila de <b>Contactos</b>. Cuando le escribís, poné la fecha: los días de seguimiento se calculan solos.</li>
+      <li>Cambiá los Sí/No a medida que avanza: respondió, visita, presupuesto y cerrado.</li>
+      <li>La columna <b>Estado</b> se pinta de naranja cuando toca seguimiento: filtrala cada mañana.</li>
+      <li>Los viernes, mirá el <b>Resumen semanal</b>.</li></ol>
+    </div>
+    <div>
+      <table><tr><th>Meta semanal</th><th style="width:22mm">Número</th></tr>
+      <tr><td>Contactos nuevos (3 por día hábil)</td><td><b>15</b></td></tr>
+      <tr><td>Seguimientos del día 3 y del día 7</td><td><b>Todos al día</b></td></tr>
+      <tr><td>Respuestas, visitas y cierres</td><td>Se miden</td></tr></table>
+      <p style="font-size:9pt;color:var(--gris)">La meta es de actividad, que depende de vos. Con los números de las 2 primeras semanas ajustamos la de visitas y cierres: no tiene sentido inventarla antes.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 17 · PLAN 30 DÍAS -->
+<section class="page"><span class="run">6 · Contenido</span>
+  <div class="kick">Plan de contenido · 30 días</div>
+  <h1>Qué publicar <em>este mes.</em></h1>
+  <p class="lead">2 publicaciones por semana (martes y viernes, por ejemplo) y 3 historias. Mezcla de los tres pilares de tu marca: <b>preventivo</b> (autoridad), <b>antes y después técnico</b> (confianza) y <b>conversión</b> (visita diagnóstica y planes para edificios).</p>
+  <table style="margin-top:4mm">
+    <tr><th style="width:20mm">Semana</th><th>Publicaciones</th><th style="width:52mm">Historias</th></tr>
+    <tr><td><b>1</b></td><td>Lanzamiento: las 3 publicaciones del kit + el reel de presentación.</td><td>Destacadas armadas. "¡Arrancamos!" + enlace a WhatsApp.</td></tr>
+    <tr><td><b>2</b></td><td>① Reel preventivo: graseras · ② Carrusel: azotea antes del invierno</td><td>Tip del día · encuesta · un trabajo en curso</td></tr>
+    <tr><td><b>3</b></td><td>③ Reel antes y después: humedad · ④ Reel: antes de comprar una casa</td><td>Detrás de escena · pregunta en caja · reseña (si hay)</td></tr>
+    <tr><td><b>4</b></td><td>⑤ Post para administradoras · ⑥ Reel antes y después: tanque de agua</td><td>Trabajo terminado · recordatorio de visita</td></tr>
+  </table>
+  <div class="note warn"><b>Los antes y después (③ y ⑥) necesitan trabajos reales.</b> Si en esas semanas no hay, cambialos por un preventivo y corrélos para cuando tengas el material. Nunca uses fotos de otros como si fueran tuyas.</div>
+  <div id="ideas" class="grid2" style="gap:4mm 6mm;margin-top:3mm"></div>
+</section>
+<section class="page"><span class="run">6 · Contenido</span>
+  <div class="kick">Plan de contenido · guiones</div>
+  <h1>Guiones <em>de los reels.</em></h1>
+  <div id="ideas2" class="grid2" style="gap:4mm 6mm;margin-top:5mm"></div>
+</section>
+
+<!-- 19 · CRECIMIENTO -->
+<section class="page"><span class="run">6 · Crecimiento</span>
+  <div class="kick">Cómo crecer</div>
+  <h1>Reels, filmación <em>y anuncios.</em></h1>
+  <div class="grid2" style="margin-top:4mm">
+    <div>
+      <h3 style="margin-top:0">Por qué reels</h3>
+      <p>Instagram también muestra los reels a personas que no te siguen (en la pestaña Reels y en Explorar). Con una cuenta nueva, son la forma más directa de que te vea gente de tu zona. Y tu oficio es muy filmable: un antes y un después se entiende sin explicar nada.</p>
+      <h3>Checklist para filmar cada trabajo</h3>
+      <ul style="font-size:9.4pt">
+        <li>Celular en <b>vertical</b>, lente limpia, 1080p o 4K.</li>
+        <li><b>Antes de tocar nada</b>: un plano general y uno de cerca del problema.</li>
+        <li>Desde el <b>mismo lugar y ángulo</b> para el antes y el después: marcá dónde te paraste.</li>
+        <li>Clips cortos (3 a 5 s) mientras trabajás: herramienta, detalle, avance.</li>
+        <li><b>Luz de frente</b> o natural, nunca a contraluz.</li>
+        <li>Si explicás algo, filmate cerca del celular o con micrófono de solapa: el audio importa más que la imagen.</li>
+        <li><b>Pedí permiso al cliente</b>, y que no se vean caras, direcciones ni matrículas.</li>
+      </ul>
+      <h3>Edición</h3>
+      <p>Lo que más diferencia a un reel es la edición: cortes rápidos, subtítulos y un buen gancho al principio. Conviene que lo haga alguien con práctica, así vos seguís con los trabajos. Si querés, lo vemos con Aicia.</p>
+    </div>
+    <div>
+      <h3 style="margin-top:0">Anuncios en Meta (cuando quieras invertir)</h3>
+      <ul style="font-size:9.4pt">
+        <li><b>Objetivo:</b> mensajes a WhatsApp (el anuncio abre un chat directo con vos).</li>
+        <li><b>Dónde:</b> Montevideo y Ciudad de la Costa.</li>
+        <li><b>Arranque:</b> 2 anuncios (humedad y mantenimiento preventivo), 7 días con un presupuesto diario chico. Después se mira cuánto costó cada conversación y cuántas pasaron a visita.</li>
+        <li><b>Presupuesto:</b> <b>a definir con vos.</b> Lo pagás directo a Meta con tu tarjeta, desde tu cuenta publicitaria: nadie maneja tu plata.</li>
+        <li><b>Antes de anunciar:</b> la página de Facebook conectada a WhatsApp y el perfil completo, para que quien llegue confíe.</li>
+      </ul>
+      <div id="ads"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 20 · PENDIENTES -->
+<section class="page"><span class="run">Kit de presencia digital</span>
+  <div class="kick">Para terminar</div>
+  <h1>Lo que necesito <em>que me confirmes.</em></h1>
+  <p class="lead">Para no inventar nada, estos datos quedaron abiertos. Con tu respuesta por Workana, ajusto las piezas.</p>
+  <table style="margin-top:5mm">
+    <tr><th style="width:56mm">Qué</th><th>Para qué</th></tr>
+    <tr><td><b>Horario de atención</b></td><td>Perfil de WhatsApp (y el mensaje de ausencia), Google y Facebook.</td></tr>
+    <tr><td><b>Fotos reales de trabajos</b> (antes y después)</td><td>La destacada Trabajos, los reels ③ y ⑥, el catálogo y Google. Con 2 o 3 trabajos alcanza para arrancar.</td></tr>
+    <tr><td><b>Logo original</b> (archivo del diseñador, si existe)</td><td>Ya redibujé el símbolo en vector. Si existe el original, lo comparo para que quede idéntico.</td></tr>
+    <tr><td><b>"Garantía por escrito" / "Calidad garantizada"</b></td><td>Aparece en dos flyers. Si das garantía, ¿en qué condiciones? Hasta saberlo, no la usé en ninguna pieza.</td></tr>
+    <tr><td><b>Beneficio por recomendación</b></td><td>El mensaje para pedir recomendaciones tiene un espacio para eso, si querés ofrecer algo.</td></tr>
+    <tr><td><b>Presupuesto para anuncios</b></td><td>Si los hacemos ahora o en una segunda etapa, y con cuánto por día.</td></tr>
+    <tr><td><b>Condiciones de la comisión por cierre</b></td><td>Porcentaje, sobre qué trabajos y cómo se registra (la planilla ya tiene la columna de monto cerrado).</td></tr>
+  </table>
+  <h2>Próximos pasos</h2>
+  <ol><li>Cargá WhatsApp, Instagram, Facebook y Google siguiendo este orden (1 o 2 tardes).</li>
+  <li>Mandame una captura de cada perfil terminado y lo reviso.</li>
+  <li>Empezá la campaña: 3 contactos por día y los seguimientos al día.</li>
+  <li>En 2 semanas miramos juntos los números de la planilla y ajustamos.</li></ol>
+  <div style="position:absolute;left:16mm;right:16mm;bottom:22mm;display:flex;align-items:center;gap:5mm;border-top:1px solid var(--linea);padding-top:6mm">
+    <img src="../logo/simbolo-degrade.svg" style="width:14mm"><div style="font-size:9.5pt;color:var(--gris)"><b style="color:var(--pet);font:800 11pt Montserrat;display:block">A. Servicios Integrales Catoira</b>Kit preparado por Aicia · Cualquier duda, por el chat de Workana.</div>
+  </div>
+</section>
+
+<script>
+const $=id=>document.getElementById(id), esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const put=(id,html)=>{$(id).insertAdjacentHTML('beforeend',html)};
+const copy=(t,txt)=>`<div class="copy"><span class="t">${t}</span>${esc(txt)}</div>`;
+// esquemas de celular
+const phone=(title,rows,hl,cap)=>`<div><div class="ph"><div class="bar">${title}</div>${rows.map((r,i)=>`<div class="row${hl.includes(i)?' hl':''}">${r}${hl.includes(i)?`<span class="n">${hl.indexOf(i)+1}</span>`:''}</div>`).join('')}</div><div class="ph cap" style="border:0;box-shadow:none;width:58mm;padding:0">${cap}</div></div>`;
+put('ph-wa1',phone('Copia de seguridad',['Cuenta de Google','Frecuencia','Incluir videos','Guardar'],[3],'WhatsApp común · Ajustes → Chats'));
+put('ph-wa1',phone('WhatsApp Business',['Usar 098 965 054','Usar otro número'],[0],'Al abrir Business por primera vez'));
+put('ph-wa2',phone('Ajustes',['Perfil','Herramientas para la empresa','Cuenta','Chats','Notificaciones'],[1],'Esquema · los nombres pueden variar'));
+put('ph-wa2',phone('Herramientas para la empresa',['Perfil de empresa','Catálogo','Mensaje de bienvenida','Mensaje de ausencia','Respuestas rápidas','Etiquetas'],[0],'Perfil: foto, portada, datos'));
+put('ph-wa3',phone('Herramientas para la empresa',['Perfil de empresa','Catálogo','Mensaje de bienvenida','Mensaje de ausencia','Respuestas rápidas'],[2,3],'1 bienvenida · 2 ausencia'));
+put('ph-wa3',phone('Mensaje de ausencia',['Enviar mensaje de ausencia','Mensaje','Programar: fuera del horario','Destinatarios: todos'],[0,2],'Activalo y programalo'));
+put('ph-ig1',phone('Configuración y actividad',['Centro de cuentas','Tipo de cuenta y herramientas','Privacidad de la cuenta','Notificaciones'],[1],'Esquema · los nombres pueden variar'));
+put('ph-ig1',phone('Tipo de cuenta y herramientas',['Cambiar a cuenta profesional','Herramientas de contenido'],[0],'Después: categoría → Empresa'));
+// textos
+$('wa-cat').textContent=T.wa.categorias; $('wa-dir').textContent=T.wa.direccion; $('wa-hor').textContent=T.wa.horario; $('wa-mail').textContent=T.wa.email; $('wa-web').textContent=T.wa.web;
+put('wa-desc',esc(T.wa.descripcion)); put('wa-bienv',esc(T.wa.bienvenida)); put('wa-aus',esc(T.wa.ausencia));
+put('wa-rap',T.wa.rapidas.map(([k,c,t])=>`<div><h3 style="margin-top:2mm"><span class="k">${k}</span> <span style="font-weight:400;color:var(--gris);font-size:9pt">${c}</span></h3>${copy('Copiar y pegar',t)}</div>`).join(''));
+put('wa-etq','<tr><th>Etiqueta</th><th>Para qué</th></tr>'+T.wa.etiquetas.map(([n,d])=>`<tr><td style="width:36mm"><b>${n}</b></td><td>${d}</td></tr>`).join(''));
+put('wa-cat-t','<tr><th style="width:62mm">Servicio</th><th>Descripción</th></tr>'+T.wa.catalogo.map(([n,d])=>`<tr><td><b>${n}</b></td><td>${d}</td></tr>`).join(''));
+const CATF=['01-visita-diagnostica','02-camaras-graseras','03-tanques-de-agua','04-desobstruccion','05-fugas-sanitaria','06-calefones','07-banos','08-azoteas-terrazas','09-revestimientos-pintura','10-edificios'];
+put('cat-thumbs',CATF.map(f=>`<img src="../piezas/catalogo/catalogo-${f}.png" style="width:15.2mm">`).join(''));
+$('ig-nom').textContent=T.ig.nombre; $('ig-us').textContent=T.ig.usuario; $('ig-cat').textContent=T.ig.categoria; $('ig-lk').textContent=T.ig.enlace;
+put('ig-bio',esc(T.ig.bio));
+const POSTS=['publicacion-1-no-ponemos-parches','publicacion-2-servicios','publicacion-3-humedad-visita-diagnostica'];
+put('post-thumbs',POSTS.map(f=>`<img src="../piezas/publicaciones/${f}.png" style="width:25mm">`).join(''));
+$('fb-nom').textContent=T.fb.nombre; $('fb-cat').textContent=T.fb.categorias; put('fb-bio',esc(T.fb.bio));
+$('g-nom').textContent=T.google.nombre; $('g-cat').textContent=T.google.categoria; $('g-zon').textContent=T.google.zonas; put('g-desc',esc(T.google.descripcion));
+put('seg','<tr><th style="width:46mm">Segmento</th><th style="width:20mm">Cuándo</th><th>Por qué</th><th style="width:18mm">En la lista</th></tr>'+T.campana.segmentos.map(([a,b,c,d])=>`<tr><td><b>${a}</b></td><td>${b}</td><td>${c}</td><td><b>${d}</b></td></tr>`).join(''));
+put('busq',T.campana.busquedas.map(b=>`<li>"${b}"</li>`).join(''));
+$('zmvd').textContent=T.campana.zonasMvd; $('zcos').textContent=T.campana.zonasCosta;
+const G=T.campana.guiones;
+put('g1',G.slice(0,4).map(([n,t])=>copy(n,t)).join(''));
+put('g2',G.slice(4,8).map(([n,t])=>copy(n,t)).join(''));
+put('g3',G.slice(8,10).map(([n,t])=>copy(n,t)).join(''));
+// ideas del plan
+const IDEAS=[
+ ['① Reel · Preventivo','3 señales de que tu grasera pide limpieza',`GANCHO (0–3 s): vos al lado de la tapa de una cámara. Texto: "Si en tu cocina pasa esto, la grasera te está avisando".
+1. Olor fuerte cerca de la pileta o del patio.
+2. La pileta desagota lento.
+3. Hace ruido o burbujea al desagotar.
+CIERRE: "Limpiarla a tiempo cuesta mucho menos que una urgencia. Escribinos y la coordinamos." 20–30 s.`],
+ ['② Carrusel · Preventivo','Antes del invierno, revisá tu azotea',`5 placas: 1) "Antes del invierno, revisá tu azotea" · 2) Juntas: ¿están abiertas o resecas? · 3) Embudos y desagües: ¿están limpios? · 4) Fisuras y membrana: ¿hay grietas o partes levantadas? · 5) "¿Dudas? Te la revisamos con una visita diagnóstica".`],
+ ['③ Reel · Antes y después','Así encontramos el origen de una humedad',`Con un trabajo real. GANCHO: plano de la mancha. Texto: "[Qué pasaba, en una línea]".
+DESARROLLO: dónde se veía la mancha → dónde estaba el origen de verdad → qué hicieron (3 clips cortos).
+CIERRE: el después, desde el mismo ángulo. "No ponemos parches. Resolvemos de raíz."`],
+ ['④ Reel · Conversión','¿Vas a comprar una casa? Mirá esto antes de firmar',`GANCHO: "Antes de firmar la compra de una casa, pedí esto".
+DESARROLLO: vos recorriendo una casa (con permiso): humedades, instalación sanitaria, azotea, tanque. Texto en pantalla de cada uno.
+CIERRE: "Una visita diagnóstica te dice en qué estado está, antes de gastar. Escribinos."`],
+ ['⑤ Post o reel · Empresas','Administradores: ¿cuándo fue la última limpieza de las graseras?',`Texto: "En un edificio, una grasera tapada es una urgencia, un reclamo y un gasto que no estaba previsto". Qué ofrecés: limpieza programada de graseras y tanques, cobertura sanitaria e informe en dos bloques. CIERRE: "Pedí una propuesta para tus edificios".`],
+ ['⑥ Reel · Antes y después','Limpieza de tanque de agua',`Con un trabajo real. GANCHO: el interior del tanque antes (si el cliente lo autoriza). Texto: "¿Hace cuánto no ves tu tanque por dentro?".
+DESARROLLO: proceso en 3 o 4 clips cortos.
+CIERRE: el después. "Agua en buenas condiciones, para tu casa o tu edificio. Escribinos."`],
+];
+put('ideas',IDEAS.map(([a,b])=>`<div class="note ok" style="margin:0"><div class="tag" style="background:#fff">${a}</div><div style="font:700 10.5pt/1.3 Inter;color:var(--pet);margin-top:1.5mm">${b}</div></div>`).join(''));
+put('ideas2',IDEAS.map(([a,b,c])=>copy(a+' · '+b,c)).join(''));
+// anuncios (base: los del brief, pulidos)
+const ADS=[['Anuncio 1 · Humedades','¿Pintaste sobre la humedad y volvió a salir?',`Pintar no es solucionar. Evaluamos tu azotea, terraza o muro con criterio técnico para encontrar por dónde entra el agua y resolverlo de raíz. Evitá gastar dos veces.
+Escribinos y coordinamos una evaluación en Montevideo o Ciudad de la Costa.`],
+['Anuncio 2 · Preventivo','No esperes a tener una urgencia sanitaria.',`El mantenimiento preventivo de cámaras graseras, tanques de agua y cañerías cuesta mucho menos que una reparación de emergencia. Diagnóstico objetivo y soluciones que duran, para casas, comercios y edificios.
+Consultanos por WhatsApp.`]];
+put('ads',ADS.map(([n,h,t])=>copy(n,'Titular: '+h+'\n\n'+t)).join(''));
+// vista previa de Instagram
+$('igm').innerHTML=`<div class="u">a.servicios.integrales</div>
+ <div class="hd"><img src="../piezas/perfil/catoira-foto-perfil.png"><div class="st"><div><b>3</b>publicaciones</div><div><b>·</b>seguidores</div><div><b>·</b>seguidos</div></div></div>
+ <div class="nm">${T.ig.nombre}</div><div class="ct">Plomero</div><div class="bio">${esc(T.ig.bio)}</div><div class="lk">wa.me/59898965054</div>
+ <div class="bt"><span>Seguir</span><span>Mensaje</span><span>WhatsApp</span></div>
+ <div class="hl">${[['1-servicios','Servicios'],['2-trabajos','Trabajos'],['3-como-trabajamos','Cómo trab…'],['4-contacto','Contacto']].map(([f,n])=>`<div><img src="../piezas/destacadas/portada-${f}.png">${n}</div>`).join('')}</div>
+ <div class="gr">${POSTS.map(f=>`<div style="background-image:url(../piezas/publicaciones/${f}.png)"></div>`).join('')}</div>`;
+const H=['servicios-1-portada','servicios-2-sanitaria','servicios-4-visita-diagnostica','como-trabajamos-4-propuesta','contacto-1','trabajos-1-portada'];
+put('thumbs',H.map(f=>`<img src="../piezas/historias/${f}.png" style="width:15.5mm">`).join('')+`<img src="../piezas/portadas/portada-whatsapp-business.jpg" style="width:56mm;margin-top:1mm"><img src="../piezas/portadas/portada-facebook.jpg" style="width:40mm;margin-top:1mm">`);
+document.querySelectorAll('.page').forEach((p,i)=>{p.dataset.n=i?String(i+1).padStart(2,'0'):''});
+// en el PDF van copias livianas (img/, las arma achicar-imagenes.py): el PDF pesa mucho menos y se ve igual
+const lite=u=>u.replace(/\.\.\/(piezas|logo)\/([^)"']+?)\.(png|jpg)/g,(m,a,b)=>'img/'+(a+'/'+b).replace(/\//g,'__')+'.jpg');
+document.querySelectorAll('img').forEach(i=>{const a=i.getAttribute('src');if(/\.(png|jpg)$/.test(a))i.setAttribute('src',lite(a))});
+document.querySelectorAll('[style*="background-image"]').forEach(e=>e.setAttribute('style',lite(e.getAttribute('style'))));
+document.body.dataset.ready=1;
+</script></body></html>
