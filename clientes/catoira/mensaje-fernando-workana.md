@@ -1,10 +1,10 @@
 # Mensaje para Fernando (chat de Workana)
 
-Para copiar y pegar en el chat de Workana. Adjuntos: `entrega/kit-catoira-sin-video.zip` y, aparte, el reel (`reel/reel-presentacion-catoira.mp4`), porque todo junto pesa 44 MB. Si Workana acepta el zip completo (`entrega/kit-catoira.zip`), mandá solo ese y sacá la frase del reel aparte.
+Para copiar y pegar en el chat de Workana, con el zip adjunto (`entrega/kit-catoira.zip`, trae el reel adentro).
 
 ---
 
-Hola Fernando, ¿cómo andás? Te paso el kit de presencia digital de A. Servicios Integrales Catoira. Está todo en el zip adjunto, y el reel va en un archivo aparte porque pesa más.
+Hola Fernando, ¿cómo andás? Te paso el kit de presencia digital de A. Servicios Integrales Catoira. Está todo en el zip adjunto.
 
 Qué incluye:
 - PDF con la guía paso a paso (empezá por ahí, es el archivo "0. Empezá acá"): pasar tu WhatsApp común a Business sin perder chats, cuenta profesional de Instagram, página de Facebook y Perfil de Empresa en Google para aparecer en Maps. Cada paso indica dónde tocar.
@@ -14,7 +14,7 @@ Qué incluye:
 - Mensaje de bienvenida automático en WhatsApp: quien te escribe recibe una respuesta al instante, aunque estés trabajando.
 - Textos para copiar y pegar: bio, descripciones, mensaje de bienvenida y catálogo.
 - Recomendaciones para crecer con reels.
-- Y un regalo: un reel de presentación para publicar el primer día 🎁
+- Y un regalo: un reel de presentación para publicar el primer día (carpeta "5. Reel") 🎁
 
 Nada lleva precios ni el valor de la visita, como marca tu brief. Tampoco inventé trabajos, reseñas ni garantías.
 
