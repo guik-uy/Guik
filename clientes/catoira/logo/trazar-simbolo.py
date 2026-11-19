@@ -19,7 +19,10 @@ def angle(a, b, c):
 paths = []
 for i, cn in enumerate(cnts):
     if cv2.contourArea(cn) < 2000: continue
-    p = cv2.approxPolyDP(cn, 2.2 * K, True)[:, 0, :].astype(float)
+    # suavizado leve del contorno crudo (gaussiano circular) para sacar el temblor del JPG sin perder la forma
+    raw = cn[:, 0, :].astype(float); sg = 1.6 * K; r = int(3 * sg); w = np.exp(-0.5 * (np.arange(-r, r + 1) / sg) ** 2); w /= w.sum()
+    raw = np.stack([np.convolve(np.concatenate([raw[-r:, i], raw[:, i], raw[:r, i]]), w, 'valid') for i in (0, 1)], 1)
+    p = cv2.approxPolyDP(raw.astype(np.float32).reshape(-1, 1, 2), 2.2 * K, True)[:, 0, :].astype(float)
     n = len(p); turn = [angle(p[k - 1], p[k], p[(k + 1) % n]) for k in range(n)]
     seglen = [np.linalg.norm(p[(k + 1) % n] - p[k]) for k in range(n)]
     # esquina: giro fuerte, o vértice entre dos rectas largas

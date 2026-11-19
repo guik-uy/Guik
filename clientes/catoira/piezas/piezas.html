@@ -1,0 +1,321 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Catoira · piezas</title>
+<link rel="stylesheet" href="estilo.css">
+<style>
+/* ---------- Foto de perfil ---------- */
+.perfil{width:1080px;height:1080px;--lx:50%;--ly:46%;--lw:58%;--lh:58%;--mw:60%;--mh:60%}
+.perfil .sym{position:absolute;left:50%;top:51.5%;width:640px;transform:translate(-50%,-50%);filter:drop-shadow(0 30px 60px rgba(0,0,0,.45))}
+.perfil.claro{background:#F3F6F5}
+.perfil.claro::before{background:radial-gradient(60% 55% at 50% 45%,#FFFFFF,#EEF3F1 60%,#E2EAE8)}
+.perfil.claro::after{background-image:linear-gradient(rgba(10,44,78,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(10,44,78,.06) 1px,transparent 1px);background-size:120px 120px}
+.perfil.claro .sym{filter:drop-shadow(0 24px 40px rgba(10,44,78,.18))}
+
+/* ---------- Portadas de destacadas ---------- */
+.cover{width:1080px;height:1080px;--lx:50%;--ly:50%;--lw:52%;--lh:52%;--mw:55%;--mh:55%}
+.cover .ic{position:absolute;left:50%;top:50%;width:470px;height:470px;transform:translate(-50%,-50%);stroke-width:1.25;filter:drop-shadow(0 0 28px rgba(95,208,193,.35))}
+
+/* ---------- Historias 1080×1920 (zona segura de IG: y 250–1620, x 64–1016) ---------- */
+.story{width:1080px;height:1920px}
+.story .col{position:absolute;left:80px;right:80px;top:262px;bottom:300px;display:flex;flex-direction:column}
+.story .top{display:flex;align-items:center;gap:20px}
+.story .top .sym{width:62px}
+.story .top b{font:800 25px/1.15 Montserrat;letter-spacing:-.005em}
+.story .top b span{display:block;font:600 19px/1 Inter;letter-spacing:.16em;color:var(--agua);text-transform:uppercase;margin-top:7px}
+.story .h{font-size:112px;margin-top:auto}
+.story .col>:last-child{margin-bottom:auto}
+.story .col .cta{margin-top:70px}
+.story .lede{margin-top:38px;font:400 38px/1.4 Inter;color:var(--suave)}
+.story .lede b{color:var(--hueso);font-weight:600}
+.story .list{margin-top:56px;display:flex;flex-direction:column;gap:16px}
+.story .it{display:grid;grid-template-columns:62px 1fr;gap:28px;align-items:center;padding:24px 32px;border-radius:26px}
+.story .it svg{width:62px;height:62px}
+.story .it b{display:block;font:600 33px/1.2 Inter;letter-spacing:-.01em}
+.story .it span{display:block;font:400 26px/1.3 Inter;color:var(--gris);margin-top:5px}
+.story .foot{margin-top:40px;font:400 30px/1.45 Inter;color:var(--gris)}
+.story .foot b{color:var(--hueso);font-weight:600}
+.story .cta{margin-top:auto;align-self:flex-start}
+.story.dense .h{margin-top:auto}.story.dense .list{margin-top:44px;gap:13px}.story.dense .it{padding:20px 30px}
+.story .ill{margin-top:60px;width:100%}
+.story .two{margin-top:56px;display:flex;flex-direction:column;gap:22px}
+.story .two .glass{padding:40px 44px}
+.story .two .glass .lab{font-size:22px}
+.story .two .glass b{display:block;font:700 44px/1.1 Montserrat;letter-spacing:-.02em;margin-top:18px}
+.story .two .glass p{font:400 30px/1.42 Inter;color:var(--suave);margin-top:14px}
+.story .ph{margin-top:48px;display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.story .ph div{height:560px;border:2.5px dashed rgba(95,208,193,.5);border-radius:26px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;background:rgba(95,208,193,.04)}
+.story .ph svg{width:80px;height:80px}
+.story .ph b{font:700 30px/1 Inter;letter-spacing:.16em;color:var(--agua)}
+.story .ph span{font:400 24px/1.3 Inter;color:var(--gris);text-align:center}
+.story .tag{position:absolute;right:80px;top:268px;font:700 19px/1 Inter;letter-spacing:.14em;text-transform:uppercase;color:#04141C;background:#F2C94C;padding:12px 18px;border-radius:999px}
+
+/* ---------- Publicaciones 1080×1350 (texto dentro de 80–1000 por el recorte 3:4 de la grilla) ---------- */
+.post{width:1080px;height:1350px}
+.post .brand{position:absolute;left:80px;top:76px;display:flex;align-items:center;gap:18px}
+.post .brand .sym{width:64px}
+.post .brand b{font:800 21px/1.1 Montserrat;letter-spacing:-.005em}
+.post .brand b span{display:block;font:600 15px/1 Inter;letter-spacing:.15em;color:var(--gris);text-transform:uppercase;margin-top:7px}
+.post .tx{position:absolute;left:80px;right:80px;top:236px}
+.post .h{font-size:132px}
+.post .tx p{margin-top:38px;font:400 36px/1.4 Inter;color:var(--suave);max-width:860px}
+.post .tx p b{color:var(--hueso);font-weight:600}
+.post .ft{position:absolute;left:80px;right:80px;bottom:66px;display:flex;justify-content:space-between;font:600 19px/1 Inter;letter-spacing:.15em;text-transform:uppercase;color:var(--gris)}
+.post .ft b{color:var(--agua)}
+.post .cards{position:absolute;left:80px;right:80px;top:770px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.post .cards .glass{padding:34px 30px 36px}
+.post .cards svg{width:66px;height:66px}
+.post .cards b{display:block;font:700 33px/1.1 Montserrat;letter-spacing:-.02em;margin-top:26px}
+.post .cards ul{list-style:none;margin-top:20px;display:flex;flex-direction:column;gap:12px}
+.post .cards li{font:400 25px/1.3 Inter;color:var(--suave);padding-left:22px;position:relative}
+.post .cards li::before{content:"";position:absolute;left:0;top:13px;width:9px;height:2px;background:var(--agua)}
+.post .pill{position:absolute;left:80px;bottom:130px}
+
+/* ---------- Portada de Facebook 1702×630 (851×315 al doble) ---------- */
+.fb{width:1702px;height:630px;--lx:76%;--ly:42%;--lw:40%;--lh:80%;--mw:50%;--mh:95%}
+/* ---------- Portada de WhatsApp Business 1920×1080 ---------- */
+.wa{width:1920px;height:1080px;--lx:74%;--ly:30%;--lw:42%;--lh:62%;--mw:52%;--mh:75%}
+.cv .h{font-size:74px}
+.cv .sub{font:400 30px/1.4 Inter;color:var(--suave);margin-top:24px}
+.cv .chips{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap}
+.cv .chips span{font:600 22px/1 Inter;padding:15px 22px;border-radius:999px;border:1.5px solid var(--linea);background:rgba(255,255,255,.04);color:var(--hueso)}
+.cv .sm{font:600 20px/1 Inter;letter-spacing:.15em;text-transform:uppercase;color:var(--gris)}
+.cv .sm b{color:var(--agua)}
+body.prueba .safe{position:absolute;z-index:9;border:3px dashed #F2C94C;pointer-events:none}
+body.prueba .no{position:absolute;z-index:9;background:rgba(242,80,80,.28);border:3px solid #F25050}
+.safe,.no{display:none}body.prueba .safe,body.prueba .no{display:block}
+</style></head><body>
+
+<!-- ================= FOTO DE PERFIL ================= -->
+<section class="perfil stage" data-file="perfil/catoira-foto-perfil.png" data-noqa><svg class="sym" data-sym="claro"></svg></section>
+<section class="perfil claro stage" data-file="perfil/catoira-foto-perfil-fondo-claro.png" data-noqa><svg class="sym" data-sym="grad"></svg></section>
+
+<!-- ================= PORTADAS DE DESTACADAS ================= -->
+<section class="cover stage" data-file="destacadas/portada-1-servicios.png" data-noqa><svg class="ic" viewBox="0 0 24 24" data-ic="servicios"></svg></section>
+<section class="cover stage" data-file="destacadas/portada-2-trabajos.png" data-noqa><svg class="ic" viewBox="0 0 24 24" data-ic="trabajos"></svg></section>
+<section class="cover stage" data-file="destacadas/portada-3-como-trabajamos.png" data-noqa><svg class="ic" viewBox="0 0 24 24" data-ic="como"></svg></section>
+<section class="cover stage" data-file="destacadas/portada-4-contacto.png" data-noqa><svg class="ic" viewBox="0 0 24 24" data-ic="contacto"></svg></section>
+
+<div id="stories"></div>
+
+<!-- ================= PUBLICACIONES ================= -->
+<section class="post stage" data-file="publicaciones/publicacion-1-no-ponemos-parches.png" data-safe="80,60,1000,1290" style="--lx:80%;--ly:16%">
+  <i class="mark tl" style="left:46px;top:46px"></i><i class="mark tr" style="right:46px;top:46px"></i><i class="mark bl" style="left:46px;bottom:46px"></i><i class="mark br" style="right:46px;bottom:46px"></i>
+  <div class="brand abs"><svg class="sym" data-sym="claro"></svg><b>A. Servicios Integrales Catoira<span>Sanitaria · Construcción · Mantenimiento</span></b></div>
+  <div class="tx abs"><div class="h">No ponemos<br><em>parches.</em></div>
+    <p>Buscamos el origen de la falla y la resolvemos <b>de&nbsp;raíz</b>, para que no tengas que pagar dos veces.</p></div>
+  <svg class="abs" data-ill="cano" style="left:60px;top:800px;width:960px;height:430px"></svg>
+  <div class="ft abs"><span>Montevideo · Ciudad de la Costa</span><b>Diagnóstico técnico</b></div>
+</section>
+
+<section class="post stage" data-file="publicaciones/publicacion-2-servicios.png" data-safe="80,60,1000,1290" style="--lx:22%;--ly:14%">
+  <i class="mark tl" style="left:46px;top:46px"></i><i class="mark tr" style="right:46px;top:46px"></i><i class="mark bl" style="left:46px;bottom:46px"></i><i class="mark br" style="right:46px;bottom:46px"></i>
+  <div class="brand abs"><svg class="sym" data-sym="claro"></svg><b>A. Servicios Integrales Catoira<span>Hogares · Comercios · Edificios</span></b></div>
+  <div class="tx abs"><div class="h" style="font-size:108px">Sanitaria,<br>construcción y<br><em>mantenimiento.</em></div>
+    <p style="font-size:34px;margin-top:34px">Todo con el mismo criterio: <b>diagnóstico objetivo</b> y soluciones que duran.</p></div>
+  <div class="cards abs">
+    <div class="glass"><svg class="ic" viewBox="0 0 24 24" data-ic="gota"></svg><b>Sanitaria</b><ul><li>Graseras y tanques</li><li>Cañerías y fugas</li><li>Calefones</li></ul></div>
+    <div class="glass"><svg class="ic" viewBox="0 0 24 24" data-ic="ladrillos"></svg><b>Reformas</b><ul><li>Albañilería</li><li>Baños completos</li><li>Revestimientos y pintura</li></ul></div>
+    <div class="glass"><svg class="ic" viewBox="0 0 24 24" data-ic="escudo"></svg><b>Prevención</b><ul><li>Azoteas y terrazas</li><li>Cortinas de PVC</li><li>Planes para edificios</li></ul></div>
+  </div>
+  <div class="ft abs"><span>Montevideo · Ciudad de la Costa</span><b>Presupuesto a medida</b></div>
+</section>
+
+<section class="post stage" data-file="publicaciones/publicacion-3-humedad-visita-diagnostica.png" data-safe="80,60,1000,1290" style="--lx:76%;--ly:62%;--lw:58%;--lh:40%">
+  <i class="mark tl" style="left:46px;top:46px"></i><i class="mark tr" style="right:46px;top:46px"></i><i class="mark bl" style="left:46px;bottom:46px"></i><i class="mark br" style="right:46px;bottom:46px"></i>
+  <div class="brand abs"><svg class="sym" data-sym="claro"></svg><b>A. Servicios Integrales Catoira<span>Visita diagnóstica</span></b></div>
+  <div class="tx abs"><div class="h" style="font-size:104px">¿Pintaste sobre<br>la humedad y<br><em>volvió a salir?</em></div>
+    <p style="font-size:34px;margin-top:32px">Pintar no es solucionar. Primero hay que encontrar <b>por dónde entra el agua.</b></p></div>
+  <svg class="abs" data-ill="humedad" style="left:80px;top:745px;width:920px;height:390px"></svg>
+  <div class="ft abs"><span>Montevideo · Ciudad de la Costa</span><b>Pedí tu visita por WhatsApp</b></div>
+</section>
+
+<!-- ================= PORTADA DE FACEBOOK (851×315, se sube al doble) ================= -->
+<section class="fb stage cv" data-file="portadas/portada-facebook.png" data-safe="200,40,1500,590" data-avoid="0,330,560,630">
+  <i class="mark tl" style="left:150px;top:36px"></i><i class="mark br" style="right:150px;bottom:36px"></i>
+  <div class="abs" style="left:590px;top:150px;width:700px">
+    <div class="h" style="font-size:58px">No ponemos parches.<br><em>Resolvemos de raíz.</em></div>
+    <div class="sub">Sanitaria, construcción y mantenimiento<br>en Montevideo y Ciudad de la Costa.</div>
+  </div>
+  <svg class="abs sym" data-sym="claro" style="left:1300px;top:170px;width:270px"></svg>
+  <i class="safe" style="left:200px;top:40px;width:1300px;height:550px"></i><i class="no" style="left:0;top:330px;width:560px;height:300px"></i>
+</section>
+
+<!-- ================= PORTADA DE WHATSAPP BUSINESS 1920×1080 ================= -->
+<section class="wa stage cv" data-file="portadas/portada-whatsapp-business.png" data-safe="150,144,1770,936" data-circle="960,757,373">
+  <div class="abs" style="left:150px;top:180px;width:800px">
+    <div class="h" style="font-size:68px">No ponemos parches.<br><em>Resolvemos de raíz.</em></div>
+    <div class="sub">Sanitaria, construcción y mantenimiento.</div>
+  </div>
+  <div class="abs" style="left:150px;top:780px"><div class="sm">Montevideo<br><br>Ciudad de la Costa</div></div>
+  <div class="abs glass" style="left:1180px;top:176px;width:590px;padding:36px 40px">
+    <div class="lab" style="font-size:20px">Cómo trabajamos</div>
+    <div style="margin-top:22px;display:flex;flex-direction:column;gap:18px;font:600 28px/1.25 Inter">
+      <div style="display:flex;gap:18px;align-items:center"><svg class="ic" viewBox="0 0 24 24" data-ic="lupa" style="width:44px;height:44px;flex:none"></svg>Diagnóstico objetivo</div>
+      <div style="display:flex;gap:18px;align-items:center"><svg class="ic" viewBox="0 0 24 24" data-ic="origen" style="width:44px;height:44px;flex:none"></svg>Soluciones de raíz</div>
+      <div style="display:flex;gap:18px;align-items:center"><svg class="ic" viewBox="0 0 24 24" data-ic="escudo" style="width:44px;height:44px;flex:none"></svg>Enfoque preventivo</div>
+    </div>
+  </div>
+  <div class="abs" style="left:1440px;top:780px;text-align:right;width:330px"><div class="sm"><b>Presupuesto</b><br><br><b>a medida</b></div></div>
+  <i class="safe" style="left:0;top:104px;width:1920px;height:872px"></i><i class="no" style="left:587px;top:384px;width:746px;height:746px;border-radius:50%"></i>
+</section>
+
+<script>
+// ---------- Íconos de contorno (24×24) ----------
+const WRENCH='<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>';
+const IC={
+ servicios:'<path d="M2.5 11.2 12 3.6l9.5 7.6"/><path d="M5 9.4V20.4h14V9.4"/><g transform="translate(7.1 9.6) scale(.42)" style="stroke-width:3.6">'+WRENCH+'</g>',
+ trabajos:'<rect x="3" y="5" width="18" height="14" rx="2.2"/><path d="M12 3.5v17"/><path d="M8.6 10 6.6 12l2 2M15.4 10l2 2-2 2"/>',
+ como:'<rect x="5" y="4.5" width="14" height="16.5" rx="2.2"/><path d="M9.3 4.5V3.2h5.4v1.3"/><path d="m8 10.2 1.4 1.4L12 9"/><path d="M14 10.5h2.4"/><path d="m8 15.4 1.4 1.4 2.6-2.6"/><path d="M14 15.7h2.4"/>',
+ contacto:'<path d="M8 17.2H6.6A2.6 2.6 0 0 1 4 14.6V6.8a2.6 2.6 0 0 1 2.6-2.6h10.8A2.6 2.6 0 0 1 20 6.8v7.8a2.6 2.6 0 0 1-2.6 2.6H12.4L8 20.6z"/><circle class="f" cx="8.6" cy="10.7" r=".95"/><circle class="f" cx="12" cy="10.7" r=".95"/><circle class="f" cx="15.4" cy="10.7" r=".95"/>',
+ gota:'<path d="M12 3.4c-3.2 4.2-5.6 7.3-5.6 10.3a5.6 5.6 0 0 0 11.2 0c0-3-2.4-6.1-5.6-10.3z"/><path d="M9.4 14.2a2.7 2.7 0 0 0 2.4 2.6"/>',
+ cano:'<path d="M2.5 8.5H13a4.5 4.5 0 0 1 4.5 4.5v8.5"/><path d="M2.5 13H11a2 2 0 0 1 2 2v6.5"/><path d="M6 7.5v6.5"/>',
+ grasera:'<rect x="3.5" y="9" width="17" height="11" rx="1.6"/><path d="M3.5 13h17"/><path d="M7.5 9V6.5h9V9"/><path d="M8 16.5h.01M12 16.5h.01M16 16.5h.01" style="stroke-width:2.2"/>',
+ lupa:'<circle cx="10.5" cy="10.5" r="6.2"/><path d="m15.2 15.2 5.3 5.3"/>',
+ calefon:'<rect x="7" y="2.8" width="10" height="15.5" rx="3"/><circle cx="12" cy="9" r="2.2"/><path d="M10 18.3v3M14 18.3v3"/>',
+ valvula:'<path d="M2.5 12h5M16.5 12h5"/><path d="M7.5 8v8l9-8v8z"/><path d="M12 12V6.5M9.5 6.5h5"/>',
+ ladrillos:'<rect x="3" y="5" width="18" height="14" rx="1.4"/><path d="M3 9.7h18M3 14.3h18M9 5v4.7M15 5v4.7M6 9.7v4.6M12 9.7v4.6M18 9.7v4.6M9 14.3V19M15 14.3V19"/>',
+ ducha:'<path d="M6 21V7a3.5 3.5 0 0 1 7 0"/><path d="M9.8 9.5h6.4"/><path d="M11 13v1.2M13 13v1.2M15 13v1.2M12 16.6v1.2M14 16.6v1.2"/>',
+ piso:'<rect x="3.5" y="3.5" width="17" height="17" rx="1.4"/><path d="M3.5 12h17M12 3.5v17"/><path d="m3.5 7.8 4.3-4.3M12 20.5l8.5-8.5"/>',
+ rodillo:'<rect x="3.5" y="3.5" width="13.5" height="5.5" rx="1.6"/><path d="M17 6.3h2.8v5.4H11.2v3"/><rect x="9.6" y="14.7" width="3.2" height="6.3" rx="1.1"/>',
+ azotea:'<path d="M2.8 11 12 4.6l9.2 6.4"/><path d="M5.2 9.4v11h13.6v-11"/><path d="M12 11.8c-1.7 2.2-2.7 3.6-2.7 5a2.7 2.7 0 0 0 5.4 0c0-1.4-1-2.8-2.7-5z"/>',
+ cortina:'<rect x="4" y="3.5" width="16" height="17" rx="1.4"/><path d="M4 7.6h16M4 11.7h16M4 15.8h16"/>',
+ parrillero:'<path d="M4.5 10.5h15l-1.6 5.8H6.1z"/><path d="m8 16.3-1.2 4.2M16 16.3l1.2 4.2"/><path d="M9.5 7.6c0-1.3 1.2-1.3 1.2-2.6M13.3 7.6c0-1.3 1.2-1.3 1.2-2.6"/>',
+ edificio:'<rect x="5" y="3" width="14" height="18" rx="1.4"/><path d="M9 7.3h1M14 7.3h1M9 11.3h1M14 11.3h1M9 15.3h1M14 15.3h1" style="stroke-width:2"/><path d="M10.6 21v-2.8h2.8V21"/>',
+ calendario:'<rect x="3.8" y="5" width="16.4" height="15.5" rx="2.2"/><path d="M3.8 10h16.4M8 3v4M16 3v4"/><path d="m9 14.8 2 2 4-4"/>',
+ escudo:'<path d="M12 3.2 19 6v5.2c0 4.4-2.9 7.9-7 9.6-4.1-1.7-7-5.2-7-9.6V6z"/><path d="m8.8 12 2.2 2.2 4.2-4.2"/>',
+ doc:'<path d="M6 3h8.6L19 7.4V21H6z"/><path d="M14.4 3v4.6H19"/><path d="M9 12.2h6.8M9 16h4.6"/>',
+ check:'<circle cx="12" cy="12" r="8.6"/><path d="m8.2 12.2 2.6 2.6 5-5"/>',
+ origen:'<circle cx="12" cy="12" r="8.4" stroke-dasharray="2.2 2.2"/><circle class="f" cx="12" cy="12" r="2.1"/>',
+ telefono:'<path d="M5.2 3.5h3.6l1.8 4.6-2.3 1.4a11 11 0 0 0 5.2 5.2l1.4-2.3 4.6 1.8v3.6a2 2 0 0 1-2 2A15.8 15.8 0 0 1 3.2 5.5a2 2 0 0 1 2-2z"/>',
+ mail:'<rect x="3" y="5" width="18" height="14" rx="2.2"/><path d="m3.6 6.6 8.4 6.4 8.4-6.4"/>',
+ pin:'<path d="M12 21s-6.6-6-6.6-11.2a6.6 6.6 0 0 1 13.2 0C18.6 15 12 21 12 21z"/><circle cx="12" cy="9.8" r="2.4"/>',
+ camara:'<path d="M3.5 8.2h3.4l1.7-2.4h6.8l1.7 2.4h3.4v11.3H3.5z"/><circle cx="12" cy="13.4" r="3.6"/>',
+ casa:'<path d="M3 11.2 12 3.8l9 7.4"/><path d="M5.4 9.4v11.1h13.2V9.4"/><path d="M10 20.5v-5.6h4v5.6"/>',
+ llave:WRENCH,
+ chat:'<path d="M8 17.2H6.6A2.6 2.6 0 0 1 4 14.6V6.8a2.6 2.6 0 0 1 2.6-2.6h10.8A2.6 2.6 0 0 1 20 6.8v7.8a2.6 2.6 0 0 1-2.6 2.6H12.4L8 20.6z"/>',
+ flecha:'<path d="M5 12h14M13 6l6 6-6 6"/>',
+};
+const icon=(k,cls='ic')=>`<svg class="${cls}" viewBox="0 0 24 24">${IC[k]}</svg>`;
+
+// ---------- Historias (por destacada) ----------
+const CTA='<span class="pill cta">'+'<svg viewBox="0 0 24 24">'+IC.chat+'</svg>'+'Escribinos · 098 965 054</span>';
+const S=[
+ // SERVICIOS
+ {f:'historias/servicios-1-portada.png',d:'Servicios',lx:'78%',ly:'22%',h:'Sanitaria, construcción y <em>mantenimiento.</em>',
+  lede:'Para <b>hogares, comercios y edificios</b> de Montevideo y Ciudad de la Costa.',
+  items:[['lupa','Diagnóstico objetivo','Vemos qué pasa de verdad'],['origen','Soluciones de raíz','No parches que vuelven a fallar'],['escudo','Enfoque preventivo','Evitás gastos mayores después']],
+  foot:'Tocá para ver cada servicio.',cta:1},
+ {f:'historias/servicios-2-sanitaria.png',d:'Servicios · Sanitaria',dense:1,lx:'20%',ly:'20%',h:'Sanitaria <em>especializada.</em>',
+  items:[['grasera','Limpieza de cámaras graseras'],['gota','Limpieza de tanques de agua'],['cano','Desobstrucción de cañerías y cámaras'],['lupa','Detección de fugas'],['calefon','Instalación de calefones','También bajo mesada'],['valvula','Válvulas antirretorno en PVC']],
+  foot:'Y reparaciones sanitarias en general. <b>Mejor prevenir la urgencia que correr detrás de ella.</b>',cta:1},
+ {f:'historias/servicios-3-construccion-reformas.png',d:'Servicios · Construcción',dense:1,lx:'80%',ly:'18%',h:'Construcción y <em>reformas.</em>',
+  items:[['ladrillos','Albañilería y reformas'],['ducha','Reformas integrales de baños','Revestimientos y cielorrasos'],['piso','Revestimientos de pisos y paredes','Interior y exterior'],['rodillo','Pintura general'],['azotea','Impermeabilización de azoteas','Juntas y drenajes de terrazas'],['cortina','Cortinas de enrollar de PVC'],['parrillero','Sellado de cámaras de parrilleros']],cta:1},
+ {f:'historias/servicios-4-visita-diagnostica.png',d:'Servicios · Visita diagnóstica',lx:'24%',ly:'24%',h:'Antes de gastar, <em>un diagnóstico.</em>',
+  lede:'Una visita técnica para ver qué está pasando y <b>qué conviene hacer.</b> Ideal si:',
+  items:[['llave','Querés resolverlo vos mismo','Con respaldo profesional'],['casa','Vas a comprar una propiedad','Y querés saber en qué estado está'],['lupa','Necesitás una segunda opinión','Antes de gastar en materiales o arreglos']],
+  foot:'Te llevás un <b>plan de acción claro:</b> lo urgente y lo preventivo.',cta:1},
+ {f:'historias/servicios-5-administradoras.png',d:'Administradoras e inmobiliarias',lx:'76%',ly:'24%',h:'Mantenimiento <em>programado.</em>',
+  lede:'Para <b>administradoras de propiedades e inmobiliarias</b> de Montevideo y Ciudad de la Costa.',
+  items:[['calendario','Limpieza programada','Cámaras graseras y tanques de agua'],['escudo','Cobertura sanitaria continua','Para edificios y complejos'],['doc','Informe en dos bloques','Lo urgente y lo preventivo']],
+  foot:'Menos urgencias, menos reclamos de inquilinos.',cta:'Pedí una propuesta para tu edificio'},
+ // TRABAJOS
+ {f:'historias/trabajos-1-portada.png',d:'Trabajos',lx:'50%',ly:'30%',h:'Trabajos reales, <em>explicados.</em>',
+  lede:'Acá vas a ver nuestros trabajos con <b>fotos reales</b> y el porqué técnico de cada solución.',
+  items:[['camara','El antes','Cómo estaba y qué fallaba'],['check','El después','Cómo quedó'],['lupa','El porqué','Qué hicimos y por qué dura']],cta:1},
+ {f:'historias/trabajos-plantilla-antes-despues.png',d:'Trabajos · Zona del trabajo',plantilla:1,lx:'50%',ly:'40%'},
+ // CÓMO TRABAJAMOS
+ {f:'historias/como-trabajamos-1-resumen.png',d:'Cómo trabajamos',lx:'78%',ly:'20%',h:'Primero, <em>entender.</em>',
+  lede:'Sin números al aire. Así trabajamos cada caso:',
+  items:[['chat','Nos contás qué pasa','Por WhatsApp, con una foto si podés'],['lupa','Diagnóstico técnico','Buscamos el origen de la falla'],['doc','Propuesta en dos bloques','Lo correctivo y lo preventivo'],['check','Solución de raíz','Para no pagar dos veces']],cta:1},
+ {f:'historias/como-trabajamos-2-contanos.png',d:'Cómo trabajamos · Paso 1',lx:'22%',ly:'22%',h:'Contanos <em>qué pasa.</em>',
+  lede:'Escribinos por WhatsApp con tres datos:',
+  items:[['casa','Dónde es','Casa, comercio, empresa o edificio'],['pin','En qué zona estás','Montevideo o Ciudad de la Costa'],['camara','Una foto o un video','Si podés, mejor']],
+  foot:'Con eso te decimos si podemos cotizar directo o si conviene una visita.',cta:1},
+ {f:'historias/como-trabajamos-3-diagnostico.png',d:'Cómo trabajamos · Paso 2',lx:'78%',ly:'56%',h:'Diagnóstico <em>técnico.</em>',
+  lede:'Buscamos el <b>origen real</b> de la falla, no solo el síntoma.',ill:'cano',
+  foot:'Así no pagás dos veces por el mismo problema.',cta:1},
+ {f:'historias/como-trabajamos-4-propuesta.png',d:'Cómo trabajamos · Paso 3',lx:'24%',ly:'30%',h:'Una propuesta, <em>dos bloques.</em>',
+  two:[['Bloque 1','Solución correctiva','Lo que hay que hacer para resolver el problema de forma definitiva.'],['Bloque 2','Recomendación preventiva','Lo que vimos en el lugar y conviene atender hoy para evitar gastos mayores.']],
+  foot:'<b>Presupuesto a medida,</b> según el diagnóstico.',cta:1},
+ // CONTACTO
+ {f:'historias/contacto-1.png',d:'Contacto',lx:'70%',ly:'26%',h:'Hablemos de <em>tu caso.</em>',
+  items:[['telefono','WhatsApp','098 965 054'],['mail','Correo','a.servicios.integralesf@gmail.com'],['pin','Zonas','Montevideo y Ciudad de la Costa'],['doc','Presupuesto','A medida, según diagnóstico']],
+  foot:'<b>Fernando Catoira</b> · Gestor técnico comercial',cta:1},
+];
+const sec=document.getElementById('stories');
+for(const s of S){
+  const el=document.createElement('section');
+  el.className='story stage'+(s.dense?' dense':''); el.dataset.file=s.f; el.dataset.safe='64,250,1016,1620';
+  el.style.cssText=`--lx:${s.lx};--ly:${s.ly}`;
+  let h=`<i class="mark tl" style="left:48px;top:150px"></i><i class="mark tr" style="right:48px;top:150px"></i><i class="mark bl" style="left:48px;bottom:200px"></i><i class="mark br" style="right:48px;bottom:200px"></i><div class="col">`;
+  h+=`<div class="top"><svg class="sym" data-sym="claro"></svg><b>A. Servicios Integrales Catoira<span>${s.d}</span></b></div>`;
+  if(s.plantilla){
+    h+=`<div class="h" style="font-size:84px">Qué se <em>resolvió.</em></div>
+      <div class="ph"><div>${icon('camara')}<b>ANTES</b><span>Foto real<br>del trabajo</span></div><div>${icon('camara')}<b>DESPUÉS</b><span>Foto real<br>del trabajo</span></div></div>
+      <div class="list" style="margin-top:34px;gap:12px">
+        <div class="it glass">${icon('lupa')}<div><b>Qué pasaba</b><span>Una línea con el problema</span></div></div>
+        <div class="it glass">${icon('llave')}<div><b>Qué hicimos</b><span>Una línea con la solución</span></div></div>
+        <div class="it glass">${icon('escudo')}<div><b>Por qué dura</b><span>El porqué técnico</span></div></div></div>`;
+    el.innerHTML=h+'</div><span class="tag abs">Plantilla</span>'; sec.append(el); continue;
+  }
+  h+=`<div class="h">${s.h}</div>`;
+  if(s.lede)h+=`<div class="lede">${s.lede}</div>`;
+  if(s.items)h+='<div class="list">'+s.items.map(([k,t,sub])=>`<div class="it glass">${icon(k)}<div><b>${t}</b>${sub?`<span>${sub}</span>`:''}</div></div>`).join('')+'</div>';
+  if(s.ill)h+=`<svg class="ill" data-ill="${s.ill}" style="height:400px"></svg>`;
+  if(s.two)h+='<div class="two">'+s.two.map(([l,b,p])=>`<div class="glass"><div class="lab">${l}</div><b>${b}</b><p>${p}</p></div>`).join('')+'</div>';
+  if(s.foot)h+=`<div class="foot">${s.foot}</div>`;
+  if(s.cta)h+=typeof s.cta==='string'?CTA.replace('Escribinos · 098 965 054',s.cta):CTA;
+  el.innerHTML=h+'</div>'; sec.append(el);
+}
+sec.replaceWith(...sec.children);
+
+// ---------- Íconos sueltos ----------
+document.querySelectorAll('svg[data-ic]').forEach(s=>s.innerHTML=IC[s.dataset.ic]);
+
+// ---------- Ilustraciones de línea ----------
+const ILL={
+ cano:{vb:'0 0 960 430',svg:`<g fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <g stroke="#93A9B0" stroke-width="3"><path d="M20 150H640a60 60 0 0 1 60 60V430"/><path d="M20 210H620a20 20 0 0 1 20 20V430"/><path d="M140 140v80M300 140v80"/></g>
+  <g stroke="#93A9B0" stroke-width="3"><rect x="390" y="132" width="70" height="96" rx="8" fill="#0B2733"/><path d="M400 150l50 20M400 175l50 20M400 200l50 20" opacity=".6"/></g>
+  <path d="M425 252c-7 10-10 16-10 22a10 10 0 0 0 20 0c0-6-3-12-10-22Z" fill="#93A9B0" opacity=".7"/>
+  <path d="M425 120V70h-60" stroke="#93A9B0" stroke-width="2"/>
+  <text x="250" y="78" font-family="Inter" font-weight="600" font-size="22" letter-spacing="2.6" fill="#93A9B0">PARCHE</text><path d="M246 70h102" stroke="#93A9B0" stroke-width="2.5"/>
+  <circle cx="668" cy="182" r="64" stroke="#5FD0C1" stroke-width="3" stroke-dasharray="10 10"/><circle cx="668" cy="182" r="7" fill="#5FD0C1"/>
+  <path d="M720 140l70-70h130" stroke="#5FD0C1" stroke-width="2.5"/>
+  <text x="800" y="58" font-family="Inter" font-weight="700" font-size="22" letter-spacing="2.6" fill="#5FD0C1">ORIGEN</text>
+  <text x="800" y="106" font-family="Inter" font-weight="500" font-size="21" fill="#C9D6D6">la falla real</text></g>`},
+ humedad:{vb:'0 0 920 390',svg:`<g fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <!-- losa de azotea con junta fisurada -->
+  <g stroke="#93A9B0" stroke-width="3"><path d="M40 70H880"/><path d="M40 120H880"/><path d="M40 70v50M880 70v50"/></g>
+  <path d="M40 70H880" stroke="#93A9B0" stroke-width="3"/><path d="M312 52l8 18 -6 14 8 18 -4 18" stroke="#5FD0C1" stroke-width="3"/>
+  <!-- muro -->
+  <g stroke="#93A9B0" stroke-width="3"><path d="M160 120V380M470 120V380"/></g>
+  <!-- camino del agua -->
+  <path d="M318 125c0 40-30 50-40 90s10 60 0 90" stroke="#5FD0C1" stroke-width="3" stroke-dasharray="9 11"/>
+  <path d="M269 296l9 18 10-17" stroke="#5FD0C1" stroke-width="3"/>
+  <!-- mancha de humedad sobre la pintura -->
+  <path d="M215 250c20-22 70-30 105-14s44 50 26 76-70 34-100 18-50-58-31-80z" fill="rgba(147,169,176,.13)" stroke="#93A9B0" stroke-width="2" stroke-dasharray="4 6"/>
+  <!-- rótulos -->
+  <circle cx="316" cy="86" r="40" stroke="#5FD0C1" stroke-width="3" stroke-dasharray="8 8"/>
+  <path d="M352 66l60-40h120" stroke="#5FD0C1" stroke-width="2.5"/>
+  <text x="540" y="22" font-family="Inter" font-weight="700" font-size="22" letter-spacing="2.6" fill="#5FD0C1">ORIGEN</text>
+  <text x="540" y="62" font-family="Inter" font-weight="500" font-size="21" fill="#C9D6D6">fisura en la junta de la azotea</text>
+  <path d="M352 290h180" stroke="#93A9B0" stroke-width="2"/>
+  <text x="540" y="282" font-family="Inter" font-weight="600" font-size="22" letter-spacing="2.6" fill="#93A9B0">PINTURA NUEVA</text>
+  <text x="540" y="322" font-family="Inter" font-weight="500" font-size="21" fill="#93A9B0">la mancha vuelve a salir</text></g>`},
+};
+document.querySelectorAll('svg[data-ill]').forEach(s=>{const i=ILL[s.dataset.ill];s.setAttribute('viewBox',i.vb);s.innerHTML=i.svg;});
+
+// ---------- Símbolo del logo (vector, logo/simbolo-limpio.json) ----------
+const GRADS={
+ grad:['#1B4E86','#17677F','#2BB3A3'],   // como el original, para fondos claros y como acento chico
+ claro:['#3E8FE0','#2FB3A5','#8FE8DB'],  // versión luminosa para fondo oscuro (perfil, portadas)
+};
+if(new URLSearchParams(location.search).has('prueba'))document.body.classList.add('prueba');
+fetch('../logo/simbolo-limpio.json').then(r=>r.json()).then(j=>{
+  document.querySelectorAll('svg[data-sym]').forEach((s,i)=>{
+    const g=GRADS[s.dataset.sym]||GRADS.grad;
+    s.setAttribute('viewBox','20 -10 992 910');
+    s.innerHTML=`<defs><linearGradient id="sg${i}" x1="0.08" y1="0.95" x2="0.92" y2="0.08"><stop offset="0" stop-color="${g[0]}"/><stop offset=".48" stop-color="${g[1]}"/><stop offset="1" stop-color="${g[2]}"/></linearGradient></defs><path fill="url(#sg${i})" d="${j.d}"/>`;
+  });
+  document.body.dataset.ready=1;
+});
+</script></body></html>

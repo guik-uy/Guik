@@ -122,9 +122,9 @@ section{position:relative;overflow:hidden;background:var(--noche)}
 
 <script>
 // Símbolo del logo (trazado en vector, logo/simbolo-trazado.json) con el degradé del original: azul petróleo → verde azulado
-fetch('../logo/simbolo-trazado.json').then(r=>r.json()).then(j=>{
+fetch('../logo/simbolo-limpio.json').then(r=>r.json()).then(j=>{
   document.querySelectorAll('svg[data-sym]').forEach((s,i)=>{
-    s.setAttribute('viewBox',`0 0 ${j.w} ${j.h}`);
+    s.setAttribute('viewBox',`20 -10 992 910`);
     s.innerHTML=`<defs><linearGradient id="g${i}" x1="0.08" y1="0.95" x2="0.92" y2="0.08"><stop offset="0" stop-color="#1B4E86"/><stop offset=".45" stop-color="#17677F"/><stop offset="1" stop-color="#2BB3A3"/></linearGradient></defs>
       <path fill-rule="evenodd" fill="url(#g${i})" d="${j.d}"/>`;
   });
