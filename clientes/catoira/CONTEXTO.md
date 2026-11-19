@@ -7,7 +7,8 @@ Primer cliente de Aicia cerrado por Workana. Objetivo: entregar impecable y cons
 - Nombre comercial (según su brief): **A. Servicios Integrales Catoira**.
 - Zonas: Montevideo y Ciudad de la Costa.
 - Contacto que figura en sus piezas: Tel. 098 965 054 · a.servicios.integralesf@gmail.com. Web "en construcción" (no publicar la URL).
-- Proyecto Workana: "Gestor de Redes Sociales para Optimización de Instagram y WhatsApp Business". UY$ 1.999,87. Comisión por cierre acordada (condiciones a confirmar).
+- Instagram: @a.servicios.integrales (https://www.instagram.com/a.servicios.integrales/). Hoy vacío.
+- Proyecto Workana (https://www.workana.com/app/job/gestor-de-redes-sociales-para-optimizacion-de-instagram-y-whatsapp-business): "Gestor de Redes Sociales para Optimización de Instagram y WhatsApp Business". UY$ 1.999,87. Comisión por cierre acordada (condiciones a confirmar).
 - Alcance acordado por llamada (18/11): perfil de Facebook, Instagram y WhatsApp Business. Anuncios: a confirmar si entran ahora o en una segunda etapa.
 
 ## Insumos (`insumos/`)
