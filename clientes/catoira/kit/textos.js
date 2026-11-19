@@ -1,10 +1,11 @@
 // Textos del kit (fuente única): los usa kit.html (PDF) y armar-textos.mjs (textos-para-copiar.md).
-// Fernando se encarga de responder y de los mensajes para mandar: acá solo van perfiles y respuestas automáticas.
+// Fernando se encarga de responder y de los mensajes para mandar: acá solo van perfiles y el mensaje de bienvenida de WhatsApp.
 // Reglas: sin precios ni valor de la visita, sin inventar trabajos, reseñas, años, garantías ni horarios.
 // [entre corchetes] = lo completa Fernando.
 const T = {
 wa: {
-  nombre: 'A. Servicios Integrales Catoira',
+  // Es su número personal y el del negocio: va su nombre adelante
+  nombre: 'Fernando Catoira · A. Servicios Integrales',
   categorias: 'Elegí hasta 3 categorías, las más parecidas a: Servicios para el hogar · Construcción · Plomería. Los nombres de la lista pueden variar; si no aparece ninguna parecida, usá "Otro".',
   descripcion: `Sanitaria, construcción y mantenimiento para hogares, comercios y edificios de Montevideo y Ciudad de la Costa.
 
@@ -12,21 +13,10 @@ No ponemos parches: buscamos el origen del problema y lo resolvemos de raíz, co
 
 Contanos qué pasa (si podés, con una foto) y te decimos el próximo paso. Presupuesto a medida.`,
   direccion: 'No cargues una dirección de local (no atendés en un local). Las zonas ya están en la descripción.',
-  horario: '[A CONFIRMAR: días y horas de atención]. Cargalo con "Abierto en horario seleccionado". El mensaje de ausencia usa este horario.',
+  horario: '[A CONFIRMAR: días y horas de atención]. Cargalo con "Abierto en horario seleccionado".',
   email: 'a.servicios.integralesf@gmail.com',
-  web: 'https://www.instagram.com/a.servicios.integrales/ (la web está en construcción: cuando esté lista, cambiala).',
-  bienvenida: `¡Hola! Gracias por escribir a A. Servicios Integrales Catoira 👋
-Hacemos sanitaria, construcción y mantenimiento en Montevideo y Ciudad de la Costa.
-
-Para ayudarte más rápido, contanos:
-1. ¿Es para una casa, un comercio, una empresa o un edificio?
-2. ¿En qué zona estás?
-3. ¿Qué está pasando? Si podés, mandanos una foto o un video.
-
-Te respondemos a la brevedad.`,
-  ausencia: `¡Hola! Gracias por escribir 👋
-Ahora no podemos responder, pero ya tenemos tu mensaje.
-Dejanos qué necesitás, en qué zona estás y, si podés, una foto. Te contestamos apenas volvamos.`,
+  web: 'https://www.instagram.com/a.servicios.integrales/',
+  bienvenida: `¡Hola! Gracias por escribir a A. Servicios Integrales Catoira. Te respondemos a la brevedad.`,
   catalogo: [
     ['Visita diagnóstica', 'Evaluación técnica en el lugar para encontrar el origen del problema. Te llevás un plan claro: lo urgente y lo preventivo. Ideal para segunda opinión, antes de comprar una propiedad o si querés resolverlo vos.'],
     ['Limpieza de cámaras graseras', 'Limpieza preventiva para evitar olores, tapones y urgencias. Para casas, comercios y edificios.'],
@@ -107,19 +97,6 @@ google: {
 Trabajamos con diagnóstico objetivo: primero buscamos el origen real del problema y después lo resolvemos de forma definitiva, con un enfoque preventivo que evita gastos mayores.
 
 Servicios: limpieza de cámaras graseras y tanques de agua, desobstrucción de cañerías, detección de fugas, instalación de calefones, reformas de baños, revestimientos, pintura, impermeabilización de azoteas y mantenimiento preventivo para administradoras e inmobiliarias. Presupuesto a medida, según diagnóstico.`,
-},
-auto: {
-  // Respuesta instantánea y preguntas frecuentes de Instagram y Facebook (Meta Business Suite)
-  instantanea: `¡Hola! Gracias por escribir a A. Servicios Integrales Catoira 👋
-Hacemos sanitaria, construcción y mantenimiento en Montevideo y Ciudad de la Costa.
-
-Contanos qué necesitás, en qué zona estás y, si podés, mandanos una foto. Si preferís, escribinos por WhatsApp al 098 965 054.`,
-  faq: [
-    ['¿Qué servicios hacen?', 'Sanitaria (graseras, tanques, cañerías, fugas y calefones), construcción y reformas (baños, revestimientos, pintura y azoteas) y mantenimiento preventivo para edificios. Contanos qué necesitás.'],
-    ['¿En qué zonas trabajan?', 'En Montevideo y Ciudad de la Costa. Decinos tu barrio y lo coordinamos.'],
-    ['¿Cuánto sale?', 'Depende de cada caso: preferimos no pasarte un número al aire. Contanos qué pasa, en qué zona estás y, si podés, mandanos una foto.'],
-    ['Quiero coordinar una visita', '¡Buenísimo! Dejanos qué necesitás, tu zona y un horario que te quede cómodo, y te confirmamos.'],
-  ],
 },
 };
 if (typeof module !== 'undefined') module.exports = T;

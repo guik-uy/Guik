@@ -1,0 +1,301 @@
+TEXTOS PARA COPIAR Y PEGAR
+A. Servicios Integrales Catoira
+
+Cómo usar este archivo:
+1. Buscá la red que estás cargando (WhatsApp, Instagram, Facebook o Google).
+2. Copiá solo lo que está entre "COPIÁ DESDE ACÁ" y "HASTA ACÁ".
+3. Lo que está [entre corchetes] lo completás vos.
+4. Los pasos con fotos están en la guía PDF (0-EMPEZA-ACA).
+
+========================================================
+1. WHATSAPP BUSINESS
+========================================================
+Dónde se carga: Ajustes → Herramientas para la empresa → Perfil de empresa
+
+▶ NOMBRE
+------ COPIÁ DESDE ACÁ ------
+Fernando Catoira · A. Servicios Integrales
+------ HASTA ACÁ ------
+
+▶ CATEGORÍAS (no se pega: es una indicación)
+Elegí hasta 3 categorías, las más parecidas a: Servicios para el hogar · Construcción · Plomería. Los nombres de la lista pueden variar; si no aparece ninguna parecida, usá "Otro".
+
+▶ DESCRIPCIÓN
+------ COPIÁ DESDE ACÁ ------
+Sanitaria, construcción y mantenimiento para hogares, comercios y edificios de Montevideo y Ciudad de la Costa.
+
+No ponemos parches: buscamos el origen del problema y lo resolvemos de raíz, con diagnóstico técnico y enfoque preventivo.
+
+Contanos qué pasa (si podés, con una foto) y te decimos el próximo paso. Presupuesto a medida.
+------ HASTA ACÁ ------
+
+▶ DIRECCIÓN (no se pega: es una indicación)
+No cargues una dirección de local (no atendés en un local). Las zonas ya están en la descripción.
+
+▶ HORARIO (no se pega: es una indicación)
+[A CONFIRMAR: días y horas de atención]. Cargalo con "Abierto en horario seleccionado".
+
+▶ CORREO
+------ COPIÁ DESDE ACÁ ------
+a.servicios.integralesf@gmail.com
+------ HASTA ACÁ ------
+
+▶ SITIO WEB
+------ COPIÁ DESDE ACÁ ------
+https://www.instagram.com/a.servicios.integrales/
+------ HASTA ACÁ ------
+
+
+--- Mensaje de bienvenida ---
+Dónde se carga: Herramientas para la empresa → Mensaje de bienvenida → activalo → destinatarios: Todos
+
+▶ MENSAJE DE BIENVENIDA
+------ COPIÁ DESDE ACÁ ------
+¡Hola! Gracias por escribir a A. Servicios Integrales Catoira. Te respondemos a la brevedad.
+------ HASTA ACÁ ------
+
+
+--- Catálogo (10 servicios, sin precio) ---
+Dónde se carga: Herramientas para la empresa → Catálogo → Agregar artículo.
+Para cada uno: la imagen de 3-whatsapp/catalogo (mismo número), el nombre y la descripción. El precio, vacío.
+Si algún servicio no lo hacés, salteálo.
+
+▶ SERVICIO 1 · NOMBRE
+------ COPIÁ DESDE ACÁ ------
+Visita diagnóstica
+------ HASTA ACÁ ------
+
+▶ SERVICIO 1 · DESCRIPCIÓN
+------ COPIÁ DESDE ACÁ ------
+Evaluación técnica en el lugar para encontrar el origen del problema. Te llevás un plan claro: lo urgente y lo preventivo. Ideal para segunda opinión, antes de comprar una propiedad o si querés resolverlo vos.
+------ HASTA ACÁ ------
+
+▶ SERVICIO 2 · NOMBRE
+------ COPIÁ DESDE ACÁ ------
+Limpieza de cámaras graseras
+------ HASTA ACÁ ------
+
+▶ SERVICIO 2 · DESCRIPCIÓN
+------ COPIÁ DESDE ACÁ ------
+Limpieza preventiva para evitar olores, tapones y urgencias. Para casas, comercios y edificios.
+------ HASTA ACÁ ------
+
+▶ SERVICIO 3 · NOMBRE
+------ COPIÁ DESDE ACÁ ------
+Limpieza de tanques de agua
+------ HASTA ACÁ ------
+
+▶ SERVICIO 3 · DESCRIPCIÓN
+------ COPIÁ DESDE ACÁ ------
+Limpieza de tanques para que el agua llegue en buenas condiciones. Para casas y edificios.
+------ HASTA ACÁ ------
+
+▶ SERVICIO 4 · NOMBRE
+------ COPIÁ DESDE ACÁ ------
+Desobstrucción de cañerías y cámaras
+------ HASTA ACÁ ------
+
+▶ SERVICIO 4 · DESCRIPCIÓN
+------ COPIÁ DESDE ACÁ ------
+Destapamos cañerías y cámaras, y buscamos por qué se tapan para que no vuelva a pasar.
+------ HASTA ACÁ ------
+
+▶ SERVICIO 5 · NOMBRE
+------ COPIÁ DESDE ACÁ ------
+Detección de fugas y reparaciones sanitarias
+------ HASTA ACÁ ------
+
+▶ SERVICIO 5 · DESCRIPCIÓN
+------ COPIÁ DESDE ACÁ ------
+Encontramos la pérdida y la reparamos de raíz.
+------ HASTA ACÁ ------
+
+▶ SERVICIO 6 · NOMBRE
+------ COPIÁ DESDE ACÁ ------
+Instalación de calefones
+------ HASTA ACÁ ------
+
+▶ SERVICIO 6 · DESCRIPCIÓN
+------ COPIÁ DESDE ACÁ ------
+Instalación de calefones, también bajo mesada. Válvulas antirretorno en PVC.
+------ HASTA ACÁ ------
+
+▶ SERVICIO 7 · NOMBRE
+------ COPIÁ DESDE ACÁ ------
+Reforma integral de baños
+------ HASTA ACÁ ------
+
+▶ SERVICIO 7 · DESCRIPCIÓN
+------ COPIÁ DESDE ACÁ ------
+Desde la cañería hasta la última terminación: sanitaria, revestimientos y cielorrasos.
+------ HASTA ACÁ ------
+
+▶ SERVICIO 8 · NOMBRE
+------ COPIÁ DESDE ACÁ ------
+Impermeabilización de azoteas y terrazas
+------ HASTA ACÁ ------
+
+▶ SERVICIO 8 · DESCRIPCIÓN
+------ COPIÁ DESDE ACÁ ------
+Buscamos por dónde entra el agua. Juntas, drenajes y sellado de terrazas.
+------ HASTA ACÁ ------
+
+▶ SERVICIO 9 · NOMBRE
+------ COPIÁ DESDE ACÁ ------
+Revestimientos, pintura y albañilería
+------ HASTA ACÁ ------
+
+▶ SERVICIO 9 · DESCRIPCIÓN
+------ COPIÁ DESDE ACÁ ------
+Pisos y paredes, interior y exterior. Pintura general. Cortinas de enrollar de PVC y cámaras de parrilleros.
+------ HASTA ACÁ ------
+
+▶ SERVICIO 10 · NOMBRE
+------ COPIÁ DESDE ACÁ ------
+Mantenimiento para edificios
+------ HASTA ACÁ ------
+
+▶ SERVICIO 10 · DESCRIPCIÓN
+------ COPIÁ DESDE ACÁ ------
+Para administradoras e inmobiliarias: limpieza programada de graseras y tanques, y cobertura sanitaria continua.
+------ HASTA ACÁ ------
+
+
+========================================================
+2. INSTAGRAM
+========================================================
+Dónde se carga: En tu perfil → Editar perfil
+
+▶ NOMBRE
+------ COPIÁ DESDE ACÁ ------
+A. Servicios Integrales Catoira · Sanitaria
+------ HASTA ACÁ ------
+
+▶ USUARIO (no se pega: es una indicación)
+@a.servicios.integrales (queda igual)
+
+▶ CATEGORÍA (no se pega: es una indicación)
+La más parecida a "Plomero" o "Contratista" (si no, "Servicio de reformas del hogar"). Mostrala en el perfil.
+
+▶ PRESENTACIÓN (BIO)
+------ COPIÁ DESDE ACÁ ------
+Sanitaria · Construcción · Mantenimiento
+No ponemos parches. Resolvemos de raíz.
+📍 Montevideo y Ciudad de la Costa
+👇 Consultá por WhatsApp
+------ HASTA ACÁ ------
+
+▶ ENLACE
+------ COPIÁ DESDE ACÁ ------
+https://wa.me/59898965054
+------ HASTA ACÁ ------
+
+▶ BOTONES DE CONTACTO (no se pega: es una indicación)
+WhatsApp · Llamar · Correo
+
+
+--- Descripción de las 3 publicaciones ---
+Se pega al subir cada imagen de 2-instagram/publicaciones, en el espacio para escribir la descripción.
+Subilas en este orden: primero la 3, después la 2 y al final la 1.
+
+▶ PUBLICACIÓN 1 · NO PONEMOS PARCHES · DESCRIPCIÓN
+------ COPIÁ DESDE ACÁ ------
+No ponemos parches. Resolvemos de raíz.
+
+Cuando aparece una humedad, una pérdida o un caño tapado, lo fácil es tapar el síntoma. El problema es que vuelve, y terminás pagando dos veces.
+
+En A. Servicios Integrales Catoira trabajamos distinto:
+🔍 Primero buscamos el origen real de la falla.
+🛠️ Después la resolvemos de forma definitiva.
+🛡️ Y te decimos qué conviene prevenir para evitar gastos mayores.
+
+Sanitaria, construcción y mantenimiento para hogares, comercios y edificios de Montevideo y Ciudad de la Costa.
+
+📲 Escribinos por WhatsApp al 098 965 054 y contanos tu caso.
+
+#Montevideo #CiudadDeLaCosta #Sanitaria #Reformas #Mantenimiento
+------ HASTA ACÁ ------
+
+▶ PUBLICACIÓN 2 · SERVICIOS · DESCRIPCIÓN
+------ COPIÁ DESDE ACÁ ------
+¿Qué hacemos? Lo que tu casa, tu comercio o tu edificio necesita para funcionar bien. Y siempre con el mismo criterio: entender el problema antes de tocar nada.
+
+🚿 Sanitaria: limpieza de cámaras graseras y tanques de agua, desobstrucción de cañerías y cámaras, detección de fugas, calefones (también bajo mesada) y válvulas antirretorno.
+
+🧱 Construcción y reformas: albañilería, baños completos (revestimientos y cielorrasos), pisos y paredes, pintura, azoteas y terrazas, cortinas de enrollar de PVC y cámaras de parrilleros.
+
+🏢 Mantenimiento preventivo: planes para administradoras e inmobiliarias.
+
+Presupuesto a medida, según el diagnóstico.
+📍 Montevideo y Ciudad de la Costa · 📲 098 965 054
+
+#Montevideo #CiudadDeLaCosta #Sanitaria #Reformas #Mantenimiento
+------ HASTA ACÁ ------
+
+▶ PUBLICACIÓN 3 · HUMEDAD Y VISITA DIAGNÓSTICA · DESCRIPCIÓN
+------ COPIÁ DESDE ACÁ ------
+¿Pintaste sobre la humedad y a los meses volvió a salir?
+
+No es mala suerte: la pintura tapa la mancha, pero el agua sigue entrando. Y muchas veces entra lejos de donde aparece la mancha: por una junta de la azotea, un drenaje de la terraza o una fisura en el muro.
+
+Por eso, antes de gastar en materiales, conviene un diagnóstico. En la visita técnica:
+✔️ Buscamos por dónde entra el agua.
+✔️ Te explicamos qué hay que hacer para resolverlo de raíz.
+✔️ Te decimos qué conviene prevenir.
+
+Mandanos una foto de la mancha y tu zona 👇
+📲 098 965 054 · Montevideo y Ciudad de la Costa
+
+#Humedad #Impermeabilizacion #Montevideo #CiudadDeLaCosta
+------ HASTA ACÁ ------
+
+
+========================================================
+3. FACEBOOK
+========================================================
+Dónde se carga: Página de empresa → Editar
+
+▶ NOMBRE DE LA PÁGINA
+------ COPIÁ DESDE ACÁ ------
+A. Servicios Integrales Catoira
+------ HASTA ACÁ ------
+
+▶ CATEGORÍAS (no se pega: es una indicación)
+Hasta 3, las más parecidas a: Plomero · Contratista · Servicio de reformas del hogar.
+
+▶ PRESENTACIÓN
+------ COPIÁ DESDE ACÁ ------
+Sanitaria, construcción y mantenimiento en Montevideo y Ciudad de la Costa. No ponemos parches: resolvemos de raíz. Presupuesto a medida.
+------ HASTA ACÁ ------
+
+▶ BOTÓN (no se pega: es una indicación)
+Enviar mensaje de WhatsApp (098 965 054)
+
+
+========================================================
+4. GOOGLE (Perfil de Empresa)
+========================================================
+Dónde se carga: google.com/business → Editar perfil
+
+▶ NOMBRE
+------ COPIÁ DESDE ACÁ ------
+A. Servicios Integrales Catoira
+------ HASTA ACÁ ------
+
+▶ NOMBRE (no se pega: es una indicación)
+Solo el nombre real: Google no permite sumarle palabras clave.
+
+▶ CATEGORÍA (no se pega: es una indicación)
+Principal: "Plomero". Adicionales (si aparecen): "Contratista", "Empresa de impermeabilización", "Servicio de reformas".
+
+▶ ZONAS DE SERVICIO (no se pega: es una indicación)
+Montevideo y Ciudad de la Costa (podés sumar localidades: Solymar, Lagomar, El Pinar, Shangrilá, Parque Carrasco…). Máximo 20.
+
+▶ DESCRIPCIÓN
+------ COPIÁ DESDE ACÁ ------
+A. Servicios Integrales Catoira brinda soluciones técnicas en sanitaria, construcción y mantenimiento para hogares, comercios y edificios de Montevideo y Ciudad de la Costa.
+
+Trabajamos con diagnóstico objetivo: primero buscamos el origen real del problema y después lo resolvemos de forma definitiva, con un enfoque preventivo que evita gastos mayores.
+
+Servicios: limpieza de cámaras graseras y tanques de agua, desobstrucción de cañerías, detección de fugas, instalación de calefones, reformas de baños, revestimientos, pintura, impermeabilización de azoteas y mantenimiento preventivo para administradoras e inmobiliarias. Presupuesto a medida, según diagnóstico.
+------ HASTA ACÁ ------

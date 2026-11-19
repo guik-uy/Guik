@@ -7,16 +7,18 @@ Para copiar y pegar en el chat de Workana, con el zip adjunto (`entrega/kit-cato
 Hola Fernando, ¿cómo andás? Te paso el kit de presencia digital de A. Servicios Integrales Catoira. Está todo en el zip adjunto.
 
 Qué incluye:
-- PDF con la guía paso a paso (empezá por ahí): pasar tu WhatsApp a Business sin perder chats, cuenta profesional de Instagram, página de Facebook y Perfil de Empresa en Google para aparecer en Maps. Cada paso indica dónde tocar.
+- PDF con la guía paso a paso (empezá por ahí): pasar tu WhatsApp común a Business sin perder chats, cuenta profesional de Instagram, página de Facebook y Perfil de Empresa en Google para aparecer en Maps. Cada paso indica dónde tocar.
 - Foto de perfil nueva: el símbolo de tu logo redibujado para que se vea nítido en el círculo chico.
-- Instagram: 4 portadas de destacadas, 12 historias y 3 publicaciones con sus textos.
+- Instagram: 4 portadas de destacadas, 11 historias (separadas por destacada) y 3 publicaciones con su descripción.
 - Portadas para Facebook y WhatsApp Business, más 10 imágenes para el catálogo de servicios.
-- Respuestas automáticas en WhatsApp, Instagram y Facebook: quien te escribe recibe una respuesta al instante, aunque estés trabajando.
-- Textos para copiar y pegar: bio, descripciones, mensajes automáticos, preguntas frecuentes y catálogo.
-- Plan de contenido para los próximos 30 días, con guiones para los reels.
+- Mensaje de bienvenida automático en WhatsApp: quien te escribe recibe una respuesta al instante, aunque estés trabajando.
+- Textos para copiar y pegar: bio, descripciones, mensaje de bienvenida y catálogo.
+- Recomendaciones para crecer con reels.
 - Y un regalo: un reel de presentación para publicar el primer día 🎁
 
 Nada lleva precios ni el valor de la visita, como marca tu brief. Tampoco inventé trabajos, reseñas ni garantías.
+
+Armé todo con la información que tenía: si hay algún servicio que no hacés o algo que quieras cambiar, avisame y lo ajusto.
 
 Para cerrar algunos detalles necesito que me confirmes:
 1. Horario de atención (para WhatsApp, Google y Facebook).
