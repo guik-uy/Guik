@@ -11,8 +11,8 @@ Qué incluye:
 - Foto de perfil nueva: el símbolo de tu logo redibujado para que se vea nítido en el círculo chico.
 - Instagram: 4 portadas de destacadas, 12 historias y 3 publicaciones con sus textos.
 - Portadas para Facebook y WhatsApp Business, más 10 imágenes para el catálogo de servicios.
-- Textos para copiar y pegar: bio, descripción, mensaje de bienvenida y de ausencia, 8 respuestas rápidas, etiquetas y catálogo.
-- La campaña de mensajes directos: a quién escribirle primero (administradoras, inmobiliarias y comercios con grasera), dónde encontrarlos, los guiones con los seguimientos y una planilla de Excel que te dice a quién toca escribirle cada día y cuántas consultas, visitas y cierres van saliendo.
+- Respuestas automáticas en WhatsApp, Instagram y Facebook: quien te escribe recibe una respuesta al instante, aunque estés trabajando.
+- Textos para copiar y pegar: bio, descripciones, mensajes automáticos, preguntas frecuentes y catálogo.
 - Plan de contenido para los próximos 30 días, con guiones para los reels.
 - Y un regalo: un reel de presentación para publicar el primer día 🎁
 
@@ -23,16 +23,15 @@ Para cerrar algunos detalles necesito que me confirmes:
 2. Fotos reales de 2 o 3 trabajos, con el antes y el después, para la destacada "Trabajos" y los primeros reels.
 3. Si tenés el archivo original del logo, mandámelo para compararlo con el que redibujé.
 4. En dos flyers dice "Garantía por escrito" y "Calidad garantizada". ¿Das garantía? ¿En qué condiciones? Hasta saberlo, no la puse en ninguna pieza.
-5. Si querés ofrecer algún beneficio a quien te recomiende (el mensaje tiene el espacio).
-6. Presupuesto para anuncios en Meta: si arrancamos ahora o en una segunda etapa, y con cuánto por día. Se paga directo a Meta, con tu tarjeta.
-7. Las condiciones de la comisión por cierre: porcentaje, sobre qué trabajos y cómo lo registramos (la planilla ya tiene la columna).
+5. Presupuesto para anuncios en Meta: si arrancamos ahora o en una segunda etapa, y con cuánto por día. Se paga directo a Meta, con tu tarjeta.
+6. Las condiciones de la comisión por cierre: porcentaje, sobre qué trabajos y cómo lo registramos.
 
-Cuando termines de cargar todo, mandame una captura de cada perfil y lo reviso. En dos semanas miramos juntos los números de la planilla y ajustamos lo que haga falta.
+Cuando termines de cargar todo, mandame una captura de cada perfil y lo reviso. En dos semanas revisamos juntos cómo vienen las consultas y ajustamos lo que haga falta.
 
 Importante: nunca me pases contraseñas ni códigos de verificación. Todo lo cargás vos siguiendo la guía, y cualquier duda me escribís por acá.
 
 ¡Un abrazo!
-Guillermo · Aicia
+Guillermo García
 
 ---
 

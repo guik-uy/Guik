@@ -16,9 +16,8 @@ files = {
     '3-whatsapp/portada-whatsapp-business.jpg': P / 'portadas' / 'portada-whatsapp-business.jpg',
     '4-facebook/portada-facebook.jpg': P / 'portadas' / 'portada-facebook.jpg',
     '4-facebook/portada-facebook-zonas-prueba.png': P / 'portadas' / 'portada-facebook-prueba.png',
-    '5-campana/planilla-prospeccion-catoira.xlsx': c / 'kit' / 'planilla-prospeccion-catoira.xlsx',
-    '5-campana/textos-para-copiar.txt': c / 'kit' / 'textos-para-copiar.md',
-    '6-reel/reel-presentacion.mp4': c / 'reel' / 'reel-presentacion-catoira.mp4',
+    'textos-para-copiar.txt': c / 'kit' / 'textos-para-copiar.md',
+    '5-reel/reel-presentacion.mp4': c / 'reel' / 'reel-presentacion-catoira.mp4',
 }
 for f in sorted((P / 'destacadas').glob('*.png')): files[f'2-instagram/destacadas/{f.name}'] = f
 for f in sorted((P / 'historias').glob('*.png')):
@@ -35,5 +34,5 @@ print('ok', out, f'{out.stat().st_size / 1e6:.1f} MB', len(files), 'archivos')
 out2 = c / 'entrega' / 'kit-catoira-sin-video.zip'
 with zipfile.ZipFile(out2, 'w', zipfile.ZIP_DEFLATED) as z:
     for k, v in files.items():
-        if not k.startswith('6-reel'): z.write(v, R + k)
+        if not k.startswith('5-reel'): z.write(v, R + k)
 print('ok', out2, f'{out2.stat().st_size / 1e6:.1f} MB')

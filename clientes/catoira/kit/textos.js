@@ -1,4 +1,5 @@
 // Textos del kit (fuente única): los usa kit.html (PDF) y armar-textos.mjs (textos-para-copiar.md).
+// Fernando se encarga de responder y de los mensajes para mandar: acá solo van perfiles y respuestas automáticas.
 // Reglas: sin precios ni valor de la visita, sin inventar trabajos, reseñas, años, garantías ni horarios.
 // [entre corchetes] = lo completa Fernando.
 const T = {
@@ -26,31 +27,6 @@ Te respondemos a la brevedad.`,
   ausencia: `¡Hola! Gracias por escribir 👋
 Ahora no podemos responder, pero ya tenemos tu mensaje.
 Dejanos qué necesitás, en qué zona estás y, si podés, una foto. Te contestamos apenas volvamos.`,
-  rapidas: [
-    ['/precio', 'Cuando preguntan "¿cuánto sale?" sin dar detalles', `Para darte un número serio necesitamos entender qué está pasando: no queremos pasarte un precio al aire que después cambie.
-¿Es una casa, un comercio, una empresa o un edificio? ¿En qué zona estás? Si podés, mandanos una foto o un video.
-Con eso te decimos si podemos cotizar directo o si conviene una visita diagnóstica.`],
-    ['/visita', 'Para explicar la visita y pasar a una llamada (el costo se dice por teléfono)', `La visita diagnóstica es una evaluación técnica en el lugar: buscamos el origen del problema y te damos un plan claro, con lo urgente y lo preventivo.
-¿Te puedo llamar 5 minutos para entender el caso y coordinar? ¿Qué horario te queda cómodo?`],
-    ['/foto', 'Para pedir fotos o video', `Si podés, mandanos una foto o un video corto del problema: uno de cerca y otro de más lejos, para ver el lugar. Nos ayuda a darte una respuesta más precisa.`],
-    ['/presupuesto', 'Al mandar un presupuesto', `Te paso el presupuesto en dos partes:
-1. Solución correctiva: lo que hay que hacer para resolver el problema de forma definitiva.
-2. Recomendación preventiva: lo que vimos en el lugar y conviene atender para evitar gastos mayores.
-Cualquier duda, te la explico.`],
-    ['/seguimiento', '2 o 3 días después de mandar un presupuesto', `Hola, [nombre]. ¿Pudiste ver el presupuesto? Si querés lo repasamos juntos o ajustamos algo. Sin compromiso.`],
-    ['/edificios', 'Para administradoras e inmobiliarias', `Para administradoras e inmobiliarias trabajamos el mantenimiento preventivo: limpieza programada de cámaras graseras y tanques de agua, y cobertura sanitaria cuando surge algo.
-¿Cuántos edificios o propiedades manejan y en qué zonas? Con eso te armamos una propuesta.`],
-    ['/zona', 'Para confirmar la zona', `Trabajamos en Montevideo y Ciudad de la Costa. ¿En qué barrio estás?`],
-    ['/resena', 'Al terminar un trabajo', `¡Gracias por confiar en nosotros, [nombre]! Si quedaste conforme, nos ayuda mucho una reseña en Google para que otros nos encuentren. Lleva un minuto: [enlace de reseñas]`],
-  ],
-  etiquetas: [
-    ['Nuevo', 'Primera consulta, todavía sin respuesta tuya.'],
-    ['Presupuesto enviado', 'Ya tiene presupuesto: toca seguimiento.'],
-    ['Visita agendada', 'Tiene día y hora para la visita.'],
-    ['Cliente', 'Ya trabajaste para él. Después, pedile la reseña.'],
-    ['B2B', 'Administradoras, inmobiliarias y comercios.'],
-    ['Seguimiento', 'Contactos de la campaña que esperan el mensaje del día 3 o del día 7.'],
-  ],
   catalogo: [
     ['Visita diagnóstica', 'Evaluación técnica en el lugar para encontrar el origen del problema. Te llevás un plan claro: lo urgente y lo preventivo. Ideal para segunda opinión, antes de comprar una propiedad o si querés resolverlo vos.'],
     ['Limpieza de cámaras graseras', 'Limpieza preventiva para evitar olores, tapones y urgencias. Para casas, comercios y edificios.'],
@@ -132,57 +108,17 @@ Trabajamos con diagnóstico objetivo: primero buscamos el origen real del proble
 
 Servicios: limpieza de cámaras graseras y tanques de agua, desobstrucción de cañerías, detección de fugas, instalación de calefones, reformas de baños, revestimientos, pintura, impermeabilización de azoteas y mantenimiento preventivo para administradoras e inmobiliarias. Presupuesto a medida, según diagnóstico.`,
 },
-campana: {
-  segmentos: [
-    ['Administradoras de edificios', 'Primero', 'Manejan muchos edificios y necesitan a alguien confiable para lo preventivo (graseras, tanques) y para las urgencias. Un cliente puede traer trabajo todo el año.', '20'],
-    ['Inmobiliarias (alquileres)', 'Primero', 'En los alquileres siempre aparece algo: pérdidas, humedades, calefones, arreglos entre un inquilino y otro.', '15'],
-    ['Comercios con cámara grasera', 'Después', 'Restaurantes, rotiserías, parrillas, panaderías y cafeterías con cocina: una grasera tapada en hora pico les cuesta caro.', '15'],
-  ],
-  busquedas: [
-    'administración de edificios Pocitos',
-    'administradora de propiedades Montevideo',
-    'administración de consorcios Punta Carretas',
-    'inmobiliaria Ciudad de la Costa',
-    'inmobiliaria Solymar',
-    'inmobiliaria Malvín',
-    'rotisería Lagomar',
-    'restaurante El Pinar',
-    'parrilla Shangrilá',
-    'panadería Carrasco',
-  ],
-  zonasMvd: 'Pocitos, Punta Carretas, Centro, Cordón, Tres Cruces, Parque Batlle, Buceo, Malvín, Carrasco, Prado',
-  zonasCosta: 'Barra de Carrasco, Parque Carrasco, Shangrilá, San José de Carrasco, Lagomar, Solymar, Lomas de Solymar, El Pinar',
-  guiones: [
-    ['Administradoras · WhatsApp · primer mensaje', `Hola, ¿cómo andás? Soy Fernando Catoira, de A. Servicios Integrales Catoira. Hacemos mantenimiento sanitario y edilicio en Montevideo y Ciudad de la Costa.
+auto: {
+  // Respuesta instantánea y preguntas frecuentes de Instagram y Facebook (Meta Business Suite)
+  instantanea: `¡Hola! Gracias por escribir a A. Servicios Integrales Catoira 👋
+Hacemos sanitaria, construcción y mantenimiento en Montevideo y Ciudad de la Costa.
 
-Te escribo porque trabajamos con administradoras en lo preventivo: limpieza programada de cámaras graseras y tanques de agua, y cobertura sanitaria cuando surge algo.
-
-¿Quién se encarga de coordinar el mantenimiento de los edificios que administran? Me gustaría pasarle una propuesta corta.`],
-    ['Administradoras · Instagram · primer mensaje', `¡Hola! Soy Fernando, de A. Servicios Integrales Catoira 👋 Hacemos mantenimiento sanitario y edilicio para edificios en Montevideo y Ciudad de la Costa: graseras, tanques, fugas y humedades.
-¿A qué WhatsApp o correo les puedo mandar una propuesta corta?`],
-    ['Inmobiliarias · WhatsApp · primer mensaje', `Hola, ¿qué tal? Soy Fernando Catoira, de A. Servicios Integrales Catoira. Trabajamos en sanitaria, reformas y mantenimiento en Montevideo y Ciudad de la Costa.
-
-En los alquileres siempre aparece algo: una pérdida, una humedad, un calefón, o dejar la propiedad en condiciones entre un inquilino y otro. Si les sirve tener a alguien de confianza para eso, me gustaría presentarme.
-
-¿Con quién lo puedo hablar?`],
-    ['Comercios con grasera · WhatsApp o Instagram · primer mensaje', `Hola, ¿cómo va? Soy Fernando, de A. Servicios Integrales Catoira. Hacemos limpieza de cámaras graseras y desobstrucción de cañerías en [zona].
-
-Una grasera que se llena antes de tiempo termina en olores o en un tapón en plena hora pico. Si quieren, coordinamos una limpieza preventiva y les recomendamos cada cuánto hacerla según su cocina.
-
-¿Quién se encarga de eso en el local?`],
-    ['Seguimiento · día 3', `Hola, [nombre]. Te escribo de nuevo por lo del mantenimiento [de los edificios / de la grasera]. Sé que llegan muchos mensajes 🙂
-Si te sirve, te mando la propuesta por acá en tres líneas y lo ves con tiempo. ¿Te parece?`],
-    ['Seguimiento · día 7 (el último)', `Hola, [nombre]. Último mensaje, para no molestarte. Si en algún momento necesitan [una limpieza de grasera / alguien para una urgencia sanitaria / una segunda opinión], guardá este número: Fernando, 098 965 054.
-¡Que andes bien!`],
-    ['Respuesta a "¿cuánto sale?" · empresas', `Depende del edificio [del local]: cuántas unidades, cámaras y tanques hay, y cada cuánto conviene hacerlo. Para pasarte un número serio, y no uno al aire, lo mejor es una visita corta de relevamiento.
-¿Qué día te queda cómodo, esta semana o la próxima?`],
-    ['Respuesta a "¿cuánto sale?" · particulares', `Para darte un número serio necesitamos entender qué está pasando: no queremos pasarte un precio al aire que después cambie.
-¿En qué zona estás? Si podés, mandanos una foto o un video. Con eso te decimos si podemos cotizar directo o si conviene una visita diagnóstica, y coordinamos por teléfono.`],
-    ['Pedido de recomendaciones · a conocidos y clientes', `¡Hola, [nombre]! Te cuento que estoy con A. Servicios Integrales Catoira: sanitaria, reformas y mantenimiento en Montevideo y Ciudad de la Costa.
-Te pido una mano: si sabés de alguien con una pérdida, una humedad, un baño para reformar, o que administre edificios, ¿le pasarías mi contacto? Fernando, 098 965 054. [Beneficio por recomendación, si lo definís.]
-Y si lo necesitás vos, avisame. ¡Gracias!`],
-    ['Pedido de reseña en Google · después de cada trabajo', `Hola, [nombre]. ¡Gracias por confiar en nosotros! Si quedaste conforme con el trabajo, ¿nos dejarías una reseña en Google? Nos ayuda mucho a que otros nos encuentren. Es acá: [enlace de reseñas]
-¡Gracias de nuevo!`],
+Contanos qué necesitás, en qué zona estás y, si podés, mandanos una foto. Si preferís, escribinos por WhatsApp al 098 965 054.`,
+  faq: [
+    ['¿Qué servicios hacen?', 'Sanitaria (graseras, tanques, cañerías, fugas y calefones), construcción y reformas (baños, revestimientos, pintura y azoteas) y mantenimiento preventivo para edificios. Contanos qué necesitás.'],
+    ['¿En qué zonas trabajan?', 'En Montevideo y Ciudad de la Costa. Decinos tu barrio y lo coordinamos.'],
+    ['¿Cuánto sale?', 'Depende de cada caso: preferimos no pasarte un número al aire. Contanos qué pasa, en qué zona estás y, si podés, mandanos una foto.'],
+    ['Quiero coordinar una visita', '¡Buenísimo! Dejanos qué necesitás, tu zona y un horario que te quede cómodo, y te confirmamos.'],
   ],
 },
 };
