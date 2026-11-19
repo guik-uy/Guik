@@ -1,0 +1,39 @@
+# Mensaje para Fernando (chat de Workana)
+
+Para copiar y pegar en el chat de Workana, con el zip adjunto (`entrega/kit-catoira.zip`).
+
+---
+
+Hola Fernando, ¿cómo andás? Te paso el kit de presencia digital de A. Servicios Integrales Catoira. Está todo en el zip adjunto.
+
+Qué incluye:
+- PDF con la guía paso a paso (empezá por ahí): pasar tu WhatsApp a Business sin perder chats, cuenta profesional de Instagram, página de Facebook y Perfil de Empresa en Google para aparecer en Maps. Cada paso indica dónde tocar.
+- Foto de perfil nueva: el símbolo de tu logo redibujado para que se vea nítido en el círculo chico.
+- Instagram: 4 portadas de destacadas, 12 historias y 3 publicaciones con sus textos.
+- Portadas para Facebook y WhatsApp Business, más 10 imágenes para el catálogo de servicios.
+- Textos para copiar y pegar: bio, descripción, mensaje de bienvenida y de ausencia, 8 respuestas rápidas, etiquetas y catálogo.
+- La campaña de mensajes directos: a quién escribirle primero (administradoras, inmobiliarias y comercios con grasera), dónde encontrarlos, los guiones con los seguimientos y una planilla de Excel que te dice a quién toca escribirle cada día y cuántas consultas, visitas y cierres van saliendo.
+- Plan de contenido para los próximos 30 días, con guiones para los reels.
+- Y un regalo: un reel de presentación para publicar el primer día 🎁
+
+Nada lleva precios ni el valor de la visita, como marca tu brief. Tampoco inventé trabajos, reseñas ni garantías.
+
+Para cerrar algunos detalles necesito que me confirmes:
+1. Horario de atención (para WhatsApp, Google y Facebook).
+2. Fotos reales de 2 o 3 trabajos, con el antes y el después, para la destacada "Trabajos" y los primeros reels.
+3. Si tenés el archivo original del logo, mandámelo para compararlo con el que redibujé.
+4. En dos flyers dice "Garantía por escrito" y "Calidad garantizada". ¿Das garantía? ¿En qué condiciones? Hasta saberlo, no la puse en ninguna pieza.
+5. Si querés ofrecer algún beneficio a quien te recomiende (el mensaje tiene el espacio).
+6. Presupuesto para anuncios en Meta: si arrancamos ahora o en una segunda etapa, y con cuánto por día. Se paga directo a Meta, con tu tarjeta.
+7. Las condiciones de la comisión por cierre: porcentaje, sobre qué trabajos y cómo lo registramos (la planilla ya tiene la columna).
+
+Cuando termines de cargar todo, mandame una captura de cada perfil y lo reviso. En dos semanas miramos juntos los números de la planilla y ajustamos lo que haga falta.
+
+Importante: nunca me pases contraseñas ni códigos de verificación. Todo lo cargás vos siguiendo la guía, y cualquier duda me escribís por acá.
+
+¡Un abrazo!
+Guillermo · Aicia
+
+---
+
+Cuando Fernando confirme que quedó conforme, se le puede sumar: "Si te sirvió, una calificación acá en Workana me ayuda muchísimo. ¡Gracias!"

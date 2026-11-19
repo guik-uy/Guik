@@ -40,6 +40,7 @@
     - Símbolo en vectores: tres pelotas de radio 20 que se encastran como en la referencia (la costura de cada una es el borde de la de al lado, separación 26,6) con un corte de 3,2; la del medio va adelante y en lima (#D8F84A). Las de los costados en blanco (fondo oscuro) o azul noche #050A14 (fondo claro).
     - "Pádel Club" son los contornos reales de Geist 600 (`glyphs-geist-600.json`, sacado con `glyphs.py` y fonttools), con interletrado -0,035em y kerning medidos en el navegador; los SVG no dependen de la fuente. Mayúsculas al 62 % de la altura del símbolo.
     - Versiones: horizontal y vertical (oscuro y claro), símbolo solo (oscuro y claro), un color blanco y un color azul noche, foto de perfil 1080×1080 y favicon 512.
+- `clientes/catoira/` es el **primer cliente de Workana** (A. Servicios Integrales Catoira, sanitaria y reformas): kit de presencia digital con la identidad de SU logo (verde azulado y azul petróleo, Montserrat + Inter, "plano técnico"), no la de Aicia. Todo el detalle y los comandos en `clientes/catoira/CONTEXTO.md`.
 - Rama de trabajo: `claude/eloquent-volta-h5jy6a`.
 
 ## Historias de Instagram (Aicia)

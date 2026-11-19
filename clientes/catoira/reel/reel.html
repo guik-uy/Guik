@@ -1,0 +1,185 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Catoira · reel de presentación</title>
+<!-- Reel de presentación 1080×1920 a 60 fps. renderAt(t) deja la escena en el segundo t; render-timeline.mjs la graba.
+     Demo: node render-timeline.mjs reel.html --demo --fps 30 · Final: node render-timeline.mjs reel.html --fresh --fps 60 --sub 4 --poster 7.4 --crf 14
+     Zona segura de reels: nada importante debajo de y 1540 ni pegado al borde derecho en la mitad de abajo (íconos de IG). -->
+<style>
+@font-face{font-family:Montserrat;src:url(fonts/montserrat-latin-wght-normal.woff2) format('woff2');font-weight:100 900}
+@font-face{font-family:Inter;src:url(fonts/inter-latin-wght-normal.woff2) format('woff2');font-weight:100 900}
+:root{--agua:#5FD0C1;--hueso:#EEF3F1;--gris:#93A9B0;--suave:#C9D6D6}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#04141C}
+.story{position:relative;width:1080px;height:1920px;overflow:hidden;background:#04141C;color:var(--hueso);font-family:Inter,sans-serif}
+#bg{position:absolute;inset:0}
+#grid{position:absolute;inset:-240px;background-image:
+ linear-gradient(rgba(150,220,210,.11) 1px,transparent 1px),linear-gradient(90deg,rgba(150,220,210,.11) 1px,transparent 1px),
+ linear-gradient(rgba(150,220,210,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(150,220,210,.045) 1px,transparent 1px);
+ background-size:120px 120px,120px 120px,24px 24px,24px 24px}
+#gridmask{position:absolute;inset:0;overflow:hidden}
+.abs{position:absolute}
+.h{font-family:Montserrat;font-weight:800;letter-spacing:-.035em;line-height:1.02}
+.h em{font-style:normal;color:var(--agua)}
+.w{display:inline-block;will-change:transform,opacity,filter}
+.lede{font:400 40px/1.4 Inter;color:var(--suave)}
+.lede b{color:var(--hueso);font-weight:600}
+.glass{background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.025));border:1.5px solid rgba(150,220,210,.18);border-radius:30px;box-shadow:0 30px 60px -30px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.06)}
+.ic{fill:none;stroke:var(--agua);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.card{display:grid;grid-template-columns:78px 1fr;gap:30px;align-items:center;padding:34px 38px;width:860px}
+.card svg{width:78px;height:78px}
+.card b{display:block;font:700 44px/1.1 Montserrat;letter-spacing:-.02em}
+.card span{display:block;font:400 30px/1.3 Inter;color:var(--gris);margin-top:8px}
+.pill{display:inline-flex;align-items:center;gap:18px;background:linear-gradient(180deg,#77DCCD,#4FC2B3);color:#04141C;font:700 40px/1 Inter;padding:32px 50px;border-radius:999px;box-shadow:0 24px 60px -18px rgba(95,208,193,.6),inset 0 1px 0 rgba(255,255,255,.5)}
+.pill svg{width:44px;height:44px;stroke:#04141C;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.lab{font:700 26px/1 Inter;letter-spacing:.16em;text-transform:uppercase;color:var(--agua)}
+.ill text{font-family:Inter}
+</style></head><body>
+<div class="story" data-file="reel-presentacion-catoira.png" data-video="reel-presentacion-catoira.mp4">
+  <div id="bg"></div>
+  <div id="gridmask"><div id="grid"></div></div>
+
+  <div id="cam" class="abs" style="inset:0">
+  <!-- 1 · gancho -->
+  <div id="t1" class="abs h" style="left:80px;top:300px;width:920px;font-size:104px" data-t="¿Pintaste sobre|la humedad y|*volvió a salir?*"></div>
+  <!-- 2 · pintar no es solucionar -->
+  <div id="t2" class="abs h" style="left:80px;top:300px;width:920px;font-size:104px" data-t="Pintar no es|*solucionar.*"></div>
+  <div id="l2" class="abs lede" style="left:80px;top:560px;width:860px">El agua sigue entrando, <b>muchas veces lejos de la mancha.</b></div>
+  <svg id="ill1" class="abs ill" viewBox="0 0 920 470" style="left:80px;top:840px;width:880px" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <g stroke="#93A9B0" stroke-width="3">
+      <path id="slabT" pathLength="1" d="M40 100H880"/><path id="slabB" pathLength="1" d="M40 150H880"/>
+      <path id="wallL" pathLength="1" d="M160 150V460"/><path id="wallR" pathLength="1" d="M470 150V460"/>
+    </g>
+    <path id="crack" pathLength="1" d="M312 82l8 18-6 14 8 18-4 18" stroke="#5FD0C1" stroke-width="3.5"/>
+    <path id="stain" d="M210 300c22-24 76-32 112-15s48 54 28 82-76 36-108 19-54-62-32-86z" fill="rgba(147,169,176,.16)" stroke="#93A9B0" stroke-width="2" stroke-dasharray="4 6"/>
+    <rect id="paint" x="196" y="270" width="190" height="140" rx="14" fill="rgba(201,214,214,.2)" stroke="rgba(201,214,214,.55)" stroke-width="2"/>
+    <path id="water" pathLength="1" d="M318 155c0 45-34 56-44 100s10 50 4 70" stroke="#5FD0C1" stroke-width="3.5" stroke-dasharray="0.03 0.035"/>
+    <circle id="orig1" cx="316" cy="116" r="44" stroke="#5FD0C1" stroke-width="3" stroke-dasharray="9 9"/>
+    <g id="lab1"><path d="M356 92l60-44h130" stroke="#5FD0C1" stroke-width="2.5"/>
+      <text x="556" y="40" font-weight="700" font-size="25" letter-spacing="3" fill="#5FD0C1" stroke="none">ORIGEN</text>
+      <text x="556" y="82" font-weight="500" font-size="24" fill="#C9D6D6" stroke="none">junta de la azotea</text></g>
+    <g id="lab2"><path d="M368 345h170" stroke="#93A9B0" stroke-width="2"/>
+      <text x="556" y="338" font-weight="600" font-size="25" letter-spacing="3" fill="#93A9B0" stroke="none">LA MANCHA</text>
+      <text x="556" y="380" font-weight="500" font-size="24" fill="#93A9B0" stroke="none">vuelve a salir</text></g>
+  </svg>
+
+  <!-- 3 · no ponemos parches -->
+  <div id="t3" class="abs h" style="left:80px;top:300px;width:920px;font-size:118px" data-t="No ponemos|*parches.*"></div>
+  <div id="l3" class="abs lede" style="left:80px;top:580px;width:860px">Buscamos el origen de la falla y la resolvemos <b>de raíz.</b></div>
+  <svg id="ill2" class="abs ill" viewBox="0 0 960 470" style="left:60px;top:880px;width:880px" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <g stroke="#93A9B0" stroke-width="3.2"><path id="p1" pathLength="1" d="M20 190H640a60 60 0 0 1 60 60V470"/><path id="p2" pathLength="1" d="M20 250H620a20 20 0 0 1 20 20V470"/></g>
+    <g id="joints" stroke="#93A9B0" stroke-width="3.2"><path d="M140 180v80M300 180v80"/></g>
+    <g id="parche" stroke="#93A9B0" stroke-width="3.2"><rect x="390" y="172" width="70" height="96" rx="8" fill="#0B2733"/><path d="M400 190l50 20M400 215l50 20M400 240l50 20" opacity=".6"/></g>
+    <path id="drop" d="M425 292c-7 10-10 16-10 22a10 10 0 0 0 20 0c0-6-3-12-10-22Z" fill="#93A9B0" opacity=".7"/>
+    <g id="plab"><path d="M425 160V110h-60" stroke="#93A9B0" stroke-width="2"/><text x="236" y="118" font-weight="600" font-size="26" letter-spacing="3" fill="#93A9B0" stroke="none">PARCHE</text></g>
+    <path id="strike" pathLength="1" d="M230 109h128" stroke="#5FD0C1" stroke-width="4"/>
+    <circle id="orig2" cx="668" cy="222" r="66" stroke="#5FD0C1" stroke-width="3.2" stroke-dasharray="10 10"/><circle id="dot2" cx="668" cy="222" r="8" fill="#5FD0C1"/>
+    <g id="olab"><path d="M720 180l70-70h140" stroke="#5FD0C1" stroke-width="2.6"/>
+      <text x="800" y="96" font-weight="700" font-size="26" letter-spacing="3" fill="#5FD0C1" stroke="none">ORIGEN</text>
+      <text x="800" y="146" font-weight="500" font-size="25" fill="#C9D6D6" stroke="none">la falla real</text></g>
+  </svg>
+
+  <!-- 4 · servicios -->
+  <div id="t4" class="abs h" style="left:80px;top:300px;width:920px;font-size:100px" data-t="Sanitaria,|construcción y|*mantenimiento.*"></div>
+  <div id="cards" class="abs" style="left:80px;top:780px;display:flex;flex-direction:column;gap:22px">
+    <div class="card glass"><svg class="ic" viewBox="0 0 24 24"><path d="M12 3.4c-3.2 4.2-5.6 7.3-5.6 10.3a5.6 5.6 0 0 0 11.2 0c0-3-2.4-6.1-5.6-10.3z"/><path d="M9.4 14.2a2.7 2.7 0 0 0 2.4 2.6"/></svg><div><b>Sanitaria</b><span>Graseras, tanques, cañerías y fugas</span></div></div>
+    <div class="card glass"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1.4"/><path d="M3 9.7h18M3 14.3h18M9 5v4.7M15 5v4.7M6 9.7v4.6M12 9.7v4.6M18 9.7v4.6M9 14.3V19M15 14.3V19"/></svg><div><b>Construcción y reformas</b><span>Baños, revestimientos, pintura, azoteas</span></div></div>
+    <div class="card glass"><svg class="ic" viewBox="0 0 24 24"><path d="M12 3.2 19 6v5.2c0 4.4-2.9 7.9-7 9.6-4.1-1.7-7-5.2-7-9.6V6z"/><path d="m8.8 12 2.2 2.2 4.2-4.2"/></svg><div><b>Mantenimiento preventivo</b><span>Para casas, comercios y edificios</span></div></div>
+  </div>
+
+  <!-- 5 · cierre -->
+  <svg id="sym" class="abs" viewBox="20 -10 992 910" style="left:300px;top:330px;width:480px"></svg>
+  <div id="nm" class="abs" style="left:80px;right:80px;top:850px;text-align:center"><div class="h" style="font-size:62px">A. Servicios Integrales<br><em>Catoira</em></div></div>
+  <div id="zn" class="abs lab" style="left:0;right:0;top:1052px;text-align:center;color:var(--gris)">Montevideo · Ciudad de la Costa</div>
+  <div id="cta" class="abs" style="left:0;right:0;top:1150px;text-align:center"><span class="pill"><svg viewBox="0 0 24 24"><path d="M8 17.2H6.6A2.6 2.6 0 0 1 4 14.6V6.8a2.6 2.6 0 0 1 2.6-2.6h10.8A2.6 2.6 0 0 1 20 6.8v7.8a2.6 2.6 0 0 1-2.6 2.6H12.4L8 20.6z"/></svg>Escribinos · 098 965 054</span></div>
+  <div id="pr" class="abs" style="left:0;right:0;top:1330px;text-align:center;font:500 30px Inter;color:var(--gris)">Presupuesto a medida, según diagnóstico.</div>
+</div>
+  </div>
+<script>
+const Q=new URLSearchParams(location.search);
+const T_END=18.4; window.DUR=T_END;
+// desenfoque de movimiento real en los cambios de escena y en la entrada de las tarjetas
+window.MBLUR=[[2.95,3.55],[6.15,6.85],[9.55,10.3],[10.3,11.4],[13.45,14.3]];
+const C=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)), P=(t,a,b)=>C((t-a)/(b-a));
+const io=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2, out=x=>1-Math.pow(1-x,3), outB=x=>{const c=1.4;return 1+(c+1)*Math.pow(x-1,3)+c*Math.pow(x-1,2)};
+const $=id=>document.getElementById(id);
+// titulares palabra por palabra (líneas con "|", la frase de color entre *)
+const W={};
+document.querySelectorAll('[data-t]').forEach(el=>{
+  let em=false; const words=[];
+  el.innerHTML=el.dataset.t.split('|').map(line=>line.split(' ').map(w=>{
+    let open=w.startsWith('*'), close=w.endsWith('*'); w=w.replace(/\*/g,''); if(open)em=true;
+    const s=`<span class="w"${em?' style="color:var(--agua)"':''}>${w}</span>`; if(close)em=false; return s;
+  }).join(' ')).join('<br>');
+  W[el.id]=[...el.querySelectorAll('.w')];
+});
+const words=(id,t,tin,tout)=>{ W[id].forEach((w,i)=>{
+  const p=out(P(t,tin+i*.07,tin+i*.07+.6)), q=io(P(t,tout+i*.035,tout+i*.035+.42));
+  w.style.opacity=p*(1-q); w.style.transform=`translateY(${(1-p)*70-q*50}px)`; w.style.filter=`blur(${(1-p)*12+q*10}px)`;
+});};
+const fade=(el,t,tin,tout,dy=40,d=.6)=>{const p=out(P(t,tin,tin+d)),q=io(P(t,tout,tout+.45));el.style.opacity=p*(1-q);el.style.transform=`translateY(${(1-p)*dy-q*dy*.7}px)`;el.style.filter=`blur(${(1-p)*8+q*8}px)`;};
+const draw=(el,p)=>{el.style.strokeDasharray=el.style.strokeDasharray||'';el.setAttribute('stroke-dasharray',`${p} 1`);};
+const vis=(el,o)=>el.style.opacity=o;
+
+window.renderAt=async function(t){
+  // fondo: la luz recorre la pieza y la grilla deriva lento (cámara siempre en movimiento)
+  const lx=60+12*Math.sin(t*.35)+(t>13.6?(-10)*io(P(t,13.6,15)):0), ly=24+6*Math.cos(t*.3)+(t>13.6?6*io(P(t,13.6,15)):0);
+  $('bg').style.background=`radial-gradient(64% 42% at ${lx}% ${ly}%,rgba(19,133,127,.48),rgba(19,133,127,.16) 46%,rgba(19,133,127,0) 76%),radial-gradient(75% 52% at ${14-4*Math.sin(t*.2)}% 104%,rgba(13,52,92,.95),rgba(13,52,92,.35) 50%,rgba(13,52,92,0) 78%),linear-gradient(180deg,#05202B,#04141C 58%,#030F15)`;
+  $('grid').style.transform=`translate(${-t*9}px,${-t*14}px)`;
+  $('gridmask').style.webkitMaskImage=`radial-gradient(78% 60% at ${lx}% ${ly}%,#000 0%,rgba(0,0,0,.4) 55%,transparent 88%)`;
+  $('gridmask').style.opacity=out(P(t,0,1.2));
+
+  // 1 · gancho (0–3.2)
+  words('t1',t,.15,2.95);
+  // ilustración de la humedad (0.4–6.5)
+  const il=$('ill1'); const ilIn=out(P(t,.4,1.2)), ilOut=io(P(t,6.15,6.75));
+  il.style.opacity=ilIn*(1-ilOut); il.style.transform=`translate(${-ilOut*160}px,${(1-ilIn)*60}px) scale(${1+.02*Math.sin(t*.6)})`; il.style.filter=`blur(${ilOut*10}px)`;
+  ['slabT','slabB'].forEach((id,i)=>draw($(id),io(P(t,.5+i*.12,1.5+i*.12))));
+  ['wallL','wallR'].forEach((id,i)=>draw($(id),io(P(t,.9+i*.12,1.8+i*.12))));
+  // la mancha aparece, se pinta encima (3.3–4.1) y vuelve a salir (4.4–5.0)
+  const st=$('stain'), s1=out(P(t,1.6,2.4)), paintOn=io(P(t,3.3,3.9)), paintOff=P(t,4.3,5.2);
+  st.style.opacity=s1*(1-.85*paintOn+.85*io(paintOff)); st.style.transformOrigin='280px 345px'; st.style.transformBox='view-box';
+  st.style.transform=`scale(${.6+.4*s1+.12*io(paintOff)})`;
+  const pr=$('paint'); pr.style.opacity=paintOn*(1-io(P(t,4.1,4.8))); pr.style.transformBox='view-box'; pr.style.transformOrigin='196px 340px'; pr.style.transform=`scaleX(${paintOn})`;
+  draw($('crack'),io(P(t,4.9,5.4)));
+  $('water').setAttribute('stroke-dasharray','0.03 0.035'); $('water').style.strokeDashoffset=-t*.06; vis($('water'),out(P(t,5.0,5.5)));
+  $('water').style.clipPath=`inset(0 0 ${100*(1-io(P(t,5.0,5.8)))}% 0)`;
+  const o1=$('orig1'); o1.style.transformBox='fill-box'; o1.style.transformOrigin='center'; const op=out(P(t,5.2,5.7));
+  o1.style.opacity=op; o1.style.transform=`scale(${.4+.6*outB(P(t,5.2,5.8))}) rotate(${t*20}deg)`;
+  vis($('lab1'),out(P(t,5.4,5.9))); vis($('lab2'),out(P(t,4.6,5.1)));
+  // 2 · pintar no es solucionar (3.2–6.3)
+  words('t2',t,3.15,6.1); fade($('l2'),t,3.7,6.05);
+
+  // 3 · no ponemos parches (6.4–9.7)
+  words('t3',t,6.45,9.55); fade($('l3'),t,7.0,9.5);
+  const i2=$('ill2'), i2in=out(P(t,6.4,7.2)), i2out=io(P(t,9.5,10.1));
+  i2.style.opacity=i2in*(1-i2out); i2.style.transform=`translate(${(1-i2in)*160-i2out*160}px,0) scale(${1+.02*Math.sin(t*.6)})`; i2.style.filter=`blur(${(1-i2in)*8+i2out*10}px)`;
+  draw($('p1'),io(P(t,6.5,7.6))); draw($('p2'),io(P(t,6.6,7.7))); vis($('joints'),out(P(t,7.2,7.6)));
+  const pa=$('parche'); pa.style.transformBox='fill-box'; pa.style.transformOrigin='center'; const pp=P(t,7.5,8.0); pa.style.opacity=C(pp*3); pa.style.transform=`scale(${.5+.5*outB(pp)})`;
+  const dr=$('drop'); dr.style.opacity=.7*out(P(t,7.8,8.1))*(1-P(t,8.9,9.2)); dr.style.transform=`translateY(${io(P(t,8.0,9.1))*60}px)`;
+  vis($('plab'),out(P(t,7.9,8.3))); draw($('strike'),io(P(t,8.35,8.75)));
+  const o2=$('orig2'); o2.style.transformBox='fill-box'; o2.style.transformOrigin='center';
+  o2.style.opacity=out(P(t,8.4,8.8)); o2.style.transform=`scale(${.4+.6*outB(P(t,8.4,9.0))}) rotate(${t*20}deg)`;
+  vis($('dot2'),out(P(t,8.5,8.8))); vis($('olab'),out(P(t,8.7,9.1)));
+
+  // 4 · servicios (9.7–13.6)
+  words('t4',t,9.75,13.45);
+  [...$('cards').children].forEach((c,i)=>{const a=10.45+i*.28,p=out(P(t,a,a+.7)),q=io(P(t,13.4+i*.06,13.85+i*.06));
+    c.style.opacity=p*(1-q); c.style.transform=`translate(${(1-p)*-90+q*-60}px,${(1-p)*30}px) rotateY(${(1-p)*-14}deg)`; c.style.filter=`blur(${(1-p)*8+q*8}px)`;});
+
+  // 5 · cierre (13.7–18.4): el símbolo se arma pieza por pieza y la cámara sigue acercándose
+  const sp=[...$('sym').querySelectorAll('path')];
+  sp.forEach((p,i)=>{const a=13.75+i*.12,k=out(P(t,a,a+.75));p.style.opacity=k;p.style.transform=`translate(${(1-k)*[-60,40,0,-40,80,0][i]}px,${(1-k)*[60,40,-30,30,-50,-70][i]}px)`;});
+  const push=1+.035*io(P(t,13.7,T_END));
+  $('sym').style.transform=`scale(${push})`; $('sym').style.filter=`drop-shadow(0 30px 60px rgba(0,0,0,.45)) drop-shadow(0 0 ${40*out(P(t,14.6,15.6))}px rgba(95,208,193,.35))`;
+  fade($('nm'),t,14.7,99,40,.7); fade($('zn'),t,15.1,99,30); fade($('cta'),t,15.5,99,40,.7); fade($('pr'),t,15.9,99,20);
+  $('cam').style.transform=`translateY(${150-20*io(P(t,0,T_END))}px)`;
+  $('cta').firstElementChild.style.transform=`scale(${1+.015*Math.sin((t-15.5)*3)*P(t,16.2,16.6)})`;
+};
+
+fetch('simbolo-limpio.json').then(r=>r.json()).then(async j=>{
+  // el símbolo, separado en sus 6 piezas para que se arme en el cierre
+  const parts=j.d.split(/(?<=Z)\s*/).filter(Boolean);
+  $('sym').innerHTML=`<defs><linearGradient id="sg" gradientUnits="userSpaceOnUse" x1="80" y1="846" x2="940" y2="70"><stop offset="0" stop-color="#3E8FE0"/><stop offset=".48" stop-color="#2FB3A5"/><stop offset="1" stop-color="#8FE8DB"/></linearGradient></defs>`+parts.map(d=>`<path fill="url(#sg)" d="${d}"/>`).join('');
+  await document.fonts.ready;
+  await window.renderAt(+(Q.get('t')||0));
+  window.__ready=true;
+}).catch(e=>window.__error=String(e));
+</script></body></html>
