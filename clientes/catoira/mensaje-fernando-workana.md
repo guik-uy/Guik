@@ -1,13 +1,13 @@
 # Mensaje para Fernando (chat de Workana)
 
-Para copiar y pegar en el chat de Workana, con el zip adjunto (`entrega/kit-catoira.zip`).
+Para copiar y pegar en el chat de Workana. Adjuntos: `entrega/kit-catoira-sin-video.zip` y, aparte, el reel (`reel/reel-presentacion-catoira.mp4`), porque todo junto pesa 44 MB. Si Workana acepta el zip completo (`entrega/kit-catoira.zip`), mandá solo ese y sacá la frase del reel aparte.
 
 ---
 
-Hola Fernando, ¿cómo andás? Te paso el kit de presencia digital de A. Servicios Integrales Catoira. Está todo en el zip adjunto.
+Hola Fernando, ¿cómo andás? Te paso el kit de presencia digital de A. Servicios Integrales Catoira. Está todo en el zip adjunto, y el reel va en un archivo aparte porque pesa más.
 
 Qué incluye:
-- PDF con la guía paso a paso (empezá por ahí): pasar tu WhatsApp común a Business sin perder chats, cuenta profesional de Instagram, página de Facebook y Perfil de Empresa en Google para aparecer en Maps. Cada paso indica dónde tocar.
+- PDF con la guía paso a paso (empezá por ahí, es el archivo "0. Empezá acá"): pasar tu WhatsApp común a Business sin perder chats, cuenta profesional de Instagram, página de Facebook y Perfil de Empresa en Google para aparecer en Maps. Cada paso indica dónde tocar.
 - Foto de perfil nueva: el símbolo de tu logo redibujado para que se vea nítido en el círculo chico.
 - Instagram: 4 portadas de destacadas, 11 historias (separadas por destacada) y 3 publicaciones con su descripción.
 - Portadas para Facebook y WhatsApp Business, más 10 imágenes para el catálogo de servicios.
