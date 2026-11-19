@@ -20,20 +20,22 @@ Nada lleva precios ni el valor de la visita, como marca tu brief. Tampoco invent
 
 Armé todo con la información que tenía: si hay algún servicio que no hacés o algo que quieras cambiar, avisame y lo ajusto.
 
-Para cerrar algunos detalles necesito que me confirmes:
-1. Horario de atención (para WhatsApp, Google y Facebook).
-2. Fotos reales de 2 o 3 trabajos, con el antes y el después, para la destacada "Trabajos" y los primeros reels.
-3. Si tenés el archivo original del logo, mandámelo para compararlo con el que redibujé.
-4. En dos flyers dice "Garantía por escrito" y "Calidad garantizada". ¿Das garantía? ¿En qué condiciones? Hasta saberlo, no la puse en ninguna pieza.
-5. Presupuesto para anuncios en Meta: si arrancamos ahora o en una segunda etapa, y con cuánto por día. Se paga directo a Meta, con tu tarjeta.
-6. Las condiciones de la comisión por cierre: porcentaje, sobre qué trabajos y cómo lo registramos.
-
-Cuando termines de cargar todo, mandame una captura de cada perfil y lo reviso. En dos semanas revisamos juntos cómo vienen las consultas y ajustamos lo que haga falta.
-
-Importante: nunca me pases contraseñas ni códigos de verificación. Todo lo cargás vos siguiendo la guía, y cualquier duda me escribís por acá.
-
 ¡Un abrazo!
 Guillermo García
+
+---
+
+Guille (19/11) sacó las confirmaciones (horario, fotos, logo, garantía, anuncios, comisión): se hablan después, por WhatsApp o en la llamada.
+
+Mensaje para WhatsApp (avisarle que se entregó por Workana):
+
+Hola Fernando, ¿cómo andás? Te aviso que ya te entregué el proyecto por Workana 🙌
+
+Está todo en el zip: la guía paso a paso (empezá por la carpeta "0. Empezá acá"), las imágenes para cada red y un reel de regalo.
+
+Si algo no te convence o te gustaría cambiar cualquier cosa, escribime sin problema y lo charlamos.
+
+¡Gracias por la confianza! Quedo a las órdenes por lo que necesites.
 
 ---
 
