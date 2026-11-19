@@ -15,7 +15,7 @@ Cómo usar este archivo:
 1. Buscá la red que estás cargando (WhatsApp, Instagram, Facebook o Google).
 2. Copiá solo lo que está entre "COPIÁ DESDE ACÁ" y "HASTA ACÁ".
 3. Lo que está [entre corchetes] lo completás vos.
-4. Los pasos con fotos están en la guía PDF (0-EMPEZA-ACA).`;
+4. Los pasos con fotos están en la guía PDF ("0. Empezá acá").`;
 
 m += red(1, 'WHATSAPP BUSINESS', 'Ajustes → Herramientas para la empresa → Perfil de empresa');
 m += copiar('Nombre', T.wa.nombre);
@@ -27,7 +27,7 @@ m += copiar('Correo', T.wa.email);
 m += copiar('Sitio web', T.wa.web);
 m += `\n\n--- Mensaje de bienvenida ---\nDónde se carga: Herramientas para la empresa → Mensaje de bienvenida → activalo → destinatarios: Todos\n`;
 m += copiar('Mensaje de bienvenida', T.wa.bienvenida);
-m += `\n\n--- Catálogo (10 servicios, sin precio) ---\nDónde se carga: Herramientas para la empresa → Catálogo → Agregar artículo.\nPara cada uno: la imagen de 3-whatsapp/catalogo (mismo número), el nombre y la descripción. El precio, vacío.\nSi algún servicio no lo hacés, salteálo.\n`;
+m += `\n\n--- Catálogo (10 servicios, sin precio) ---\nDónde se carga: Herramientas para la empresa → Catálogo → Agregar artículo.\nPara cada uno: la imagen de la carpeta 3. WhatsApp › Catálogo (mismo número y nombre), el nombre y la descripción. El precio, vacío.\nSi algún servicio no lo hacés, salteálo.\n`;
 T.wa.catalogo.forEach(([n, d], i) => { m += copiar(`Servicio ${i + 1} · nombre`, n) + copiar(`Servicio ${i + 1} · descripción`, d); });
 
 m += red(2, 'INSTAGRAM', 'En tu perfil → Editar perfil');
@@ -37,7 +37,7 @@ m += guia('Categoría', T.ig.categoria);
 m += copiar('Presentación (bio)', T.ig.bio);
 m += copiar('Enlace', T.ig.enlace.replace(/ \(.*\)$/, ''));
 m += guia('Botones de contacto', T.ig.botones);
-m += `\n\n--- Descripción de las 3 publicaciones ---\nSe pega al subir cada imagen de 2-instagram/publicaciones, en el espacio para escribir la descripción.\nSubilas en este orden: primero la 3, después la 2 y al final la 1.\n`;
+m += `\n\n--- Descripción de las 3 publicaciones ---\nSe pega al subir cada imagen de la carpeta 2. Instagram › Publicaciones, en el espacio para escribir la descripción.\nSubilas en este orden: primero la 3, después la 2 y al final la 1.\n`;
 T.ig.posts.forEach(([n, t]) => { m += copiar(`${n} · descripción`, t); });
 
 m += red(3, 'FACEBOOK', 'Página de empresa → Editar');

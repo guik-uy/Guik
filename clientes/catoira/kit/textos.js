@@ -1,4 +1,4 @@
-// Textos del kit (fuente única): los usa kit.html (PDF) y armar-textos.mjs (textos-para-copiar.md).
+// Textos del kit (fuente única): los usa kit.html (PDF) y armar-textos.mjs (textos-para-copiar.txt).
 // Fernando se encarga de responder y de los mensajes para mandar: acá solo van perfiles y el mensaje de bienvenida de WhatsApp.
 // Reglas: sin precios ni valor de la visita, sin inventar trabajos, reseñas, años, garantías ni horarios.
 // [entre corchetes] = lo completa Fernando.

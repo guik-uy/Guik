@@ -6,27 +6,48 @@ from pathlib import Path
 c = Path(__file__).resolve().parent
 P = c / 'piezas'
 R = 'Kit A. Servicios Integrales Catoira/'
+# Nombres legibles para Fernando (con mayúscula, tildes y espacios), los mismos que cita el PDF
 files = {
-    '0-EMPEZA-ACA-guia-y-kit.pdf': c / 'kit' / 'kit-presencia-digital-catoira.pdf',
-    '1-perfil/foto-de-perfil.png': P / 'perfil' / 'catoira-foto-perfil.png',
-    '1-perfil/foto-de-perfil-fondo-claro.png': P / 'perfil' / 'catoira-foto-perfil-fondo-claro.png',
-    '1-perfil/simbolo-degrade.png': c / 'logo' / 'png' / 'simbolo-degrade.png',
-    '1-perfil/simbolo-blanco.png': c / 'logo' / 'png' / 'simbolo-blanco.png',
-    '1-perfil/simbolo-azul-petroleo.png': c / 'logo' / 'png' / 'simbolo-petroleo.png',
-    '3-whatsapp/portada-whatsapp-business.png': P / 'portadas' / 'portada-whatsapp-business.png',
-    '4-facebook/portada-facebook.png': P / 'portadas' / 'portada-facebook.png',
-    'textos-para-copiar.txt': c / 'kit' / 'textos-para-copiar.txt',
-    '5-reel/reel-presentacion.mp4': c / 'reel' / 'reel-presentacion-catoira.mp4',
+    '0. Empezá acá - Guía y kit.pdf': c / 'kit' / 'kit-presencia-digital-catoira.pdf',
+    '1. Perfil/Foto de perfil.png': P / 'perfil' / 'catoira-foto-perfil.png',
+    '1. Perfil/Foto de perfil (fondo claro).png': P / 'perfil' / 'catoira-foto-perfil-fondo-claro.png',
+    '1. Perfil/Logo degradé.png': c / 'logo' / 'png' / 'simbolo-degrade.png',
+    '1. Perfil/Logo blanco.png': c / 'logo' / 'png' / 'simbolo-blanco.png',
+    '1. Perfil/Logo azul petróleo.png': c / 'logo' / 'png' / 'simbolo-petroleo.png',
+    '3. WhatsApp/Portada de WhatsApp Business.png': P / 'portadas' / 'portada-whatsapp-business.png',
+    '4. Facebook/Portada de Facebook.png': P / 'portadas' / 'portada-facebook.png',
+    'Textos para copiar.txt': c / 'kit' / 'textos-para-copiar.txt',
+    '5. Reel/Reel de presentación.mp4': c / 'reel' / 'reel-presentacion-catoira.mp4',
 }
-for f in sorted((P / 'destacadas').glob('*.png')): files[f'2-instagram/destacadas/{f.name}'] = f
-# Historias: una carpeta por destacada. La plantilla de antes y después no va (la completa Guille con fotos reales)
-SUB = {'servicios': '1-servicios', 'trabajos': '2-trabajos', 'como-trabajamos': '3-como-trabajamos', 'contacto': '4-contacto'}
-for f in sorted((P / 'historias').glob('*.png')):
-    if 'plantilla' in f.name: continue
-    k = next(k for k in SUB if f.name.startswith(k))
-    files[f'2-instagram/historias/{SUB[k]}/{f.name}'] = f
-for f in sorted((P / 'publicaciones').glob('*.png')): files[f'2-instagram/publicaciones/{f.name}'] = f
-for f in sorted((P / 'catalogo').glob('*.png')): files[f'3-whatsapp/catalogo/{f.name}'] = f
+H = 'historias'
+NOMBRES = {
+    'destacadas/portada-1-servicios': 'Destacadas/Portada 1 - Servicios',
+    'destacadas/portada-2-trabajos': 'Destacadas/Portada 2 - Trabajos',
+    'destacadas/portada-3-como-trabajamos': 'Destacadas/Portada 3 - Cómo trabajamos',
+    'destacadas/portada-4-contacto': 'Destacadas/Portada 4 - Contacto',
+    # Historias: una carpeta por destacada. La plantilla de antes y después no va (la completa Guille con fotos reales)
+    'historias/servicios-1-portada': 'Historias/1. Servicios/Servicios 1 - Portada',
+    'historias/servicios-2-sanitaria': 'Historias/1. Servicios/Servicios 2 - Sanitaria',
+    'historias/servicios-3-construccion-reformas': 'Historias/1. Servicios/Servicios 3 - Construcción y reformas',
+    'historias/servicios-4-visita-diagnostica': 'Historias/1. Servicios/Servicios 4 - Visita diagnóstica',
+    'historias/servicios-5-administradoras': 'Historias/1. Servicios/Servicios 5 - Administradoras',
+    'historias/trabajos-1-portada': 'Historias/2. Trabajos/Trabajos 1 - Portada',
+    'historias/como-trabajamos-1-resumen': 'Historias/3. Cómo trabajamos/Cómo trabajamos 1 - Resumen',
+    'historias/como-trabajamos-2-contanos': 'Historias/3. Cómo trabajamos/Cómo trabajamos 2 - Contanos',
+    'historias/como-trabajamos-3-diagnostico': 'Historias/3. Cómo trabajamos/Cómo trabajamos 3 - Diagnóstico',
+    'historias/como-trabajamos-4-propuesta': 'Historias/3. Cómo trabajamos/Cómo trabajamos 4 - Propuesta',
+    'historias/contacto-1': 'Historias/4. Contacto/Contacto 1',
+    'publicaciones/publicacion-1-no-ponemos-parches': 'Publicaciones/Publicación 1 - No ponemos parches',
+    'publicaciones/publicacion-2-servicios': 'Publicaciones/Publicación 2 - Servicios',
+    'publicaciones/publicacion-3-humedad-visita-diagnostica': 'Publicaciones/Publicación 3 - Humedad y visita diagnóstica',
+}
+for k, v in NOMBRES.items(): files[f'2. Instagram/{v}.png'] = P / f'{k}.png'
+# Catálogo: mismo nombre que el servicio en el texto del catálogo
+import json, subprocess
+CAT = json.loads(subprocess.check_output(['node', '-e', "console.log(JSON.stringify(require(process.argv[1]).wa.catalogo.map(x=>x[0])))", str(c / 'kit' / 'textos.js')]))
+cat = sorted((P / 'catalogo').glob('*.png'))
+assert len(cat) == len(CAT)
+for i, (f, n) in enumerate(zip(cat, CAT), 1): files[f'3. WhatsApp/Catálogo/{i:02d} - {n}.png'] = f
 assert all(k.endswith(('.png', '.pdf', '.txt', '.mp4')) for k in files), 'todas las imágenes en PNG'
 faltan = [str(v) for v in files.values() if not v.exists()]
 if faltan: raise SystemExit('Faltan:\n  ' + '\n  '.join(faltan))
@@ -38,5 +59,5 @@ print('ok', out, f'{out.stat().st_size / 1e6:.1f} MB', len(files), 'archivos')
 out2 = c / 'entrega' / 'kit-catoira-sin-video.zip'
 with zipfile.ZipFile(out2, 'w', zipfile.ZIP_DEFLATED) as z:
     for k, v in sorted(files.items()):
-        if not k.startswith('5-reel'): z.write(v, R + k)
+        if not k.startswith('5. Reel'): z.write(v, R + k)
 print('ok', out2, f'{out2.stat().st_size / 1e6:.1f} MB')

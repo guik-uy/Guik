@@ -5,7 +5,7 @@ Cómo usar este archivo:
 1. Buscá la red que estás cargando (WhatsApp, Instagram, Facebook o Google).
 2. Copiá solo lo que está entre "COPIÁ DESDE ACÁ" y "HASTA ACÁ".
 3. Lo que está [entre corchetes] lo completás vos.
-4. Los pasos con fotos están en la guía PDF (0-EMPEZA-ACA).
+4. Los pasos con fotos están en la guía PDF ("0. Empezá acá").
 
 ========================================================
 1. WHATSAPP BUSINESS
@@ -57,7 +57,7 @@ Dónde se carga: Herramientas para la empresa → Mensaje de bienvenida → acti
 
 --- Catálogo (10 servicios, sin precio) ---
 Dónde se carga: Herramientas para la empresa → Catálogo → Agregar artículo.
-Para cada uno: la imagen de 3-whatsapp/catalogo (mismo número), el nombre y la descripción. El precio, vacío.
+Para cada uno: la imagen de la carpeta 3. WhatsApp › Catálogo (mismo número y nombre), el nombre y la descripción. El precio, vacío.
 Si algún servicio no lo hacés, salteálo.
 
 ▶ SERVICIO 1 · NOMBRE
@@ -195,7 +195,7 @@ WhatsApp · Llamar · Correo
 
 
 --- Descripción de las 3 publicaciones ---
-Se pega al subir cada imagen de 2-instagram/publicaciones, en el espacio para escribir la descripción.
+Se pega al subir cada imagen de la carpeta 2. Instagram › Publicaciones, en el espacio para escribir la descripción.
 Subilas en este orden: primero la 3, después la 2 y al final la 1.
 
 ▶ PUBLICACIÓN 1 · NO PONEMOS PARCHES · DESCRIPCIÓN
