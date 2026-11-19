@@ -6,9 +6,10 @@ from pathlib import Path
 c = Path(__file__).resolve().parent
 P = c / 'piezas'
 R = 'Kit A. Servicios Integrales Catoira/'
+# Windows muestra siempre las carpetas antes que los archivos: la guía y los textos van en la carpeta "0. Empezá acá", que queda primera.
 # Nombres legibles para Fernando (con mayúscula, tildes y espacios), los mismos que cita el PDF
 files = {
-    '0. Empezá acá - Guía y kit.pdf': c / 'kit' / 'kit-presencia-digital-catoira.pdf',
+    '0. Empezá acá/Guía paso a paso.pdf': c / 'kit' / 'kit-presencia-digital-catoira.pdf',
     '1. Perfil/Foto de perfil.png': P / 'perfil' / 'catoira-foto-perfil.png',
     '1. Perfil/Foto de perfil (fondo claro).png': P / 'perfil' / 'catoira-foto-perfil-fondo-claro.png',
     '1. Perfil/Logo degradé.png': c / 'logo' / 'png' / 'simbolo-degrade.png',
@@ -16,7 +17,7 @@ files = {
     '1. Perfil/Logo azul petróleo.png': c / 'logo' / 'png' / 'simbolo-petroleo.png',
     '3. WhatsApp/Portada de WhatsApp Business.png': P / 'portadas' / 'portada-whatsapp-business.png',
     '4. Facebook/Portada de Facebook.png': P / 'portadas' / 'portada-facebook.png',
-    'Textos para copiar.txt': c / 'kit' / 'textos-para-copiar.txt',
+    '0. Empezá acá/Textos para copiar.txt': c / 'kit' / 'textos-para-copiar.txt',
     '5. Reel/Reel de presentación.mp4': c / 'reel' / 'reel-presentacion-catoira.mp4',
 }
 H = 'historias'

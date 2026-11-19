@@ -7,7 +7,7 @@ Para copiar y pegar en el chat de Workana, con el zip adjunto (`entrega/kit-cato
 Hola Fernando, ¿cómo andás? Te paso el kit de presencia digital de A. Servicios Integrales Catoira. Está todo en el zip adjunto.
 
 Qué incluye:
-- PDF con la guía paso a paso (empezá por ahí, es el archivo "0. Empezá acá"): pasar tu WhatsApp común a Business sin perder chats, cuenta profesional de Instagram, página de Facebook y Perfil de Empresa en Google para aparecer en Maps. Cada paso indica dónde tocar.
+- PDF con la guía paso a paso (empezá por ahí: está en la carpeta "0. Empezá acá"): pasar tu WhatsApp común a Business sin perder chats, cuenta profesional de Instagram, página de Facebook y Perfil de Empresa en Google para aparecer en Maps. Cada paso indica dónde tocar.
 - Foto de perfil nueva: el símbolo de tu logo redibujado para que se vea nítido en el círculo chico.
 - Instagram: 4 portadas de destacadas, 11 historias (separadas por destacada) y 3 publicaciones con su descripción.
 - Portadas para Facebook y WhatsApp Business, más 10 imágenes para el catálogo de servicios.

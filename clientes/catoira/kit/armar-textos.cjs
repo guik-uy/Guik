@@ -15,7 +15,7 @@ Cómo usar este archivo:
 1. Buscá la red que estás cargando (WhatsApp, Instagram, Facebook o Google).
 2. Copiá solo lo que está entre "COPIÁ DESDE ACÁ" y "HASTA ACÁ".
 3. Lo que está [entre corchetes] lo completás vos.
-4. Los pasos con fotos están en la guía PDF ("0. Empezá acá").`;
+4. Los pasos con fotos están en la guía PDF ("Guía paso a paso", en esta misma carpeta).`;
 
 m += red(1, 'WHATSAPP BUSINESS', 'Ajustes → Herramientas para la empresa → Perfil de empresa');
 m += copiar('Nombre', T.wa.nombre);
