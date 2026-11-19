@@ -31,3 +31,9 @@ out = c / 'entrega' / 'kit-catoira.zip'; out.parent.mkdir(exist_ok=True)
 with zipfile.ZipFile(out, 'w', zipfile.ZIP_DEFLATED) as z:
     for k, v in files.items(): z.write(v, R + k)
 print('ok', out, f'{out.stat().st_size / 1e6:.1f} MB', len(files), 'archivos')
+# Versión sin el video (el chat no acepta archivos de más de ~30 MB): el reel va aparte
+out2 = c / 'entrega' / 'kit-catoira-sin-video.zip'
+with zipfile.ZipFile(out2, 'w', zipfile.ZIP_DEFLATED) as z:
+    for k, v in files.items():
+        if not k.startswith('6-reel'): z.write(v, R + k)
+print('ok', out2, f'{out2.stat().st_size / 1e6:.1f} MB')
