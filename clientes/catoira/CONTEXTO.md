@@ -35,3 +35,9 @@ Primer cliente de Aicia cerrado por Workana. Objetivo: entregar impecable y cons
 - Toda la comunicación y la entrega van por el chat de Workana. Nunca pedir contraseñas.
 - Guille no entra a las cuentas: el entregable es un **kit + guía paso a paso** para que Fernando lo cargue él.
 - Español rioplatense (Uruguay), sin sonar a IA. Uruguay: "ustedes" (no "vosotros").
+
+## Kit de presencia digital (en curso)
+- Identidad para las piezas (`identidad/vista-rapida.html` → `node clientes/catoira/render.mjs identidad/vista-rapida.html [--rapido]`): noche petróleo #04141C, azul petróleo #0A2C4E y verde azulado #13857F (los del logo), agua #5FD0C1 para acentos y hueso #EEF3F1 para texto. Montserrat 800 en títulos (la letra del logo) con una frase en verde agua; Inter en textos. Motivo: plano técnico (grilla milimetrada y marcas de corte) e ilustraciones de línea propias, sin fotos de banco. Esperando el OK de Guille.
+- Símbolo del logo en vector: `logo/trazar-simbolo.py` → `logo/simbolo-trazado.json` (trazado del JPG, rectas limpias y curvas Bézier). Falta pulirlo a mano para la versión final.
+- `render.mjs` saca cada `<section data-file>` al doble y la achica con lanczos (como en historias/).
+- Ojo: los nombres de los flyers no coinciden con su contenido (ej. `01-sanitaria-fugas.jpg` es baños), y dos piezas dicen "Garantía por escrito" y "Calidad garantizada": confirmar con Fernando antes de usar esas frases.

@@ -1,0 +1,133 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Catoira · identidad (vista rápida)</title>
+<style>
+@font-face{font-family:Montserrat;src:url(../fonts/montserrat-latin-wght-normal.woff2) format('woff2');font-weight:100 900}
+@font-face{font-family:Inter;src:url(../fonts/inter-latin-wght-normal.woff2) format('woff2');font-weight:100 900}
+:root{--noche:#04141C;--noche2:#072230;--petroleo:#0A2C4E;--verde:#13857F;--agua:#5FD0C1;--hueso:#EEF3F1;--gris:#93A9B0}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#111;font-family:Inter,sans-serif;color:var(--hueso)}
+section{position:relative;overflow:hidden;background:var(--noche)}
+/* Escenario: luz verde azulada + plano técnico (grilla milimetrada que se desvanece) */
+.stage::before{content:"";position:absolute;inset:0;background:
+ radial-gradient(60% 45% at var(--lx,70%) var(--ly,30%),rgba(19,133,127,.42),rgba(19,133,127,0) 70%),
+ radial-gradient(70% 60% at 15% 100%,rgba(10,44,78,.9),rgba(10,44,78,0) 70%),
+ linear-gradient(180deg,#05202B,#04141C 60%,#030F15)}
+.stage::after{content:"";position:absolute;inset:0;background-image:
+ linear-gradient(rgba(150,220,210,.10) 1px,transparent 1px),linear-gradient(90deg,rgba(150,220,210,.10) 1px,transparent 1px),
+ linear-gradient(rgba(150,220,210,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(150,220,210,.045) 1px,transparent 1px);
+ background-size:120px 120px,120px 120px,24px 24px,24px 24px;background-position:-1px -1px;
+ -webkit-mask:radial-gradient(70% 60% at var(--lx,70%) var(--ly,30%),#000 0%,rgba(0,0,0,.35) 55%,transparent 85%)}
+.stage>*{position:relative;z-index:1}
+.sym{display:block}
+.h{font-family:Montserrat;font-weight:800;letter-spacing:-.035em;line-height:.98}
+.h em{font-style:normal;color:var(--agua)}
+.lab{font:600 22px/1 Inter;letter-spacing:.16em;text-transform:uppercase;color:var(--agua)}
+.mark{position:absolute;width:28px;height:28px;border-color:rgba(95,208,193,.55);border-style:solid;border-width:0}
+.mark.tl{border-top-width:2px;border-left-width:2px}.mark.tr{border-top-width:2px;border-right-width:2px}
+.mark.bl{border-bottom-width:2px;border-left-width:2px}.mark.br{border-bottom-width:2px;border-right-width:2px}
+
+/* Hoja de identidad */
+#sheet{width:1600px;height:1000px;--lx:24%;--ly:44%}
+#sheet .l{position:absolute;left:80px;top:80px;width:620px;height:840px}
+#sheet .l .sym{width:430px;margin:150px auto 0}
+#sheet .l .nm{position:absolute;left:0;right:0;bottom:120px;text-align:center}
+#sheet .l .nm b{display:block;font:800 30px Montserrat;letter-spacing:-.01em}
+#sheet .l .nm span{display:block;margin-top:10px;font:500 20px Inter;color:var(--gris)}
+#sheet .r{position:absolute;left:780px;top:96px;right:80px}
+.sw{display:flex;gap:18px;margin:26px 0 54px}
+.sw div{flex:1;height:150px;border-radius:18px;padding:16px;display:flex;flex-direction:column;justify-content:flex-end;font:600 15px Inter;border:1px solid rgba(255,255,255,.12)}
+.sw small{font:500 13px Inter;opacity:.7;margin-top:4px}
+.ty .h{font-size:76px}
+.ty p{margin-top:22px;font:400 24px/1.45 Inter;color:#C9D6D6;max-width:640px}
+.ty .meta{margin-top:30px;display:flex;gap:40px;font:500 16px Inter;color:var(--gris)}
+.ty .meta b{display:block;color:var(--hueso);font:700 20px Montserrat;margin-bottom:6px}
+
+/* Portada de destacada */
+#cover{width:1080px;height:1080px;--lx:50%;--ly:50%}
+#cover .ic{position:absolute;left:50%;top:50%;width:500px;height:500px;transform:translate(-50%,-50%)}
+
+/* Publicación */
+#post{width:1080px;height:1350px;--lx:78%;--ly:18%}
+#post .brand{position:absolute;left:80px;top:76px;display:flex;align-items:center;gap:18px}
+#post .brand .sym{width:64px}
+#post .brand b{font:800 21px/1.1 Montserrat;letter-spacing:-.005em}
+#post .brand b span{display:block;font-weight:600;font-size:15px;letter-spacing:.14em;color:var(--gris);text-transform:uppercase;margin-top:5px}
+#post .tx{position:absolute;left:80px;right:80px;top:250px}
+#post .h{font-size:138px}
+#post .tx p{margin-top:40px;font:400 36px/1.38 Inter;color:#C9D6D6;max-width:820px}
+#post .tx p b{color:var(--hueso);font-weight:600}
+#post .ill{position:absolute;left:60px;right:60px;top:780px;height:430px}
+#post .ft{position:absolute;left:80px;right:80px;bottom:64px;display:flex;justify-content:space-between;font:600 19px Inter;letter-spacing:.14em;text-transform:uppercase;color:var(--gris)}
+#post .ft b{color:var(--agua)}
+</style></head><body>
+
+<section id="sheet" class="stage" data-file="identidad-hoja.png">
+  <i class="mark tl" style="left:56px;top:56px"></i><i class="mark br" style="right:56px;bottom:56px"></i>
+  <div class="l"><svg class="sym" data-sym="grad"></svg>
+    <div class="nm"><b>A. Servicios Integrales Catoira</b><span>Símbolo redibujado en vector · versión en degradé</span></div></div>
+  <div class="r">
+    <div class="lab">Colores · salen del logo</div>
+    <div class="sw">
+      <div style="background:#04141C">Noche petróleo<small>#04141C · fondos</small></div>
+      <div style="background:#0A2C4E">Azul petróleo<small>#0A2C4E · logo</small></div>
+      <div style="background:#13857F">Verde azulado<small>#13857F · logo</small></div>
+      <div style="background:#5FD0C1;color:#04141C">Agua<small>#5FD0C1 · acentos</small></div>
+      <div style="background:#EEF3F1;color:#04141C">Hueso<small>#EEF3F1 · texto</small></div>
+    </div>
+    <div class="lab">Tipografía</div>
+    <div class="ty" style="margin-top:26px">
+      <div class="h">Resolvemos <em>de raíz.</em></div>
+      <p>Títulos en Montserrat (la letra del logo), con una sola frase en verde agua. Textos en Inter, fácil de leer en el celular.</p>
+      <div class="meta"><div><b>Montserrat 800</b>Títulos</div><div><b>Inter 400–600</b>Textos y bajadas</div><div><b>Plano técnico</b>Grilla milimetrada y marcas de corte</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="cover" class="stage" data-file="identidad-portada-servicios.png">
+  <svg class="ic" viewBox="0 0 120 120" fill="none" stroke="#5FD0C1" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Servicios: casa + llave -->
+    <path d="M18 56 60 22l42 34"/><path d="M28 48v50h64V48"/>
+    <g transform="translate(36 50) scale(2)" stroke-width="2.1"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></g>
+  </svg>
+</section>
+
+<section id="post" class="stage" data-file="identidad-publicacion-manifiesto.png">
+  <i class="mark tl" style="left:48px;top:48px"></i><i class="mark tr" style="right:48px;top:48px"></i>
+  <i class="mark bl" style="left:48px;bottom:48px"></i><i class="mark br" style="right:48px;bottom:48px"></i>
+  <div class="brand"><svg class="sym" data-sym="grad"></svg><b>A. Servicios Integrales Catoira<span>Sanitaria · Construcción · Mantenimiento</span></b></div>
+  <div class="tx"><div class="h">No ponemos<br><em>parches.</em></div>
+    <p>Buscamos el origen de la falla y la resolvemos <b>de raíz</b>, para que no vuelvas a pagar dos veces.</p></div>
+  <svg class="ill" viewBox="0 0 960 430" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <g stroke="#93A9B0" stroke-width="3" opacity=".9">
+      <!-- caño horizontal que baja en codo -->
+      <path d="M20 150H640a60 60 0 0 1 60 60V430"/><path d="M20 210H620a20 20 0 0 1 20 20V430"/>
+      <path d="M140 140v80M300 140v80"/>
+    </g>
+    <!-- parche (cinta) sobre el síntoma -->
+    <g stroke="#93A9B0" stroke-width="3"><rect x="390" y="132" width="70" height="96" rx="8" fill="#0B2733"/>
+      <path d="M400 150l50 20M400 175l50 20M400 200l50 20" opacity=".6"/></g>
+    <path d="M425 252c-7 10-10 16-10 22a10 10 0 0 0 20 0c0-6-3-12-10-22Z" fill="#93A9B0" opacity=".7"/>
+    <g font-family="Inter" font-weight="600" font-size="20" letter-spacing="2.4" fill="#93A9B0">
+      <path d="M425 120V70h-60" fill="none" stroke="#93A9B0" stroke-width="2"/><text x="250" y="76" stroke="none">PARCHE</text>
+      <path d="M262 68h80" stroke="#93A9B0" stroke-width="2.5"/>
+    </g>
+    <!-- origen real: junta del codo, marcada -->
+    <circle cx="668" cy="182" r="64" stroke="#5FD0C1" stroke-width="3" stroke-dasharray="10 10"/>
+    <circle cx="668" cy="182" r="6" fill="#5FD0C1"/>
+    <path d="M720 140l70-70h120" stroke="#5FD0C1" stroke-width="2.5"/>
+    <text x="800" y="58" font-family="Inter" font-weight="700" font-size="20" letter-spacing="2.4" fill="#5FD0C1">ORIGEN</text>
+    <text x="800" y="104" font-family="Inter" font-weight="500" font-size="19" fill="#C9D6D6">la falla real</text>
+  </svg>
+  <div class="ft"><span>Montevideo · Ciudad de la Costa</span><b>Diagnóstico técnico</b></div>
+</section>
+
+<script>
+// Símbolo del logo (trazado en vector, logo/simbolo-trazado.json) con el degradé del original: azul petróleo → verde azulado
+fetch('../logo/simbolo-trazado.json').then(r=>r.json()).then(j=>{
+  document.querySelectorAll('svg[data-sym]').forEach((s,i)=>{
+    s.setAttribute('viewBox',`0 0 ${j.w} ${j.h}`);
+    s.innerHTML=`<defs><linearGradient id="g${i}" x1="0.08" y1="0.95" x2="0.92" y2="0.08"><stop offset="0" stop-color="#1B4E86"/><stop offset=".45" stop-color="#17677F"/><stop offset="1" stop-color="#2BB3A3"/></linearGradient></defs>
+      <path fill-rule="evenodd" fill="url(#g${i})" d="${j.d}"/>`;
+  });
+  document.body.dataset.ready=1;
+});
+</script></body></html>
