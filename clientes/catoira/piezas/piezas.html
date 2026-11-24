@@ -9,6 +9,10 @@
 .perfil.claro::before{background:radial-gradient(60% 55% at 50% 45%,#FFFFFF,#EEF3F1 60%,#E2EAE8)}
 .perfil.claro::after{background-image:linear-gradient(rgba(10,44,78,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(10,44,78,.06) 1px,transparent 1px);background-size:120px 120px}
 .perfil.claro .sym{filter:drop-shadow(0 24px 40px rgba(10,44,78,.18))}
+/* Versión lisa: sin grilla ni luz, fondo noche parejo (para el perfil de Instagram) */
+.perfil.liso{background:#04141C}
+.perfil.liso::before,.perfil.liso::after{display:none}
+.perfil.liso .sym{filter:none}
 
 /* ---------- Portadas de destacadas ---------- */
 .cover{width:1080px;height:1080px;--lx:50%;--ly:50%;--lw:52%;--lh:52%;--mw:55%;--mh:55%}
@@ -97,6 +101,7 @@ body.prueba .no{position:absolute;z-index:9;background:rgba(242,80,80,.28);borde
 <!-- ================= FOTO DE PERFIL ================= -->
 <section class="perfil stage" data-file="perfil/catoira-foto-perfil.png" data-noqa><svg class="sym" data-sym="claro"></svg></section>
 <section class="perfil claro stage" data-file="perfil/catoira-foto-perfil-fondo-claro.png" data-noqa><svg class="sym" data-sym="grad"></svg></section>
+<section class="perfil liso stage" data-file="perfil/catoira-foto-perfil-liso.png" data-noqa><svg class="sym" data-sym="claro"></svg></section>
 
 <!-- ================= PORTADAS DE DESTACADAS ================= -->
 <section class="cover stage" data-file="destacadas/portada-1-servicios.png" data-noqa><svg class="ic" viewBox="0 0 24 24" data-ic="servicios"></svg></section>
