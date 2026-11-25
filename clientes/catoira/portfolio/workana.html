@@ -32,8 +32,15 @@ body{font-family:"Geist",system-ui,sans-serif;-webkit-font-smoothing:antialiased
 .pc::after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(135deg,rgba(255,255,255,.10),transparent 38%);pointer-events:none}
 /* Teléfono: marco oscuro con brillo de borde */
 .ph{border-radius:62px;padding:15px;background:linear-gradient(160deg,#2A2A3C,#0B0B14 45%,#1C1C2A);box-shadow:0 60px 110px -20px rgba(2,2,14,.8),0 20px 40px -10px rgba(2,2,14,.6),inset 0 0 0 1.5px rgba(255,255,255,.16),0 0 0 1px rgba(0,0,0,.6)}
-.ph .scr{width:100%;height:100%;border-radius:48px;overflow:hidden;background:#fff}
-.ph .scr img{display:block;width:100%;height:100%;object-fit:cover;object-position:top}
+.ph .scr{width:100%;height:100%;border-radius:48px;overflow:hidden;background:#fff;position:relative;display:flex;flex-direction:column}
+/* Barra de estado propia (la de la captura se recorta: las esquinas del celular la cortaban) */
+.ph .sb{flex:none;position:relative;display:flex;align-items:center;justify-content:space-between;padding:0 9% 0 11%;color:#000;font-weight:600;letter-spacing:-0.01em}
+.ph .isl{position:absolute;left:50%;top:22%;height:56%;width:30%;transform:translateX(-50%);background:#000;border-radius:999px}
+.ph .ic{display:flex;align-items:center;gap:.32em}
+.ph .ic i{display:block;background:#000}
+.ph .im{flex:1;overflow:hidden}
+.ph .im img{display:block;width:100%}
+.ph .home{position:absolute;left:35%;right:35%;bottom:1.3%;height:5px;border-radius:9px;background:rgba(0,0,0,.85);box-shadow:0 0 0 1px rgba(255,255,255,.35)}
 .ph.dim{filter:saturate(.75) brightness(.72)}
 .tag{font-size:24px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#C7C9FF;text-align:center}
 .tag.off{color:#8F91B8}
@@ -62,16 +69,18 @@ const P = '../piezas/', S = 'src/';
 const EY = 'A. Servicios Integrales Catoira · Redes';
 // Helpers: cada pieza se ubica por su centro (cx, cy), con ancho, alto y giro
 const pc = (src, cx, cy, w, h, r = 0, z = 1, extra = '') => `<div class="pc" style="left:${cx - w / 2}px;top:${cy - h / 2}px;width:${w}px;height:${h}px;transform:rotate(${r}deg);z-index:${z};${extra}"><img src="${src}"></div>`;
-const ph = (src, cx, cy, w, cls = '', z = 1) => { const h = Math.round((w - 30) * 1334 / 750) + 30;
-  return `<div class="ph ${cls}" style="left:${cx - w / 2}px;top:${cy - h / 2}px;width:${w}px;height:${h}px;z-index:${z}"><div class="scr"><img src="${src}"></div></div>`; };
+const CUT = 44; // px de la barra de estado de las capturas (750×1334)
+const ph = (src, cx, cy, w, cls = '', z = 1, time = '11:11') => { const W = w - 30, sb = Math.round(W * .118), h = sb + Math.round(W * (1334 - CUT - 18) / 750) + 30, fs = Math.round(W * .036);
+  const ic = `<span class="ic"><i style="width:${fs*.95}px;height:${fs*.62}px;clip-path:polygon(0 100%,100% 0,100% 100%)"></i><i style="width:${fs*1.75}px;height:${fs*.82}px;border-radius:${fs*.22}px"></i></span>`;
+  return `<div class="ph ${cls}" style="left:${cx - w / 2}px;top:${cy - h / 2}px;width:${w}px;height:${h}px;z-index:${z}"><div class="scr"><div class="sb" style="height:${sb}px;font-size:${fs}px"><span>${time}</span><div class="isl"></div>${ic}</div><div class="im"><img src="${src}" style="margin-top:${-Math.round(W * CUT / 750)}px"></div><div class="home"></div></div></div>`; };
 const tag = (t, cx, y, off = '') => `<div class="tag ${off}" style="left:${cx - 200}px;top:${y}px;width:400px">${t}</div>`;
 const circ = (src, cx, cy, d, cap) => `<div class="circ" style="left:${cx - d / 2}px;top:${cy - d / 2}px;width:${d}px;height:${d}px"><img src="${src}"></div><div class="cap" style="left:${cx - 120}px;top:${cy + d / 2 + 18}px;width:240px">${cap}</div>`;
 
 const SLIDES = {
   '01-portada': { title: 'Presencia<br><span class="serif">digital.</span>',
     lede: 'Instagram, WhatsApp Business, Facebook y Google para una empresa de <b>sanitaria y mantenimiento</b> de Montevideo.',
-    scene: ph(S + 'ig-antes.jpg', 1190, 560, 380, 'dim', 1) + tag('Antes', 1190, 905, 'off') +
-           ph(S + 'ig-despues.jpg', 1575, 520, 470, '', 2) + tag('Después', 1575, 958) },
+    scene: ph(S + 'ig-antes.jpg', 1150, 575, 380, 'dim', 1, '10:45') + tag('Antes', 1150, 920, 'off') +
+           ph(S + 'ig-despues.jpg', 1590, 520, 470, '', 2) + tag('Después', 1590, 958) },
   '02-instagram': { title: 'Un perfil que<br><span class="serif">se entiende.</span>',
     lede: 'Foto que se lee, bio con qué hacen, dónde y cómo pedirlo, y <b>3 publicaciones</b> de arranque.',
     scene: pc(P + 'publicaciones/publicacion-1-no-ponemos-parches.png', 1150, 560, 400, 500, -6, 1) +
