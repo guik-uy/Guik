@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<title>Propuesta de reels · A. Servicios Integrales Catoira</title>
+<style>
+@font-face{font-family:Inter;src:url(../fonts/inter-latin-wght-normal.woff2) format('woff2');font-weight:100 900}
+@font-face{font-family:Montserrat;src:url(../fonts/montserrat-latin-wght-normal.woff2) format('woff2');font-weight:100 900}
+@page{size:A4;margin:0}
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--noche:#04141C;--petroleo:#0A2C4E;--verde:#13857F;--agua:#5FD0C1;--hueso:#EEF3F1;--texto:#1B2A30;--gris:#55666C;--linea:#DCE6E4}
+body{font-family:Inter,sans-serif;font-size:11.2pt;line-height:1.55;color:var(--texto);background:#fff}
+.page{width:210mm;height:297mm;padding:20mm 20mm 18mm;page-break-after:always;position:relative;overflow:hidden}
+.page:last-child{page-break-after:auto}
+.kick{font:700 8.6pt/1 Inter;letter-spacing:.2em;text-transform:uppercase;color:var(--verde)}
+h1{font:800 27pt/1.08 Montserrat,sans-serif;color:var(--petroleo);letter-spacing:-.01em;margin-top:4mm}
+h1 em{font-style:normal;color:var(--verde)}
+h2{font:800 15pt/1.2 Montserrat,sans-serif;color:var(--petroleo);margin:9mm 0 3mm}
+.lead{font-size:12.6pt;color:var(--gris);margin-top:5mm;max-width:160mm}
+p+p{margin-top:3mm}
+b{color:var(--petroleo)}
+ul.l{list-style:none;margin-top:2mm}
+ul.l li{position:relative;padding-left:7mm;margin:2.2mm 0}
+ul.l li:before{content:"";position:absolute;left:0;top:2.2mm;width:3mm;height:3mm;border-radius:50%;background:var(--agua)}
+.pie{position:absolute;left:20mm;right:20mm;bottom:10mm;display:flex;justify-content:space-between;font-size:8pt;color:#8A989C;border-top:1px solid var(--linea);padding-top:3mm}
+
+/* portada */
+.portada{background:var(--noche);color:var(--hueso);padding:0}
+.portada:before{content:"";position:absolute;inset:0;background:radial-gradient(60% 45% at 75% 30%,rgba(19,133,127,.35),transparent 70%)}
+.portada:after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(95,208,193,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(95,208,193,.07) 1px,transparent 1px);background-size:12mm 12mm;-webkit-mask-image:radial-gradient(80% 70% at 70% 35%,#000,transparent 75%)}
+.portada .in{position:relative;z-index:1;padding:30mm 20mm 0}
+.portada .kick{color:var(--agua)}
+.portada h1{color:#fff;font-size:38pt;margin-top:8mm}
+.portada h1 em{color:var(--agua)}
+.portada .lead{color:#BFD0CF;font-size:14pt;max-width:140mm}
+.portada .datos{position:absolute;z-index:1;left:20mm;right:20mm;bottom:22mm;display:grid;grid-template-columns:1fr 1fr 1fr;gap:6mm;border-top:1px solid rgba(95,208,193,.35);padding-top:7mm}
+.portada .datos span{display:block;font:700 7.8pt/1 Inter;letter-spacing:.16em;text-transform:uppercase;color:var(--agua);margin-bottom:2.5mm}
+.portada .datos div{font-size:11pt;color:var(--hueso)}
+
+/* reel de muestra */
+.muestra{display:grid;grid-template-columns:52mm 1fr;gap:10mm;align-items:start;margin-top:7mm}
+.cel{width:52mm;border-radius:7mm;border:2.2mm solid #0d1d24;overflow:hidden;box-shadow:0 8mm 16mm -8mm rgba(4,20,28,.45)}
+.cel img{display:block;width:100%}
+.cap{font-size:8.6pt;color:var(--gris);margin-top:2.5mm;text-align:center;width:52mm}
+.ing{display:grid;grid-template-columns:1fr 1fr;gap:3.5mm}
+.ing div{border:1px solid var(--linea);border-radius:3.5mm;padding:3.5mm 4mm}
+.ing b{display:block;font:800 10.4pt/1.25 Montserrat,sans-serif;margin-bottom:1mm}
+.ing span{font-size:9.6pt;color:var(--gris);line-height:1.45;display:block}
+
+/* temas */
+.temas{display:grid;grid-template-columns:1fr 1fr;gap:4mm;margin-top:3mm}
+.tema{background:#F3F7F6;border-radius:4mm;padding:4.5mm 5mm}
+.tema b{display:block;font:800 11pt/1.25 Montserrat,sans-serif;margin-bottom:1.2mm}
+.tema .para{font-size:8pt;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--verde);display:block;margin-bottom:1.5mm}
+.tema i{font-style:normal;display:block;font-size:9.6pt;color:var(--gris);margin-top:1.5mm;line-height:1.45}
+table.mes{width:100%;border-collapse:collapse;margin-top:3mm;font-size:10.4pt}
+table.mes td{padding:3mm 2mm;border-bottom:1px solid var(--linea);vertical-align:top}
+table.mes td:first-child{width:24mm;font-weight:800;color:var(--petroleo)}
+table.mes td:nth-child(2){width:44mm;color:var(--verde);font-weight:700}
+
+/* planes */
+.planes{display:grid;grid-template-columns:1fr 1fr;gap:6mm;margin-top:7mm}
+.plan{border:1.5px solid var(--linea);border-radius:5mm;padding:7mm 6.5mm 6mm;position:relative}
+.plan.rec{border:2px solid var(--verde);background:linear-gradient(180deg,#F1FAF8,#fff 45%)}
+.plan .badge{position:absolute;top:-3.4mm;left:6.5mm;background:var(--verde);color:#fff;font:700 7.6pt/1 Inter;letter-spacing:.12em;text-transform:uppercase;padding:1.8mm 3mm;border-radius:2mm}
+.plan .nom{font:800 15pt/1 Montserrat,sans-serif;color:var(--petroleo)}
+.plan .frec{font-size:10pt;color:var(--gris);margin-top:2mm}
+.plan .precio{font:800 25pt/1 Montserrat,sans-serif;color:var(--petroleo);margin-top:6mm}
+.plan .precio small{font:600 10pt Inter;color:var(--gris)}
+.plan .por{font-size:9.4pt;color:var(--verde);font-weight:700;margin-top:2mm}
+.plan ul{margin-top:4mm}
+.plan li{font-size:10pt;margin:1.6mm 0}
+.incluye{margin-top:7mm;background:#F3F7F6;border-radius:4mm;padding:5mm 6mm;display:grid;grid-template-columns:1fr 1fr;gap:1mm 8mm;font-size:10pt}
+.incluye .t{grid-column:1/-1;font:800 11pt Montserrat,sans-serif;color:var(--petroleo);margin-bottom:1.5mm}
+.incluye div:not(.t){position:relative;padding-left:6mm}
+.incluye div:not(.t):before{content:"✓";position:absolute;left:0;color:var(--verde);font-weight:800}
+.suelto{margin-top:5mm;font-size:10.2pt;color:var(--gris)}
+
+/* condiciones */
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:9mm}
+.pasos{counter-reset:p;margin-top:3mm}
+.pasos div{counter-increment:p;position:relative;padding-left:11mm;margin:3.5mm 0;font-size:10.6pt}
+.pasos div:before{content:counter(p);position:absolute;left:0;top:0;width:7.5mm;height:7.5mm;border-radius:50%;background:var(--petroleo);color:#fff;font:800 10pt/7.5mm Montserrat;text-align:center}
+.nota{margin-top:6mm;border-left:1.2mm solid var(--agua);background:#F1FAF8;padding:4mm 5mm;border-radius:2mm;font-size:10.2pt}
+.firma{margin-top:12mm;display:flex;justify-content:space-between;align-items:flex-end}
+.firma b{display:block;font:800 13pt Montserrat,sans-serif}
+.firma span{font-size:10pt;color:var(--gris)}
+</style></head>
+<body>
+
+<!-- 1 · PORTADA -->
+<section class="page portada">
+  <div class="in">
+    <div class="kick">Propuesta · Reels para Instagram</div>
+    <h1>Que te conozca gente nueva, <em>todas las semanas.</em></h1>
+    <p class="lead">Reels animados con voz, música y efectos para que más personas de Montevideo y Ciudad de la Costa conozcan tu trabajo y te escriban.</p>
+  </div>
+  <div class="datos">
+    <div><span>Para</span>Fernando Catoira<br>A. Servicios Integrales Catoira</div>
+    <div><span>Preparado por</span>Guillermo García</div>
+    <div><span>Fecha</span>Noviembre 2026</div>
+  </div>
+</section>
+
+<!-- 2 · LA IDEA -->
+<section class="page">
+  <div class="kick">La idea</div>
+  <h1>El perfil ya está listo. <em>Ahora falta que lo vean.</em></h1>
+  <p class="lead">Con el kit dejamos tu Instagram profesional: foto, bio, destacadas y publicaciones. El próximo paso es que llegue gente nueva.</p>
+
+  <h2>¿Por qué reels?</h2>
+  <p>Instagram muestra los reels también a gente que <b>no te sigue</b>, en la pestaña Reels y en Explorar. Para una cuenta que recién arranca, es la forma más directa de que te conozcan personas de tu zona que hoy no saben que existís.</p>
+  <p>Y un reel bien hecho explica en 20 segundos lo que en persona te lleva 10 minutos: qué hacés, cómo trabajás y por qué conviene llamarte a vos.</p>
+
+  <h2>Así es cada reel</h2>
+  <div class="muestra">
+    <div><div class="cel"><img src="../reel/reel-presentacion-catoira.png"></div><div class="cap">El reel de presentación que ya tenés es un ejemplo del estilo.</div></div>
+    <div class="ing">
+      <div><b>Animado</b><span>Con tu identidad: tus colores, tu logo y el estilo del kit.</span></div>
+      <div><b>Voz en off</b><span>Una voz clara que explica el tema, para que se entienda sin leer.</span></div>
+      <div><b>Música y efectos</b><span>Música de fondo con licencia y efectos de sonido que acompañan cada momento.</span></div>
+      <div><b>Subtítulos</b><span>Mucha gente mira sin sonido: con subtítulos se entiende igual.</span></div>
+      <div><b>Corto y vertical</b><span>Entre 15 y 30 segundos, en el formato de Instagram.</span></div>
+      <div><b>Cierre claro</b><span>Siempre termina con cómo contactarte por WhatsApp.</span></div>
+    </div>
+  </div>
+  <div class="pie"><span>Propuesta de reels · A. Servicios Integrales Catoira</span><span>2 / 5</span></div>
+</section>
+
+<!-- 3 · TEMAS -->
+<section class="page">
+  <div class="kick">El contenido</div>
+  <h1>De qué van a hablar <em>los reels.</em></h1>
+  <p class="lead">Cuatro tipos de reel, tomados de tu brief, para que la gente te conozca, confíe y te escriba.</p>
+
+  <div class="temas">
+    <div class="tema"><span class="para">Para que te conozcan</span><b>Tips que evitan gastos</b>Consejos cortos que le sirven a cualquiera.<i>Ej.: "¿Por qué vuelve la humedad aunque pintes?" · "3 señales de que la grasera necesita limpieza".</i></div>
+    <div class="tema"><span class="para">Para que confíen</span><b>Trabajos reales explicados</b>Con tus fotos y videos: el problema, qué hiciste y por qué dura.<i>Ej.: la instalación de la cámara, paso a paso, hasta que quedó terminada.</i></div>
+    <div class="tema"><span class="para">Para que te escriban</span><b>Servicios y visita diagnóstica</b>Qué hacés, para quién y cómo pedirlo.<i>Ej.: "Antes de gastar en materiales, un diagnóstico" · planes para administradoras.</i></div>
+    <div class="tema"><span class="para">Para que te elijan</span><b>Quién está detrás</b>Vos, tu forma de trabajar y por qué no ponés parches.<i>Ej.: "No ponemos parches: así trabajamos". Solo si te sentís cómodo mostrándote.</i></div>
+  </div>
+
+  <h2>Un mes de ejemplo (1 reel por semana)</h2>
+  <table class="mes">
+    <tr><td>Semana 1</td><td>Tip</td><td>¿Por qué vuelve la humedad aunque pintes?</td></tr>
+    <tr><td>Semana 2</td><td>Trabajo real</td><td>Instalación de una cámara: del pozo al trabajo terminado.</td></tr>
+    <tr><td>Semana 3</td><td>Tip</td><td>3 señales de que tu grasera necesita limpieza.</td></tr>
+    <tr><td>Semana 4</td><td>Servicio</td><td>La visita diagnóstica: qué es y cuándo te conviene.</td></tr>
+  </table>
+  <p style="margin-top:4mm;font-size:10pt;color:var(--gris)">Los temas se definen con vos al principio de cada mes. Si hay un trabajo nuevo con fotos, entra en el calendario.</p>
+  <div class="pie"><span>Propuesta de reels · A. Servicios Integrales Catoira</span><span>3 / 5</span></div>
+</section>
+
+<!-- 4 · PLANES -->
+<section class="page">
+  <div class="kick">Planes</div>
+  <h1>Dos planes, <em>mes a mes.</em></h1>
+  <p class="lead">Sin permanencia: arrancás con uno, ves cómo funciona y decidís si seguís, cambiás o parás.</p>
+
+  <div class="planes">
+    <div class="plan rec">
+      <span class="badge">Recomendado para arrancar</span>
+      <div class="nom">Arranque</div>
+      <div class="frec">4 reels por mes · 1 por semana</div>
+      <div class="precio">$ 4.500 <small>UYU / mes</small></div>
+      <div class="por">$ 1.125 por reel</div>
+      <ul class="l">
+        <li>Presencia constante todas las semanas.</li>
+        <li>Ideal para empezar y medir.</li>
+      </ul>
+    </div>
+    <div class="plan">
+      <div class="nom">Crecimiento</div>
+      <div class="frec">8 reels por mes · 2 por semana</div>
+      <div class="precio">$ 7.900 <small>UYU / mes</small></div>
+      <div class="por">$ 987 por reel</div>
+      <ul class="l">
+        <li>El doble de oportunidades de llegar a gente nueva.</li>
+        <li>Para cuando quieras acelerar.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="incluye">
+    <div class="t">Los dos planes incluyen</div>
+    <div>Calendario del mes, acordado con vos</div>
+    <div>Guion de cada reel</div>
+    <div>Animación con tu identidad</div>
+    <div>Voz en off, música y efectos de sonido</div>
+    <div>Subtítulos</div>
+    <div>Descripción y hashtags listos</div>
+    <div>Portada para que la grilla se vea prolija</div>
+    <div>Un informe simple a fin de mes</div>
+  </div>
+
+  <p class="suelto"><b>Reel suelto:</b> $ 1.500 UYU cada uno, si en algún momento querés uno puntual fuera del plan.</p>
+  <p class="suelto"><b>No incluido:</b> inversión en anuncios pagos. Si más adelante querés promocionar algún reel, lo vemos aparte.</p>
+  <div class="pie"><span>Propuesta de reels · A. Servicios Integrales Catoira</span><span>4 / 5</span></div>
+</section>
+
+<!-- 5 · CÓMO TRABAJAMOS -->
+<section class="page">
+  <div class="kick">Cómo trabajamos</div>
+  <h1>Simple <em>y sin vueltas.</em></h1>
+
+  <div class="cols" style="margin-top:6mm">
+    <div>
+      <h2 style="margin-top:0">Cada mes</h2>
+      <div class="pasos">
+        <div>Te paso el calendario con los temas del mes y lo ajustamos juntos.</div>
+        <div>Te mando cada reel antes de publicarlo para que lo apruebes. Incluye una ronda de cambios.</div>
+        <div>Se publica en el día acordado, con su descripción.</div>
+        <div>A fin de mes, te paso un informe corto con los números.</div>
+      </div>
+    </div>
+    <div>
+      <h2 style="margin-top:0">Lo que mido</h2>
+      <ul class="l">
+        <li>Reproducciones de cada reel.</li>
+        <li>Cuentas alcanzadas (gente nueva que lo vio).</li>
+        <li>Visitas al perfil y seguidores nuevos.</li>
+        <li>Consultas que te llegaron por WhatsApp desde Instagram (esas las contás vos).</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>Lo que necesito de vos</h2>
+  <ul class="l">
+    <li><b>Fotos y videos de tus trabajos</b> cuando puedas, mandados como documento para que no pierdan calidad. Son lo que más confianza genera.</li>
+    <li><b>Tu OK</b> en el calendario y en cada reel.</li>
+    <li><b>Para publicar:</b> me das acceso desde Meta Business Suite, sin pasarme contraseñas. Si preferís publicar vos, te mando cada reel con su texto listo.</li>
+  </ul>
+
+  <div class="nota"><b>Sobre los resultados:</b> cuánta gente ve cada reel lo decide Instagram, así que no puedo prometerte un número de seguidores. Lo que sí te aseguro es constancia, calidad y que cada mes vas a ver los números para decidir con datos.</div>
+
+  <h2>Para arrancar</h2>
+  <div class="pasos">
+    <div>Elegís el plan.</div>
+    <div>En 48 horas te mando el calendario del primer mes.</div>
+    <div>Lo aprobás y el primer reel sale esa misma semana.</div>
+  </div>
+
+  <div class="firma">
+    <div><b>Guillermo García</b><span>Gracias por la confianza. Cualquier duda, la charlamos.</span></div>
+  </div>
+  <div class="pie"><span>Propuesta de reels · A. Servicios Integrales Catoira</span><span>5 / 5</span></div>
+</section>
+</body></html>

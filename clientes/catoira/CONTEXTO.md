@@ -52,3 +52,9 @@ Primer cliente de Aicia cerrado por Workana. Objetivo: entregar impecable y cons
 - **Reel regalo** (`reel/reel.html`, 18,4 s, 1080×1920, 60 fps): gancho de la humedad → "Pintar no es solucionar" → "No ponemos parches" → servicios → el símbolo se arma + "Escribinos · 098 965 054". Motor: copia de `historias/clientes-proyectos/render-timeline.mjs` (sirve solo su carpeta, por eso las fuentes y el JSON del símbolo están copiados). Final: `node render-timeline.mjs reel.html --fresh --fps 60 --sub 4 --poster 7.4 --crf 14`.
 - **Entrega**: `python3 clientes/catoira/armar-entrega.py` → `entrega/Kit de presencia digital - A. Servicios Integrales Catoira.zip` (con el reel; la guía y los textos en "0. Empezá acá"). Se entrega todo por el chat de Workana. Mensaje para Fernando: `mensaje-fernando-workana.md`.
 - Ojo: los nombres de los flyers no coinciden con su contenido, y dos dicen "Garantía por escrito" / "Calidad garantizada": está en la lista de confirmaciones.
+
+## Propuesta de reels (26/11)
+- Fernando quiere mover su Instagram; Guille le ofreció reels animados (voz, música, efectos) y pidió propuesta formal con precio. Fernando no quiere gastar mucho (recién arranca como independiente).
+- `propuesta/propuesta-reels.html` → `node clientes/catoira/propuesta/render-propuesta.mjs` → `propuesta/propuesta-reels-catoira.pdf` (5 págs A4, identidad del kit, firmada por Guillermo García, sin contactos externos).
+- Planes mes a mes, sin permanencia: Arranque 4 reels/mes UYU 4.500 (recomendado) · Crecimiento 8 reels/mes UYU 7.900 · reel suelto UYU 1.500. Anuncios pagos no incluidos. Neto para Guille por Workana (−20 %): 3.600 / 6.320 / 1.200.
+- Publicación: acceso por Meta Business Suite sin contraseñas, o Fernando publica con el texto listo. No se prometen números de seguidores.
