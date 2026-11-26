@@ -56,5 +56,6 @@ Primer cliente de Aicia cerrado por Workana. Objetivo: entregar impecable y cons
 ## Propuesta de reels (26/11)
 - Fernando quiere mover su Instagram; Guille le ofreció reels animados (voz, música, efectos) y pidió propuesta formal con precio. Fernando no quiere gastar mucho (recién arranca como independiente).
 - `propuesta/propuesta-reels.html` → `node clientes/catoira/propuesta/render-propuesta.mjs` → `propuesta/propuesta-reels-catoira.pdf` (5 págs A4, identidad del kit, firmada por Guillermo García, sin contactos externos).
-- Planes mes a mes, sin permanencia: Arranque 4 reels/mes UYU 4.500 (recomendado) · Crecimiento 8 reels/mes UYU 7.900 · reel suelto UYU 1.500. Anuncios pagos no incluidos. Se cobra directo (sin Workana): primer mes 50 % al arrancar y 50 % a mitad de mes; desde el segundo, al comienzo de cada mes. Transferencia o Mercado Pago. Si no llega el pago, se pausan los reels.
-- Publicación: acceso por Meta Business Suite sin contraseñas, o Fernando publica con el texto listo. No se prometen números de seguidores.
+- Planes mes a mes, sin permanencia: Arranque 4 reels/mes UYU 3.600 ($900 c/u, recomendado) · Crecimiento 8 reels/mes UYU 6.400 ($800 c/u) · reel suelto UYU 1.000. Guille le había dicho a Fernando que reels de gente más experta salen ~1.000 pesos por video: por eso ningún precio por reel pasa de 1.000. Anuncios pagos no incluidos. Se cobra directo (sin Workana); la forma de pago la arregla Guille con Fernando (no va en el PDF).
+- Publicación: Fernando le dio acceso a su Instagram a Guille; Guille sube los reels él mismo. No se prometen números de seguidores.
+- Lenguaje simple (Fernando tiene 45 años): nada de "brief", "voz en off" ni "grilla".
