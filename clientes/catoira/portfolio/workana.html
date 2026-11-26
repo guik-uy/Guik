@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Aicia · Portfolio Workana · A. Servicios Integrales Catoira</title>
+<!-- Imágenes 1920×1080 del proyecto de Catoira para el portfolio de Workana. Mismo estilo que aicia-linkedin/proyectos.html
+     (luz índigo, grilla, Geist + Instrument Serif). A la derecha, las piezas reales que se entregaron.
+     Uso: workana.html?s=01-portada · render: node clientes/catoira/portfolio/render.mjs -->
+<style>
+@font-face{font-family:"Geist";src:url(../../../historias/clientes-proyectos/fonts/geist-latin-wght-normal.woff2) format("woff2");font-weight:100 900;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2212}
+@font-face{font-family:"Geist";src:url(../../../historias/clientes-proyectos/fonts/geist-latin-ext-wght-normal.woff2) format("woff2");font-weight:100 900;unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Instrument Serif";src:url(../../../historias/clientes-proyectos/fonts/instrument-serif-latin-400-italic.woff2) format("woff2");font-style:italic;font-weight:400}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#06061A}
+body{font-family:"Geist",system-ui,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision}
+.slide{width:1920px;height:1080px;position:relative;overflow:hidden;background:#06061A;color:#F4F4FA;isolation:isolate}
+.slide > *{position:absolute}
+.serif{font-family:"Instrument Serif",serif;font-style:italic;font-weight:400}
+.stage{inset:0;background:
+  radial-gradient(1250px 980px at 71% 52%,rgba(79,70,229,.60),rgba(67,56,202,.20) 42%,transparent 70%),
+  radial-gradient(900px 600px at 0% 0%,rgba(67,56,202,.16),transparent 70%),
+  linear-gradient(180deg,#05051A 0%,#090924 38%,#100E36 100%)}
+.grid{inset:0;background-image:linear-gradient(rgba(199,201,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(199,201,255,.07) 1px,transparent 1px);background-size:119px 119px;background-position:120px 60px;
+  -webkit-mask:radial-gradient(1150px 900px at 71% 52%,#000 0%,rgba(0,0,0,.5) 45%,transparent 75%);mask:radial-gradient(1150px 900px at 71% 52%,#000 0%,rgba(0,0,0,.5) 45%,transparent 75%)}
+.vignette{inset:0;z-index:20;pointer-events:none;background:radial-gradient(120% 110% at 60% 50%,transparent 58%,rgba(3,3,14,.55) 100%)}
+.basefade{left:0;right:0;bottom:0;height:240px;z-index:20;pointer-events:none;background:linear-gradient(180deg,rgba(4,4,20,0) 0%,rgba(4,4,20,.45) 60%,rgba(4,4,20,.8) 100%)}
+.scene{inset:0;z-index:5}
+.scene > *{position:absolute}
+/* Piezas: imagen con esquinas redondeadas, sombra larga y un filo de luz */
+.pc{border-radius:18px;overflow:hidden;box-shadow:0 50px 90px -20px rgba(2,2,14,.75),0 18px 36px -12px rgba(2,2,14,.6),0 0 0 1px rgba(199,201,255,.14)}
+.pc img{display:block;width:100%;height:100%;object-fit:cover}
+.pc::after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(135deg,rgba(255,255,255,.10),transparent 38%);pointer-events:none}
+/* Teléfono: marco oscuro con brillo de borde */
+.ph{border-radius:62px;padding:15px;background:linear-gradient(160deg,#2A2A3C,#0B0B14 45%,#1C1C2A);box-shadow:0 60px 110px -20px rgba(2,2,14,.8),0 20px 40px -10px rgba(2,2,14,.6),inset 0 0 0 1.5px rgba(255,255,255,.16),0 0 0 1px rgba(0,0,0,.6)}
+.ph .scr{width:100%;height:100%;border-radius:48px;overflow:hidden;background:#fff;position:relative;display:flex;flex-direction:column}
+/* Barra de estado propia (la de la captura se recorta: las esquinas del celular la cortaban) */
+.ph .sb{flex:none;position:relative;display:flex;align-items:center;justify-content:space-between;padding:0 9% 0 11%;color:#000;font-weight:600;letter-spacing:-0.01em}
+.ph .isl{position:absolute;left:50%;top:22%;height:56%;width:30%;transform:translateX(-50%);background:#000;border-radius:999px}
+.ph .ic{display:flex;align-items:center;gap:.32em}
+.ph .ic i{display:block;background:#000}
+.ph .im{flex:1;overflow:hidden}
+.ph .im img{display:block;width:100%}
+.ph .home{position:absolute;left:35%;right:35%;bottom:1.3%;height:5px;border-radius:9px;background:rgba(0,0,0,.85);box-shadow:0 0 0 1px rgba(255,255,255,.35)}
+.ph.dim{filter:saturate(.75) brightness(.72)}
+.tag{font-size:24px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#C7C9FF;text-align:center}
+.tag.off{color:#8F91B8}
+.circ{border-radius:50%;overflow:hidden;box-shadow:0 26px 50px -14px rgba(2,2,14,.75),0 0 0 4px rgba(199,201,255,.22)}
+.circ img{width:100%;height:100%;display:block}
+.cap{font-size:22px;font-weight:500;color:rgba(226,228,255,.78);text-align:center;letter-spacing:-0.01em}
+.tx{z-index:21;left:120px;top:0;bottom:0;width:740px;display:flex;flex-direction:column;justify-content:center;padding-bottom:40px}
+.eyebrow{align-self:flex-start;font-size:31px;font-weight:600;letter-spacing:-0.015em;line-height:1.2;background:linear-gradient(90deg,#D9DAFF,#9A9BFA);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.title{margin-top:20px;font-size:108px;font-weight:600;letter-spacing:-0.045em;line-height:.98;color:#fff;white-space:nowrap}
+.title .serif{font-size:124px;letter-spacing:-0.02em;line-height:.8;background:linear-gradient(100deg,#B9BBFF 0%,#ECEDFF 52%,#C3C5FF 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;padding:0 .1em .14em 0}
+.lede{margin-top:34px;max-width:700px;font-size:34px;line-height:1.38;color:rgba(226,228,255,.80);letter-spacing:-0.012em;text-wrap:balance}
+.lede b{font-weight:500;color:#fff}
+.sig{left:0;right:0;bottom:70px;z-index:22;text-align:center;font-size:26px;font-weight:600;letter-spacing:-0.035em;line-height:1;color:#fff;text-shadow:0 1px 14px rgba(3,3,16,.45)}
+</style>
+</head>
+<body>
+<div class="slide" id="slide">
+  <div class="stage"></div><div class="grid"></div>
+  <div class="scene" id="scene"></div>
+  <div class="vignette"></div><div class="basefade"></div>
+  <div class="tx" id="tx"></div>
+  <div class="sig">aicia</div>
+</div>
+<script>
+const P = '../piezas/', S = 'src/';
+const EY = 'A. Servicios Integrales Catoira · Redes';
+// Helpers: cada pieza se ubica por su centro (cx, cy), con ancho, alto y giro
+const pc = (src, cx, cy, w, h, r = 0, z = 1, extra = '') => `<div class="pc" style="left:${cx - w / 2}px;top:${cy - h / 2}px;width:${w}px;height:${h}px;transform:rotate(${r}deg);z-index:${z};${extra}"><img src="${src}"></div>`;
+const CUT = 44; // px de la barra de estado de las capturas (750×1334)
+const ph = (src, cx, cy, w, cls = '', z = 1, time = '11:11') => { const W = w - 30, sb = Math.round(W * .118), h = sb + Math.round(W * (1334 - CUT - 18) / 750) + 30, fs = Math.round(W * .036);
+  const ic = `<span class="ic"><i style="width:${fs*.95}px;height:${fs*.62}px;clip-path:polygon(0 100%,100% 0,100% 100%)"></i><i style="width:${fs*1.75}px;height:${fs*.82}px;border-radius:${fs*.22}px"></i></span>`;
+  return `<div class="ph ${cls}" style="left:${cx - w / 2}px;top:${cy - h / 2}px;width:${w}px;height:${h}px;z-index:${z}"><div class="scr"><div class="sb" style="height:${sb}px;font-size:${fs}px"><span>${time}</span><div class="isl"></div>${ic}</div><div class="im"><img src="${src}" style="margin-top:${-Math.round(W * CUT / 750)}px"></div><div class="home"></div></div></div>`; };
+const tag = (t, cx, y, off = '') => `<div class="tag ${off}" style="left:${cx - 200}px;top:${y}px;width:400px">${t}</div>`;
+const circ = (src, cx, cy, d, cap) => `<div class="circ" style="left:${cx - d / 2}px;top:${cy - d / 2}px;width:${d}px;height:${d}px"><img src="${src}"></div><div class="cap" style="left:${cx - 120}px;top:${cy + d / 2 + 18}px;width:240px">${cap}</div>`;
+
+const SLIDES = {
+  '01-portada': { title: 'Presencia<br><span class="serif">digital.</span>',
+    lede: 'Instagram, WhatsApp Business, Facebook y Google para una empresa de <b>sanitaria y mantenimiento</b> de Montevideo.',
+    scene: ph(S + 'ig-antes.jpg', 1150, 575, 380, 'dim', 1, '10:45') + tag('Antes', 1150, 920, 'off') +
+           ph(S + 'ig-despues.jpg', 1590, 520, 470, '', 2) + tag('Después', 1590, 958) },
+  '02-instagram': { title: 'Un perfil que<br><span class="serif">se entiende.</span>',
+    lede: 'Foto que se lee, bio con qué hacen, dónde y cómo pedirlo, y <b>3 publicaciones</b> de arranque.',
+    scene: pc(P + 'publicaciones/publicacion-1-no-ponemos-parches.png', 1150, 560, 400, 500, -6, 1) +
+           pc(P + 'publicaciones/publicacion-3-humedad-visita-diagnostica.png', 1630, 560, 400, 500, 6, 1) +
+           pc(P + 'publicaciones/publicacion-2-servicios.png', 1390, 530, 440, 550, 0, 2) },
+  '03-historias': { title: 'Destacadas e<br><span class="serif">historias.</span>',
+    lede: '<b>4 portadas y 11 historias</b>: Servicios, Trabajos, Cómo trabajamos y Contacto.',
+    scene: circ(P + 'destacadas/portada-1-servicios.png', 1075, 215, 130, 'Servicios') + circ(P + 'destacadas/portada-2-trabajos.png', 1285, 215, 130, 'Trabajos') +
+           circ(P + 'destacadas/portada-3-como-trabajamos.png', 1495, 215, 130, 'Cómo trabajamos') + circ(P + 'destacadas/portada-4-contacto.png', 1705, 215, 130, 'Contacto') +
+           pc(P + 'historias/servicios-1-portada.png', 1075, 680, 300, 533, -5, 1) + pc(P + 'historias/servicios-2-sanitaria.png', 1285, 670, 300, 533, -1.5, 2) +
+           pc(P + 'historias/como-trabajamos-1-resumen.png', 1495, 670, 300, 533, 1.5, 3) + pc(P + 'historias/contacto-1.png', 1705, 680, 300, 533, 5, 4) },
+  '04-whatsapp': { title: 'WhatsApp<br><span class="serif">Business.</span>',
+    lede: 'Portada del perfil, <b>respuesta automática</b> al instante y catálogo con 10 servicios.',
+    scene: pc(P + 'portadas/portada-whatsapp-business.png', 1415, 330, 860, 484, 0, 2) +
+      [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n, i) => { const f = ['01-visita-diagnostica', '02-camaras-graseras', '03-tanques-de-agua', '04-desobstruccion', '05-fugas-sanitaria', '06-calefones', '07-banos', '08-azoteas-terrazas', '09-revestimientos-pintura', '10-edificios'][i];
+        return pc(P + `catalogo/catalogo-${f}.png`, 1055 + (i % 5) * 180, 700 + Math.floor(i / 5) * 180, 160, 160, 0, 1); }).join('') },
+  '05-guia': { title: 'Guía paso<br>a <span class="serif">paso.</span>',
+    lede: 'Un kit de <b>13 páginas</b> para que el cliente cargue todo él mismo, con los textos listos para copiar.',
+    scene: pc(S + 'pdf-03.png', 1185, 575, 430, 608, -7, 1) + pc(S + 'pdf-07.png', 1625, 575, 430, 608, 7, 1) + pc(S + 'pdf-01.png', 1405, 545, 470, 665, 0, 2) },
+  '06-reel': { title: 'Reel de<br><span class="serif">presentación.</span>',
+    lede: 'Vertical, a 60 fps, para publicar <b>el primer día</b>.',
+    scene: pc(S + 'reel-5.png', 1170, 560, 320, 569, -5, 1) + pc(S + 'reel-13.5.png', 1680, 560, 320, 569, 5, 1) + pc(S + 'reel-17.8.png', 1425, 535, 350, 622, 0, 2) },
+  '07-cierre': { title: 'Hecho por<br><span class="serif">Aicia.</span>',
+    lede: '¿Querés lo mismo para tu negocio? <b>Escribime por Workana.</b>',
+    scene: pc(P + 'portadas/portada-facebook.png', 1420, 300, 820, 304, 0, 1) +
+           ph(S + 'ig-despues.jpg', 1420, 680, 330, '', 2) },
+};
+const id = new URLSearchParams(location.search).get('s') || '01-portada', s = SLIDES[id];
+document.getElementById('scene').innerHTML = s.scene;
+document.getElementById('tx').innerHTML = `<div class="eyebrow">${EY}</div><h1 class="title">${s.title}</h1><p class="lede">${s.lede}</p>`;
+window.SLIDE_IDS = Object.keys(SLIDES);
+</script>
+</body>
+</html>
