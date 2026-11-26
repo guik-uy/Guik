@@ -32,7 +32,7 @@ Primer cliente de Aicia cerrado por Workana. Objetivo: entregar impecable y cons
 - **No inventar**: trabajos, reseñas, años de experiencia, garantías, horarios. Lo que falte va como "a confirmar" o un espacio para completar.
 - **Trabajos reales**: no hay fotos de trabajos propios. La destacada "Trabajos" no se arma con fotos de banco como si fueran suyas: se deja la estructura lista y se le pide a Fernando fotos reales (antes / después).
 - Tono (del brief): técnico, cercano, honesto, resolutivo. Nada de "el mejor precio", "rápido y barato", "somos los mejores".
-- Toda la comunicación y la entrega van por el chat de Workana. Nunca pedir contraseñas.
+- El kit se entregó por Workana. Desde el 26/11 Guille y Fernando hablan por WhatsApp (pedido de Guille: olvidarse de Workana para lo que sigue). Nunca pedir contraseñas.
 - Guille no entra a las cuentas: el entregable es un **kit + guía paso a paso** para que Fernando lo cargue él.
 - Español rioplatense (Uruguay), sin sonar a IA. Uruguay: "ustedes" (no "vosotros").
 
@@ -56,5 +56,5 @@ Primer cliente de Aicia cerrado por Workana. Objetivo: entregar impecable y cons
 ## Propuesta de reels (26/11)
 - Fernando quiere mover su Instagram; Guille le ofreció reels animados (voz, música, efectos) y pidió propuesta formal con precio. Fernando no quiere gastar mucho (recién arranca como independiente).
 - `propuesta/propuesta-reels.html` → `node clientes/catoira/propuesta/render-propuesta.mjs` → `propuesta/propuesta-reels-catoira.pdf` (5 págs A4, identidad del kit, firmada por Guillermo García, sin contactos externos).
-- Planes mes a mes, sin permanencia: Arranque 4 reels/mes UYU 4.500 (recomendado) · Crecimiento 8 reels/mes UYU 7.900 · reel suelto UYU 1.500. Anuncios pagos no incluidos. Neto para Guille por Workana (−20 %): 3.600 / 6.320 / 1.200.
+- Planes mes a mes, sin permanencia: Arranque 4 reels/mes UYU 4.500 (recomendado) · Crecimiento 8 reels/mes UYU 7.900 · reel suelto UYU 1.500. Anuncios pagos no incluidos. Se cobra directo (sin Workana): pago por adelantado a principio de mes, por transferencia.
 - Publicación: acceso por Meta Business Suite sin contraseñas, o Fernando publica con el texto listo. No se prometen números de seguidores.
