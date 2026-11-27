@@ -41,6 +41,7 @@
     - "Pádel Club" son los contornos reales de Geist 600 (`glyphs-geist-600.json`, sacado con `glyphs.py` y fonttools), con interletrado -0,035em y kerning medidos en el navegador; los SVG no dependen de la fuente. Mayúsculas al 62 % de la altura del símbolo.
     - Versiones: horizontal y vertical (oscuro y claro), símbolo solo (oscuro y claro), un color blanco y un color azul noche, foto de perfil 1080×1080 y favicon 512.
 - `clientes/catoira/` es el **primer cliente de Workana** (A. Servicios Integrales Catoira, sanitaria y reformas): kit de presencia digital con la identidad de SU logo (verde azulado y azul petróleo, Montserrat + Inter, "plano técnico"), no la de Aicia. Todo el detalle y los comandos en `clientes/catoira/CONTEXTO.md`.
+- `clientes/barbero-leaa/` es un **video para la barbería @barbero_leaa** (Instagram), hecho con 2 clips que pasó Guille (`insumos/`): `python3 clientes/barbero-leaa/render.py` → `video/barbero-leaa-reel.mp4` (1080×1920, 30 fps, 15 s, **sin audio**: la música se agrega después). Textos en `capas.html` → `node clientes/barbero-leaa/capas.mjs` → `capas/`. Ojo: `clip-perfil-vertical.mp4` viene girado 90° en el archivo (ffprobe dice 1024×576 pero se ve vertical). Sin datos inventados: solo el @, "El detalle *lo es todo.*", "Prolijo desde *todos los ángulos.*" y "Tu próximo corte".
 - Rama de trabajo: `claude/eloquent-volta-h5jy6a`.
 
 ## Historias de Instagram (Aicia)
