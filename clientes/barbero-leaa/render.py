@@ -126,9 +126,10 @@ def layer(name):
 KICK, HANDLE = layer('t3-kick'), layer('t3-handle')
 LOGO_IM = None
 if LOGO:
-    D = 420                                         # diámetro del medallón en pantalla
+    D = 450                                         # diámetro del medallón en pantalla
     lg = Image.open(LOGO).convert('RGB')
-    m = min(lg.size); lg = lg.crop(((lg.width - m) // 2, (lg.height - m) // 2, (lg.width + m) // 2, (lg.height + m) // 2))
+    m = round(min(lg.size) * 0.9)                   # recorta el cuero de afuera del anillo dorado (el anillo está a ~84 %)
+    lg = lg.crop(((lg.width - m) // 2, (lg.height - m) // 2, (lg.width + m) // 2, (lg.height + m) // 2))
     big = lg.resize((D * 3, D * 3), Image.LANCZOS).convert('RGBA')
     mask = Image.new('L', (D * 3, D * 3), 0)
     ImageDraw.Draw(mask).ellipse((6, 6, D * 3 - 7, D * 3 - 7), fill=255)
@@ -142,7 +143,7 @@ if LOGO:
     glow.alpha_composite(med, (pad, pad))
     LOGO_IM = glow
 # centro vertical de cada pieza
-Y_LOGO, Y_KICK, Y_LINE, Y_HANDLE = (740, 1060, 1116, 1190) if LOGO_IM else (0, 808, 864, 938)
+Y_LOGO, Y_KICK, Y_LINE, Y_HANDLE = (730, 1066, 1122, 1196) if LOGO_IM else (0, 808, 864, 938)
 T0 = 9.0    # empieza el cierre
 
 
