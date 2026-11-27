@@ -1,33 +1,37 @@
-"""Reel para @barbero_leaa: 1080x1920, 60 fps, 15,5 s, sin audio (la música se agrega después).
+"""Reel para @barbero_leaa: 1080x1920, 60 fps, 12,8 s, sin audio (la música se agrega después).
 
 Uso:  python3 clientes/barbero-leaa/render.py                 -> video/barbero-leaa-reel.mp4 + cuadro del cierre + hoja
       python3 clientes/barbero-leaa/render.py --frames 2,13.5   -> solo esos cuadros en PNG (revisión rápida)
       --crf N  calidad de x264 (12 por defecto; más alto = archivo más liviano)
-Logo: si existe insumos/logo.png (fondo transparente), entra en el cierre arriba del texto; si no, el cierre va sin logo.
+Logo: insumos/logo.png o logo.jpg. Es circular (cuero negro con anillo dorado): entra como medallón recortado en círculo,
+con un brillo dorado suave, arriba del texto del cierre. Si no está, el cierre va sin logo.
 
+Clips (los originales del iPhone, no los de WhatsApp):
+  insumos/IMG_2197-giro-4k.mov   4K HEVC 59 fps, 4,7 s: se decodifica a 1188x2112 (110 %) y se baja a 1080 con lanczos.
+  insumos/IMG_2193-perfil.mov    1080x1920 30 fps, 5,7 s.
+  Los dos vienen girados 90° en el archivo (ffprobe dice horizontal): ffmpeg los devuelve derechos.
 Recorrido (sin textos hasta el cierre):
-  A 0.0–4.6    clip del giro (vertical, 59 fps) a velocidad real.
-  B 4.3–9.1    clip de perfil (viene girado 90° en el archivo: ffmpeg lo devuelve derecho).
-  C 8.8–12.6   clip del giro, otro tramo.
-  Cierre 11.9–15.5: la imagen se desenfoca y oscurece con una luz cálida al centro; entran el logo (si está),
-  "Tu próximo corte", una línea dorada que se dibuja desde el centro y "@barbero_leaa".
+  A 0.0–4.7    el giro alrededor del corte, a velocidad real.
+  B 4.35–12.8  el perfil; desde 9.0 se desenfoca y oscurece con una luz cálida al centro y entran el logo,
+               "Tu próximo corte", una línea dorada que se dibuja desde el centro y "@barbero_leaa".
 Calidad: cada cuadro sale del cuadro original más cercano (sin mezclar cuadros, que ablanda), con un solo remuestreo
-lanczos, un enfoque suave, empuje mínimo (3 %), color natural apenas más rico, y x264 crf 12 a 60 fps.
+lanczos, un enfoque muy suave, empuje mínimo, color natural apenas más rico, y x264 a 60 fps.
 """
 import os, sys, subprocess, json
 import numpy as np
 from PIL import Image, ImageFilter, ImageDraw
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-W, H, FPS, DUR = 1080, 1920, 60, 15.5
+W, H, FPS, DUR = 1080, 1920, 60, 12.8
 CRF = sys.argv[sys.argv.index('--crf') + 1] if '--crf' in sys.argv else '12'
 OUT_DIR = os.path.join(HERE, 'video')
-CLIP_V = os.path.join(HERE, 'insumos', 'clip-giro-vertical.mp4')
-CLIP_P = os.path.join(HERE, 'insumos', 'clip-perfil-vertical.mp4')
-LOGO = os.path.join(HERE, 'insumos', 'logo.png')
+CLIP_V = os.path.join(HERE, 'insumos', 'IMG_2197-giro-4k.mov')
+CLIP_P = os.path.join(HERE, 'insumos', 'IMG_2193-perfil.mov')
+LOGO = next((os.path.join(HERE, 'insumos', n) for n in ('logo.png', 'logo.jpg', 'logo.jpeg')
+             if os.path.exists(os.path.join(HERE, 'insumos', n))), None)
 
 
-def load(path):
+def load(path, size=None):
     info = json.loads(subprocess.run(['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries',
                                       'stream=width,height:stream_side_data=rotation:format=duration', '-of', 'json',
                                       path], capture_output=True, text=True).stdout)
@@ -35,7 +39,11 @@ def load(path):
     w, h = st['width'], st['height']
     if any(abs(int(d.get('rotation', 0))) == 90 for d in st.get('side_data_list', [])):
         w, h = h, w  # ffmpeg lo devuelve ya girado
-    raw = subprocess.run(['ffmpeg', '-v', 'error', '-i', path, '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-'],
+    vf = []
+    if size:
+        w, h = size
+        vf = ['-vf', f'scale={w}:{h}:flags=lanczos+accurate_rnd+full_chroma_int']
+    raw = subprocess.run(['ffmpeg', '-v', 'error', '-i', path, *vf, '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-'],
                          capture_output=True).stdout
     fr = np.frombuffer(raw, np.uint8).reshape(-1, h, w, 3)
     return fr, len(fr) / float(info['format']['duration'])
@@ -60,20 +68,19 @@ def ramp(t, a, b):
     return min(max((t - a) / (b - a), 0.0), 1.0)
 
 
-SHARP = ImageFilter.UnsharpMask(radius=1.6, percent=55, threshold=2)
-
-
-def shot(frames, fps, t, t0, src0, length):
+def shot(frames, fps, t, t0, src0, length, zoom=0.03, sharp=30):
     """pantalla completa, un solo remuestreo desde el original, empuje mínimo"""
     src = frame_at(frames, fps, src0 + (t - t0))
     sh, sw = src.shape[:2]
-    z = 1.0 + 0.03 * ease_io((t - t0) / length)
+    z = 1.0 + zoom * ease_io((t - t0) / length)
     bw = sw / z; bh = bw * H / W
     if bh > sh:
         bh = sh / z; bw = bh * W / H
     cx, cy = sw / 2, sh / 2
     im = Image.fromarray(src).resize((W, H), Image.LANCZOS, box=(cx - bw / 2, cy - bh / 2, cx + bw / 2, cy + bh / 2))
-    return np.asarray(im.filter(SHARP), np.float32)
+    if sharp:
+        im = im.filter(ImageFilter.UnsharpMask(radius=1.4, percent=sharp, threshold=2))
+    return np.asarray(im, np.float32)
 
 
 # ---------- color: natural, apenas más contraste y calidez ----------
@@ -118,13 +125,25 @@ def layer(name):
 
 KICK, HANDLE = layer('t3-kick'), layer('t3-handle')
 LOGO_IM = None
-if os.path.exists(LOGO):
-    lg = Image.open(LOGO).convert('RGBA')
-    k = min(400 / lg.width, 400 / lg.height)
-    LOGO_IM = lg.resize((round(lg.width * k), round(lg.height * k)), Image.LANCZOS)
+if LOGO:
+    D = 420                                         # diámetro del medallón en pantalla
+    lg = Image.open(LOGO).convert('RGB')
+    m = min(lg.size); lg = lg.crop(((lg.width - m) // 2, (lg.height - m) // 2, (lg.width + m) // 2, (lg.height + m) // 2))
+    big = lg.resize((D * 3, D * 3), Image.LANCZOS).convert('RGBA')
+    mask = Image.new('L', (D * 3, D * 3), 0)
+    ImageDraw.Draw(mask).ellipse((6, 6, D * 3 - 7, D * 3 - 7), fill=255)
+    big.putalpha(mask)
+    med = big.resize((D, D), Image.LANCZOS)
+    # brillo dorado suave detrás del medallón
+    pad = 120
+    glow = Image.new('RGBA', (D + 2 * pad, D + 2 * pad), (0, 0, 0, 0))
+    ImageDraw.Draw(glow).ellipse((pad, pad, pad + D, pad + D), fill=(214, 170, 90, 120))
+    glow = glow.filter(ImageFilter.GaussianBlur(46))
+    glow.alpha_composite(med, (pad, pad))
+    LOGO_IM = glow
 # centro vertical de cada pieza
-Y_LOGO, Y_KICK, Y_LINE, Y_HANDLE = (700, 1000, 1056, 1130) if LOGO_IM else (0, 808, 864, 938)
-T0 = 11.9   # empieza el cierre
+Y_LOGO, Y_KICK, Y_LINE, Y_HANDLE = (740, 1060, 1116, 1190) if LOGO_IM else (0, 808, 864, 938)
+T0 = 9.0    # empieza el cierre
 
 
 def put(canvas, lay, cy, a, dy=0.0, blur=0.0, scale=1.0):
@@ -160,26 +179,21 @@ def outro_texts(canvas, t):
 
 # ---------- cuadro ----------
 def render_frame(t, fv, fpsv, fp, fpsp):
-    A = lambda: grade(shot(fv, fpsv, t, 0.0, 0.2, 4.6))
-    B = lambda: grade(shot(fp, fpsp, t, 4.3, 0.3, 4.8))
+    A = lambda: grade(shot(fv, fpsv, t, 0.0, 0.03, 4.7, zoom=0.03, sharp=22))
 
-    def C():
-        tt = t if t < 12.6 else 12.6 + (t - 12.6) * 0.35   # en el cierre el clip sigue, más lento
-        return grade(shot(fv, fpsv, tt, 8.8, 5.6, 6.7))
+    def B():
+        tt = t if t < 9.6 else 9.6 + (t - 9.6) * 0.3       # en el cierre el clip sigue, más lento
+        return grade(shot(fp, fpsp, tt, 4.35, 0.15, 5.3, zoom=0.02, sharp=38))
 
-    if t < 4.3:
+    if t < 4.35:
         img = A()
     elif t < 4.7:
-        img = dissolve(A(), B(), ease_io(ramp(t, 4.3, 4.7)))
-    elif t < 8.8:
-        img = B()
-    elif t < 9.2:
-        img = dissolve(B(), C(), ease_io(ramp(t, 8.8, 9.2)))
+        img = dissolve(A(), B(), ease_io(ramp(t, 4.35, 4.7)))
     else:
-        img = C()
+        img = B()
         k = ease_io(ramp(t, T0, T0 + 0.9))
         if k > 0:
-            img = (img * (1 - k) + blur_small(img, 38) * k) * (1 - 0.66 * k) + GLOW * k
+            img = (img * (1 - k) + blur_small(img, 38) * k) * (1 - 0.68 * k) + GLOW * k
     fade = ease_io(ramp(t, DUR - 0.45, DUR))
     canvas = Image.fromarray(np.clip(img * (1 - 0.9 * fade), 0, 255).astype(np.uint8)).convert('RGBA')
     if t >= T0:
@@ -191,7 +205,7 @@ def render_frame(t, fv, fpsv, fp, fpsp):
 
 def main():
     os.makedirs(OUT_DIR, exist_ok=True)
-    fv, fpsv = load(CLIP_V)
+    fv, fpsv = load(CLIP_V, (1188, 2112))
     fp, fpsp = load(CLIP_P)
     if '--frames' in sys.argv:
         for t in [float(x) for x in sys.argv[sys.argv.index('--frames') + 1].split(',')]:
@@ -210,7 +224,7 @@ def main():
         enc.stdin.write(fr.tobytes())
         if i % 90 == 0:
             sheet.append(Image.fromarray(fr).resize((216, 384), Image.LANCZOS))
-        if i == int(14.2 * FPS):
+        if i == int(11.9 * FPS):
             Image.fromarray(fr).save(os.path.join(OUT_DIR, 'barbero-leaa-reel-cierre.png'))
         if i % 180 == 0:
             print(f'{t:5.1f} s', flush=True)
